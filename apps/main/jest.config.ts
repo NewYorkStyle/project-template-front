@@ -1,6 +1,6 @@
 export default {
-  coverageDirectory: '../../coverage/apps/pet-project',
-  displayName: 'pet-project',
+  coverageDirectory: '../../coverage/apps/main',
+  displayName: 'main',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   preset: '../../jest.preset.js',
   transform: {
