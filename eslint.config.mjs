@@ -1,11 +1,15 @@
 import nx from '@nx/eslint-plugin';
+// @ts-ignore
 import importPlugin from 'eslint-plugin-import';
 import sortKeys from 'eslint-plugin-sort-keys-fix';
 import sortDestrKeys from 'eslint-plugin-sort-destructure-keys';
 
 export default [
+  // @ts-ignore
   ...nx.configs['flat/base'],
+  // @ts-ignore
   ...nx.configs['flat/typescript'],
+  // @ts-ignore
   ...nx.configs['flat/javascript'],
   {
     ignores: ['**/dist'],
