@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@common": ["libs/common/src/index.ts"]
+      "@common": ["libs/common/src/index.ts"],
+      "main/Module": ["apps/main/src/remote-entry.ts"]
     }
   },
   "exclude": ["tmp"]
