@@ -1,5 +1,7 @@
-import {Button as PrimeButton} from 'primereact/button';
+import {Button as PrimeButton, ButtonProps} from 'primereact/button';
 
-export const Button = () => {
-  return <PrimeButton></PrimeButton>;
+export type TProps = ButtonProps;
+
+export const Button = (props: TProps) => {
+  return <PrimeButton {...props}></PrimeButton>;
 };
