@@ -1,5 +1,6 @@
 import style from './dropdown.module.less';
-import {E_ANALYTIC_EVENTS, TAnalyticsProps} from '../../metrics';
+import {E_ANALYTIC_EVENTS} from '../../constants';
+import {TAnalyticsProps} from '../../metrics';
 import {sendEvent} from '../../metrics/yandex-metrica';
 import {
   Dropdown as PrimeDropdown,

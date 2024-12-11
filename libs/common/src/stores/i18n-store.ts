@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
 class I18nStore {
-  private _language = 'ru';
+  private _language = localStorage.getItem('language') ?? 'ru';
 
   get language(): string {
     return this._language;

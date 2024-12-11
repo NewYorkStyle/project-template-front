@@ -13,7 +13,7 @@ const i18nMainInstance = i18n.createInstance();
 i18nMainInstance.use(initReactI18next).init({
   fallbackLng: 'ru',
   interpolation: {escapeValue: false},
-  lng: 'ru',
+  lng: localStorage.getItem('language') ?? 'ru',
   react: {useSuspense: true},
   resources,
 });
