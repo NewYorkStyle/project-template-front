@@ -4,6 +4,5 @@
   "projectType": "application",
   "sourceRoot": "apps/shell-e2e/src",
   "implicitDependencies": ["shell"],
-  "// targets": "to see all targets run: nx show project shell-e2e --web",
   "targets": {}
 }

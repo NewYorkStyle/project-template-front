@@ -1,6 +1,6 @@
 # common
 
-This library was generated with [Nx](https://nx.dev).
+Общая библиотека компонентов, утилок, констант и т.п.
 
 ## Running unit tests
 

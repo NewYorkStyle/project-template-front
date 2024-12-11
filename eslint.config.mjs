@@ -39,12 +39,12 @@ export default [
     rules: {
       'max-lines': ['error', 1015],
       'no-console': ['warn'],
-      'no-multiple-empty-lines': 'error',
-      'no-trailing-spaces': 'error',
+      'no-multiple-empty-lines': 'warn',
+      'no-trailing-spaces': 'warn',
       'sortKeys/sort-keys-fix': 'warn',
       'sortDestrKeys/sort-destructure-keys': 2,
       'import/order': [
-        'error',
+        'warn',
         {
           named: true,
           alphabetize: {
