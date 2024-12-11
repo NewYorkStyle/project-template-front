@@ -9,4 +9,8 @@ const prodConfig: ModuleFederationConfig = {
   remotes: [['main', 'http://localhost:4201/']],
 };
 
-export default composePlugins(withNx(), withReact(), withModuleFederation(prodConfig, {dts: false}));
+export default composePlugins(
+  withNx(),
+  withReact(),
+  withModuleFederation(prodConfig, {dts: false})
+);
