@@ -6,7 +6,9 @@ import {BrowserRouter} from 'react-router-dom';
 import 'primereact/resources/themes/lara-light-blue/theme.css';
 import 'primereact/resources/themes/lara-dark-blue/theme.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 root.render(
   <StrictMode>
     <PrimeReactProvider>

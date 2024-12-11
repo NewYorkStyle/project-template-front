@@ -7,4 +7,8 @@ const config: ModuleFederationConfig = {
   ...baseConfig,
 };
 
-export default composePlugins(withNx(), withReact(), withModuleFederation(config, {dts: false}));
+export default composePlugins(
+  withNx(),
+  withReact(),
+  withModuleFederation(config, {dts: false})
+);

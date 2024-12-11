@@ -1,5 +1,11 @@
 import {E_LANGUAGE} from '../../constants';
-import {Dropdown, FlagEn, FlagRu, TDropdownOption} from '@common';
+import {
+  Dropdown,
+  E_ANALYTIC_NAMESPACES,
+  FlagEn,
+  FlagRu,
+  TDropdownOption,
+} from '@common';
 import {i18nStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import {DropdownChangeEvent} from 'primereact/dropdown';
@@ -18,17 +24,29 @@ export const LanguageSelect = withTranslation()(
 
     const languageOptions: TDropdownOption[] = [
       {
+        analyticsLabel: 'ru',
         icon: <FlagRu size={20} />,
         label: t('Languages.ru'),
         value: E_LANGUAGE.RUS,
       },
       {
+        analyticsLabel: 'eng',
         icon: <FlagEn size={20} />,
         label: t('Languages.eng'),
         value: E_LANGUAGE.ENG,
       },
     ];
 
-    return <Dropdown options={languageOptions} onChange={handleLanguageChange} value={language} />;
+    return (
+      <Dropdown
+        options={languageOptions}
+        onChange={handleLanguageChange}
+        value={language}
+        analyticProps={{
+          label: 'language-select',
+          namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
+        }}
+      />
+    );
   })
 );
