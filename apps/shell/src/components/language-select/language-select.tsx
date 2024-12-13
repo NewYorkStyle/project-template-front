@@ -13,6 +13,9 @@ import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = WithTranslation;
 
+/**
+ * Компонент выбора языка.
+ */
 export const LanguageSelect = withTranslation()(
   observer(({i18n: {changeLanguage, t}}: TProps) => {
     const {language, setLanguage} = i18nStore;
@@ -20,6 +23,7 @@ export const LanguageSelect = withTranslation()(
     const handleLanguageChange = (event: DropdownChangeEvent) => {
       setLanguage(event.value);
       changeLanguage(event.value);
+      localStorage.setItem('language', event.value);
     };
 
     const languageOptions: TDropdownOption[] = [
