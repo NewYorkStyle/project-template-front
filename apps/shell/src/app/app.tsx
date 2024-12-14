@@ -1,6 +1,6 @@
 import style from './app.module.less';
-import {Header} from '../components/header/header';
-import i18nShellInstance from '../utils/i18n-init';
+import i18nShellInstance from '../shared/utils/i18n-init';
+import {Header} from '../widgets/header/header';
 import * as React from 'react';
 import {I18nextProvider} from 'react-i18next';
 import {Navigate, Route, Routes} from 'react-router-dom';

@@ -1,7 +1,4 @@
-import {
-  E_ANALYTIC_EVENTS,
-  E_ANALYTIC_NAMESPACES,
-} from '../../constants/analytics';
+import {E_ANALYTIC_EVENTS, E_ANALYTIC_NAMESPACES} from '../../constants';
 
 /**
  * @prop {string} label Имя конкретного компонента (кнопка, дропдаун и т.п.).

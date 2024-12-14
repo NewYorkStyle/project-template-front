@@ -1,4 +1,4 @@
-import {E_LANGUAGE} from '../../constants';
+import {E_LANGUAGE} from '../../shared/constants';
 import {
   Dropdown,
   E_ANALYTIC_NAMESPACES,

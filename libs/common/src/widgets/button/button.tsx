@@ -1,5 +1,5 @@
-import {E_ANALYTIC_EVENTS} from '../../constants';
-import {TAnalyticsProps, sendEvent} from '../../metrics/yandex-metrica';
+import {TAnalyticsProps, sendEvent} from '../../shared';
+import {E_ANALYTIC_EVENTS} from '../../shared/constants';
 import {Button as PrimeButton, ButtonProps} from 'primereact/button';
 
 /**

@@ -1,5 +1,5 @@
-import enJSON from '../locales/en/translation.json';
-import ruJSON from '../locales/ru/translation.json';
+import enJSON from '../../entities/locales/en/translation.json';
+import ruJSON from '../../entities/locales/ru/translation.json';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 
@@ -8,9 +8,9 @@ const resources = {
   ru: {translation: ruJSON},
 };
 
-const i18nShellInstance = i18n.createInstance();
+const i18nMainInstance = i18n.createInstance();
 
-i18nShellInstance.use(initReactI18next).init({
+i18nMainInstance.use(initReactI18next).init({
   fallbackLng: 'ru',
   interpolation: {escapeValue: false},
   lng: localStorage.getItem('language') ?? 'ru',
@@ -18,4 +18,4 @@ i18nShellInstance.use(initReactI18next).init({
   resources,
 });
 
-export default i18nShellInstance;
+export default i18nMainInstance;

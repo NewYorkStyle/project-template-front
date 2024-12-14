@@ -1,6 +1,6 @@
 import style from './switch.module.less';
-import {E_ANALYTIC_EVENTS} from '../../constants';
-import {TAnalyticsProps, sendEvent} from '../../metrics/yandex-metrica';
+import {TAnalyticsProps, sendEvent} from '../../shared';
+import {E_ANALYTIC_EVENTS} from '../../shared/constants';
 
 /**
  * @prop {Omit<TAnalyticsProps, 'event'>} analyticProps Данные для аналитики.
