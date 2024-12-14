@@ -1,20 +1,27 @@
 import {TAnalyticsProps, sendEvent} from '../../shared';
 import {E_ANALYTIC_EVENTS} from '../../shared/constants';
-import {Button as PrimeButton, ButtonProps} from 'primereact/button';
+import {Button as PrimeButton} from 'primereact/button';
 
 /**
  * @prop {Omit<TAnalyticsProps, 'event'>} analyticProps Данные для аналитики.
  * @prop {() => void} onClick Обработчик клика.
  */
-type TProps = ButtonProps & {
+type TProps = {
   analyticProps?: Omit<TAnalyticsProps, 'event'>;
   onClick: () => void;
+  children?: string;
+  className?: string;
 };
 
 /**
  * Компонент обёртка над Primereact для отображения кнопки.
  */
-export const Button = ({analyticProps, onClick, ...restProps}: TProps) => {
+export const Button = ({
+  analyticProps,
+  children,
+  className,
+  onClick,
+}: TProps) => {
   const handleClick = () => {
     onClick();
     if (analyticProps)
@@ -25,5 +32,9 @@ export const Button = ({analyticProps, onClick, ...restProps}: TProps) => {
       });
   };
 
-  return <PrimeButton onClick={handleClick} {...restProps}></PrimeButton>;
+  return (
+    <PrimeButton className={className} onClick={handleClick}>
+      {children}
+    </PrimeButton>
+  );
 };
