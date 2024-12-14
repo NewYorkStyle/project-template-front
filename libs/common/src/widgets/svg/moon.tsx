@@ -1,4 +1,4 @@
-import {E_COLORS} from '../constants';
+import {E_COLORS} from '../../shared';
 
 type TProps = {
   size?: number;
