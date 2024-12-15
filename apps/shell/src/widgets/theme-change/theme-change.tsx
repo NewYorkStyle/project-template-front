@@ -1,5 +1,4 @@
-import style from './theme-change.module.less';
-import {E_ANALYTIC_NAMESPACES, MoonIcon, SunIcon, Switch} from '@common';
+import {ThemeChangeView} from './theme-change.view';
 import {useEffect, useState} from 'react';
 
 /**
@@ -41,17 +40,5 @@ export const ThemeChange = () => {
     });
   };
 
-  return (
-    <div className={style.root}>
-      {darkMode ? <SunIcon /> : <MoonIcon size={18} />}
-      <Switch
-        analyticProps={{
-          label: 'dark-mode',
-          namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
-        }}
-        checked={darkMode}
-        onChange={onChange}
-      />
-    </div>
-  );
+  return <ThemeChangeView darkMode={darkMode} onChange={onChange} />;
 };

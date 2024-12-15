@@ -1,11 +1,6 @@
+import {LanguageSelectView} from './language-select.view';
 import {E_LANGUAGE} from '../../shared/constants';
-import {
-  Dropdown,
-  E_ANALYTIC_NAMESPACES,
-  FlagEn,
-  FlagRu,
-  TDropdownOption,
-} from '@common';
+import {FlagEn, FlagRu, TDropdownOption} from '@common';
 import {i18nStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import {DropdownChangeEvent} from 'primereact/dropdown';
@@ -42,14 +37,10 @@ export const LanguageSelect = withTranslation()(
     ];
 
     return (
-      <Dropdown
-        options={languageOptions}
-        onChange={handleLanguageChange}
-        value={language}
-        analyticProps={{
-          label: 'language-select',
-          namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
-        }}
+      <LanguageSelectView
+        languageOptions={languageOptions}
+        handleLanguageChange={handleLanguageChange}
+        selectedLanguage={language}
       />
     );
   })

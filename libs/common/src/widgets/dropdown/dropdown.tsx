@@ -1,11 +1,8 @@
-import style from './dropdown.module.less';
+import {DropdownView} from './dropdown.view';
 import {TAnalyticsProps, sendEvent} from '../../shared';
 import {E_ANALYTIC_EVENTS} from '../../shared/constants';
 
-import {
-  Dropdown as PrimeDropdown,
-  DropdownChangeEvent,
-} from 'primereact/dropdown';
+import {DropdownChangeEvent} from 'primereact/dropdown';
 import {ReactNode} from 'react';
 
 /**
@@ -25,6 +22,7 @@ export type TDropdownOption = {
  * @prop {TDropdownOption[]} opttions Список значений.
  * @prop {Omit<TAnalyticsProps, 'event'>} analyticProps Данные для аналитики.
  * @prop {(e: DropdownChangeEvent) => void} onChange Обработчик изменения.
+ * @prop {TDropdownOption['value']} value Текущее значение дропдауна.
  */
 type TProps = {
   options: TDropdownOption[];
@@ -34,19 +32,9 @@ type TProps = {
 };
 
 /**
- * Компонент обёртка над Primereact для отображения выпадающего списка.
+ * Компонент обёртка над Primereact для отображения выпадающего списка. Содержит логику.
  */
 export const Dropdown = ({analyticProps, onChange, options, value}: TProps) => {
-  const itemTemplate = (option: TDropdownOption) => {
-    return (
-      <div className={style.itemTemplate}>
-        <span>{option.icon}</span>
-        &nbsp;
-        <span className={style.text}>{option.label}</span>
-      </div>
-    );
-  };
-
   const handleOnChage = (e: DropdownChangeEvent) => {
     onChange(e);
 
@@ -74,9 +62,7 @@ export const Dropdown = ({analyticProps, onChange, options, value}: TProps) => {
   };
 
   return (
-    <PrimeDropdown
-      itemTemplate={itemTemplate}
-      valueTemplate={itemTemplate}
+    <DropdownView
       onChange={handleOnChage}
       onFocus={onFocus}
       options={options}
