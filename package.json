@@ -4,7 +4,6 @@
   "license": "MIT",
   "author": "New York Style",
   "scripts": {
-    "start": "npx nx serve pet-project",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
     "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\""
   },

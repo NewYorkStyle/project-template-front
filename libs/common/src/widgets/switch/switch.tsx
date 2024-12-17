@@ -1,4 +1,4 @@
-import style from './switch.module.less';
+import {SwitchView} from './switch.view';
 import {TAnalyticsProps, sendEvent} from '../../shared';
 import {E_ANALYTIC_EVENTS} from '../../shared/constants';
 
@@ -28,10 +28,5 @@ export const Switch = ({analyticProps, checked, onChange}: TProps) => {
       });
   };
 
-  return (
-    <label className={style.switch}>
-      <input type='checkbox' checked={checked} onChange={handleChange} />
-      <span className={`${style.slider} ${style.round}`}></span>
-    </label>
-  );
+  return <SwitchView checked={checked} onChange={handleChange} />;
 };

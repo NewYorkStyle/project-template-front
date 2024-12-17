@@ -1,6 +1,6 @@
+import {ButtonView} from './button.view';
 import {TAnalyticsProps, sendEvent} from '../../shared';
 import {E_ANALYTIC_EVENTS} from '../../shared/constants';
-import {Button as PrimeButton} from 'primereact/button';
 
 /**
  * @prop {Omit<TAnalyticsProps, 'event'>} analyticProps Данные для аналитики.
@@ -14,7 +14,7 @@ type TProps = {
 };
 
 /**
- * Компонент обёртка над Primereact для отображения кнопки.
+ * Компонент обёртка над Primereact для отображения кнопки. Содержит логику.
  */
 export const Button = ({
   analyticProps,
@@ -33,8 +33,8 @@ export const Button = ({
   };
 
   return (
-    <PrimeButton className={className} onClick={handleClick}>
+    <ButtonView className={className} onClick={handleClick}>
       {children}
-    </PrimeButton>
+    </ButtonView>
   );
 };
