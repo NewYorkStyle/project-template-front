@@ -1,7 +1,8 @@
 {
-  "name": "@pet-project/source",
+  "name": "project-template-front",
   "version": "0.0.0",
   "license": "MIT",
+  "author": "New York Style",
   "scripts": {
     "start": "npx nx serve pet-project",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
@@ -15,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "axios": "^1.7.9",
     "i18next": "^24.0.5",
     "lodash": "^4.17.21",
     "mobx": "^6.13.5",
