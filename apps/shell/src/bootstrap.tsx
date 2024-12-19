@@ -8,9 +8,14 @@ import 'primereact/resources/themes/lara-dark-blue/theme.css';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <StrictMode>
-    <PrimeReactProvider>
+    <PrimeReactProvider
+      value={{
+        ripple: true,
+      }}
+    >
       <BrowserRouter>
         <App />
       </BrowserRouter>

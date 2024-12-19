@@ -1,5 +1,5 @@
 import {analyticsStore} from './analytics-store';
-import {api} from '../../shared/utils/api';
+import {getParamsApi} from '../api/get-params';
 import {TParam} from '../models/params.types';
 import {makeAutoObservable, runInAction} from 'mobx';
 
@@ -11,7 +11,7 @@ class ParamsStore {
     return this._params;
   }
 
-  public get paramsLoading(): boolean {
+  get paramsLoading(): boolean {
     return this._paramsLoading;
   }
 
@@ -23,7 +23,7 @@ class ParamsStore {
     this._paramsLoading = true;
 
     try {
-      const data = await api.get<TParam>('/common/params/getParams');
+      const data = await getParamsApi();
 
       runInAction(() => {
         this._params = data;

@@ -1,0 +1,85 @@
+{
+  "name": "authentication",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/authentication/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/authentication",
+        "index": "apps/authentication/src/index.html",
+        "baseHref": "/",
+        "main": "apps/authentication/src/main.ts",
+        "tsConfig": "apps/authentication/tsconfig.app.json",
+        "assets": [
+          "apps/authentication/src/favicon.ico",
+          "apps/authentication/src/assets"
+        ],
+        "styles": ["apps/authentication/src/styles.less"],
+        "scripts": [],
+        "webpackConfig": "apps/authentication/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/authentication/src/environments/environment.ts",
+              "with": "apps/authentication/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/authentication/webpack.config.prod.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "authentication:build",
+        "hmr": true,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "authentication:build:development"
+        },
+        "production": {
+          "buildTarget": "authentication:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/react:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "authentication:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "authentication:serve:development"
+        },
+        "production": {
+          "serveTarget": "authentication:serve:production"
+        }
+      }
+    }
+  }
+}

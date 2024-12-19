@@ -9,20 +9,20 @@ export type TIcons = {
 };
 
 /**
- * @prop {Omit<TAnalyticsProps, 'event'>} [analyticProps] Данные для аналитики.
+ * @prop {TAnalyticsProps} [analyticProps] Данные для аналитики.
  * @prop {boolean} checked Значение свича.
  * @prop {() => void} onChange Обработчик изменения.
  * @prop {TIcons} [icons] Иконки.
  */
 type TProps = {
-  analyticProps?: Omit<TAnalyticsProps, 'event'>;
+  analyticProps?: TAnalyticsProps;
   checked: boolean;
   onChange: () => void;
   icons?: TIcons;
 };
 
 /**
- * Компонент для отображения свича.
+ * Компонент для отображения свича. Содержит логику.
  */
 export const Switch = ({analyticProps, checked, icons, onChange}: TProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

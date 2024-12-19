@@ -1,0 +1,30 @@
+{
+  "Authentication": {
+    "SignIn": {
+      "Label": "Sign in",
+      "LoginPlaceholder": "Enter login",
+      "PasswordPlaceholder": "Enter password",
+      "AuthError": "Authentication error"
+    },
+    "SignUp": {
+      "Label": "Sign up",
+      "LoginPlaceholder": "Enter login",
+      "PasswordPlaceholder": "Enter password",
+      "PasswordConfirmPlaceholder": "Confirm password",
+      "PasswordSuggestions": {
+        "Header": "Password must contain: ",
+        "LowerCase": "At least one lowercase",
+        "UpperCase": "At least one uppercase",
+        "Numeric": "At least one numeric",
+        "MinLength": "Minimum {{minLength}} characters"
+      },
+      "PasswordStrength": {
+        "EnterPassword": "Enter password",
+        "WeakLabel": "Too simple",
+        "MediumLabel": "Average complexity",
+        "StrongLabel": "Complex password"
+      }
+    }
+  },
+  "Welcome": "Welcome"
+}
