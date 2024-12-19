@@ -1,7 +1,7 @@
 {
-  "name": "shell",
+  "name": "authentication",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/shell/src",
+  "sourceRoot": "apps/authentication/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -11,15 +11,18 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/apps/shell",
-        "index": "apps/shell/src/index.html",
+        "outputPath": "dist/apps/authentication",
+        "index": "apps/authentication/src/index.html",
         "baseHref": "/",
-        "main": "apps/shell/src/main.ts",
-        "tsConfig": "apps/shell/tsconfig.app.json",
-        "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
-        "styles": ["apps/shell/src/styles.less"],
+        "main": "apps/authentication/src/main.ts",
+        "tsConfig": "apps/authentication/tsconfig.app.json",
+        "assets": [
+          "apps/authentication/src/favicon.ico",
+          "apps/authentication/src/assets"
+        ],
+        "styles": ["apps/authentication/src/styles.less"],
         "scripts": [],
-        "webpackConfig": "apps/shell/webpack.config.ts"
+        "webpackConfig": "apps/authentication/webpack.config.ts"
       },
       "configurations": {
         "development": {
@@ -31,8 +34,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/shell/src/environments/environment.ts",
-              "with": "apps/shell/src/environments/environment.prod.ts"
+              "replace": "apps/authentication/src/environments/environment.ts",
+              "with": "apps/authentication/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -41,7 +44,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/shell/webpack.config.prod.ts"
+          "webpackConfig": "apps/authentication/webpack.config.prod.ts"
         }
       }
     },
@@ -49,17 +52,16 @@
       "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "devRemotes": ["main", "authentication"],
-        "buildTarget": "shell:build",
+        "buildTarget": "authentication:build",
         "hmr": true,
-        "port": 4200
+        "port": 4202
       },
       "configurations": {
         "development": {
-          "buildTarget": "shell:build:development"
+          "buildTarget": "authentication:build:development"
         },
         "production": {
-          "buildTarget": "shell:build:production",
+          "buildTarget": "authentication:build:production",
           "hmr": false
         }
       }
@@ -68,14 +70,14 @@
       "executor": "@nx/react:module-federation-static-server",
       "defaultConfiguration": "production",
       "options": {
-        "serveTarget": "shell:serve"
+        "serveTarget": "authentication:serve"
       },
       "configurations": {
         "development": {
-          "serveTarget": "shell:serve:development"
+          "serveTarget": "authentication:serve:development"
         },
         "production": {
-          "serveTarget": "shell:serve:production"
+          "serveTarget": "authentication:serve:production"
         }
       }
     }

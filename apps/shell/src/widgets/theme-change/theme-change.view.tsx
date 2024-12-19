@@ -1,5 +1,10 @@
 import style from './theme-change.module.less';
-import {E_ANALYTIC_NAMESPACES, MoonIcon, SunIcon, Switch} from '@common';
+import {
+  BulbLightningIcon,
+  E_ANALYTIC_NAMESPACES,
+  MoonIcon,
+  Switch,
+} from '@common';
 
 /**
  * @prop {boolean} darkMode Выбранный режим.
@@ -24,7 +29,7 @@ export const ThemeChangeView = ({darkMode, onChange}: TProps) => {
         checked={darkMode}
         onChange={onChange}
         icons={{
-          checked: <SunIcon size={18} />,
+          checked: <BulbLightningIcon size={16} />,
           unchecked: <MoonIcon size={16} />,
         }}
       />
