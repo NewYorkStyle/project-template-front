@@ -3,7 +3,7 @@ import {TAnalyticsProps, sendEvent} from '../../shared';
 import {E_ANALYTIC_EVENTS} from '../../shared/constants';
 
 /**
- * @prop {Omit<TAnalyticsProps, 'event'>} analyticProps Данные для аналитики.
+ * @prop {Omit<TAnalyticsProps, 'event'>} [analyticProps] Данные для аналитики.
  * @prop {() => void} onClick Обработчик клика.
  */
 type TProps = {
