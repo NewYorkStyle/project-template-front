@@ -16,7 +16,6 @@ type TProps = {
 export const ThemeChangeView = ({darkMode, onChange}: TProps) => {
   return (
     <div className={style.root}>
-      {darkMode ? <SunIcon /> : <MoonIcon size={18} />}
       <Switch
         analyticProps={{
           label: 'dark-mode',
@@ -24,6 +23,10 @@ export const ThemeChangeView = ({darkMode, onChange}: TProps) => {
         }}
         checked={darkMode}
         onChange={onChange}
+        icons={{
+          checked: <SunIcon size={18} />,
+          unchecked: <MoonIcon size={16} />,
+        }}
       />
     </div>
   );

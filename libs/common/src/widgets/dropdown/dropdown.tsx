@@ -7,7 +7,7 @@ import {ReactNode} from 'react';
 
 /**
  * @prop {string | number} value Значение элемента списка.
- * @prop {ReactNode} icon Иконка.
+ * @prop {ReactNode} [icon] Иконка.
  * @prop {string} label Лейбл.
  * @prop {string} analyticsLabel Лейбл для аналитики.
  */
@@ -20,7 +20,7 @@ export type TDropdownOption = {
 
 /**
  * @prop {TDropdownOption[]} opttions Список значений.
- * @prop {Omit<TAnalyticsProps, 'event'>} analyticProps Данные для аналитики.
+ * @prop {Omit<TAnalyticsProps, 'event'>} [analyticProps] Данные для аналитики.
  * @prop {(e: DropdownChangeEvent) => void} onChange Обработчик изменения.
  * @prop {TDropdownOption['value']} value Текущее значение дропдауна.
  */
@@ -51,7 +51,9 @@ export const Dropdown = ({analyticProps, onChange, options, value}: TProps) => {
     }
   };
 
-  const onFocus = (_e: React.FocusEvent<HTMLInputElement>) => {
+  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
     if (analyticProps) {
       sendEvent({
         event: E_ANALYTIC_EVENTS.CLICK,
