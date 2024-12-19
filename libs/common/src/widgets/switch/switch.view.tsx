@@ -18,16 +18,19 @@ type TProps = {
 export const SwitchView = ({checked, icons, onChange}: TProps) => {
   return (
     <label className={style.switch}>
-      <input type='checkbox' checked={checked} onChange={onChange} />
+      <input
+        className={style.checkbox}
+        type='checkbox'
+        checked={checked}
+        onChange={onChange}
+      />
       <span className={`${style.slider} ${style.round}`}>
         {icons ? (
-          <span>
-            {checked ? (
-              icons.checked
-            ) : (
-              <span className={style.unchecked}>{icons.unchecked}</span>
-            )}
-          </span>
+          checked ? (
+            <span className={style.checked}>{icons.checked}</span>
+          ) : (
+            <span className={style.unchecked}>{icons.unchecked}</span>
+          )
         ) : null}
       </span>
     </label>

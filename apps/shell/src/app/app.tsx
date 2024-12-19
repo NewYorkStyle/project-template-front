@@ -9,6 +9,7 @@ import {I18nextProvider} from 'react-i18next';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
 const Main = React.lazy(() => import('main/Module'));
+const Authentication = React.lazy(() => import('authentication/Module'));
 
 export const App = observer(() => {
   const {getParams} = paramsStore;
@@ -22,10 +23,13 @@ export const App = observer(() => {
       <I18nextProvider i18n={i18nShellInstance}>
         <div className={style.root}>
           <Header />
-          <Routes>
-            <Route path='/' element={<Navigate to='/main' />} />
-            <Route path='/main' element={<Main />} />
-          </Routes>
+          <div className={style.content}>
+            <Routes>
+              <Route path='*' element={<Navigate to='/main' />} />
+              <Route path='/' element={<Authentication />} />
+              <Route path='/main' element={<Main />} />
+            </Routes>
+          </div>
         </div>
       </I18nextProvider>
     </React.Suspense>

@@ -1,4 +1,4 @@
-import {Button as PrimeButton} from 'primereact/button';
+import {Button} from 'primereact/button';
 
 /**
  * @prop {() => void} onClick Обработчик клика.
@@ -14,8 +14,8 @@ type TProps = {
  */
 export const ButtonView = ({children, className, onClick}: TProps) => {
   return (
-    <PrimeButton className={className} onClick={onClick}>
+    <Button className={className} onClick={onClick}>
       {children}
-    </PrimeButton>
+    </Button>
   );
 };

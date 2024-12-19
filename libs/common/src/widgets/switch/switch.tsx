@@ -22,7 +22,7 @@ type TProps = {
 };
 
 /**
- * Компонент для отображения свича.
+ * Компонент для отображения свича. Содержит логику.
  */
 export const Switch = ({analyticProps, checked, icons, onChange}: TProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
