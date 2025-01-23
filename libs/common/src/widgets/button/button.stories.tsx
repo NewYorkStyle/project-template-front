@@ -1,14 +1,27 @@
 import {Button} from './button';
+import {Logged} from '../svg/logged';
 import type {Meta, StoryObj} from '@storybook/react';
 import noop from 'lodash/noop';
 
 type ButtonPropsAndCustomArgs = React.ComponentProps<typeof Button> & {
   text?: string;
+  disabled?: boolean;
+  icon?: boolean;
+  rounded?: boolean;
 };
 
 const meta: Meta<ButtonPropsAndCustomArgs> = {
   component: Button,
-  render: ({text}) => <Button onClick={noop}>{text}</Button>,
+  render: ({disabled, icon, rounded, text}) => (
+    <Button
+      onClick={noop}
+      disabled={disabled}
+      rounded={rounded}
+      icon={icon ? <Logged /> : undefined}
+    >
+      {text}
+    </Button>
+  ),
 };
 export default meta;
 
@@ -29,6 +42,9 @@ export const ButtonStory: StoryObj = {
         disable: true,
       },
     },
+    icon: {
+      control: 'boolean',
+    },
     onClick: {
       table: {
         disable: true,
@@ -36,10 +52,12 @@ export const ButtonStory: StoryObj = {
     },
     text: {
       control: 'text',
-      defaultValue: 'Текст',
     },
   },
   args: {
+    disabled: false,
+    icon: false,
+    rounded: false,
     text: 'Текст кнопки',
   },
 };

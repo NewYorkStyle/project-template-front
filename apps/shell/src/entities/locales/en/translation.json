@@ -2,5 +2,8 @@
   "Languages": {
     "ru": "Russian",
     "eng": "English"
+  },
+  "UserIcon": {
+    "LogOut": "LogOut"
   }
 }

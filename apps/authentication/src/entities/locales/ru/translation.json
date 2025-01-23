@@ -1,0 +1,30 @@
+{
+  "Authentication": {
+    "SignIn": {
+      "Label": "Войти",
+      "LoginPlaceholder": "Введите логин",
+      "PasswordPlaceholder": "Введите пароль",
+      "AuthError": "Ошибка аутентификации"
+    },
+    "SignUp": {
+      "Label": "Зарегистрироваться",
+      "LoginPlaceholder": "Введите логин",
+      "PasswordPlaceholder": "Введите пароль",
+      "PasswordConfirmPlaceholder": "Подтверждение пароля",
+      "PasswordSuggestions": {
+        "Header": "Пароль должен содержать:",
+        "LowerCase": "Хотя бы один символ в нижнем регистре",
+        "UpperCase": "Хотя бы один символ в верхнем регистреe",
+        "Numeric": "Хотя бы одну цифру",
+        "MinLength": "Минимум {{minLength}} символов"
+      },
+      "PasswordStrength": {
+        "EnterPassword": "Введите пароль",
+        "WeakLabel": "Слишком простой",
+        "MediumLabel": "Средней сложности",
+        "StrongLabel": "Сложный пароль"
+      }
+    }
+  },
+  "Welcome": "Добро пожаловать"
+}

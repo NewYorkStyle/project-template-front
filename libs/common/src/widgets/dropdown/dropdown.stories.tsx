@@ -25,9 +25,9 @@ const meta: Meta<DropdownPropsAndCustomArgs> = {
 };
 export default meta;
 
-const languageOptions: TDropdownOption[] = [];
+const storyOptions: TDropdownOption[] = [];
 for (let i = 0; i < 5; i++) {
-  languageOptions.push({
+  storyOptions.push({
     label: `Опция ${i + 1}`,
     value: i + 1,
   });
@@ -52,6 +52,6 @@ export const DropdownStory: StoryObj = {
     },
   },
   args: {
-    options: languageOptions,
+    options: storyOptions,
   },
 };

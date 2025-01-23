@@ -1,4 +1,4 @@
-import {TAnalyticsProps} from '../../shared';
+import {TAnalyticsEventProps} from '../../shared';
 import {makeAutoObservable} from 'mobx';
 
 declare global {
@@ -36,7 +36,7 @@ class AnalyticsStore {
     }
   };
 
-  sendYm = (data: TAnalyticsProps) => {
+  sendYm = (data: TAnalyticsEventProps) => {
     window.ym(this._ymCounter, 'params', {
       ...{[data.namespace]: {[data.event]: data.label}},
     });

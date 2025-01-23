@@ -1,0 +1,24 @@
+.root {
+  top: 60px !important;
+  color: var(--text1);
+}
+
+:global(.p-toast-message-error) {
+  background: var(--toast-red-background);
+  border: solid var(--toast-red-border);
+
+  svg {
+    color: var(--toast-red-border);
+  }
+}
+
+:global(.p-toast-summary) {
+  font-weight: 500;
+  color: var(--text1);
+  font-size: 18px;
+}
+
+:global(.p-toast-detail) {
+  color: var(--text1);
+  font-size: 14px;
+}

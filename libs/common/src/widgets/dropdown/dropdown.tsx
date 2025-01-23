@@ -20,13 +20,13 @@ export type TDropdownOption = {
 
 /**
  * @prop {TDropdownOption[]} opttions Список значений.
- * @prop {Omit<TAnalyticsProps, 'event'>} [analyticProps] Данные для аналитики.
+ * @prop {TAnalyticsProps} [analyticProps] Данные для аналитики.
  * @prop {(e: DropdownChangeEvent) => void} onChange Обработчик изменения.
  * @prop {TDropdownOption['value']} value Текущее значение дропдауна.
  */
 type TProps = {
   options: TDropdownOption[];
-  analyticProps?: Omit<TAnalyticsProps, 'event'>;
+  analyticProps?: TAnalyticsProps;
   onChange: (e: DropdownChangeEvent) => void;
   value: TDropdownOption['value'];
 };
