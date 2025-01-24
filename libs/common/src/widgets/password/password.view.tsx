@@ -9,6 +9,7 @@ import {Password} from 'primereact/password';
  * @prop {boolean} [toggleMask] "Глаз" рядом с поля ввода, переключающий маску.
  * @prop {boolean} [feedback] Сложность пароля.
  * @prop {TSuggestion} [suggestions] Подсказка при вводе пароля.
+ * @prop {(e: React.KeyboardEvent<HTMLInputElement>) => void} onEnterClick Обработчик нажатия Enter.
  */
 type TProps = {
   placeholder?: string;
@@ -22,6 +23,7 @@ type TProps = {
   weakLabel?: string;
   mediumLabel?: string;
   strongLabel?: string;
+  onEnterClick?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 export const PasswordView = ({
@@ -29,6 +31,7 @@ export const PasswordView = ({
   feedback,
   mediumLabel,
   onChange,
+  onEnterClick,
   placeholder,
   promptLabel,
   strongLabel,
@@ -62,6 +65,7 @@ export const PasswordView = ({
       weakLabel={weakLabel}
       mediumLabel={mediumLabel}
       strongLabel={strongLabel}
+      onKeyDown={onEnterClick}
     />
   );
 };

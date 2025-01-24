@@ -13,7 +13,6 @@ export const NotLogged = ({size = 24}: TProps) => {
       width={size}
       height={size}
       viewBox='0 0 192 192'
-      enable-background='new 0 0 192 192'
     >
       <path
         fill='#012355'

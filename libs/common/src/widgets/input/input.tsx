@@ -6,6 +6,7 @@ import {E_KEY_FILTER} from '../../shared';
  * @prop { E_KEY_FILTER | RegExp} [keyfilter] Фильтр вводимых значений.
  * @prop {string} value Текущее значение.
  * @prop {(value: string) => void} onChange Обработчик изменения.
+ * @prop {() => void} onEnterClick Обработчик нажатия Enter.
  */
 type TProps = {
   placeholder?: string;
@@ -13,6 +14,7 @@ type TProps = {
   value: string;
   onChange: (value: string) => void;
   className?: string;
+  onEnterClick?: () => void;
 };
 
 /**
@@ -22,11 +24,18 @@ export const Input = ({
   className,
   keyfilter,
   onChange,
+  onEnterClick,
   placeholder,
   value,
 }: TProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
+  };
+
+  const handleEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (onEnterClick && e.key === 'Enter') {
+      onEnterClick();
+    }
   };
 
   return (
@@ -36,6 +45,7 @@ export const Input = ({
       placeholder={placeholder}
       value={value}
       className={className}
+      onEnterClick={handleEnterClick}
     />
   );
 };

@@ -1,3 +1,4 @@
+import {userStore} from '../../entities';
 import {API_BASE_URL} from '../constants';
 import axios, {AxiosError, AxiosInstance} from 'axios';
 
@@ -29,6 +30,7 @@ axiosApiInstance.interceptors.response.use(
       } catch (refreshError) {
         console.error(refreshError);
       } finally {
+        userStore.isUserLogged = false;
         isRefreshing = false;
       }
     }

@@ -14,18 +14,21 @@ export const SignIn = observer(() => {
   };
 
   const handleSignInClick = () => {
-    signInStore.signIn();
+    if (!isSendButtonDisabled) {
+      signInStore.signIn();
+    }
   };
 
   return (
     <SignInView
       login={signInStore.login}
       password={signInStore.password}
-      handleLoginChange={handleLoginChange}
-      handlePasswordChange={handlePasswordChange}
-      handleSignInClick={handleSignInClick}
+      onLoginChange={handleLoginChange}
+      onPasswordChange={handlePasswordChange}
+      onSignInClick={handleSignInClick}
       isSendButtonDisabled={isSendButtonDisabled}
       isLoading={signInStore.loginLoading}
+      onEnterClick={handleSignInClick}
     />
   );
 });

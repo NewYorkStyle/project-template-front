@@ -1,3 +1,4 @@
+import style from './button.module.less';
 import {Button} from 'primereact/button';
 import {ReactNode} from 'react';
 
@@ -6,6 +7,7 @@ import {ReactNode} from 'react';
  * @prop {boolean} [disabled] Обработчик клика.
  * @prop {boolean} [rounded] Круглая кнопка.
  * @prop {ReactNode} [icon] Иконка.
+ * @prop {boolean} [link] Кнопка как ссылка.
  */
 type TProps = {
   onClick: () => void;
@@ -14,6 +16,7 @@ type TProps = {
   disabled?: boolean;
   rounded?: boolean;
   icon?: ReactNode;
+  link?: boolean;
 };
 
 /**
@@ -24,10 +27,15 @@ export const ButtonView = ({
   className,
   disabled,
   icon,
+  link,
   onClick,
   rounded,
 }: TProps) => {
-  return (
+  return link ? (
+    <span className={`${style.link} ${className}`} onClick={onClick}>
+      {children}
+    </span>
+  ) : (
     <Button
       className={className}
       onClick={onClick}
