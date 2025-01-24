@@ -1,5 +1,6 @@
 import {SignInView} from './sign-in.view';
 import {signInStore} from '../../entities/stores';
+import {E_ANALYTIC_NAMESPACES, sendClickEvent} from '@common';
 import {observer} from 'mobx-react-lite';
 
 export const SignIn = observer(() => {
@@ -15,6 +16,20 @@ export const SignIn = observer(() => {
 
   const handleSignInClick = () => {
     if (!isSendButtonDisabled) {
+      sendClickEvent({
+        label: 'Sign in button',
+        namespace: E_ANALYTIC_NAMESPACES.AUTH,
+      });
+      signInStore.signIn();
+    }
+  };
+
+  const handleEnterClick = () => {
+    if (!isSendButtonDisabled) {
+      sendClickEvent({
+        label: 'Sign in enter',
+        namespace: E_ANALYTIC_NAMESPACES.AUTH,
+      });
       signInStore.signIn();
     }
   };
@@ -28,7 +43,7 @@ export const SignIn = observer(() => {
       onSignInClick={handleSignInClick}
       isSendButtonDisabled={isSendButtonDisabled}
       isLoading={signInStore.loginLoading}
-      onEnterClick={handleSignInClick}
+      onEnterClick={handleEnterClick}
     />
   );
 });

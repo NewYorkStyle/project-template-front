@@ -1,12 +1,5 @@
 import style from './sing-up.module.less';
-import {
-  Button,
-  E_ANALYTIC_NAMESPACES,
-  E_KEY_FILTER,
-  Input,
-  Password,
-  TSuggestion,
-} from '@common';
+import {Button, E_KEY_FILTER, Input, Password, TSuggestion} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = {
@@ -71,10 +64,6 @@ export const SignUpView = withTranslation()(({
         className={style.button}
         onClick={onSignUpClick}
         disabled={isSendButtonDisabled}
-        analyticProps={{
-          label: 'Sign up button',
-          namespace: E_ANALYTIC_NAMESPACES.AUTH,
-        }}
       >
         {t('Authentication.SignUp.Label')}
       </Button>

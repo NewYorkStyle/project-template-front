@@ -3,7 +3,6 @@
  */
 export enum E_ANALYTIC_EVENTS {
   CLICK = 'click',
-  SHOW = 'show',
 }
 
 /**

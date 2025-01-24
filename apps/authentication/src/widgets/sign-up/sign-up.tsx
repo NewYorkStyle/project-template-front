@@ -1,7 +1,7 @@
 import {SignUpView} from './sign-up.view';
 import {signUpStore} from '../../entities/stores';
 import {PASSWORD_MIN_LENGTH} from '../../shared';
-import {TSuggestion} from '@common';
+import {E_ANALYTIC_NAMESPACES, TSuggestion, sendClickEvent} from '@common';
 import {observer} from 'mobx-react-lite';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
@@ -41,6 +41,20 @@ export const SignUp = withTranslation()(
 
     const handleSignUpClick = () => {
       if (!isSendButtonDisabled) {
+        sendClickEvent({
+          label: 'Sign up button',
+          namespace: E_ANALYTIC_NAMESPACES.AUTH,
+        });
+        signUpStore.signUp();
+      }
+    };
+
+    const handleEnterClick = () => {
+      if (!isSendButtonDisabled) {
+        sendClickEvent({
+          label: 'Sign up enter',
+          namespace: E_ANALYTIC_NAMESPACES.AUTH,
+        });
         signUpStore.signUp();
       }
     };
@@ -56,7 +70,7 @@ export const SignUp = withTranslation()(
         password={signUpStore.password}
         passwordConfirm={signUpStore.passwordConfirm}
         passwordSuggestions={passwordSuggestions}
-        onEnterClick={handleSignUpClick}
+        onEnterClick={handleEnterClick}
       />
     );
   })

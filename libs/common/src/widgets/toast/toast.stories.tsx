@@ -20,7 +20,7 @@ const ButtonWithToast = ({detail, severity, summary}: TToastArgs) => {
 
   return (
     <ToastProvider>
-      <Button onClick={handleButtonClick}>Click</Button>{' '}
+      <Button onClick={handleButtonClick}>Click</Button>
     </ToastProvider>
   );
 };

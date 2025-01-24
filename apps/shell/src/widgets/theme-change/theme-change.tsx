@@ -1,4 +1,5 @@
 import {ThemeChangeView} from './theme-change.view';
+import {E_ANALYTIC_NAMESPACES, sendClickEvent} from '@common';
 import {useEffect, useState} from 'react';
 
 /**
@@ -35,6 +36,11 @@ export const ThemeChange = () => {
       if (!prevState) document.body.setAttribute('data-theme', 'dark');
       else document.body.removeAttribute('data-theme');
       localStorage.setItem('theme', `${!prevState ? 'dark' : 'light'}`);
+
+      sendClickEvent({
+        label: `dark-mode - ${!prevState}`,
+        namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
+      });
 
       return !prevState;
     });

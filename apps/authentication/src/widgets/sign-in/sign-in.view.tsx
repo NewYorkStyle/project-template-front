@@ -1,11 +1,5 @@
 import style from './sing-in.module.less';
-import {
-  Button,
-  E_ANALYTIC_NAMESPACES,
-  E_KEY_FILTER,
-  Input,
-  Password,
-} from '@common';
+import {Button, E_KEY_FILTER, Input, Password} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = {
@@ -52,10 +46,6 @@ export const SignInView = withTranslation()(({
         className={style.button}
         onClick={onSignInClick}
         disabled={isSendButtonDisabled || isLoading}
-        analyticProps={{
-          label: 'Sign in button',
-          namespace: E_ANALYTIC_NAMESPACES.AUTH,
-        }}
       >
         {t('Authentication.SignIn.Label')}
       </Button>

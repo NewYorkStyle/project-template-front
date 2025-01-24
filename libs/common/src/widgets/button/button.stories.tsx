@@ -27,11 +27,6 @@ export default meta;
 
 export const ButtonStory: StoryObj = {
   argTypes: {
-    analyticProps: {
-      table: {
-        disable: true,
-      },
-    },
     children: {
       table: {
         disable: true,

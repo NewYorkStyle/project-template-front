@@ -1,6 +1,4 @@
 import {SwitchView} from './switch.view';
-import {TAnalyticsProps, sendEvent} from '../../shared';
-import {E_ANALYTIC_EVENTS} from '../../shared/constants';
 import {ReactNode} from 'react';
 
 export type TIcons = {
@@ -9,13 +7,11 @@ export type TIcons = {
 };
 
 /**
- * @prop {TAnalyticsProps} [analyticProps] Данные для аналитики.
  * @prop {boolean} checked Значение свича.
  * @prop {() => void} onChange Обработчик изменения.
  * @prop {TIcons} [icons] Иконки.
  */
 type TProps = {
-  analyticProps?: TAnalyticsProps;
   checked: boolean;
   onChange: () => void;
   icons?: TIcons;
@@ -24,17 +20,6 @@ type TProps = {
 /**
  * Компонент для отображения свича. Содержит логику.
  */
-export const Switch = ({analyticProps, checked, icons, onChange}: TProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange();
-
-    if (analyticProps)
-      sendEvent({
-        event: E_ANALYTIC_EVENTS.CLICK,
-        label: `${analyticProps.label} - ${event.target.checked}`,
-        namespace: analyticProps.namespace,
-      });
-  };
-
-  return <SwitchView checked={checked} icons={icons} onChange={handleChange} />;
+export const Switch = ({checked, icons, onChange}: TProps) => {
+  return <SwitchView checked={checked} icons={icons} onChange={onChange} />;
 };

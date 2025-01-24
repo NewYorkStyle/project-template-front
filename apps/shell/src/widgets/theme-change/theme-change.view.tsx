@@ -1,10 +1,5 @@
 import style from './theme-change.module.less';
-import {
-  BulbLightningIcon,
-  E_ANALYTIC_NAMESPACES,
-  MoonIcon,
-  Switch,
-} from '@common';
+import {BulbLightningIcon, MoonIcon, Switch} from '@common';
 
 /**
  * @prop {boolean} darkMode Выбранный режим.
@@ -22,10 +17,6 @@ export const ThemeChangeView = ({darkMode, onChange}: TProps) => {
   return (
     <div className={style.root}>
       <Switch
-        analyticProps={{
-          label: 'dark-mode',
-          namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
-        }}
         checked={darkMode}
         onChange={onChange}
         icons={{
