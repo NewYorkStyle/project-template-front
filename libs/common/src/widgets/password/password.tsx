@@ -12,6 +12,7 @@ export type TSuggestion = {
  * @prop {boolean} [toggleMask] "Глаз" рядом с поля ввода, переключающий маску.
  * @prop {boolean} [feedback] Сложность пароля.
  * @prop {TSuggestion} [suggestions] Подсказка при вводе пароля.
+ * @prop {() => void} onEnterClick Обработчик нажатия Enter.
  */
 type TProps = {
   placeholder?: string;
@@ -25,6 +26,7 @@ type TProps = {
   weakLabel?: string;
   mediumLabel?: string;
   strongLabel?: string;
+  onEnterClick?: () => void;
 };
 
 export const Password = ({
@@ -32,6 +34,7 @@ export const Password = ({
   feedback,
   mediumLabel,
   onChange,
+  onEnterClick,
   placeholder,
   promptLabel,
   strongLabel,
@@ -42,6 +45,12 @@ export const Password = ({
 }: TProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
+  };
+
+  const handleEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (onEnterClick && e.key === 'Enter') {
+      onEnterClick();
+    }
   };
 
   return (
@@ -57,6 +66,7 @@ export const Password = ({
       weakLabel={weakLabel}
       mediumLabel={mediumLabel}
       strongLabel={strongLabel}
+      onEnterClick={handleEnterClick}
     />
   );
 };

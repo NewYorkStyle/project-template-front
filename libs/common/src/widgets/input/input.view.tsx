@@ -7,13 +7,16 @@ import {InputText} from 'primereact/inputtext';
  * @prop { E_KEY_FILTER | RegExp} [keyfilter] Фильтр вводимых значений.
  * @prop {string} value Текущее значение.
  * @prop {(value: string) => void} onChange Обработчик изменения.
+ * @prop {(e: React.KeyboardEvent<HTMLInputElement>) => void} onEnterClick Обработчик нажатия Enter.
  */
+
 type TProps = {
   placeholder?: string;
   keyfilter?: E_KEY_FILTER | RegExp;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  onEnterClick?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 /**
@@ -23,6 +26,7 @@ export const InputView = ({
   className,
   keyfilter,
   onChange,
+  onEnterClick,
   placeholder,
   value,
 }: TProps) => {
@@ -34,6 +38,7 @@ export const InputView = ({
       value={value}
       onChange={onChange}
       pt={{root: {className: className}}}
+      onKeyDown={onEnterClick}
     />
   );
 };

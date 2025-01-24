@@ -27,6 +27,7 @@ class ParamsStore {
 
       runInAction(() => {
         this._params = data;
+
         analyticsStore.setYmCounter(this._params.ym_counter);
         analyticsStore.initYm();
       });

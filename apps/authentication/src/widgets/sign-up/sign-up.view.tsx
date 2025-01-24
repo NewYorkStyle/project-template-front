@@ -1,27 +1,36 @@
 import style from './sing-up.module.less';
-import {Button, E_KEY_FILTER, Input, Password, TSuggestion} from '@common';
+import {
+  Button,
+  E_ANALYTIC_NAMESPACES,
+  E_KEY_FILTER,
+  Input,
+  Password,
+  TSuggestion,
+} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = {
-  handleLoginChange: (value: string) => void;
+  onLoginChange: (value: string) => void;
   login: string;
-  handlePasswordChange: (value: string) => void;
+  onPasswordChange: (value: string) => void;
   password: string;
   passwordSuggestions: TSuggestion;
-  handlePasswordConfirmChange: (value: string) => void;
+  onPasswordConfirmChange: (value: string) => void;
   passwordConfirm: string;
-  handleSignUpClick: () => void;
+  onSignUpClick: () => void;
+  onEnterClick: () => void;
   isSendButtonDisabled: boolean;
 } & WithTranslation;
 
 export const SignUpView = withTranslation()(({
-  handleLoginChange,
-  handlePasswordChange,
-  handlePasswordConfirmChange,
-  handleSignUpClick,
   i18n: {t},
   isSendButtonDisabled,
   login,
+  onEnterClick,
+  onLoginChange,
+  onPasswordChange,
+  onPasswordConfirmChange,
+  onSignUpClick,
   password,
   passwordConfirm,
   passwordSuggestions,
@@ -29,14 +38,15 @@ export const SignUpView = withTranslation()(({
   return (
     <div className={style.root}>
       <Input
-        onChange={handleLoginChange}
+        onChange={onLoginChange}
         value={login}
         keyfilter={E_KEY_FILTER.ALPHA_NUM}
         placeholder={t('Authentication.SignUp.LoginPlaceholder')}
         className={style.input}
+        onEnterClick={onEnterClick}
       />
       <Password
-        onChange={handlePasswordChange}
+        onChange={onPasswordChange}
         value={password}
         placeholder={t('Authentication.SignUp.PasswordPlaceholder')}
         className={style.input}
@@ -47,18 +57,24 @@ export const SignUpView = withTranslation()(({
         weakLabel={t('Authentication.SignUp.PasswordStrength.WeakLabel')}
         mediumLabel={t('Authentication.SignUp.PasswordStrength.MediumLabel')}
         strongLabel={t('Authentication.SignUp.PasswordStrength.StrongLabel')}
+        onEnterClick={onEnterClick}
       />
       <Password
-        onChange={handlePasswordConfirmChange}
+        onChange={onPasswordConfirmChange}
         value={passwordConfirm}
         placeholder={t('Authentication.SignUp.PasswordConfirmPlaceholder')}
         className={style.input}
         toggleMask
+        onEnterClick={onEnterClick}
       />
       <Button
         className={style.button}
-        onClick={handleSignUpClick}
+        onClick={onSignUpClick}
         disabled={isSendButtonDisabled}
+        analyticProps={{
+          label: 'Sign up button',
+          namespace: E_ANALYTIC_NAMESPACES.AUTH,
+        }}
       >
         {t('Authentication.SignUp.Label')}
       </Button>

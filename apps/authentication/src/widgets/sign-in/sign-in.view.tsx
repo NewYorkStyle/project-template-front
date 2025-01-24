@@ -1,47 +1,61 @@
 import style from './sing-in.module.less';
-import {Button, E_KEY_FILTER, Input, Password} from '@common';
+import {
+  Button,
+  E_ANALYTIC_NAMESPACES,
+  E_KEY_FILTER,
+  Input,
+  Password,
+} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = {
-  handleLoginChange: (value: string) => void;
-  handlePasswordChange: (value: string) => void;
-  handleSignInClick: () => void;
+  onLoginChange: (value: string) => void;
+  onPasswordChange: (value: string) => void;
+  onSignInClick: () => void;
   login: string;
   password: string;
   isSendButtonDisabled: boolean;
   isLoading: boolean;
+  onEnterClick: () => void;
 } & WithTranslation;
 
 export const SignInView = withTranslation()(({
-  handleLoginChange,
-  handlePasswordChange,
-  handleSignInClick,
   i18n: {t},
   isLoading,
   isSendButtonDisabled,
   login,
+  onEnterClick,
+  onLoginChange,
+  onPasswordChange,
+  onSignInClick,
   password,
 }: TProps) => {
   return (
     <div className={style.root}>
       <Input
-        onChange={handleLoginChange}
+        onChange={onLoginChange}
         value={login}
         keyfilter={E_KEY_FILTER.ALPHA_NUM}
         placeholder={t('Authentication.SignIn.LoginPlaceholder')}
         className={style.input}
+        onEnterClick={onEnterClick}
       />
       <Password
-        onChange={handlePasswordChange}
+        onChange={onPasswordChange}
         value={password}
         placeholder={t('Authentication.SignIn.PasswordPlaceholder')}
         className={style.input}
         toggleMask
+        onEnterClick={onEnterClick}
       />
       <Button
         className={style.button}
-        onClick={handleSignInClick}
+        onClick={onSignInClick}
         disabled={isSendButtonDisabled || isLoading}
+        analyticProps={{
+          label: 'Sign in button',
+          namespace: E_ANALYTIC_NAMESPACES.AUTH,
+        }}
       >
         {t('Authentication.SignIn.Label')}
       </Button>

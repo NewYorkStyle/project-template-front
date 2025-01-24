@@ -37,6 +37,12 @@ class SignInStore {
       this._loginLoading = false;
     }
   };
+
+  clear = () => {
+    this._loginLoading = false;
+    this.login = '';
+    this.password = '';
+  };
 }
 
 export const signInStore = new SignInStore();

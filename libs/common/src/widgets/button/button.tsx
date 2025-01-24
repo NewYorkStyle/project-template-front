@@ -9,6 +9,7 @@ import {ReactNode} from 'react';
  * @prop {boolean} [disabled] Обработчик клика.
  * @prop {boolean} [rounded] Круглая кнопка.
  * @prop {ReactNode} [icon] Иконка.
+ * @prop {boolean} [link] Кнопка как ссылка.
  */
 type TProps = {
   analyticProps?: TAnalyticsProps;
@@ -18,6 +19,7 @@ type TProps = {
   disabled?: boolean;
   rounded?: boolean;
   icon?: ReactNode;
+  link?: boolean;
 };
 
 /**
@@ -29,6 +31,7 @@ export const Button = ({
   className,
   disabled,
   icon,
+  link,
   onClick,
   rounded,
 }: TProps) => {
@@ -49,6 +52,7 @@ export const Button = ({
       disabled={disabled}
       rounded={rounded}
       icon={icon}
+      link={link}
     >
       {children}
     </ButtonView>

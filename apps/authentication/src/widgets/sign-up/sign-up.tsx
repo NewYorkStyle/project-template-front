@@ -40,20 +40,23 @@ export const SignUp = withTranslation()(
     };
 
     const handleSignUpClick = () => {
-      signUpStore.signUp();
+      if (!isSendButtonDisabled) {
+        signUpStore.signUp();
+      }
     };
 
     return (
       <SignUpView
-        handleLoginChange={handleLoginChange}
-        handlePasswordChange={handlePasswordChange}
-        handlePasswordConfirmChange={handlePasswordConfirmChange}
-        handleSignUpClick={handleSignUpClick}
+        onLoginChange={handleLoginChange}
+        onPasswordChange={handlePasswordChange}
+        onPasswordConfirmChange={handlePasswordConfirmChange}
+        onSignUpClick={handleSignUpClick}
         isSendButtonDisabled={isSendButtonDisabled}
         login={signUpStore.login}
         password={signUpStore.password}
         passwordConfirm={signUpStore.passwordConfirm}
         passwordSuggestions={passwordSuggestions}
+        onEnterClick={handleSignUpClick}
       />
     );
   })

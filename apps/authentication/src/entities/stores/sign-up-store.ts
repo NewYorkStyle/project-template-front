@@ -38,6 +38,13 @@ class SignUpStore {
       this._singUpLoading = false;
     }
   };
+
+  clear = () => {
+    this._singUpLoading = false;
+    this.login = '';
+    this.password = '';
+    this.passwordConfirm = '';
+  };
 }
 
 export const signUpStore = new SignUpStore();

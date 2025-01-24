@@ -1,5 +1,12 @@
 import style from './user-icon.module.less';
-import {Button, E_POPOVER_POSITION, Logged, NotLogged, Popover} from '@common';
+import {
+  Button,
+  E_ANALYTIC_NAMESPACES,
+  E_POPOVER_POSITION,
+  Logged,
+  NotLogged,
+  Popover,
+} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 /**
@@ -36,9 +43,16 @@ export const UserIconView = withTranslation()(({
           onClose={onPopoverClose}
           position={E_POPOVER_POSITION.BOTTOM}
           content={
-            <span className={style.link} onClick={onLoggout}>
+            <Button
+              onClick={onLoggout}
+              link
+              analyticProps={{
+                label: 'Log out',
+                namespace: E_ANALYTIC_NAMESPACES.USER_ICON,
+              }}
+            >
               {t('UserIcon.LogOut')}
-            </span>
+            </Button>
           }
         >
           <Button
@@ -46,6 +60,10 @@ export const UserIconView = withTranslation()(({
             icon={<Logged />}
             rounded
             onClick={onUserIconClick}
+            analyticProps={{
+              label: `Icon ${isPopoverOpen ? 'close' : 'open'}`,
+              namespace: E_ANALYTIC_NAMESPACES.USER_ICON,
+            }}
           />
         </Popover>
       ) : (
