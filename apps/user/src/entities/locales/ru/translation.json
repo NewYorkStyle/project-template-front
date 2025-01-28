@@ -1,0 +1,10 @@
+{
+  "Profile": {
+    "PersonalData": {
+      "Surname": "Фамилия",
+      "Name": "Имя",
+      "Patronymic": "Отчество",
+      "Header": "Личные данные"
+    }
+  }
+}

@@ -6,7 +6,7 @@ type TProps = {
 };
 
 export const BulbLightningIcon = ({
-  color = E_COLORS.WHITE,
+  color = E_COLORS.TEXT1,
   size = 24,
 }: TProps) => {
   return (

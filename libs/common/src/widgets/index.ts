@@ -7,3 +7,4 @@ export * from './input';
 export * from './password';
 export * from './toast';
 export * from './popover';
+export * from './divider';

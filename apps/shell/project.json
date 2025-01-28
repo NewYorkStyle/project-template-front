@@ -49,7 +49,7 @@
       "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "devRemotes": ["main", "authentication"],
+        "devRemotes": ["main", "authentication", "user"],
         "buildTarget": "shell:build",
         "hmr": true,
         "port": 4200

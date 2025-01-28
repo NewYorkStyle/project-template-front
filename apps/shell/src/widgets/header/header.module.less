@@ -1,11 +1,23 @@
 .root {
   position: fixed;
   top: 0;
-  display: flex;
-  justify-content: right;
   height: 40px;
   padding: 5px;
   width: 100%;
   transition: all 0.5s linear;
   box-shadow: 0 0px 8px 0px var(--elements-gray);
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+
+  .right {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+
+  .left {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
 }
