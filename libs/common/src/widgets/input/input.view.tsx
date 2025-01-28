@@ -1,10 +1,11 @@
 import style from './input.module.less';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {E_KEY_FILTER} from '../../shared';
 import {InputText} from 'primereact/inputtext';
 
 /**
  * @prop {string} [placeholder] Плейсхолдер.
- * @prop { E_KEY_FILTER | RegExp} [keyfilter] Фильтр вводимых значений.
+ * @prop {E_KEY_FILTER} [keyfilter] Фильтр вводимых значений.
  * @prop {string} value Текущее значение.
  * @prop {(value: string) => void} onChange Обработчик изменения.
  * @prop {(e: React.KeyboardEvent<HTMLInputElement>) => void} onEnterClick Обработчик нажатия Enter.
@@ -12,7 +13,7 @@ import {InputText} from 'primereact/inputtext';
 
 type TProps = {
   placeholder?: string;
-  keyfilter?: E_KEY_FILTER | RegExp;
+  keyfilter?: (typeof E_KEY_FILTER)[keyof typeof E_KEY_FILTER];
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;

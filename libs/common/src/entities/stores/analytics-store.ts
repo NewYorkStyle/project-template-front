@@ -11,7 +11,7 @@ class AnalyticsStore {
   private _ymInited = false;
   private _ymCounter = 0;
 
-  public get ymInited(): boolean {
+  get ymInited(): boolean {
     return this._ymInited;
   }
 

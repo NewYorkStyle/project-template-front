@@ -12,7 +12,9 @@ import {WithTranslation, withTranslation} from 'react-i18next';
 type TProps = {
   onLoginChange: (value: string) => void;
   login: string;
+  email: string;
   onPasswordChange: (value: string) => void;
+  onEmailChange: (value: string) => void;
   password: string;
   passwordSuggestions: TSuggestion;
   onPasswordConfirmChange: (value: string) => void;
@@ -23,9 +25,11 @@ type TProps = {
 } & WithTranslation;
 
 export const SignUpView = withTranslation()(({
+  email,
   i18n: {t},
   isSendButtonDisabled,
   login,
+  onEmailChange,
   onEnterClick,
   onLoginChange,
   onPasswordChange,
@@ -42,6 +46,13 @@ export const SignUpView = withTranslation()(({
         value={login}
         keyfilter={E_KEY_FILTER.ALPHA_NUM}
         placeholder={t('Authentication.SignUp.LoginPlaceholder')}
+        className={style.input}
+        onEnterClick={onEnterClick}
+      />
+      <Input
+        onChange={onEmailChange}
+        value={email}
+        placeholder={t('Authentication.SignUp.EmailPlaceholder')}
         className={style.input}
         onEnterClick={onEnterClick}
       />

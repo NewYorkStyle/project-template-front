@@ -1,0 +1,30 @@
+{
+  "Profile": {
+    "PersonalData": {
+      "Surname": "Surname",
+      "Name": "Name",
+      "Patronymic": "Patronymic",
+      "Header": "Personal data",
+      "ErrorGetData": "Error loading profile data",
+      "ErrorSaveData": "Error saving data",
+      "SuccessfulySaveData": "Data saved successfully"
+    },
+    "Delete": {
+      "DeleteProfile": "Deleting a profile",
+      "Password": "Password",
+      "PasswordPlaceholder": "Enter password",
+      "Delete": "Delete",
+      "Error": "Error deleting profile",
+      "Successfully": "Profile successfully deleted",
+      "ConfirmationDialog": {
+        "Header": "Deleting a profile",
+        "Content": "Are you sure you want to delete the profile?",
+        "Delete": "Delete",
+        "Cancel": "Cancel"
+      }
+    },
+    "Footer": {
+      "Save": "Save"
+    }
+  }
+}

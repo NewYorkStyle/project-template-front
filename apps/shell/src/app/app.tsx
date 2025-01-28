@@ -1,11 +1,10 @@
 import {Content} from './content';
 import i18nShellInstance from '../shared/utils/i18n-init';
 import {ToastProvider, paramsStore} from '@common';
-import {observer} from 'mobx-react-lite';
 import React, {useEffect} from 'react';
 import {I18nextProvider} from 'react-i18next';
 
-export const App = observer(() => {
+export const App = () => {
   const {getParams} = paramsStore;
 
   useEffect(() => {
@@ -21,6 +20,6 @@ export const App = observer(() => {
       </I18nextProvider>
     </React.Suspense>
   );
-});
+};
 
 export default App;

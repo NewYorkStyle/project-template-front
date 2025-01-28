@@ -1,0 +1,30 @@
+{
+  "Profile": {
+    "PersonalData": {
+      "Surname": "Фамилия",
+      "Name": "Имя",
+      "Patronymic": "Отчество",
+      "Header": "Личные данные",
+      "ErrorGetData": "Ошибка загрузка данных профиля",
+      "ErrorSaveData": "Ошибка сохраняния данных",
+      "SuccessfulySaveData": "Данные успешно сохранены"
+    },
+    "Delete": {
+      "DeleteProfile": "Удаление профиля",
+      "Password": "Пароль",
+      "PasswordPlaceholder": "Введите пароль",
+      "Delete": "Удалить",
+      "Error": "Ошибка удаления профиля",
+      "Successfully": "Профиль успешно удалён",
+      "ConfirmationDialog": {
+        "Header": "Удаление профиля",
+        "Content": "Вы действительно хотите удалить профиль?",
+        "Delete": "Удалить",
+        "Cancel": "Отмена"
+      }
+    },
+    "Footer": {
+      "Save": "Сохранить"
+    }
+  }
+}

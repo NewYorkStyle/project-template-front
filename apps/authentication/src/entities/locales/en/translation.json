@@ -9,6 +9,7 @@
     "SignUp": {
       "Label": "Sign up",
       "LoginPlaceholder": "Enter login",
+      "EmailPlaceholder": "Enter email",
       "PasswordPlaceholder": "Enter password",
       "PasswordConfirmPlaceholder": "Confirm password",
       "PasswordSuggestions": {

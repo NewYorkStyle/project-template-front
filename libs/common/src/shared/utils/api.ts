@@ -28,9 +28,9 @@ axiosApiInstance.interceptors.response.use(
           return axiosApiInstance(originalRequest);
         }
       } catch (refreshError) {
+        userStore.isUserLogged = false;
         console.error(refreshError);
       } finally {
-        userStore.isUserLogged = false;
         isRefreshing = false;
       }
     }

@@ -1,16 +1,17 @@
 import {InputView} from './input.view';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {E_KEY_FILTER} from '../../shared';
 
 /**
  * @prop {string} [placeholder] Плейсхолдер.
- * @prop { E_KEY_FILTER | RegExp} [keyfilter] Фильтр вводимых значений.
+ * @prop {E_KEY_FILTER} [keyfilter] Фильтр вводимых значений.
  * @prop {string} value Текущее значение.
  * @prop {(value: string) => void} onChange Обработчик изменения.
  * @prop {() => void} onEnterClick Обработчик нажатия Enter.
  */
 type TProps = {
   placeholder?: string;
-  keyfilter?: E_KEY_FILTER | RegExp;
+  keyfilter?: (typeof E_KEY_FILTER)[keyof typeof E_KEY_FILTER];
   value: string;
   onChange: (value: string) => void;
   className?: string;

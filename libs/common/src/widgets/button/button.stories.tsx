@@ -1,4 +1,5 @@
 import {Button} from './button';
+import {E_BUTTON_SEVERITY} from '../../shared';
 import {Logged} from '../svg/logged';
 import type {Meta, StoryObj} from '@storybook/react';
 import noop from 'lodash/noop';
@@ -12,12 +13,13 @@ type ButtonPropsAndCustomArgs = React.ComponentProps<typeof Button> & {
 
 const meta: Meta<ButtonPropsAndCustomArgs> = {
   component: Button,
-  render: ({disabled, icon, rounded, text}) => (
+  render: ({disabled, icon, rounded, severity, text}) => (
     <Button
       onClick={noop}
       disabled={disabled}
       rounded={rounded}
       icon={icon ? <Logged /> : undefined}
+      severity={severity}
     >
       {text}
     </Button>
@@ -50,6 +52,10 @@ export const ButtonStory: StoryObj = {
         disable: true,
       },
     },
+    severity: {
+      control: {type: 'select'},
+      options: Object.values(E_BUTTON_SEVERITY),
+    },
     text: {
       control: 'text',
     },
@@ -58,6 +64,7 @@ export const ButtonStory: StoryObj = {
     disabled: false,
     icon: false,
     rounded: false,
+    severity: undefined,
     text: 'Текст кнопки',
   },
 };

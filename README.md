@@ -13,5 +13,5 @@ npx nx serve shell
 Команда для запуска storybook
 
 ```sh
-npx nx storybook common
+npx nx storybook @common
 ```

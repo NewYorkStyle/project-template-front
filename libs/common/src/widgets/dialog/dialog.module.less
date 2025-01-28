@@ -1,0 +1,20 @@
+.root {
+  > * {
+    background: var(--background1);
+  }
+
+  :global(.p-dialog-header) {
+    border-bottom: 1px solid var(--elements-gray);
+    padding: 10px;
+  }
+
+  :global(.p-dialog-footer) {
+    border-top: 1px solid var(--elements-gray);
+    padding: 10px;
+  }
+
+  :global(.p-dialog-content) {
+    font-size: 16px;
+    padding: 20px;
+  }
+}

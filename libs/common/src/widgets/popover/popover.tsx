@@ -28,6 +28,7 @@ type TProps = {
   position?: E_POPOVER_POSITION;
   isOpen: boolean;
   onClose: () => void;
+  className?: string;
 };
 
 /**
@@ -35,6 +36,7 @@ type TProps = {
  */
 export const Popover: React.FC<TProps> = ({
   children,
+  className,
   content,
   isOpen,
   onClose,
@@ -130,6 +132,7 @@ export const Popover: React.FC<TProps> = ({
       popoverRef={popoverRef}
       position={position}
       triggerRef={triggerRef}
+      className={className}
     />
   );
 };
