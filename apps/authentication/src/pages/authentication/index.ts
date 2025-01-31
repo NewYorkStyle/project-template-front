@@ -1,1 +1,1 @@
-export {Authentication as Placeholder} from './authentication';
+export {Authentication} from './authentication';

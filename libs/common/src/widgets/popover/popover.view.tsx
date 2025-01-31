@@ -1,5 +1,6 @@
 import {E_POPOVER_POSITION} from './popover';
 import styles from './popover.module.less';
+import {classNames} from 'primereact/utils';
 import React, {ReactNode} from 'react';
 
 type TPopoverPosition = {
@@ -23,6 +24,7 @@ type TProps = {
   popoverRef: React.RefObject<HTMLDivElement>;
   position?: E_POPOVER_POSITION;
   triggerRef: React.RefObject<HTMLDivElement>;
+  className?: string;
 };
 
 /**
@@ -30,6 +32,7 @@ type TProps = {
  */
 export const PopoverView: React.FC<TProps> = ({
   children,
+  className,
   content,
   isOpen,
   popoverPosition,
@@ -38,12 +41,12 @@ export const PopoverView: React.FC<TProps> = ({
   triggerRef,
 }) => {
   return (
-    <div ref={triggerRef} style={{display: 'inline-block'}}>
+    <div ref={triggerRef} className={styles.trigger}>
       {children}
       {isOpen && (
         <div
           ref={popoverRef}
-          className={styles.popover}
+          className={classNames(styles.popover, className)}
           style={{left: popoverPosition.left, top: popoverPosition.top}}
         >
           <div className={`${styles.arrow} ${position}`} />

@@ -2,6 +2,7 @@ import {UserIconView} from './user-icon.view';
 import {userStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 /**
  * Компонент иконки юзера.
@@ -9,6 +10,7 @@ import {useState} from 'react';
 export const UserIcon = observer(() => {
   const {isUserLogged, loggout} = userStore;
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleUserIconClick = () => {
     setIsPopoverOpen((prevState) => !prevState);
@@ -23,6 +25,11 @@ export const UserIcon = observer(() => {
     loggout();
   };
 
+  const handleProfileClick = () => {
+    setIsPopoverOpen(false);
+    navigate('/user');
+  };
+
   return (
     <UserIconView
       isUserLogged={isUserLogged}
@@ -30,6 +37,7 @@ export const UserIcon = observer(() => {
       isPopoverOpen={isPopoverOpen}
       onPopoverClose={handlePopoverClose}
       onLoggout={handleLogout}
+      onProfileClick={handleProfileClick}
     />
   );
 });

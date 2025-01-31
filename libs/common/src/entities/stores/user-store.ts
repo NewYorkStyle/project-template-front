@@ -3,15 +3,10 @@ import Cookies from 'js-cookie';
 import {makeAutoObservable, runInAction} from 'mobx';
 
 class UserStore {
-  private _isUserLogged = Cookies.get('isUserLoggedIn') === 'true';
-
-  get isUserLogged(): boolean {
-    return this._isUserLogged;
-  }
-
-  set isUserLogged(value: boolean) {
-    this._isUserLogged = value;
-  }
+  public isUserLogged = Cookies.get('isUserLoggedIn') === 'true';
+  public name = '';
+  public patronymic = '';
+  public surname = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -22,10 +17,10 @@ class UserStore {
       await refreshToken();
 
       runInAction(() => {
-        this._isUserLogged = true;
+        this.isUserLogged = true;
       });
     } catch (error) {
-      this._isUserLogged = false;
+      this.isUserLogged = false;
     }
   };
 
@@ -33,12 +28,19 @@ class UserStore {
     await userLogout();
 
     runInAction(() => {
-      this._isUserLogged = false;
+      this.clear();
       Cookies.remove('refreshToken');
       Cookies.remove('accessToken');
       Cookies.remove('userId');
       Cookies.remove('isUserLoggedIn');
     });
+  };
+
+  clear = () => {
+    this.isUserLogged = false;
+    this.name = '';
+    this.patronymic = '';
+    this.surname = '';
   };
 }
 

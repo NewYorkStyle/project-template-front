@@ -4,6 +4,7 @@ import {Route, Routes} from 'react-router-dom';
 
 const Main = React.lazy(() => import('main/Module'));
 const Authentication = React.lazy(() => import('authentication/Module'));
+const User = React.lazy(() => import('user/Module'));
 
 export const Router = () => {
   return (
@@ -29,6 +30,14 @@ export const Router = () => {
         element={
           <ProtectedRoute>
             <Main />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/user'
+        element={
+          <ProtectedRoute>
+            <User />
           </ProtectedRoute>
         }
       />

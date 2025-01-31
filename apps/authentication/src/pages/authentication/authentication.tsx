@@ -8,7 +8,7 @@ import {WithTranslation, withTranslation} from 'react-i18next';
 type TProps = WithTranslation;
 
 export const Authentication = withTranslation()(
-  observer(({i18n: {changeLanguage, t}}: TProps) => {
+  observer(({i18n: {changeLanguage}}: TProps) => {
     const {language} = i18nStore;
 
     useEffect(() => {

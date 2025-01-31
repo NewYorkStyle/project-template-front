@@ -14,6 +14,7 @@ import {WithTranslation, withTranslation} from 'react-i18next';
  * @prop {boolean} isUserLogged Флаг авторизации юзера.
  * @prop {() => void} onLoggout Обработчик выхода юзера.
  * @prop {() => void} onPopoverClose Обработчик закрытия поповера.
+ * @prop {() => void} onProfileClick Обработчик клика по кнопке "Профиль".
  * @prop {() => void} onUserIconClick Обработчик клика по иконке юзера.
  */
 type TProps = {
@@ -21,6 +22,7 @@ type TProps = {
   isUserLogged: boolean;
   onLoggout: () => void;
   onPopoverClose: () => void;
+  onProfileClick: () => void;
   onUserIconClick: () => void;
 } & WithTranslation;
 
@@ -33,6 +35,7 @@ export const UserIconView = withTranslation()(({
   isUserLogged,
   onLoggout,
   onPopoverClose,
+  onProfileClick,
   onUserIconClick,
 }: TProps) => {
   return (
@@ -43,16 +46,28 @@ export const UserIconView = withTranslation()(({
           onClose={onPopoverClose}
           position={E_POPOVER_POSITION.BOTTOM}
           content={
-            <Button
-              onClick={onLoggout}
-              link
-              analyticProps={{
-                label: 'Log out',
-                namespace: E_ANALYTIC_NAMESPACES.USER_ICON,
-              }}
-            >
-              {t('UserIcon.LogOut')}
-            </Button>
+            <>
+              <Button
+                onClick={onProfileClick}
+                link
+                analyticProps={{
+                  label: 'Log out',
+                  namespace: E_ANALYTIC_NAMESPACES.USER,
+                }}
+              >
+                {t('UserIcon.Profile')}
+              </Button>
+              <Button
+                onClick={onLoggout}
+                link
+                analyticProps={{
+                  label: 'Log out',
+                  namespace: E_ANALYTIC_NAMESPACES.USER,
+                }}
+              >
+                {t('UserIcon.LogOut')}
+              </Button>
+            </>
           }
         >
           <Button
@@ -62,7 +77,7 @@ export const UserIconView = withTranslation()(({
             onClick={onUserIconClick}
             analyticProps={{
               label: `Icon ${isPopoverOpen ? 'close' : 'open'}`,
-              namespace: E_ANALYTIC_NAMESPACES.USER_ICON,
+              namespace: E_ANALYTIC_NAMESPACES.USER,
             }}
           />
         </Popover>

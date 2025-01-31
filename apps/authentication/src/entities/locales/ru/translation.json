@@ -9,6 +9,7 @@
     "SignUp": {
       "Label": "Зарегистрироваться",
       "LoginPlaceholder": "Введите логин",
+      "EmailPlaceholder": "Введите почту",
       "PasswordPlaceholder": "Введите пароль",
       "PasswordConfirmPlaceholder": "Подтверждение пароля",
       "PasswordSuggestions": {

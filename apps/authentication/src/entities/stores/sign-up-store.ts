@@ -7,6 +7,7 @@ class SignUpStore {
   private _singUpLoading = false;
 
   public login = '';
+  public email = '';
   public password = '';
   public passwordConfirm = '';
 
@@ -22,7 +23,7 @@ class SignUpStore {
     this._singUpLoading = true;
 
     try {
-      await signUpApi(this.login, this.password);
+      await signUpApi(this.login, this.password, this.email);
 
       runInAction(() => {
         userStore.isUserLogged = true;
@@ -42,6 +43,7 @@ class SignUpStore {
   clear = () => {
     this._singUpLoading = false;
     this.login = '';
+    this.email = '';
     this.password = '';
     this.passwordConfirm = '';
   };
