@@ -1,11 +1,10 @@
-export enum E_KEY_FILTER {
-  ALPHA_NUM = 'alphanum',
-  INT = 'int',
-  PINT = 'pint',
-  NUM = 'num',
-  PNUM = 'pnum',
-  MONEY = 'money',
-  HEX = 'hex',
-  ALPHA = 'alpha',
-  EMAIL = 'email',
-}
+export const E_KEY_FILTER = {
+  ALPHA: /^[а-яёА-ЯЁa-zA-Z-]+$/, // Буквы
+  ALPHA_NUM: /^[а-яёА-ЯЁa-zA-Z0-9]+$/, // Буквы и цифры
+  HEX: /^[0-9a-fA-F]+$/, // Шестнадцатеричные цифры
+  INT: /^-?\d+$/, // Целые числа (с минусом)
+  MONEY: /^-?\d+(\.\d{1,2})?$/, // Деньги (с двумя знаками после запятой)
+  NUM: /^-?\d*\.?\d+$/, // Числа (целые, с плавающей точкой)
+  PINT: /^\d+$/, // Положительные целые числа
+  PNUM: /^\d*\.?\d+$/, // Положительные числа (целые, с плавающей точкой)
+};

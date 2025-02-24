@@ -31,6 +31,10 @@ export const SignUp = withTranslation()(
       signUpStore.login = value;
     };
 
+    const handleEmailChange = (value: string) => {
+      signUpStore.email = value;
+    };
+
     const handlePasswordChange = (value: string) => {
       signUpStore.password = value;
     };
@@ -57,6 +61,8 @@ export const SignUp = withTranslation()(
         passwordConfirm={signUpStore.passwordConfirm}
         passwordSuggestions={passwordSuggestions}
         onEnterClick={handleSignUpClick}
+        onEmailChange={handleEmailChange}
+        email={signUpStore.email}
       />
     );
   })

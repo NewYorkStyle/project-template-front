@@ -1,6 +1,6 @@
 import {ButtonView} from './button.view';
 import {TAnalyticsProps, sendEvent} from '../../shared';
-import {E_ANALYTIC_EVENTS} from '../../shared/constants';
+import {E_ANALYTIC_EVENTS, E_BUTTON_SEVERITY} from '../../shared/constants';
 import {ReactNode} from 'react';
 
 /**
@@ -10,6 +10,7 @@ import {ReactNode} from 'react';
  * @prop {boolean} [rounded] Круглая кнопка.
  * @prop {ReactNode} [icon] Иконка.
  * @prop {boolean} [link] Кнопка как ссылка.
+ * @prop {E_BUTTON_SEVERITY} [severity] Стили кнопок.
  */
 type TProps = {
   analyticProps?: TAnalyticsProps;
@@ -20,6 +21,7 @@ type TProps = {
   rounded?: boolean;
   icon?: ReactNode;
   link?: boolean;
+  severity?: E_BUTTON_SEVERITY;
 };
 
 /**
@@ -34,6 +36,7 @@ export const Button = ({
   link,
   onClick,
   rounded,
+  severity,
 }: TProps) => {
   const handleClick = () => {
     onClick();
@@ -53,6 +56,7 @@ export const Button = ({
       rounded={rounded}
       icon={icon}
       link={link}
+      severity={severity}
     >
       {children}
     </ButtonView>

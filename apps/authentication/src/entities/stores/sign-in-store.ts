@@ -5,23 +5,38 @@ import {makeAutoObservable, runInAction} from 'mobx';
 
 class SignInStore {
   private _loginLoading = false;
+  private _login = '';
+  private _password = '';
 
-  public login = '';
-  public password = '';
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   get loginLoading(): boolean {
     return this._loginLoading;
   }
 
-  constructor() {
-    makeAutoObservable(this);
+  get login(): string {
+    return this._login;
+  }
+
+  set login(value: string) {
+    this._login = value;
+  }
+
+  get password(): string {
+    return this._password;
+  }
+
+  set password(value: string) {
+    this._password = value;
   }
 
   signIn = async () => {
     this._loginLoading = true;
 
     try {
-      await signInApi(this.login, this.password);
+      await signInApi(this._login, this._password);
 
       runInAction(() => {
         userStore.isUserLogged = true;
@@ -40,8 +55,8 @@ class SignInStore {
 
   clear = () => {
     this._loginLoading = false;
-    this.login = '';
-    this.password = '';
+    this._login = '';
+    this._password = '';
   };
 }
 

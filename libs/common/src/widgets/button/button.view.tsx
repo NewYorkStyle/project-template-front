@@ -1,4 +1,5 @@
 import style from './button.module.less';
+import {E_BUTTON_SEVERITY} from '../../shared';
 import {Button} from 'primereact/button';
 import {ReactNode} from 'react';
 
@@ -8,6 +9,7 @@ import {ReactNode} from 'react';
  * @prop {boolean} [rounded] Круглая кнопка.
  * @prop {ReactNode} [icon] Иконка.
  * @prop {boolean} [link] Кнопка как ссылка.
+ * @prop {E_BUTTON_SEVERITY} [severity] Стили кнопок.
  */
 type TProps = {
   onClick: () => void;
@@ -17,6 +19,7 @@ type TProps = {
   rounded?: boolean;
   icon?: ReactNode;
   link?: boolean;
+  severity?: E_BUTTON_SEVERITY;
 };
 
 /**
@@ -30,6 +33,7 @@ export const ButtonView = ({
   link,
   onClick,
   rounded,
+  severity,
 }: TProps) => {
   return link ? (
     <span className={`${style.link} ${className}`} onClick={onClick}>
@@ -42,6 +46,7 @@ export const ButtonView = ({
       disabled={disabled}
       rounded={rounded}
       icon={icon}
+      severity={severity}
     >
       {children}
     </Button>

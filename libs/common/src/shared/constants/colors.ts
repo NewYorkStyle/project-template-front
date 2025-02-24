@@ -1,4 +1,3 @@
 export enum E_COLORS {
-  WHITE = '#FFF',
-  BLACK = '#000000',
+  TEXT1 = 'var(--text1)',
 }

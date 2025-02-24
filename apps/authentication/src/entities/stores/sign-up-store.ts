@@ -5,24 +5,56 @@ import {makeAutoObservable, runInAction} from 'mobx';
 
 class SignUpStore {
   private _singUpLoading = false;
+  private _login = '';
+  private _email = '';
+  private _password = '';
+  private _passwordConfirm = '';
 
-  public login = '';
-  public password = '';
-  public passwordConfirm = '';
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   get singUpLoading(): boolean {
     return this._singUpLoading;
   }
 
-  constructor() {
-    makeAutoObservable(this);
+  get login(): string {
+    return this._login;
+  }
+
+  set login(value: string) {
+    this._login = value;
+  }
+
+  get password(): string {
+    return this._password;
+  }
+
+  set password(value: string) {
+    this._password = value;
+  }
+
+  get passwordConfirm(): string {
+    return this._passwordConfirm;
+  }
+
+  set passwordConfirm(value: string) {
+    this._passwordConfirm = value;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  set email(value: string) {
+    this._email = value;
   }
 
   signUp = async () => {
     this._singUpLoading = true;
 
     try {
-      await signUpApi(this.login, this.password);
+      await signUpApi(this._login, this._password, this._email);
 
       runInAction(() => {
         userStore.isUserLogged = true;
@@ -41,9 +73,10 @@ class SignUpStore {
 
   clear = () => {
     this._singUpLoading = false;
-    this.login = '';
-    this.password = '';
-    this.passwordConfirm = '';
+    this._login = '';
+    this._email = '';
+    this._password = '';
+    this._passwordConfirm = '';
   };
 }
 

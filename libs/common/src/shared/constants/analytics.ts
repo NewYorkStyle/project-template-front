@@ -13,5 +13,5 @@ export enum E_ANALYTIC_NAMESPACES {
   PLACEHOLDER = 'placeholder',
   APP_HEADER = 'app-header',
   AUTH = 'auth',
-  USER_ICON = 'user-icon',
+  USER = 'user',
 }
