@@ -1,4 +1,4 @@
-import {ModuleFederationConfig} from '@nx/webpack';
+﻿import type {ModuleFederationConfig} from '@nx/module-federation';
 
 const config: ModuleFederationConfig = {
   exposes: {

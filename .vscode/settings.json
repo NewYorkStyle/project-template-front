@@ -1,0 +1,9 @@
+{
+    "codium.codeCompletion.enable": true,
+    "i18n-ally.localesPaths": [
+        "apps/authentication/src/entities/locales",
+        "apps/shell/src/entities/locales",
+        "apps/main/src/entities/locales",
+        "apps/user/src/entities/locales"
+    ]
+}

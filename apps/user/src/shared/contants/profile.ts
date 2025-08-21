@@ -1,4 +1,4 @@
-import {TProfileData} from '../../entities/models';
+﻿import {TProfileData} from '../../entities/models';
 
 export const initPersonalData: TProfileData = {
   email: '',

@@ -1,1 +1,1 @@
-export default require('./webpack.config');
+﻿export default require('./webpack.config');

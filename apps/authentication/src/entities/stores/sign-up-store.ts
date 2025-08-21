@@ -1,4 +1,4 @@
-import i18nAuthenticationInstance from '../../shared/utils/i18n-init';
+﻿import i18nAuthenticationInstance from '../../shared/utils/i18n-init';
 import {signUpApi} from '../api';
 import {E_TOAST_SEVERITY, showToast, userStore} from '@common';
 import {makeAutoObservable, runInAction} from 'mobx';

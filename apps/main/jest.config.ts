@@ -1,4 +1,4 @@
-export default {
+﻿export default {
   coverageDirectory: '../../coverage/apps/main',
   displayName: 'main',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

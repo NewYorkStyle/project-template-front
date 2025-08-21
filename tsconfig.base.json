@@ -19,5 +19,5 @@
       "@common": ["libs/common/src/index.ts"]
     }
   },
-  "exclude": ["tmp"]
+  "exclude": ["tmp", "apps/**/webpack.config*.ts"]
 }

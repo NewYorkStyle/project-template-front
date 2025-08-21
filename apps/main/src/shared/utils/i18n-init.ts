@@ -1,4 +1,4 @@
-import enJSON from '../../entities/locales/en/translation.json';
+﻿import enJSON from '../../entities/locales/en/translation.json';
 import ruJSON from '../../entities/locales/ru/translation.json';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';

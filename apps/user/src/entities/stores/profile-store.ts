@@ -1,4 +1,4 @@
-import {initPersonalData} from '../../shared/contants';
+﻿import {initPersonalData} from '../../shared/contants';
 import i18nUserInstance from '../../shared/utils/i18n-init';
 import {deleteProfileApi, geteProfileApi, updateProfileApi} from '../api';
 import {TProfileData} from '../models';

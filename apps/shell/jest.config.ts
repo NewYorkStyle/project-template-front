@@ -1,4 +1,4 @@
-export default {
+﻿export default {
   coverageDirectory: '../../coverage/apps/shell',
   displayName: 'shell',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
