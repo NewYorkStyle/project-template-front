@@ -5,7 +5,13 @@
   "author": "New York Style",
   "scripts": {
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
-    "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\""
+    "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
+    "build:shell": "nx build shell",
+    "build:authentication": "nx build authentication",
+    "build:main": "nx build main",
+    "build:user": "nx build user",
+    "build:all": "nx run-many --target=build --projects=shell,authentication,main,user",
+    "build:all:parallel": "nx run-many --target=build --projects=shell,authentication,main,user --parallel"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

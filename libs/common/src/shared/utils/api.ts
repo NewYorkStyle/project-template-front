@@ -1,6 +1,7 @@
 import {userStore} from '../../entities';
-import {API_BASE_URL} from '../constants';
 import axios, {AxiosError, AxiosInstance} from 'axios';
+
+const API_BASE_URL = process.env.NX_PUBLIC_API_URL
 
 const axiosApiInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,

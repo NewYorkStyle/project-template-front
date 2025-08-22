@@ -19,7 +19,8 @@
         "assets": ["apps/main/src/favicon.ico", "apps/main/src/assets"],
         "styles": ["apps/main/src/styles.less"],
         "scripts": [],
-        "webpackConfig": "apps/main/webpack.config.ts"
+        "webpackConfig": "apps/main/webpack.config.ts",
+        "envFile": ".env"
       },
       "configurations": {
         "development": {
@@ -41,7 +42,8 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/main/webpack.config.prod.ts"
+          "webpackConfig": "apps/main/webpack.config.prod.ts",
+          "envFile": ".env"
         }
       }
     },

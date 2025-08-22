@@ -22,7 +22,8 @@
         ],
         "styles": ["apps/authentication/src/styles.less"],
         "scripts": [],
-        "webpackConfig": "apps/authentication/webpack.config.ts"
+        "webpackConfig": "apps/authentication/webpack.config.ts",
+        "envFile": ".env"
       },
       "configurations": {
         "development": {
@@ -44,7 +45,8 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/authentication/webpack.config.prod.ts"
+          "webpackConfig": "apps/authentication/webpack.config.prod.ts",
+          "envFile": ".env"
         }
       }
     },

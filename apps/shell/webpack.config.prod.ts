@@ -6,7 +6,11 @@ import {composePlugins, withNx} from '@nx/webpack';
 
 const prodConfig: ModuleFederationConfig = {
   ...baseConfig,
-  remotes: [['main', 'http://localhost:4201/']],
+  remotes: [
+    ['main', 'http://localhost:4201/'],
+    ['authentication', 'http://localhost:4202/'],
+    ['user', 'http://localhost:4203/'],
+],
 };
 
 export default composePlugins(
