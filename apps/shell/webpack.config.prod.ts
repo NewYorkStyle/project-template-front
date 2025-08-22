@@ -1,8 +1,8 @@
 import baseConfig from './module-federation.config';
+import {ModuleFederationConfig} from '@nx/module-federation';
 import {withReact} from '@nx/react';
 import {withModuleFederation} from '@nx/react/module-federation';
 import {composePlugins, withNx} from '@nx/webpack';
-import {ModuleFederationConfig} from '@nx/webpack';
 
 const prodConfig: ModuleFederationConfig = {
   ...baseConfig,

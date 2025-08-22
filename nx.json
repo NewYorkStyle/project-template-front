@@ -28,9 +28,24 @@
         "previewTargetName": "preview"
       }
     },
-    {"plugin": "@nx/eslint/plugin", "options": {"targetName": "lint"}},
-    {"plugin": "@nx/playwright/plugin", "options": {"targetName": "e2e"}},
-    {"plugin": "@nx/jest/plugin", "options": {"targetName": "test"}},
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    },
     {
       "plugin": "@nx/storybook/plugin",
       "options": {
@@ -42,8 +57,13 @@
     }
   ],
   "targetDefaults": {
-    "e2e-ci--**/*": {"dependsOn": ["^build"]},
-    "build": {"cache": true, "dependsOn": ["^build"]},
+    "e2e-ci--**/*": {
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"]
+    },
     "@nx/eslint:lint": {
       "cache": true,
       "inputs": [
@@ -54,7 +74,13 @@
       ]
     },
     "@nx/webpack:webpack": {
-      "inputs": ["production", "^production", {"env": "NX_MF_DEV_REMOTES"}],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "env": "NX_MF_DEV_REMOTES"
+        }
+      ],
       "dependsOn": ["^build"],
       "cache": true
     }
@@ -67,8 +93,14 @@
         "linter": "eslint",
         "bundler": "webpack"
       },
-      "component": {"style": "less"},
-      "library": {"style": "less", "linter": "eslint", "unitTestRunner": "jest"}
+      "component": {
+        "style": "less"
+      },
+      "library": {
+        "style": "less",
+        "linter": "eslint",
+        "unitTestRunner": "jest"
+      }
     }
   }
 }
