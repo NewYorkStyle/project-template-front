@@ -1,37 +1,32 @@
+// Auto-generated from TypeScript
+
+// Глобальные стили
 body {
   margin: 0;
-
-  * {
-    font-family: var(--main-font);
-    color: var(--text1);
-  }
-
-  // Общие переменные
-  --main-font: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  --elements-gray: rgba(107, 114, 128, 1);
-  --elements-blue: rgba(96, 165, 250, 1);
-
-  // Цвета для светлой темы.
-  --background1: rgba(255, 255, 255, 1);
-  --background2: rgba(242, 242, 242, 1);
-
-  --text1: rgba(0, 0, 0, 1);
-
-  --elements1: rgba(107, 114, 128, 1);
-
-  --toast-red-background: rgba(241, 103, 103, 0.8);
-  --toast-red-border: rgba(255, 0, 0);
+  padding: 0;
 }
 
-body[data-theme='dark'] {
-  // Цвета для тёмной темы.
-  --background1: rgba(28, 28, 28, 1);
-  --background2: rgba(14, 13, 13, 1);
+@spacing-lg: 24px;
+@spacing-md: 16px;
+@spacing-sm: 8px;
+@spacing-xs: 4px;
 
-  --text1: rgba(255, 255, 255, 1);
+@border-radius-lg: 14px;
+@border-radius-md: 12px;
+@border-radius-sm: 10px;
 
-  --elements1: rgba(0, 0, 0, 1);
+:root {
+  --background-primary: #ffffff;
+  --background-secondary: #d9d9dc;
+  --border-primary: #c1c0c0;
+  --text-primary: #000000;
+  --text-secondary: #a4a6a8;
+}
 
-  --toast-red-background: rgba(239, 68, 68, 0.2);
-  --toast-red-border: rgba(239, 68, 68);
+[data-theme='dark'] {
+  --background-primary: #383535;
+  --background-secondary: #4b4948;
+  --border-primary: #545353;
+  --text-primary: #cbcdd0;
+  --text-secondary: #a4a6a8;
 }

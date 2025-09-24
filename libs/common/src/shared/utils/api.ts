@@ -1,7 +1,7 @@
 import {userStore} from '../../entities';
 import axios, {AxiosError, AxiosInstance} from 'axios';
 
-const API_BASE_URL = process.env.NX_PUBLIC_API_URL
+const API_BASE_URL = process.env.NX_PUBLIC_API_URL;
 
 const axiosApiInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -30,6 +30,7 @@ axiosApiInstance.interceptors.response.use(
         }
       } catch (refreshError) {
         userStore.isUserLogged = false;
+        // eslint-disable-next-line no-console
         console.error(refreshError);
       } finally {
         isRefreshing = false;

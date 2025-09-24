@@ -6,12 +6,13 @@
   "scripts": {
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
     "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
-    "build:shell": "nx build shell",
-    "build:authentication": "nx build authentication",
-    "build:main": "nx build main",
-    "build:user": "nx build user",
-    "build:all": "nx run-many --target=build --projects=shell,authentication,main,user",
-    "build:all:parallel": "nx run-many --target=build --projects=shell,authentication,main,user --parallel"
+    "build:shell": "npm run generate:tokens && nx build shell",
+    "build:authentication": "npm run generate:tokens && nx build authentication",
+    "build:main": "npm run generate:tokens && nx build main",
+    "build:user": "npm run generate:tokens && nx build user",
+    "build:all": "npm run generate:tokens && nx run-many --target=build --projects=shell,authentication,main,user",
+    "build:all:parallel": "npm run generate:tokens && nx run-many --target=build --projects=shell,authentication,main,user --parallel",
+    "generate:tokens": "tsx libs/common/src/shared/utils/generate-global-less.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

@@ -4,7 +4,11 @@ type TProps = {
   size?: number;
   color?: E_COLORS;
 };
-export const MoonIcon = ({color = E_COLORS.TEXT1, size = 24}: TProps) => {
+
+export const MoonIcon = ({
+  color = E_COLORS.TEXT_PRIMARY,
+  size = 24,
+}: TProps) => {
   return (
     <svg
       viewBox='0 0 24 24'

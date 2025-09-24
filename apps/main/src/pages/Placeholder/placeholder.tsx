@@ -1,5 +1,5 @@
 import style from './placeholder.module.less';
-import {Button, E_ANALYTIC_NAMESPACES, i18nStore} from '@common';
+import {Button, E_ANALYTIC_NAMESPACES, paramsStore} from '@common';
 import noop from 'lodash/noop';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
@@ -9,7 +9,7 @@ type TProps = WithTranslation;
 
 export const Placeholder = withTranslation()(
   observer(({i18n: {changeLanguage, t}}: TProps) => {
-    const {language} = i18nStore;
+    const {language} = paramsStore;
 
     useEffect(() => {
       changeLanguage(language);

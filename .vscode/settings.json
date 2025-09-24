@@ -1,8 +1,9 @@
 {
-    "i18n-ally.localesPaths": [
-        "apps/main/src/entities/locales",
-        "apps/shell/src/entities/locales",
-        "apps/user/src/entities/locales",
-        "apps/authentication/src/entities/locales"
-    ]
+  "i18n-ally.localesPaths": [
+    "apps/main/src/entities/locales",
+    "apps/shell/src/entities/locales",
+    "apps/user/src/entities/locales",
+    "apps/authentication/src/entities/locales"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

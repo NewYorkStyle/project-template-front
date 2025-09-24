@@ -1,5 +1,6 @@
 import style from './app-layout.module.less';
 import {Router} from './router';
+import {AppHeader} from '../widgets';
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -8,11 +9,11 @@ import {
 import {userStore} from '@common';
 import {Layout, Menu, MenuProps} from 'antd';
 import Sider from 'antd/es/layout/Sider';
-import {Content, Header} from 'antd/es/layout/layout';
+import {Content} from 'antd/es/layout/layout';
 import {observer} from 'mobx-react-lite';
 import React from 'react';
 
-const items2: MenuProps['items'] = [
+const items: MenuProps['items'] = [
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
@@ -38,16 +39,10 @@ export const AppLayout = observer(() => {
 
   return isUserLogged ? (
     <Layout className={style.fullLayout}>
-      <Header>Header</Header>
+      <AppHeader />
       <Layout>
-        <Sider collapsible className={style.sider}>
-          <Menu
-            mode='inline'
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            style={{height: '100%'}}
-            items={items2}
-          />
+        <Sider collapsible defaultCollapsed className={style.sider}>
+          <Menu mode='inline' style={{height: '100%'}} items={items} />
         </Sider>
         <Content className={style.content}>
           <Router />
