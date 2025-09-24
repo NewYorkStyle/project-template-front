@@ -1,5 +1,5 @@
 import style from './delete-user.module.less';
-import {Button, Dialog, E_BUTTON_SEVERITY, Password} from '@common';
+import {Button, Dialog, Password} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = {
@@ -22,7 +22,7 @@ export const DeleteUserView = withTranslation()(({
 }: TProps) => {
   const footerContent = (
     <div>
-      <Button severity={E_BUTTON_SEVERITY.DANGER} onClick={onDelete}>
+      <Button onClick={onDelete}>
         {t('Profile.Delete.ConfirmationDialog.Delete')}
       </Button>
       <Button onClick={onConfirmationClose}>
@@ -46,7 +46,6 @@ export const DeleteUserView = withTranslation()(({
         className={style.button}
         onClick={onConfirmationShow}
         disabled={!password}
-        severity={E_BUTTON_SEVERITY.DANGER}
       >
         {t('Profile.Delete.Delete')}
       </Button>

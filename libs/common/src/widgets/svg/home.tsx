@@ -4,7 +4,10 @@ type TProps = {
   size?: number;
   color?: E_COLORS;
 };
-export const HomeIcon = ({color = E_COLORS.TEXT1, size = 24}: TProps) => {
+export const HomeIcon = ({
+  color = E_COLORS.TEXT_PRIMARY,
+  size = 24,
+}: TProps) => {
   return (
     <svg
       width={size}

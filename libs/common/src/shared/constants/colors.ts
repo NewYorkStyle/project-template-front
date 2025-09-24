@@ -1,3 +1,3 @@
 export enum E_COLORS {
-  TEXT1 = 'var(--text1)',
+  TEXT_PRIMARY = 'var(--text-primary)',
 }
