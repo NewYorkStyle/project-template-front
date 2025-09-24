@@ -1,59 +1,37 @@
-import {TabsView} from './tabs.view';
 import {E_ANALYTIC_EVENTS, TAnalyticsProps, sendEvent} from '../../shared';
-import {TabViewTabChangeEvent} from 'primereact/tabview';
-import {ReactNode, useState} from 'react';
+import {Tabs as AntdTabs, TabsProps} from 'antd';
 
-/**
- * @prop {string} label Заголовок таба.
- * @prop {ReactNode} content Содержимое таба.
- */
-export type TTab = {
-  label: string;
-  content: ReactNode;
+type TTabItemType = NonNullable<TabsProps['items']>[number];
+
+export type TTabItem = TTabItemType & {
   analyticsLabel?: string;
 };
 
-/**
- * @prop {TAnalyticsProps} [analyticProps] Данные для аналитики.
- * @prop {() => void} onTabChange Обработчик изменения табов.
- * @prop {TTab[]} tabs Табы.
- * @prop {number} [tabWidth] Ширина табов.
- */
-type TProps = {
+type TProps = Omit<TabsProps, 'items'> & {
   analyticProps?: TAnalyticsProps;
-  onTabChange?: () => void;
-  tabs: TTab[];
-  tabWidth?: number;
+  items: TTabItem[];
 };
 
-/**
- * Компонент обёртка над Primereact для отображения табов. Содержит логику.
- */
-export const Tabs = ({analyticProps, onTabChange, tabWidth, tabs}: TProps) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+export const Tabs = ({
+  analyticProps,
+  items,
+  onChange,
+  ...restProps
+}: TProps) => {
+  const handleTabChange = (activeKey: string) => {
+    onChange?.(activeKey);
 
-  const handleTabChange = (e: TabViewTabChangeEvent) => {
-    setActiveIndex(e.index);
-
-    if (analyticProps) {
-      const selectedLabel = tabs[e.index].analyticsLabel;
+    if (analyticProps && items) {
+      const selectedTab = items.find((item) => item.key === activeKey);
+      const analyticsLabel = selectedTab?.analyticsLabel ?? activeKey;
 
       sendEvent({
         event: E_ANALYTIC_EVENTS.CLICK,
-        label: `${analyticProps.label} - ${selectedLabel ?? 'tab'}`,
+        label: `${analyticProps.label} - ${analyticsLabel}`,
         namespace: analyticProps.namespace,
       });
     }
-
-    if (onTabChange) onTabChange();
   };
 
-  return (
-    <TabsView
-      activeIndex={activeIndex}
-      onTabChange={handleTabChange}
-      tabs={tabs}
-      tabWidth={tabWidth}
-    />
-  );
+  return <AntdTabs onChange={handleTabChange} items={items} {...restProps} />;
 };

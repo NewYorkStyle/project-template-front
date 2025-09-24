@@ -2,22 +2,24 @@ import style from './auth.module.less';
 import {signInStore, signUpStore} from '../../entities/stores';
 import {SignIn} from '../sign-in/sign-in';
 import {SignUp} from '../sign-up/sign-up';
-import {E_ANALYTIC_NAMESPACES, TTab, Tabs} from '@common';
+import {E_ANALYTIC_NAMESPACES, TTabItem, Tabs, Typography} from '@common';
 import {useEffect} from 'react';
-import {WithTranslation, withTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-type TProps = WithTranslation;
+export const Auth = () => {
+  const {t} = useTranslation();
 
-export const Auth = withTranslation()(({i18n: {t}}: TProps) => {
-  const tabConfig: TTab[] = [
+  const tabConfig: TTabItem[] = [
     {
       analyticsLabel: 'SignIn',
-      content: <SignIn />,
+      children: <SignIn />,
+      key: 'sign-in',
       label: t('Authentication.SignIn.Label'),
     },
     {
       analyticsLabel: 'SignUp',
-      content: <SignUp />,
+      children: <SignUp />,
+      key: 'sign-up',
       label: t('Authentication.SignUp.Label'),
     },
   ];
@@ -29,16 +31,19 @@ export const Auth = withTranslation()(({i18n: {t}}: TProps) => {
     },
     []
   );
+
   return (
     <div className={style.root}>
-      <h1>{t('Welcome')}</h1>
-      <Tabs
-        tabs={tabConfig}
-        analyticProps={{
-          label: 'Auth tabs',
-          namespace: E_ANALYTIC_NAMESPACES.AUTH,
-        }}
-      />
+      <Typography.Title>{t('Welcome')}</Typography.Title>
+      <div className={style.tabsWrapper}>
+        <Tabs
+          items={tabConfig}
+          analyticProps={{
+            label: 'Auth tabs',
+            namespace: E_ANALYTIC_NAMESPACES.AUTH,
+          }}
+        />
+      </div>
     </div>
   );
-});
+};

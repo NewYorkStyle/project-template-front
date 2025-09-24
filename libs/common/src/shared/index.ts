@@ -1,4 +1,4 @@
-export * from './metrics/index';
-export * from './constants/index';
+export * from './metrics';
+export * from './constants';
 export * from './utils';
 export * from './router';

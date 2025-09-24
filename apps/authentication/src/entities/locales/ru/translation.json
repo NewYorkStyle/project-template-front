@@ -4,7 +4,9 @@
       "Label": "Войти",
       "LoginPlaceholder": "Введите логин",
       "PasswordPlaceholder": "Введите пароль",
-      "AuthError": "Ошибка аутентификации"
+      "AuthError": "Ошибка аутентификации",
+      "PasswordRequired": "Пожалуйста, введите свой пароль!",
+      "LoginRequired": "Пожалуйста, введите свое имя пользователя!"
     },
     "SignUp": {
       "Label": "Зарегистрироваться",
@@ -12,18 +14,21 @@
       "EmailPlaceholder": "Введите почту",
       "PasswordPlaceholder": "Введите пароль",
       "PasswordConfirmPlaceholder": "Подтверждение пароля",
+      "Rules": {
+        "EmailRequired": "Пожалуйста, введите свою почту!",
+        "LoginRequired": "Пожалуйста, введите свое имя пользователя!",
+        "PasswordConfirmRequired": "Пожалуйста, подтвердите свой пароль!",
+        "PasswordRequired": "Пожалуйста, введите свой пароль!",
+        "EmailRules": "Введите действительный email!",
+        "PasswordConfirmRules": "Пароль не соответствует введённому!",
+        "PasswordRules": "Пароль не соответствует условиям"
+      },
       "PasswordSuggestions": {
         "Header": "Пароль должен содержать:",
         "LowerCase": "Хотя бы один символ в нижнем регистре",
         "UpperCase": "Хотя бы один символ в верхнем регистреe",
         "Numeric": "Хотя бы одну цифру",
         "MinLength": "Минимум {{minLength}} символов"
-      },
-      "PasswordStrength": {
-        "EnterPassword": "Введите пароль",
-        "WeakLabel": "Слишком простой",
-        "MediumLabel": "Средней сложности",
-        "StrongLabel": "Сложный пароль"
       }
     }
   },

@@ -14,6 +14,7 @@ export const getAntdThemeConfig = (theme: 'light' | 'dark'): ThemeConfig => {
       },
       Select: {
         optionSelectedBg: palette.accentPrimary,
+        optionSelectedFontWeight: 'normal',
       },
     },
     token: {

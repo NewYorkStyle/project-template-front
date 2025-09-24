@@ -1,3 +1,3 @@
-export * from './widgets/index';
-export * from './entities/index';
-export * from './shared/index';
+export * from './widgets';
+export * from './entities';
+export * from './shared';

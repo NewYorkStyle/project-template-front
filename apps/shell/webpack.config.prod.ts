@@ -1,4 +1,5 @@
 import baseConfig from './module-federation.config';
+import {withGlobalLessResources} from '../../tools/webpack/plugins/with-global-less-resources';
 import {ModuleFederationConfig} from '@nx/module-federation';
 import {withReact} from '@nx/react';
 import {withModuleFederation} from '@nx/react/module-federation';
@@ -10,11 +11,12 @@ const prodConfig: ModuleFederationConfig = {
     ['main', 'http://localhost:4201/'],
     ['authentication', 'http://localhost:4202/'],
     ['user', 'http://localhost:4203/'],
-],
+  ],
 };
 
 export default composePlugins(
   withNx(),
   withReact(),
-  withModuleFederation(prodConfig, {dts: false})
+  withModuleFederation(prodConfig, {dts: false}),
+  withGlobalLessResources()
 );

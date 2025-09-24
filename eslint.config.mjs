@@ -4,11 +4,8 @@ import sortKeys from 'eslint-plugin-sort-keys-fix';
 import sortDestrKeys from 'eslint-plugin-sort-destructure-keys';
 
 export default [
-  // @ts-ignore
   ...nx.configs['flat/base'],
-  // @ts-ignore
   ...nx.configs['flat/typescript'],
-  // @ts-ignore
   ...nx.configs['flat/javascript'],
   {
     ignores: ['**/dist'],
@@ -19,7 +16,7 @@ export default [
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$', '^tools/.*'],
           depConstraints: [
             {
               onlyDependOnLibsWithTags: ['*'],
@@ -54,6 +51,33 @@ export default [
             order: 'asc',
           },
           groups: ['builtin', ['sibling', 'parent'], 'index', 'object'],
+        },
+      ],
+    },
+  },
+  // Специфичные правила для webpack конфигов - разрешаем относительные пути из tools
+  {
+    files: ['**/webpack.config*'],
+    rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          allow: [
+            '^.*/eslint(\\.base)?\\.config\\.[cm]?js$',
+            '^tools/.*',
+            // Разрешаем относительные пути к tools из webpack конфигов
+            '^\\.\\./\\.\\./tools/.*', // ../../tools/
+            '^\\.\\./tools/.*', // ../tools/
+            '^\\./tools/.*', // ./tools/
+            '^tools/.*', // tools/
+          ],
+          depConstraints: [
+            {
+              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: '*',
+            },
+          ],
+          enforceBuildableLibDependency: false,
         },
       ],
     },

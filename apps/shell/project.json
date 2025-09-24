@@ -8,7 +8,7 @@
     "generate-tokens": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsx ./libs/common/src/shared/utils/generate-global-less.ts",
+        "command": "npm run generate:tokens",
         "cwd": "{workspaceRoot}"
       }
     },

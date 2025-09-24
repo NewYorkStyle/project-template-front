@@ -48,4 +48,4 @@ storybook-static
 .env
 
 # generated
-apps/shell/src/styles.less
+libs/common/src/styles/global.less
