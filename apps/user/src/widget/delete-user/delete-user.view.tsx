@@ -1,5 +1,5 @@
 import style from './delete-user.module.less';
-import {Button, Dialog, Password} from '@common';
+import {Button, Dialog} from '@common';
 import {WithTranslation, withTranslation} from 'react-i18next';
 
 type TProps = {
@@ -36,11 +36,11 @@ export const DeleteUserView = withTranslation()(({
       <div className={style.header}>{t('Profile.Delete.DeleteProfile')}</div>
       <div className={style.password}>
         <span className={style.label}>{t('Profile.Delete.Password')}</span>
-        <Password
+        {/* <Password
           value={password}
           onChange={onPasswordChange}
           placeholder={t('Profile.Delete.PasswordPlaceholder')}
-        />
+        /> */}
       </div>
       <Button
         className={style.button}

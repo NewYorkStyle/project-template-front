@@ -1,7 +1,11 @@
 /* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
-import {TColorPalette, TDesignTokens, designTokens} from '../constants';
+import {
+  TColorPalette,
+  TDesignTokens,
+  designTokens,
+} from '../../libs/common/src/shared/constants';
 
 // Функция для преобразования camelCase в kebab-case
 const camelToKebab = (str: string): string => {
@@ -22,14 +26,6 @@ const generateCssVariables = (palette: TColorPalette, prefix = ''): string => {
 
 export const generateLessVariables = (tokens: TDesignTokens): string => {
   let lessContent = '// Auto-generated from TypeScript\n\n';
-
-  // Глобальные стили
-  lessContent += '// Глобальные стили\n';
-  lessContent += 'body {\n';
-  lessContent += '  margin: 0;\n';
-  lessContent += '  padding: 0;\n';
-  lessContent += '}\n';
-  lessContent += '\n';
 
   // Размеры
   Object.entries(tokens.spacing).forEach(([key, value]) => {
@@ -60,7 +56,10 @@ export const generateLessVariables = (tokens: TDesignTokens): string => {
 const workspaceRoot = path.resolve(__dirname, '../../../../../');
 console.log('📁 Workspace root:', workspaceRoot);
 
-const outputPath = path.join(workspaceRoot, 'apps/shell/src/styles.less');
+const outputPath = path.join(
+  workspaceRoot,
+  'libs/common/src/styles/global.less'
+);
 console.log('📄 Output path:', outputPath);
 
 // Создаем директорию, если её нет
