@@ -3,9 +3,7 @@ import {Tabs as AntdTabs, TabsProps} from 'antd';
 
 type TTabItemType = NonNullable<TabsProps['items']>[number];
 
-export type TTabItem = TTabItemType & {
-  analyticsLabel?: string;
-};
+export type TTabItem = TTabItemType & {analyticsLabel?: string};
 
 type TProps = Omit<TabsProps, 'items'> & {
   analyticProps?: TAnalyticsProps;

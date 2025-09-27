@@ -1,5 +1,4 @@
 export * from './button';
-export * from './dialog';
 export * from './divider';
 export * from './flex';
 export * from './form';
@@ -9,5 +8,4 @@ export * from './segmented';
 export * from './select';
 export * from './svg';
 export * from './tabs';
-export * from './toast';
 export * from './typography';

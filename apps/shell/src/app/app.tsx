@@ -1,13 +1,12 @@
-import {AppLayout} from './app-layout';
+import {AppProviders} from './app-providers';
 import i18nShellInstance from '../shared/utils/i18n-init';
-import {ToastProvider, getAntdThemeConfig, paramsStore} from '@common';
-import {ConfigProvider} from 'antd';
+import {paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import React, {useEffect} from 'react';
 import {I18nextProvider} from 'react-i18next';
 
 export const App = observer(() => {
-  const {init, theme} = paramsStore;
+  const {init} = paramsStore;
 
   useEffect(() => {
     init();
@@ -16,11 +15,7 @@ export const App = observer(() => {
   return (
     <React.Suspense fallback={null}>
       <I18nextProvider i18n={i18nShellInstance}>
-        <ConfigProvider theme={getAntdThemeConfig(theme)}>
-          <ToastProvider>
-            <AppLayout />
-          </ToastProvider>
-        </ConfigProvider>
+        <AppProviders />
       </I18nextProvider>
     </React.Suspense>
   );

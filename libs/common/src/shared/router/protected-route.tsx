@@ -3,12 +3,12 @@ import {observer} from 'mobx-react-lite';
 import React, {ReactNode} from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
 
-interface ProtectedRouteProps {
+type TProtectedRouteProps = {
   children: ReactNode;
   redirectTo?: string;
-}
+};
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = observer(
+export const ProtectedRoute: React.FC<TProtectedRouteProps> = observer(
   ({children, redirectTo = '/auth'}) => {
     const {isUserLogged} = userStore;
     const location = useLocation();
