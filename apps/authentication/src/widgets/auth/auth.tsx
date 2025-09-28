@@ -2,7 +2,14 @@ import style from './auth.module.less';
 import {signInStore, signUpStore} from '../../entities/stores';
 import {SignIn} from '../sign-in/sign-in';
 import {SignUp} from '../sign-up/sign-up';
-import {E_ANALYTIC_NAMESPACES, TTabItem, Tabs, Typography} from '@common';
+import {
+  APP_VERSION,
+  E_ANALYTIC_NAMESPACES,
+  Flex,
+  TTabItem,
+  Tabs,
+  Typography,
+} from '@common';
 import {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 
@@ -43,6 +50,11 @@ export const Auth = () => {
             namespace: E_ANALYTIC_NAMESPACES.AUTH,
           }}
         />
+        <Flex justify='center'>
+          <Typography.Text type='secondary'>
+            {t('Authentication.Version')}: {APP_VERSION}
+          </Typography.Text>
+        </Flex>
       </div>
     </div>
   );

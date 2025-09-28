@@ -53,6 +53,10 @@
             "release": "patch"
           },
           {
+            "type": "nx-cloud",
+            "release": false
+          },
+          {
             "breaking": true,
             "release": "major"
           }
@@ -115,8 +119,20 @@
               "type": "ci",
               "section": "Continuous Integration",
               "hidden": true
+            },
+            {
+              "type": "nx-cloud",
+              "section": "Nx Cloud",
+              "hidden": true
             }
           ]
+        },
+        "writerOpts": {
+          "commitsSort": [
+            "scope",
+            "subject"
+          ],
+          "bullet": "-"
         }
       }
     ],
@@ -137,7 +153,8 @@
       {
         "assets": [
           "package.json",
-          "docs/CHANGELOG.md"
+          "docs/CHANGELOG.md",
+          "libs/common/src/shared/constants/version.ts"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
