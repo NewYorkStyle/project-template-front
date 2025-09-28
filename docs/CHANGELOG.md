@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.0.0...v1.1.0) (2025-09-28)
+
+### Features
+
+* PROJECTTEMPLATE-12 Добавил вывод версии на экран авторизации ([#23](https://github.com/NewYorkStyle/project-template-front/issues/23)) ([75b6b4a](https://github.com/NewYorkStyle/project-template-front/commit/75b6b4abd64e847e299b8770cc3a953c0084d9c6))
+
 ## 1.0.0 (2025-09-28)
 
 ### Features
