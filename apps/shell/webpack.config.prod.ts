@@ -1,5 +1,6 @@
 import baseConfig from './module-federation.config';
 import {withGlobalLessResources} from '../../tools/webpack/plugins/with-global-less-resources';
+import {withIgnoreWarnings} from '../../tools/webpack/plugins/with-ignore-warnings';
 import {ModuleFederationConfig} from '@nx/module-federation';
 import {withReact} from '@nx/react';
 import {withModuleFederation} from '@nx/react/module-federation';
@@ -18,5 +19,6 @@ export default composePlugins(
   withNx(),
   withReact(),
   withModuleFederation(prodConfig, {dts: false}),
-  withGlobalLessResources()
+  withGlobalLessResources(),
+  (config) => withIgnoreWarnings(config)
 );

@@ -7,6 +7,11 @@ export const getAntdThemeConfig = (theme: 'light' | 'dark'): ThemeConfig => {
 
   return {
     components: {
+      Button: {
+        dangerShadow: 'none',
+        defaultShadow: 'none',
+        primaryShadow: 'none',
+      },
       Layout: {
         headerBg: palette.backgroundPrimary,
         headerPadding: designTokens.spacing.lg,

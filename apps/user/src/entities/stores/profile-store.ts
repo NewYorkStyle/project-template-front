@@ -2,105 +2,98 @@ import {initPersonalData} from '../../shared/contants';
 import i18nUserInstance from '../../shared/utils/i18n-init';
 import {deleteProfileApi, geteProfileApi, updateProfileApi} from '../api';
 import {TProfileData} from '../models';
-import {E_TOAST_SEVERITY, showToast, userStore} from '@common';
-import isEqual from 'lodash/isEqual';
+import {notificationService, userStore} from '@common';
 import {makeAutoObservable, runInAction} from 'mobx';
 
 class ProfileStore {
   private _initData: TProfileData = {...initPersonalData};
-  private _personalData: TProfileData = {...initPersonalData};
-  private _password = '';
+  private _isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  get isSaveDisabled(): boolean {
-    return isEqual(this._personalData, this._initData);
+  get initData(): TProfileData {
+    return this._initData;
   }
 
-  get personalData(): TProfileData {
-    return this._personalData;
-  }
-
-  get password(): string {
-    return this._password;
-  }
-
-  set password(value: string) {
-    this._password = value;
+  get isLoading(): boolean {
+    return this._isLoading;
   }
 
   getProfileData = async () => {
+    this._isLoading = true;
+
     try {
       const profile = await geteProfileApi();
 
       runInAction(() => {
-        this._personalData = profile;
-        this._initData = profile;
+        // TODO Вернуть email после реализации функционала
+        this._initData = {
+          name: profile.name,
+          patronymic: profile.patronymic,
+          surname: profile.surname,
+        };
       });
     } catch (error) {
-      showToast({
-        severity: E_TOAST_SEVERITY.ERROR,
-        summary: i18nUserInstance.t('Profile.PersonalData.ErrorGetData'),
-      });
+      notificationService.error(
+        i18nUserInstance.t('Profile.PersonalData.ErrorGetData')
+      );
+    } finally {
+      this._isLoading = false;
     }
   };
 
-  saveData = async () => {
+  saveData = async (data: TProfileData) => {
+    this._isLoading = true;
+
     try {
-      const profile = await updateProfileApi(this._personalData);
+      const profile = await updateProfileApi(data);
 
       runInAction(() => {
-        this._personalData = profile;
-        this._initData = profile;
+        // TODO Вернуть email после реализации функционала
+        this._initData = {
+          name: profile.name,
+          patronymic: profile.patronymic,
+          surname: profile.surname,
+        };
 
-        showToast({
-          severity: E_TOAST_SEVERITY.INFO,
-          summary: i18nUserInstance.t(
-            'Profile.PersonalData.SuccessfulySaveData'
-          ),
-        });
+        notificationService.success(
+          i18nUserInstance.t('Profile.PersonalData.SuccessfulySaveData')
+        );
       });
     } catch (error) {
-      showToast({
-        severity: E_TOAST_SEVERITY.ERROR,
-        summary: i18nUserInstance.t('Profile.PersonalData.ErrorSaveData'),
-      });
+      notificationService.error(
+        i18nUserInstance.t('Profile.PersonalData.ErrorSaveData')
+      );
+    } finally {
+      this._isLoading = false;
     }
   };
 
-  deleteProfile = async (navigateCallback: () => void) => {
+  deleteProfile = async (password: string, navigateCallback: () => void) => {
+    this._isLoading = true;
+
     try {
-      await deleteProfileApi(this._password);
+      await deleteProfileApi(password);
 
       runInAction(() => {
-        showToast({
-          severity: E_TOAST_SEVERITY.INFO,
-          summary: i18nUserInstance.t('Profile.Delete.Successfully'),
-        });
+        notificationService.success(
+          i18nUserInstance.t('Profile.Delete.Successfully')
+        );
+
         userStore.isUserLogged = false;
         navigateCallback();
       });
     } catch (error) {
-      showToast({
-        severity: E_TOAST_SEVERITY.ERROR,
-        summary: i18nUserInstance.t('Profile.Delete.Error'),
-      });
+      notificationService.error(i18nUserInstance.t('Profile.Delete.Error'));
+    } finally {
+      this._isLoading = false;
     }
   };
 
-  changePersonalData = (
-    field: keyof TProfileData,
-    value: TProfileData[keyof TProfileData]
-  ) => {
-    this._personalData = {...this._personalData, [field]: value};
-  };
-
   clear = () => {
-    this._personalData = {...initPersonalData};
     this._initData = {...initPersonalData};
-    this._password = '';
   };
 }
 

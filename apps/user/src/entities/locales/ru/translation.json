@@ -7,10 +7,14 @@
       "Header": "Личные данные",
       "ErrorGetData": "Ошибка загрузка данных профиля",
       "ErrorSaveData": "Ошибка сохраняния данных",
-      "SuccessfulySaveData": "Данные успешно сохранены"
+      "SuccessfulySaveData": "Данные успешно сохранены",
+      "Save": "Сохранить",
+      "NameRequired": "Пожалуйста, введите свое имя!",
+      "SurnameRequired": "Пожалуйста, введите свою фамилию!",
+      "OnlyLettersAllowed": "Доступны только буквы"
     },
     "Delete": {
-      "DeleteProfile": "Удаление профиля",
+      "Header": "Удаление профиля",
       "Password": "Пароль",
       "PasswordPlaceholder": "Введите пароль",
       "Delete": "Удалить",
@@ -21,10 +25,8 @@
         "Content": "Вы действительно хотите удалить профиль?",
         "Delete": "Удалить",
         "Cancel": "Отмена"
-      }
-    },
-    "Footer": {
-      "Save": "Сохранить"
+      },
+      "PasswordRequired": "Пожалуйста, введите свой пароль!"
     }
   }
 }
