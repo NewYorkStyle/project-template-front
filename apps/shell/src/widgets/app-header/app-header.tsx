@@ -2,26 +2,25 @@ import style from './app-header.module.less';
 import {LanguageSelect} from '../language-select/language-select';
 import {ThemeChange} from '../theme-change/theme-change';
 import {UserIcon} from '../user-icon/user-icon';
-import {Flex, HomeIcon, designTokens} from '@common';
+import {Flex, designTokens, userStore} from '@common';
 import {Header} from 'antd/es/layout/layout';
-import {Link} from 'react-router-dom';
+import {observer} from 'mobx-react-lite';
 
 /**
  * Шапка страницы.
  */
-export const AppHeader = () => {
+export const AppHeader = observer(() => {
+  const {isUserLogged} = userStore;
+
   return (
     <Header className={style.header}>
-      <Flex align='center' justify='space-between' className={style.root}>
-        <Link to='main'>
-          <HomeIcon size={36} />
-        </Link>
+      <Flex align='center' justify='right' className={style.root}>
         <Flex align='center' gap={designTokens.spacing.sm}>
           <ThemeChange />
           <LanguageSelect />
-          <UserIcon />
+          {isUserLogged ? <UserIcon /> : <div className={style.emptyIcon} />}
         </Flex>
       </Flex>
     </Header>
   );
-};
+});

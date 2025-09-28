@@ -11,6 +11,16 @@
     position: fixed;
     z-index: 1000;
     width: 200px;
+
+    :global {
+      .ant-menu {
+        padding-top: @spacing-md;
+      }
+
+      .ant-menu-item-icon {
+        margin-left: -7px;
+      }
+    }
   }
 }
 
