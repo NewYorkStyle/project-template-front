@@ -1,34 +1,67 @@
-import {SignInView} from './sign-in.view';
+import style from './sing-in.module.less';
 import {signInStore} from '../../entities/stores';
+import {TSignInFormValues} from '../../shared';
+import {Button, E_ANALYTIC_NAMESPACES, Form, Input} from '@common';
 import {observer} from 'mobx-react-lite';
+import {useTranslation} from 'react-i18next';
 
 export const SignIn = observer(() => {
-  const isSendButtonDisabled = !signInStore.login || !signInStore.password;
+  const {t} = useTranslation();
+  const {isLoading, signIn} = signInStore;
 
-  const handleLoginChange = (value: string) => {
-    signInStore.login = value;
+  const handleSubmit = (values: TSignInFormValues) => {
+    signIn(values);
   };
 
-  const handlePasswordChange = (value: string) => {
-    signInStore.password = value;
-  };
-
-  const handleSignInClick = () => {
-    if (!isSendButtonDisabled) {
-      signInStore.signIn();
-    }
+  const initialValues: TSignInFormValues = {
+    login: '',
+    password: '',
   };
 
   return (
-    <SignInView
-      login={signInStore.login}
-      password={signInStore.password}
-      onLoginChange={handleLoginChange}
-      onPasswordChange={handlePasswordChange}
-      onSignInClick={handleSignInClick}
-      isSendButtonDisabled={isSendButtonDisabled}
-      isLoading={signInStore.loginLoading}
-      onEnterClick={handleSignInClick}
-    />
+    <div className={style.root}>
+      <Form<TSignInFormValues>
+        name='sign-in'
+        initialValues={initialValues}
+        onFinish={handleSubmit}
+        autoComplete='off'
+        disabled={isLoading}
+      >
+        <Form.Item
+          name='login'
+          rules={[
+            {message: t('Authentication.SignIn.LoginRequired'), required: true},
+          ]}
+        >
+          <Input placeholder={t('Authentication.SignIn.LoginPlaceholder')} />
+        </Form.Item>
+        <Form.Item
+          name='password'
+          rules={[
+            {
+              message: t('Authentication.SignIn.PasswordRequired'),
+              required: true,
+            },
+          ]}
+        >
+          <Input.Password
+            visibilityToggle
+            placeholder={t('Authentication.SignIn.PasswordPlaceholder')}
+          />
+        </Form.Item>
+        <Form.Item noStyle>
+          <Button
+            className={style.submitButton}
+            analyticProps={{
+              label: 'Sign in button',
+              namespace: E_ANALYTIC_NAMESPACES.AUTH,
+            }}
+            htmlType='submit'
+          >
+            {t('Authentication.SignIn.Label')}
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 });

@@ -7,24 +7,26 @@
       "Header": "Personal data",
       "ErrorGetData": "Error loading profile data",
       "ErrorSaveData": "Error saving data",
-      "SuccessfulySaveData": "Data saved successfully"
+      "SuccessfulySaveData": "Data saved successfully",
+      "Save": "Save",
+      "SurnameRequired": "Please input your surname!",
+      "NameRequired": "Please input your name!",
+      "OnlyLettersAllowed": "Only letters allowed"
     },
     "Delete": {
-      "DeleteProfile": "Deleting a profile",
+      "Header": "Deleting a profile",
       "Password": "Password",
       "PasswordPlaceholder": "Enter password",
       "Delete": "Delete",
       "Error": "Error deleting profile",
       "Successfully": "Profile successfully deleted",
+      "PasswordRequired": "Please input your password!",
       "ConfirmationDialog": {
         "Header": "Deleting a profile",
         "Content": "Are you sure you want to delete the profile?",
         "Delete": "Delete",
         "Cancel": "Cancel"
       }
-    },
-    "Footer": {
-      "Save": "Save"
     }
   }
 }

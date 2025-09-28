@@ -1,25 +1,25 @@
-:global(.p-tabview-title) {
-  font-size: 18px;
-  font-weight: 300;
-}
+.tabsWrapper {
+  :global {
+    .ant-tabs-nav {
+      width: 100%;
+    }
 
-:global(.p-tabview) {
-  box-shadow: 0 0px 8px 1px var(--elements-gray);
-  border-radius: 5px;
-  background: var(--background1);
-}
+    .ant-tabs-nav-list {
+      width: 100%;
+      display: flex;
+    }
 
-:global(.p-tabview-panels) {
-  background: var(--background1);
-}
+    .ant-tabs-tab {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      margin-right: 0;
 
-:global(.p-tabview-nav-link) {
-  background: var(--background1);
-  border: solid var(--elements-gray);
-  border-width: 0 0 2px 0;
-  border-color: transparent transparent var(--elements-gray) transparent;
-}
-
-:global(.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link) {
-  border-color: var(--elements-blue);
+      .ant-tabs-tab-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  }
 }

@@ -5,7 +5,15 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "generate-tokens": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run generate:tokens",
+        "cwd": "{workspaceRoot}"
+      }
+    },
     "build": {
+      "dependsOn": ["generate-tokens"],
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -48,6 +56,7 @@
       }
     },
     "serve": {
+      "dependsOn": ["generate-tokens"],
       "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
@@ -67,6 +76,7 @@
       }
     },
     "serve-static": {
+      "dependsOn": ["generate-tokens"],
       "executor": "@nx/react:module-federation-static-server",
       "defaultConfiguration": "production",
       "options": {

@@ -4,7 +4,9 @@
       "Label": "Sign in",
       "LoginPlaceholder": "Enter login",
       "PasswordPlaceholder": "Enter password",
-      "AuthError": "Authentication error"
+      "AuthError": "Authentication error",
+      "LoginRequired": "Please input your username!",
+      "PasswordRequired": "Please input your password!"
     },
     "SignUp": {
       "Label": "Sign up",
@@ -12,18 +14,21 @@
       "EmailPlaceholder": "Enter email",
       "PasswordPlaceholder": "Enter password",
       "PasswordConfirmPlaceholder": "Confirm password",
+      "Rules": {
+        "LoginRequired": "Please input your username!",
+        "PasswordRequired": "Please input your password!",
+        "EmailRequired": "Please input your email!",
+        "PasswordConfirmRequired": "Please confirm your password!",
+        "EmailRules": "The input is not valid E-mail!",
+        "PasswordConfirmRules": "The new password that you entered do not match!",
+        "PasswordRules": "Password does not meet the conditions"
+      },
       "PasswordSuggestions": {
         "Header": "Password must contain: ",
         "LowerCase": "At least one lowercase",
         "UpperCase": "At least one uppercase",
         "Numeric": "At least one numeric",
         "MinLength": "Minimum {{minLength}} characters"
-      },
-      "PasswordStrength": {
-        "EnterPassword": "Enter password",
-        "WeakLabel": "Too simple",
-        "MediumLabel": "Average complexity",
-        "StrongLabel": "Complex password"
       }
     }
   },
