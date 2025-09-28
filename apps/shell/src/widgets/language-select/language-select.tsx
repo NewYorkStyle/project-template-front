@@ -3,46 +3,47 @@ import {E_LANGUAGE} from '../../shared/constants';
 import {E_ANALYTIC_NAMESPACES, Select} from '@common';
 import {paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
-import {WithTranslation, withTranslation} from 'react-i18next';
-
-type TProps = WithTranslation;
+import {useTranslation} from 'react-i18next';
 
 /**
  * Компонент выбора языка.
  */
-export const LanguageSelect = withTranslation()(
-  observer(({i18n: {changeLanguage, t}}: TProps) => {
-    const {language, setLanguage} = paramsStore;
+export const LanguageSelect = observer(() => {
+  const {
+    i18n: {changeLanguage},
+    t,
+  } = useTranslation();
 
-    const handleLanguageChange = (value: string) => {
-      setLanguage(value);
-      changeLanguage(value);
-    };
+  const {language, setLanguage} = paramsStore;
 
-    const languageOptions = [
-      {
-        analyticsLabel: 'ru',
-        label: t('Languages.ru'),
-        value: E_LANGUAGE.RUS,
-      },
-      {
-        analyticsLabel: 'eng',
-        label: t('Languages.eng'),
-        value: E_LANGUAGE.ENG,
-      },
-    ];
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value);
+    changeLanguage(value);
+  };
 
-    return (
-      <Select
-        options={languageOptions}
-        onChange={handleLanguageChange}
-        value={language}
-        analyticProps={{
-          label: 'language-select',
-          namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
-        }}
-        className={style.root}
-      />
-    );
-  })
-);
+  const languageOptions = [
+    {
+      analyticsLabel: 'ru',
+      label: t('Languages.ru'),
+      value: E_LANGUAGE.RUS,
+    },
+    {
+      analyticsLabel: 'eng',
+      label: t('Languages.eng'),
+      value: E_LANGUAGE.ENG,
+    },
+  ];
+
+  return (
+    <Select
+      options={languageOptions}
+      onChange={handleLanguageChange}
+      value={language}
+      analyticProps={{
+        label: 'language-select',
+        namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
+      }}
+      className={style.root}
+    />
+  );
+});

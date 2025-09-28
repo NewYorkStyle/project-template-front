@@ -15,7 +15,8 @@
     "generate:tokens": "tsx tools/generators/generate-global-less.ts",
     "update:version": "tsx tools/generators/update-version.ts",
     "semantic-release": "semantic-release",
-    "semantic-release:dry-run": "semantic-release --dry-run"
+    "semantic-release:dry-run": "semantic-release --dry-run",
+    "codestyle:check": "npm run prettier:check && npm run lint"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
