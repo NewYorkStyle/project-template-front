@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.1.1...v1.2.0) (2025-09-28)
+
+### Features
+
+* PROJECTTEMPLATE-6 Добавил выбор языка и темы на экран авторизации ([#25](https://github.com/NewYorkStyle/project-template-front/issues/25)) ([169d1f8](https://github.com/NewYorkStyle/project-template-front/commit/169d1f8704d1b48e54ee68251623e9c5e3803997))
+
 ## [1.1.1](https://github.com/NewYorkStyle/project-template-front/compare/v1.1.0...v1.1.1) (2025-09-28)
 
 ## [1.1.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.0.0...v1.1.0) (2025-09-28)
