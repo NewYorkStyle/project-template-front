@@ -30,7 +30,8 @@
         "Numeric": "At least one numeric",
         "MinLength": "Minimum {{minLength}} characters"
       }
-    }
+    },
+    "Version": "Version"
   },
   "Welcome": "Welcome"
 }

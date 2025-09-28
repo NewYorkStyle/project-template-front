@@ -12,6 +12,13 @@
         "cwd": "{workspaceRoot}"
       }
     },
+    "get-version": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run update:version",
+        "cwd": "{workspaceRoot}"
+      }
+    },
     "build": {
       "dependsOn": ["generate-tokens"],
       "executor": "@nx/webpack:webpack",
@@ -56,7 +63,7 @@
       }
     },
     "serve": {
-      "dependsOn": ["generate-tokens"],
+      "dependsOn": ["generate-tokens", "get-version"],
       "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
@@ -76,7 +83,7 @@
       }
     },
     "serve-static": {
-      "dependsOn": ["generate-tokens"],
+      "dependsOn": ["generate-tokens", "get-version"],
       "executor": "@nx/react:module-federation-static-server",
       "defaultConfiguration": "production",
       "options": {

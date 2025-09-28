@@ -49,3 +49,4 @@ storybook-static
 
 # generated
 libs/common/src/styles/global.less
+libs/common/src/shared/constants/version.ts
