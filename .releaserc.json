@@ -1,7 +1,5 @@
 {
-  "branches": [
-    "master"
-  ],
+  "branches": ["master"],
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -126,13 +124,6 @@
               "hidden": true
             }
           ]
-        },
-        "writerOpts": {
-          "commitsSort": [
-            "scope",
-            "subject"
-          ],
-          "bullet": "-"
         }
       }
     ],
