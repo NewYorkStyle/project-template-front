@@ -1,5 +1,5 @@
 import {Router} from './router';
-import i18nUserInstance from '../shared/utils/i18n-init';
+import i18nUserInstance from '../shared/lib/i18n/i18n-init';
 import {I18nextProvider} from 'react-i18next';
 
 export const App = () => {

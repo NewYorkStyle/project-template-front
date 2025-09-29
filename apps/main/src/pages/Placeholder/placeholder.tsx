@@ -1,7 +1,7 @@
 import style from './placeholder.module.less';
 import {
   Button,
-  E_ANALYTIC_NAMESPACES,
+  E_METRICS_NAMESPACES,
   Flex,
   Typography,
   designTokens,
@@ -35,7 +35,7 @@ export const Placeholder = observer(() => {
       <Button
         analyticProps={{
           label: 'didnt-work',
-          namespace: E_ANALYTIC_NAMESPACES.PLACEHOLDER,
+          namespace: E_METRICS_NAMESPACES.PLACEHOLDER,
         }}
         onClick={noop}
       >

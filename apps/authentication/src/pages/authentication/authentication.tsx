@@ -1,5 +1,5 @@
 import style from './authentication.module.less';
-import {Auth} from '../../widgets';
+import {Auth} from '../../features';
 import {paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';

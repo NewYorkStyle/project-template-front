@@ -1,6 +1,6 @@
 import {
   Button,
-  E_ANALYTIC_NAMESPACES,
+  E_METRICS_NAMESPACES,
   Flex,
   Popover,
   Profile,
@@ -45,7 +45,7 @@ export const UserIcon = observer(() => {
               onClick={handleProfileClick}
               analyticProps={{
                 label: 'Log out',
-                namespace: E_ANALYTIC_NAMESPACES.USER,
+                namespace: E_METRICS_NAMESPACES.USER,
               }}
             >
               {t('UserIcon.Profile')}
@@ -56,7 +56,7 @@ export const UserIcon = observer(() => {
             onClick={handleLogout}
             analyticProps={{
               label: 'Log out',
-              namespace: E_ANALYTIC_NAMESPACES.USER,
+              namespace: E_METRICS_NAMESPACES.USER,
             }}
           >
             {t('UserIcon.LogOut')}
@@ -70,7 +70,7 @@ export const UserIcon = observer(() => {
         onClick={handleUserIconClick}
         analyticProps={{
           label: `Icon ${isPopoverOpen ? 'close' : 'open'}`,
-          namespace: E_ANALYTIC_NAMESPACES.USER,
+          namespace: E_METRICS_NAMESPACES.USER,
         }}
       />
     </Popover>

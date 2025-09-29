@@ -53,12 +53,12 @@ export const generateLessVariables = (tokens: TDesignTokens): string => {
   return lessContent;
 };
 
-const workspaceRoot = path.resolve(__dirname, '../../../../../');
+const workspaceRoot = path.resolve(__dirname, '../../');
 console.log('📁 Workspace root:', workspaceRoot);
 
 const outputPath = path.join(
   workspaceRoot,
-  'libs/common/src/styles/global.less'
+  'libs/common/src/app/styles/global.less'
 );
 console.log('📄 Output path:', outputPath);
 

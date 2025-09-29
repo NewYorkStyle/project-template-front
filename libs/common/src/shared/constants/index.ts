@@ -1,4 +1,4 @@
-export * from './analytics';
+export * from './metrics';
 export * from './colors';
 export * from './design-tokens';
 export * from './params';
