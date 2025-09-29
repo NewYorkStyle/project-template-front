@@ -1,5 +1,7 @@
 {
-  "branches": ["master"],
+  "branches": [
+    "master"
+  ],
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -144,6 +146,7 @@
       {
         "assets": [
           "package.json",
+          "package-lock.json",
           "docs/CHANGELOG.md",
           "libs/common/src/shared/constants/version.ts"
         ],
