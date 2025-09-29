@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@common": ["libs/common/src/index.ts"],
-      "@styles": ["libs/common/src/styles/global.less"]
+      "@styles": ["libs/common/src/app/styles/global.less"]
     }
   },
   "exclude": ["tmp"]

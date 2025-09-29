@@ -8,7 +8,7 @@ import * as path from 'path';
  */
 export const withGlobalLessResources = () => (config: any) => {
   const list = [
-    path.resolve(__dirname, '../../../libs/common/src/styles/global.less'),
+    path.resolve(__dirname, '../../../libs/common/src/app/styles/global.less'),
   ];
 
   const ensureArray = (v: any) => (Array.isArray(v) ? v : v ? [v] : []);

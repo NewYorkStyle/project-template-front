@@ -48,5 +48,5 @@ storybook-static
 .env
 
 # generated
-libs/common/src/styles/global.less
+libs/common/src/app/styles/global.less
 libs/common/src/shared/constants/version.ts

@@ -1,4 +1,4 @@
-import {userStore} from '../../entities';
+import {userStore} from '../../features';
 import axios, {AxiosError, AxiosInstance} from 'axios';
 
 const API_BASE_URL = process.env.NX_PUBLIC_API_URL;
