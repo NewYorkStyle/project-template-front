@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.2.0...v1.3.0) (2025-09-29)
+
+### Features
+
+* PROJECTTEMPLATE-0 Конфигурация pr ассистента ([#28](https://github.com/NewYorkStyle/project-template-front/issues/28)) ([a6a9c2e](https://github.com/NewYorkStyle/project-template-front/commit/a6a9c2ed139457e77336568e8056d214a69e8eb6))
+
 ## [1.2.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.1.1...v1.2.0) (2025-09-28)
 
 ### Features
