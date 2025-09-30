@@ -1,5 +1,5 @@
+import {i18nUserInstance} from '../../../entities';
 import {initPersonalData} from '../../../shared';
-import i18nUserInstance from '../../../shared/lib/i18n/i18n-init';
 import {deleteProfileApi, geteProfileApi, updateProfileApi} from '../api';
 import {TProfileData} from '../types';
 import {notificationService, userStore} from '@common';
