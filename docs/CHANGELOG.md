@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.4.0...v1.5.0) (2025-09-30)
+
+### Features
+
+* PROJECTTEMPLATE-14 Добавил спинер ([#32](https://github.com/NewYorkStyle/project-template-front/issues/32)) ([0879243](https://github.com/NewYorkStyle/project-template-front/commit/08792436f3595c2aa5fc7b871484cc94e317c520))
+
 ## [1.4.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.3.2...v1.4.0) (2025-09-30)
 
 ### Features
