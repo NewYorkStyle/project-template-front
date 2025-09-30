@@ -1,5 +1,5 @@
+import {i18nMainInstance} from '../entities';
 import {Router} from './router';
-import i18nMainInstance from '../shared/lib/i18n/i18n-init';
 import {I18nextProvider} from 'react-i18next';
 
 export const App = () => {

@@ -1,5 +1,5 @@
+import {i18nAuthenticationInstance} from '../../../entities';
 import {TSignUpFormValues} from '../../../shared';
-import i18nAuthenticationInstance from '../../../shared/lib/i18n/i18n-init';
 import {signUpApi} from '../api';
 import {notificationService, userStore} from '@common';
 import {makeAutoObservable, runInAction} from 'mobx';
