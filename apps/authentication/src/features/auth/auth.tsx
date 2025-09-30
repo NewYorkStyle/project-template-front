@@ -5,14 +5,17 @@ import {
   APP_VERSION,
   E_METRICS_NAMESPACES,
   Flex,
+  Spin,
   TTabItem,
   Tabs,
   Typography,
 } from '@common';
+import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 
-export const Auth = () => {
+export const Auth = observer(() => {
+  const loading = signInStore.isLoading || signUpStore.isLoading;
   const {t} = useTranslation();
 
   const tabConfig: TTabItem[] = [
@@ -41,20 +44,22 @@ export const Auth = () => {
   return (
     <div className={style.root}>
       <Typography.Title>{t('Welcome')}</Typography.Title>
-      <div className={style.tabsWrapper}>
-        <Tabs
-          items={tabConfig}
-          analyticProps={{
-            label: 'Auth tabs',
-            namespace: E_METRICS_NAMESPACES.AUTH,
-          }}
-        />
-        <Flex justify='center'>
-          <Typography.Text type='secondary'>
-            {t('Authentication.Version')}: {APP_VERSION}
-          </Typography.Text>
-        </Flex>
-      </div>
+      <Spin spinning={loading}>
+        <div className={style.tabsWrapper}>
+          <Tabs
+            items={tabConfig}
+            analyticProps={{
+              label: 'Auth tabs',
+              namespace: E_METRICS_NAMESPACES.AUTH,
+            }}
+          />
+          <Flex justify='center'>
+            <Typography.Text type='secondary'>
+              {t('Authentication.Version')}: {APP_VERSION}
+            </Typography.Text>
+          </Flex>
+        </div>
+      </Spin>
     </div>
   );
-};
+});

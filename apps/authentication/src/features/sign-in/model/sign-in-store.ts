@@ -22,7 +22,7 @@ class SignInStore {
       await signInApi(values.login, values.password);
 
       runInAction(() => {
-        userStore.isUserLogged = true;
+        userStore.setUserLogger(true);
       });
     } catch (error) {
       notificationService.error(

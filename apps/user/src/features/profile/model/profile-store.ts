@@ -82,7 +82,8 @@ class ProfileStore {
           i18nUserInstance.t('Profile.Delete.Successfully')
         );
 
-        userStore.isUserLogged = false;
+        userStore.clearCookies();
+        userStore.clear();
         navigateCallback();
       });
     } catch (error) {

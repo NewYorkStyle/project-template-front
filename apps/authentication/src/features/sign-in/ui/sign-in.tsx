@@ -30,7 +30,10 @@ export const SignIn = observer(() => {
         <Form.Item
           name='login'
           rules={[
-            {message: t('Authentication.SignIn.LoginRequired'), required: true},
+            {
+              message: t('Authentication.SignIn.LoginRequired'),
+              required: true,
+            },
           ]}
         >
           <Input placeholder={t('Authentication.SignIn.LoginPlaceholder')} />
