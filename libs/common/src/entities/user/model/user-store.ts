@@ -14,19 +14,15 @@ class UserStore {
     return this._isUserLogged;
   }
 
-  set isUserLogged(value: boolean) {
-    this._isUserLogged = value;
-  }
-
   refresh = async () => {
     try {
       await refreshToken();
 
       runInAction(() => {
-        this.isUserLogged = true;
+        this._isUserLogged = true;
       });
     } catch (error) {
-      this.isUserLogged = false;
+      this._isUserLogged = false;
     }
   };
 
@@ -50,8 +46,12 @@ class UserStore {
     Cookies.remove('isUserLoggedIn');
   };
 
+  setUserLogger = (value: boolean) => {
+    this._isUserLogged = value;
+  };
+
   clear = () => {
-    this.isUserLogged = false;
+    this._isUserLogged = false;
   };
 }
 

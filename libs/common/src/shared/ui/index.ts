@@ -6,6 +6,7 @@ export * from './input';
 export * from './popover';
 export * from './segmented';
 export * from './select';
+export * from './spin';
 export * from './svg';
 export * from './tabs';
 export * from './typography';
