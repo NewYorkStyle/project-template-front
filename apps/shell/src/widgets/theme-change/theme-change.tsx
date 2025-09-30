@@ -1,6 +1,6 @@
 import {
   BulbLightningIcon,
-  E_ANALYTIC_NAMESPACES,
+  E_METRICS_NAMESPACES,
   MoonIcon,
   Segmented,
   paramsStore,
@@ -17,7 +17,7 @@ export const ThemeChange = observer(() => {
     <Segmented
       analyticProps={{
         label: `theme-${theme === 'dark' ? 'light' : 'dark'}`,
-        namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
+        namespace: E_METRICS_NAMESPACES.APP_HEADER,
       }}
       shape='round'
       options={[

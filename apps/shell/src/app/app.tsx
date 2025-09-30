@@ -1,5 +1,5 @@
-import {AppProviders} from './app-providers';
-import i18nShellInstance from '../shared/utils/i18n-init';
+import {AppProviders} from './providers';
+import i18nShellInstance from '../shared/lib/i18n/i18n-init';
 import {paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import React, {useEffect} from 'react';

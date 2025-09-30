@@ -1,7 +1,6 @@
 import style from './profile.module.less';
-import {DeleteUser} from '../../widget/delete-user/delete-user';
-import {PersonalData} from '../../widget/personal-data/presonal-data';
-import {E_ANALYTIC_NAMESPACES, TTabItem, Tabs, paramsStore} from '@common';
+import {DeleteUser, PersonalData} from '../../features';
+import {E_METRICS_NAMESPACES, TTabItem, Tabs, paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -38,7 +37,7 @@ export const Profile = observer(() => {
         items={tabConfig}
         analyticProps={{
           label: 'Profile tabs',
-          namespace: E_ANALYTIC_NAMESPACES.USER,
+          namespace: E_METRICS_NAMESPACES.USER,
         }}
         tabPosition='left'
         className={style.fullHeightTabs}

@@ -1,6 +1,6 @@
 import style from './language-select.module.less';
 import {E_LANGUAGE} from '../../shared/constants';
-import {E_ANALYTIC_NAMESPACES, Select} from '@common';
+import {E_METRICS_NAMESPACES, Select} from '@common';
 import {paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
@@ -41,7 +41,7 @@ export const LanguageSelect = observer(() => {
       value={language}
       analyticProps={{
         label: 'language-select',
-        namespace: E_ANALYTIC_NAMESPACES.APP_HEADER,
+        namespace: E_METRICS_NAMESPACES.APP_HEADER,
       }}
       className={style.root}
     />
