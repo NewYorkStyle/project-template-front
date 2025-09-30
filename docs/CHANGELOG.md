@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.3.2...v1.4.0) (2025-09-30)
+
+### Features
+
+* PROJECTTEMPLATE-17 Правки структуры i18n ([#31](https://github.com/NewYorkStyle/project-template-front/issues/31)) ([528f1de](https://github.com/NewYorkStyle/project-template-front/commit/528f1deed42222262678f5acc32283b411f7f107))
+
 ## [1.3.2](https://github.com/NewYorkStyle/project-template-front/compare/v1.3.1...v1.3.2) (2025-09-30)
 
 ## [1.3.1](https://github.com/NewYorkStyle/project-template-front/compare/v1.3.0...v1.3.1) (2025-09-29)
