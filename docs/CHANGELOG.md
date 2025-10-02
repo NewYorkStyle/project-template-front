@@ -1,3 +1,9 @@
+## [1.8.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.7.0...v1.8.0) (2025-10-02)
+
+### Features
+
+* **nx-cloud:** setup nx cloud workspace ([#35](https://github.com/NewYorkStyle/project-template-front/issues/35)) ([04f64ad](https://github.com/NewYorkStyle/project-template-front/commit/04f64adb14d6262f0f6a077125099dcde00d98ec))
+
 ## [1.7.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.6.0...v1.7.0) (2025-10-02)
 
 ### Features
