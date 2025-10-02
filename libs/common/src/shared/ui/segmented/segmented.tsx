@@ -4,7 +4,7 @@ import {Segmented as AntdSegmented, SegmentedProps} from 'antd';
 import {SegmentedValue} from 'antd/es/segmented';
 
 type TProps = SegmentedProps & {
-  analyticProps: TMetricsProps;
+  analyticProps?: TMetricsProps;
 };
 
 export const Segmented = ({analyticProps, onChange, ...restProps}: TProps) => {
