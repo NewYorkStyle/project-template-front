@@ -1,5 +1,5 @@
 {
-  "name": "@common",
+  "name": "common",
   "version": "1.0.0",
   "description": "Общая библиотека компонентов, утилок, констант и т.п.",
   "main": "index.js",
