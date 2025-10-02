@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.5.0...v1.6.0) (2025-10-02)
+
+### Features
+
+* PROJECTTEMPLATE-15 Актуализация storybook ([#33](https://github.com/NewYorkStyle/project-template-front/issues/33)) ([edc3729](https://github.com/NewYorkStyle/project-template-front/commit/edc3729a7e9d4615ac8ad31d317910f832d0ee7b))
+
 ## [1.5.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.4.0...v1.5.0) (2025-09-30)
 
 ### Features
