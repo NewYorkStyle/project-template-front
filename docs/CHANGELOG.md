@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.6.0...v1.7.0) (2025-10-02)
+
+### Features
+
+* PROJECTTEMPLATE-16 Добавлены юнит тесты для shared компонентов ([#34](https://github.com/NewYorkStyle/project-template-front/issues/34)) ([6a0bf15](https://github.com/NewYorkStyle/project-template-front/commit/6a0bf15c20228dd8b815bb1c6785e54a0c3c7053))
+
 ## [1.6.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.5.0...v1.6.0) (2025-10-02)
 
 ### Features
