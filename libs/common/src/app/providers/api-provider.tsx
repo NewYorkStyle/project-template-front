@@ -1,5 +1,5 @@
-import {userStore} from '../../entities/user/model/user-store';
-import {setOnLogout} from '../../shared/api/base/api';
+import {userStore} from '../../entities';
+import {setOnLogout} from '../../shared';
 import {useEffect} from 'react';
 
 export const ApiProvider = ({children}: {children: React.ReactNode}) => {
