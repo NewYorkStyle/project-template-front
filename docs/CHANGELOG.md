@@ -1,3 +1,9 @@
+## [1.9.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.8.0...v1.9.0) (2025-10-03)
+
+### Features
+
+* PROJECTTEMPLATE-13 Очередь запросов в api base ([#36](https://github.com/NewYorkStyle/project-template-front/issues/36)) ([8aeb852](https://github.com/NewYorkStyle/project-template-front/commit/8aeb8520e3caa7b6475f0fef88b446dcb55b248c))
+
 ## [1.8.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.7.0...v1.8.0) (2025-10-02)
 
 ### Features
