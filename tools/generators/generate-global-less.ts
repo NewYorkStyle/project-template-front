@@ -5,7 +5,7 @@ import {
   TColorPalette,
   TDesignTokens,
   designTokens,
-} from '../../libs/common/src/shared/constants';
+} from '../../libs/common/src/shared/constants/design-tokens';
 
 // Функция для преобразования camelCase в kebab-case
 const camelToKebab = (str: string): string => {

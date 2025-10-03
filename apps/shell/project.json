@@ -20,9 +20,14 @@
       }
     },
     "build": {
-      "dependsOn": ["generate-tokens"],
+      "dependsOn": [
+        "generate-tokens",
+        "get-version"
+      ],
       "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
@@ -31,8 +36,13 @@
         "baseHref": "/",
         "main": "apps/shell/src/main.ts",
         "tsConfig": "apps/shell/tsconfig.app.json",
-        "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
-        "styles": ["apps/shell/src/styles.less"],
+        "assets": [
+          "apps/shell/src/favicon.ico",
+          "apps/shell/src/assets"
+        ],
+        "styles": [
+          "apps/shell/src/styles.less"
+        ],
         "scripts": [],
         "webpackConfig": "apps/shell/webpack.config.ts",
         "envFile": ".env"
@@ -63,11 +73,18 @@
       }
     },
     "serve": {
-      "dependsOn": ["generate-tokens", "get-version"],
+      "dependsOn": [
+        "generate-tokens",
+        "get-version"
+      ],
       "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "devRemotes": ["main", "authentication", "user"],
+        "devRemotes": [
+          "main",
+          "authentication",
+          "user"
+        ],
         "buildTarget": "shell:build",
         "hmr": true,
         "port": 4200
@@ -83,7 +100,10 @@
       }
     },
     "serve-static": {
-      "dependsOn": ["generate-tokens", "get-version"],
+      "dependsOn": [
+        "generate-tokens",
+        "get-version"
+      ],
       "executor": "@nx/react:module-federation-static-server",
       "defaultConfiguration": "production",
       "options": {
