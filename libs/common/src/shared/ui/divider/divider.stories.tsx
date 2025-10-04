@@ -1,22 +1,38 @@
-import {Typography} from '../typography';
 import {Divider} from './divider';
+import {Typography} from '../typography';
 import type {Meta, StoryObj} from '@storybook/react';
 
 const meta: Meta<typeof Divider> = {
   argTypes: {
-    containerWidth: {
-      control: {type: 'select'},
-      description: 'Ширина контейнера',
-      options: ['narrow', 'medium', 'wide'],
+    children: {
+      control: 'text',
+      description: 'Текст разделителя',
     },
-    showMultiple: {
+    dashed: {
       control: 'boolean',
-      description: 'Показать несколько разделителей',
+      description: 'Пунктирный стиль',
+    },
+    orientation: {
+      control: {type: 'select'},
+      description: 'Выравнивание текста',
+      options: ['left', 'right', 'center'],
+    },
+    plain: {
+      control: 'boolean',
+      description: 'Упрощенный стиль текста',
+    },
+    type: {
+      control: {type: 'select'},
+      description: 'Тип разделителя',
+      options: ['horizontal', 'vertical'],
     },
   },
   args: {
-    containerWidth: 'medium',
-    showMultiple: false,
+    children: 'Разделитель',
+    dashed: false,
+    orientation: 'center',
+    plain: false,
+    type: 'horizontal',
   },
   component: Divider,
   tags: ['autodocs'],
@@ -27,52 +43,102 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: function Render(args) {
-    const widthMap = {
-      medium: '400px',
-      narrow: '200px',
-      wide: '600px',
-    };
+  render: (args) => (
+    <div style={{maxWidth: '800px', padding: '20px'}}>
+      <Typography.Paragraph>
+        Верхний контент перед разделителем. Здесь может быть любой текст или
+        компоненты.
+      </Typography.Paragraph>
 
-    const containerStyle = {
-      transition: 'width 0.3s ease',
-      width: widthMap[args.containerWidth as keyof typeof widthMap],
-    };
+      <Divider {...args} />
 
-    return (
-      <div style={containerStyle}>
-        <Typography.Title level={3}>Разделитель</Typography.Title>
-        <Typography.Paragraph>
-          Измените ширину контейнера или включите несколько разделителей
-        </Typography.Paragraph>
+      <Typography.Paragraph>
+        Нижний контент после разделителя. Здесь также может быть любой текст или
+        компоненты.
+      </Typography.Paragraph>
+    </div>
+  ),
+};
 
-        <Typography.Paragraph>
-          Контент над разделителем с некоторым текстом для демонстрации
-        </Typography.Paragraph>
+export const WithContent: Story = {
+  render: (args) => (
+    <div style={{maxWidth: '800px', padding: '20px'}}>
+      <Typography.Title level={3}>Разделители с контентом</Typography.Title>
 
-        <Divider />
+      <Typography.Paragraph>
+        Первый раздел контента. Этот текст находится над первым разделителем.
+      </Typography.Paragraph>
 
-        <Typography.Paragraph>
-          Контент под разделителем с дополнительной информацией
-        </Typography.Paragraph>
+      <Divider {...args} />
 
-        {args.showMultiple && (
-          <>
-            <Typography.Title level={4} style={{marginTop: '20px'}}>
-              Дополнительная секция
-            </Typography.Title>
-            <Typography.Paragraph>
-              Ещё один блок контента перед вторым разделителем
-            </Typography.Paragraph>
+      <Typography.Paragraph>
+        Второй раздел контента. Этот текст находится между разделителями.
+      </Typography.Paragraph>
 
-            <Divider />
+      <Divider {...args} children='Промежуточный разделитель' />
 
-            <Typography.Paragraph>
-              Финальный блок контента после всех разделителей
-            </Typography.Paragraph>
-          </>
-        )}
-      </div>
-    );
+      <Typography.Paragraph>
+        Третий раздел контента. Этот текст находится под последним разделителем.
+      </Typography.Paragraph>
+    </div>
+  ),
+};
+
+export const VerticalExample: Story = {
+  args: {
+    children: undefined,
+    type: 'vertical',
   },
+  render: (args) => (
+    <div style={{padding: '20px'}}>
+      <Typography.Title level={4}>Вертикальные разделители</Typography.Title>
+      <div
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          gap: '16px',
+          height: '100px',
+        }}
+      >
+        <Typography.Text>Левая секция</Typography.Text>
+        <Divider {...args} type='vertical' />
+        <Typography.Text>Центральная секция</Typography.Text>
+        <Divider {...args} type='vertical' />
+        <Typography.Text>Правая секция</Typography.Text>
+      </div>
+    </div>
+  ),
+};
+
+export const InLayout: Story = {
+  render: (args) => (
+    <div style={{maxWidth: '600px', padding: '20px'}}>
+      <Typography.Title level={2}>Заголовок страницы</Typography.Title>
+      <Typography.Paragraph>
+        Это введение в содержание страницы. Здесь описывается основная тема.
+      </Typography.Paragraph>
+
+      <Divider {...args} />
+
+      <Typography.Title level={3}>Первый раздел</Typography.Title>
+      <Typography.Paragraph>
+        Содержание первого раздела. Здесь размещается основная информация по
+        теме.
+      </Typography.Paragraph>
+
+      <Divider {...args} children='Раздел 2' orientation='left' />
+
+      <Typography.Title level={3}>Второй раздел</Typography.Title>
+      <Typography.Paragraph>
+        Содержание второго раздела. Дополнительная информация и детали.
+      </Typography.Paragraph>
+
+      <Divider {...args} children='Заключение' orientation='right' />
+
+      <Typography.Title level={3}>Заключение</Typography.Title>
+      <Typography.Paragraph>
+        Итоги и выводы по представленному материалу.
+      </Typography.Paragraph>
+    </div>
+  ),
 };

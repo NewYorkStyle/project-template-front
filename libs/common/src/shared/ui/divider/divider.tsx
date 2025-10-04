@@ -1,5 +1,7 @@
-import style from './divider.module.less';
+import {Divider as AntdDivider, DividerProps} from 'antd';
 
-export const Divider = () => {
-  return <div className={style.divider} />;
+type TProps = DividerProps;
+
+export const Divider = (props: TProps) => {
+  return <AntdDivider {...props} />;
 };

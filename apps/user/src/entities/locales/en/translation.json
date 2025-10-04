@@ -11,7 +11,16 @@
       "Save": "Save",
       "SurnameRequired": "Please input your surname!",
       "NameRequired": "Please input your name!",
-      "OnlyLettersAllowed": "Only letters allowed"
+      "OnlyLettersAllowed": "Only letters allowed",
+      "EmailVerification": {
+        "Verify": "Verify email",
+        "EnterOtp": "Enter OTP",
+        "Submit": "Submit",
+        "OtpLabel": "Enter the code sent to the email address you provided during registration",
+        "ErrorGet": "Error receiving code",
+        "ErrorSend": "Error sending code",
+        "SendNew": "Send new code"
+      }
     },
     "Delete": {
       "Header": "Deleting a profile",

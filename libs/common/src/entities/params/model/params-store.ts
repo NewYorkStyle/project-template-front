@@ -1,5 +1,6 @@
 import {TParam} from './params.types';
 import {metricsService} from '../../../shared';
+import {userStore} from '../../user';
 import {getParamsApi} from '../api/get-params';
 import {makeAutoObservable, runInAction} from 'mobx';
 

@@ -4,6 +4,7 @@ import {paramsStore} from '@common';
 import {observer} from 'mobx-react-lite';
 import React, {useEffect} from 'react';
 import {I18nextProvider} from 'react-i18next';
+import '@ant-design/v5-patch-for-react-19';
 
 export const App = observer(() => {
   const {init} = paramsStore;
