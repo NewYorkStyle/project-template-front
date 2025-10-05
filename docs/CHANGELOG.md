@@ -1,3 +1,9 @@
+## [1.12.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.11.0...v1.12.0) (2025-10-05)
+
+### Features
+
+* PROJECTTEMPLATE-24 Вынес роуты в отдельную переменную ([#39](https://github.com/NewYorkStyle/project-template-front/issues/39)) ([6351d73](https://github.com/NewYorkStyle/project-template-front/commit/6351d73eceec479cf664560b99500bbfffdbee0d))
+
 ## [1.11.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.10.0...v1.11.0) (2025-10-05)
 
 ### Features
