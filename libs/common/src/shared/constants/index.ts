@@ -5,3 +5,4 @@ export * from './params';
 export * from './permissions';
 export * from './reg-exps';
 export * from './version';
+export * from './routes';

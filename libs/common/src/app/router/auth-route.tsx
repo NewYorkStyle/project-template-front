@@ -1,4 +1,5 @@
 import {userStore} from '../../entities/user';
+import {ROUTES} from '../../shared/constants/routes';
 import {observer} from 'mobx-react-lite';
 import React, {ReactNode} from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
@@ -9,7 +10,7 @@ type TAuthRouteProps = {
 };
 
 export const AuthRoute: React.FC<TAuthRouteProps> = observer(
-  ({children, redirectTo = '/main'}) => {
+  ({children, redirectTo = ROUTES.MAIN.ROOT}) => {
     const {isUserLogged} = userStore;
     const location = useLocation();
 

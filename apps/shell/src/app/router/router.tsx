@@ -1,4 +1,4 @@
-import {AuthRoute, ProtectedRoute} from '@common';
+import {AuthRoute, ProtectedRoute, ROUTES} from '@common';
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
@@ -10,7 +10,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route
-        path='/auth/*'
+        path={`${ROUTES.AUTH.ROOT}/*`}
         element={
           <AuthRoute>
             <Authentication />
@@ -18,7 +18,7 @@ export const Router = () => {
         }
       />
       <Route
-        path='/main/*'
+        path={`${ROUTES.MAIN.ROOT}/*`}
         element={
           <ProtectedRoute>
             <Main />
@@ -26,7 +26,7 @@ export const Router = () => {
         }
       />
       <Route
-        path='/user/*'
+        path={`${ROUTES.USER.ROOT}/*`}
         element={
           <ProtectedRoute>
             <User />
@@ -34,10 +34,10 @@ export const Router = () => {
         }
       />
       <Route
-        path='*'
+        path={ROUTES.NOT_FOUND}
         element={
           <ProtectedRoute>
-            <Navigate to='/main' />
+            <Navigate to={ROUTES.MAIN.ROOT} />
           </ProtectedRoute>
         }
       />
