@@ -1,3 +1,9 @@
+## [1.10.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.9.0...v1.10.0) (2025-10-05)
+
+### Features
+
+* PROJECTTEMPLATE-22 Добавил верификацию юзера ([#37](https://github.com/NewYorkStyle/project-template-front/issues/37)) ([a66b50b](https://github.com/NewYorkStyle/project-template-front/commit/a66b50b262a12e4ae18f9c5f0eecfd24a5237199))
+
 ## [1.9.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.8.0...v1.9.0) (2025-10-03)
 
 ### Features
