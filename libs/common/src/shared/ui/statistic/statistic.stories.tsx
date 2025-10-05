@@ -60,9 +60,9 @@ const statisticMeta: Meta<typeof Statistic> = {
 };
 
 export default statisticMeta;
-type Story = StoryObj<typeof Statistic>;
+type TStory = StoryObj<typeof Statistic>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => (
     <div style={{width: '300px'}}>
       <Typography.Title level={3}>Statistic</Typography.Title>
@@ -74,9 +74,9 @@ export const Default: Story = {
   ),
 };
 
-type TimerStory = StoryObj<typeof Statistic.Timer>;
+type TTimerStory = StoryObj<typeof Statistic.Timer>;
 
-export const Timer: TimerStory = {
+export const Timer: TTimerStory = {
   argTypes: {
     format: {
       control: {type: 'text'},
@@ -124,7 +124,7 @@ export const Timer: TimerStory = {
   ),
 };
 
-export const WithPrefixSuffix: Story = {
+export const WithPrefixSuffix: TStory = {
   args: {
     ...baseArgs,
     prefix: '₽',
@@ -144,7 +144,7 @@ export const WithPrefixSuffix: Story = {
   ),
 };
 
-export const WithPrecision: Story = {
+export const WithPrecision: TStory = {
   args: {
     ...baseArgs,
     precision: 2,
@@ -164,7 +164,7 @@ export const WithPrecision: Story = {
   ),
 };
 
-export const LoadingState: Story = {
+export const LoadingState: TStory = {
   args: {
     ...baseArgs,
     loading: true,

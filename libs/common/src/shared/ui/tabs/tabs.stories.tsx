@@ -39,9 +39,9 @@ const meta: Meta<typeof Tabs> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Tabs>;
+type TStory = StoryObj<typeof Tabs>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: function Render(args) {
     const [activeKey, setActiveKey] = useState('1');
 

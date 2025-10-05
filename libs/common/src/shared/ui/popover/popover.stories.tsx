@@ -48,9 +48,9 @@ const meta: Meta<typeof Popover> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Popover>;
+type TStory = StoryObj<typeof Popover>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => (
     <div style={{padding: '100px', textAlign: 'center'}}>
       <Typography.Title level={3}>Popover</Typography.Title>

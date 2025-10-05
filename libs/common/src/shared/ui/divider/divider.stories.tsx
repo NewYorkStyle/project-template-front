@@ -40,9 +40,9 @@ const meta: Meta<typeof Divider> = {
 } satisfies Meta<typeof Divider>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => (
     <div style={{maxWidth: '800px', padding: '20px'}}>
       <Typography.Paragraph>
@@ -60,7 +60,7 @@ export const Default: Story = {
   ),
 };
 
-export const WithContent: Story = {
+export const WithContent: TStory = {
   render: (args) => (
     <div style={{maxWidth: '800px', padding: '20px'}}>
       <Typography.Title level={3}>Разделители с контентом</Typography.Title>
@@ -84,7 +84,7 @@ export const WithContent: Story = {
   ),
 };
 
-export const VerticalExample: Story = {
+export const VerticalExample: TStory = {
   args: {
     children: undefined,
     type: 'vertical',
@@ -110,7 +110,7 @@ export const VerticalExample: Story = {
   ),
 };
 
-export const InLayout: Story = {
+export const InLayout: TStory = {
   render: (args) => (
     <div style={{maxWidth: '600px', padding: '20px'}}>
       <Typography.Title level={2}>Заголовок страницы</Typography.Title>

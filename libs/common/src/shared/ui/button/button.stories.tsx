@@ -66,8 +66,8 @@ const meta: Meta<typeof Button> = {
 } satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => <Button {...args} />,
 };

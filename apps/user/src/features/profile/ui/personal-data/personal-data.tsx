@@ -5,6 +5,7 @@ import {
   APLHABETIC,
   Button,
   Divider,
+  E_METRICS_NAMESPACES,
   Flex,
   Form,
   Input,
@@ -81,6 +82,10 @@ export const PersonalData = observer(() => {
             onClick={handleGetOtpClick}
             disabled={isLoading}
             loading={isLoading}
+            analyticProps={{
+              label: 'Get OTP button',
+              namespace: E_METRICS_NAMESPACES.AUTH,
+            }}
           >
             {t('Profile.PersonalData.EmailVerification.Verify')}
           </Button>
@@ -106,7 +111,14 @@ export const PersonalData = observer(() => {
                   />
                 </Flex>
                 <Flex gap={designTokens.spacing.sm}>
-                  <Button htmlType='submit' disabled={timerFinished}>
+                  <Button
+                    htmlType='submit'
+                    disabled={timerFinished}
+                    analyticProps={{
+                      label: 'Send OTP button',
+                      namespace: E_METRICS_NAMESPACES.AUTH,
+                    }}
+                  >
                     {t('Profile.PersonalData.EmailVerification.Submit')}
                   </Button>
                   {timerFinished && (
@@ -114,6 +126,10 @@ export const PersonalData = observer(() => {
                       onClick={handleGetOtpClick}
                       disabled={isLoading}
                       loading={isLoading}
+                      analyticProps={{
+                        label: 'Get new OTP button',
+                        namespace: E_METRICS_NAMESPACES.AUTH,
+                      }}
                     >
                       {t('Profile.PersonalData.EmailVerification.SendNew')}
                     </Button>
@@ -220,6 +236,10 @@ export const PersonalData = observer(() => {
             htmlType='submit'
             disabled={!isFormChanged || isLoading}
             loading={isLoading}
+            analyticProps={{
+              label: 'Save button',
+              namespace: E_METRICS_NAMESPACES.AUTH,
+            }}
           >
             {t('Profile.PersonalData.Save')}
           </Button>

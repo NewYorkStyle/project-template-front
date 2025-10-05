@@ -44,9 +44,9 @@ const inputMeta: Meta<typeof Input> = {
 };
 
 export default inputMeta;
-type Story = StoryObj<typeof Input>;
+type TStory = StoryObj<typeof Input>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => (
     <div style={{width: '400px'}}>
       <Typography.Title level={3}>Input</Typography.Title>
@@ -56,9 +56,9 @@ export const Default: Story = {
   ),
 };
 
-type PasswordStory = StoryObj<typeof Input.Password>;
+type TPasswordStory = StoryObj<typeof Input.Password>;
 
-export const Password: PasswordStory = {
+export const Password: TPasswordStory = {
   argTypes: baseArgTypes,
   args: {
     ...baseArgs,
@@ -75,9 +75,9 @@ export const Password: PasswordStory = {
   ),
 };
 
-type SearchStory = StoryObj<typeof Input.Search>;
+type TSearchStory = StoryObj<typeof Input.Search>;
 
-export const Search: SearchStory = {
+export const Search: TSearchStory = {
   argTypes: baseArgTypes,
   args: {
     ...baseArgs,
@@ -92,9 +92,9 @@ export const Search: SearchStory = {
   ),
 };
 
-type TextAreaStory = StoryObj<typeof Input.TextArea>;
+type TTextAreaStory = StoryObj<typeof Input.TextArea>;
 
-export const TextArea: TextAreaStory = {
+export const TextArea: TTextAreaStory = {
   argTypes: {
     ...baseArgTypes,
     rows: {
