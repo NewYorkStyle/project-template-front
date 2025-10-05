@@ -6,6 +6,7 @@ import {
   Flex,
   Form,
   Input,
+  ROUTES,
   Typography,
   designTokens,
   useModal,
@@ -39,7 +40,9 @@ export const DeleteUser = observer(() => {
         variant: 'solid',
       },
       onOk: () => {
-        profileStore.deleteProfile(values.password, () => navigate('/auth'));
+        profileStore.deleteProfile(values.password, () =>
+          navigate(ROUTES.AUTH.ROOT)
+        );
         closeModal('user-delete-modal');
       },
       title: t('Profile.Delete.ConfirmationDialog.Header'),

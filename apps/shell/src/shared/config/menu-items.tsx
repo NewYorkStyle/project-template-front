@@ -1,4 +1,4 @@
-import {HomeIcon} from '@common';
+import {HomeIcon, ROUTES} from '@common';
 import {MenuProps} from 'antd';
 import {NavigateFunction} from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export const getMenuItems = (
       ),
       key: 'home',
       label: 'Home',
-      onClick: () => navigate('/main'),
+      onClick: () => navigate(ROUTES.MAIN.ROOT),
     },
   ];
 };
