@@ -1,20 +1,28 @@
-import {ModalProps} from 'antd';
+import {TMetricsProps} from '../../constants';
+import {ButtonProps, ModalProps} from 'antd';
 import {makeAutoObservable} from 'mobx';
 
-export interface ModalConfig extends Omit<ModalProps, 'open'> {
+type TExtendedButtonProps = ButtonProps & {analyticProps?: TMetricsProps};
+
+export type TModalConfig = Omit<
+  ModalProps,
+  'open' | 'okButtonProps' | 'cancelButtonProps'
+> & {
   id: string;
   content: React.ReactNode;
   open?: boolean;
-}
+  okButtonProps?: TExtendedButtonProps;
+  cancelButtonProps?: TExtendedButtonProps;
+};
 
 class ModalService {
-  modals: ModalConfig[] = [];
+  modals: TModalConfig[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  openModal = (config: Omit<ModalConfig, 'open'>) => {
+  openModal = (config: Omit<TModalConfig, 'open'>) => {
     // Закрываем предыдущие модалки с таким же id
     this.closeModal(config.id);
 
@@ -28,7 +36,7 @@ class ModalService {
     this.modals = this.modals.filter((modal) => modal.id !== id);
   };
 
-  updateModal = (id: string, updates: Partial<ModalConfig>) => {
+  updateModal = (id: string, updates: Partial<TModalConfig>) => {
     const index = this.modals.findIndex((modal) => modal.id === id);
     if (index !== -1) {
       this.modals[index] = {...this.modals[index], ...updates};

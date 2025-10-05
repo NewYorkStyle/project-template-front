@@ -42,9 +42,9 @@ const meta: Meta<typeof Segmented> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Segmented>;
+type TStory = StoryObj<typeof Segmented>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: function Render(args) {
     const [value, setValue] = useState<string>('option1');
 

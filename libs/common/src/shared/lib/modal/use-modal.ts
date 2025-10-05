@@ -1,8 +1,8 @@
-import {ModalConfig, modalService} from './modal.service';
+import {TModalConfig, modalService} from './modal.service';
 import {useCallback} from 'react';
 
 export const useModal = () => {
-  const openModal = useCallback((config: Omit<ModalConfig, 'open'>) => {
+  const openModal = useCallback((config: Omit<TModalConfig, 'open'>) => {
     modalService.openModal(config);
   }, []);
 
@@ -11,7 +11,7 @@ export const useModal = () => {
   }, []);
 
   const updateModal = useCallback(
-    (id: string, updates: Partial<ModalConfig>) => {
+    (id: string, updates: Partial<TModalConfig>) => {
       modalService.updateModal(id, updates);
     },
     []

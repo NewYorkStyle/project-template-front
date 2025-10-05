@@ -48,9 +48,9 @@ const meta: Meta<typeof Flex> = {
 } satisfies Meta<typeof Flex>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => (
     <div style={{width: '500px'}}>
       <Flex

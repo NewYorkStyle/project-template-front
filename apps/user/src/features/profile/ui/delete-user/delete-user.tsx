@@ -2,6 +2,7 @@ import style from './delete-user.module.less';
 import {profileStore} from '../../model';
 import {
   Button,
+  E_METRICS_NAMESPACES,
   Flex,
   Form,
   Input,
@@ -21,9 +22,22 @@ export const DeleteUser = observer(() => {
 
   const onFinish = (values: {password: string}) => {
     openModal({
+      cancelButtonProps: {
+        analyticProps: {
+          label: 'Delete profile cancel',
+          namespace: E_METRICS_NAMESPACES.USER,
+        },
+      },
       content: t('Profile.Delete.ConfirmationDialog.Content'),
       id: 'user-delete-modal',
-      okButtonProps: {color: 'danger', variant: 'solid'},
+      okButtonProps: {
+        analyticProps: {
+          label: 'Delete profile confirm',
+          namespace: E_METRICS_NAMESPACES.USER,
+        },
+        color: 'danger',
+        variant: 'solid',
+      },
       onOk: () => {
         profileStore.deleteProfile(values.password, () => navigate('/auth'));
         closeModal('user-delete-modal');
@@ -60,6 +74,10 @@ export const DeleteUser = observer(() => {
             color='danger'
             variant='solid'
             htmlType='submit'
+            analyticProps={{
+              label: 'Delete profile button',
+              namespace: E_METRICS_NAMESPACES.USER,
+            }}
           >
             {t('Profile.Delete.Delete')}
           </Button>

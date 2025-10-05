@@ -67,12 +67,12 @@ const meta: Meta<typeof Typography.Text> = {
 
 export default meta;
 
-type TextStory = StoryObj<typeof Typography.Text>;
-type ParagraphStory = StoryObj<typeof Typography.Paragraph>;
-type TitleStory = StoryObj<typeof Typography.Title>;
-type LinkStory = StoryObj<typeof Typography.Link>;
+type TTextStory = StoryObj<typeof Typography.Text>;
+type TParagraphStory = StoryObj<typeof Typography.Paragraph>;
+type TTitleStory = StoryObj<typeof Typography.Title>;
+type TLinkStory = StoryObj<typeof Typography.Link>;
 
-export const Text: TextStory = {
+export const Text: TTextStory = {
   render: (args) => (
     <div style={{width: '500px'}}>
       <Typography.Text {...args} />
@@ -80,7 +80,7 @@ export const Text: TextStory = {
   ),
 };
 
-export const Paragraph: ParagraphStory = {
+export const Paragraph: TParagraphStory = {
   argTypes: commonArgTypes,
   args: {
     ...commonArgs,
@@ -94,7 +94,7 @@ export const Paragraph: ParagraphStory = {
   ),
 };
 
-export const Title: TitleStory = {
+export const Title: TTitleStory = {
   argTypes: {
     ...commonArgTypes,
     level: {
@@ -115,7 +115,7 @@ export const Title: TitleStory = {
   ),
 };
 
-export const Link: LinkStory = {
+export const Link: TLinkStory = {
   argTypes: commonArgTypes,
   args: {
     ...commonArgs,

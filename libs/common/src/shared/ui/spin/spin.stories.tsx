@@ -41,9 +41,9 @@ const meta: Meta<typeof Spin> = {
 } satisfies Meta<typeof Spin>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: (args) => (
     <div
       style={{

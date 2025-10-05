@@ -48,9 +48,9 @@ const meta: Meta<typeof Select> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Select>;
+type TStory = StoryObj<typeof Select>;
 
-export const Default: Story = {
+export const Default: TStory = {
   render: function Render(args) {
     const [value, setValue] = useState<string>();
 
@@ -79,7 +79,7 @@ export const Default: Story = {
   },
 };
 
-export const Multiple: Story = {
+export const Multiple: TStory = {
   args: {
     mode: 'multiple',
     placeholder: 'Выберите опции...',

@@ -44,9 +44,9 @@ const meta: Meta<typeof Form> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Form>;
+type TStory = StoryObj<typeof Form>;
 
-export const Basic: Story = {
+export const Basic: TStory = {
   render: (args) => {
     const [form] = Form.useForm();
 
@@ -101,7 +101,7 @@ export const Basic: Story = {
   },
 };
 
-export const WithValidation: Story = {
+export const WithValidation: TStory = {
   args: {
     layout: 'vertical',
   },
@@ -151,7 +151,7 @@ export const WithValidation: Story = {
   },
 };
 
-export const WithSelect: Story = {
+export const WithSelect: TStory = {
   render: (args) => {
     const [form] = Form.useForm();
 
@@ -210,7 +210,7 @@ export const WithSelect: Story = {
   },
 };
 
-export const InlineForm: Story = {
+export const InlineForm: TStory = {
   args: {
     layout: 'inline',
   },
