@@ -1,3 +1,9 @@
+## [1.11.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.10.0...v1.11.0) (2025-10-05)
+
+### Features
+
+* PROJECTTEMPLATE-26 Правки метрик ([#38](https://github.com/NewYorkStyle/project-template-front/issues/38)) ([3207b74](https://github.com/NewYorkStyle/project-template-front/commit/3207b746c740f5cb06d68946fd5dda79abd00bb9))
+
 ## [1.10.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.9.0...v1.10.0) (2025-10-05)
 
 ### Features
