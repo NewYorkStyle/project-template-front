@@ -12,6 +12,9 @@ export const getAntdThemeConfig = (theme: 'light' | 'dark'): ThemeConfig => {
         defaultShadow: 'none',
         primaryShadow: 'none',
       },
+      Divider: {
+        colorSplit: palette.borderPrimary,
+      },
       Layout: {
         headerBg: palette.backgroundPrimary,
         headerPadding: designTokens.spacing.lg,

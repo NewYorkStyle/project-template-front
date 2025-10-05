@@ -23,6 +23,7 @@ class SignInStore {
 
       runInAction(() => {
         userStore.setUserLogger(true);
+        userStore.getPermissions();
       });
     } catch (error) {
       notificationService.error(

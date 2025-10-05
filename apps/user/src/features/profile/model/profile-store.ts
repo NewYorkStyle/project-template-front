@@ -1,24 +1,43 @@
 import {i18nUserInstance} from '../../../entities';
 import {initPersonalData} from '../../../shared';
-import {deleteProfileApi, geteProfileApi, updateProfileApi} from '../api';
+import {
+  deleteProfileApi,
+  getOtpApi,
+  geteProfileApi,
+  sendOtpApi,
+  updateProfileApi,
+} from '../api';
 import {TProfileData} from '../types';
-import {notificationService, userStore} from '@common';
-import {makeAutoObservable, runInAction} from 'mobx';
+import {E_PERMISSIONS, notificationService, userStore} from '@common';
+import {autorun, makeAutoObservable, runInAction} from 'mobx';
 
 class ProfileStore {
   private _initData: TProfileData = {...initPersonalData};
   private _isLoading = false;
+  private _emailVerificationState: 'button' | 'otp' | 'empty' = 'empty';
 
   constructor() {
     makeAutoObservable(this);
+
+    autorun(() => {
+      if (userStore.permissions.includes(E_PERMISSIONS.EMAIL_VERIFIED)) {
+        this._emailVerificationState = 'empty';
+      } else {
+        this._emailVerificationState = 'button';
+      }
+    });
   }
 
-  get initData(): TProfileData {
+  get initData() {
     return this._initData;
   }
 
-  get isLoading(): boolean {
+  get isLoading() {
     return this._isLoading;
+  }
+
+  get emailVerificationState() {
+    return this._emailVerificationState;
   }
 
   getProfileData = async () => {
@@ -93,8 +112,46 @@ class ProfileStore {
     }
   };
 
+  getOtp = async () => {
+    this._isLoading = true;
+
+    try {
+      await getOtpApi();
+
+      runInAction(() => {
+        this._emailVerificationState = 'otp';
+      });
+    } catch (error) {
+      notificationService.error(
+        i18nUserInstance.t('Profile.PersonalData.EmailVerification.ErrorGet')
+      );
+    } finally {
+      this._isLoading = false;
+    }
+  };
+
+  sendOtp = async (otp: string) => {
+    this._isLoading = true;
+
+    try {
+      await sendOtpApi(otp);
+
+      runInAction(() => {
+        this._emailVerificationState = 'empty';
+        userStore.getPermissions();
+      });
+    } catch (error) {
+      notificationService.error(
+        i18nUserInstance.t('Profile.PersonalData.EmailVerification.ErrorSend')
+      );
+    } finally {
+      this._isLoading = false;
+    }
+  };
+
   clear = () => {
     this._initData = {...initPersonalData};
+    this._isLoading = false;
   };
 }
 

@@ -7,6 +7,7 @@ export * from './popover';
 export * from './segmented';
 export * from './select';
 export * from './spin';
+export * from './statistic';
 export * from './svg';
 export * from './tabs';
 export * from './typography';

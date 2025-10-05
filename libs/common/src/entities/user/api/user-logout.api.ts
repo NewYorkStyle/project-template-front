@@ -1,5 +1,5 @@
 import {api} from '../../../shared';
 
-export const userLogout = async (): Promise<void> => {
+export const userLogoutApi = (): Promise<void> => {
   return api.get('/auth/logOut');
 };
