@@ -1,3 +1,9 @@
+## [1.13.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.12.0...v1.13.0) (2025-10-06)
+
+### Features
+
+* PROJECTTEMPLATE-25 Добавил смену email ([#40](https://github.com/NewYorkStyle/project-template-front/issues/40)) ([870ebf7](https://github.com/NewYorkStyle/project-template-front/commit/870ebf7e9b0cffe3ac9627bcd5b1a6652f9f8e7f))
+
 ## [1.12.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.11.0...v1.12.0) (2025-10-05)
 
 ### Features
