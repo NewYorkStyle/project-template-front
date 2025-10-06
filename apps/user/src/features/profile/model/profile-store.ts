@@ -2,30 +2,24 @@ import {i18nUserInstance} from '../../../entities';
 import {initPersonalData} from '../../../shared';
 import {
   deleteProfileApi,
+  getEmailChangeOtpApi,
   getOtpApi,
   geteProfileApi,
+  sendEmailChangeOtpApi,
   sendOtpApi,
   updateProfileApi,
 } from '../api';
 import {TProfileData} from '../types';
-import {E_PERMISSIONS, notificationService, userStore} from '@common';
-import {autorun, makeAutoObservable, runInAction} from 'mobx';
+import {notificationService, userStore} from '@common';
+import {makeAutoObservable, runInAction} from 'mobx';
 
 class ProfileStore {
   private _initData: TProfileData = {...initPersonalData};
   private _isLoading = false;
-  private _emailVerificationState: 'button' | 'otp' | 'empty' = 'empty';
+  private _emailFieldStep: 'button' | 'otp' = 'button';
 
   constructor() {
     makeAutoObservable(this);
-
-    autorun(() => {
-      if (userStore.permissions.includes(E_PERMISSIONS.EMAIL_VERIFIED)) {
-        this._emailVerificationState = 'empty';
-      } else {
-        this._emailVerificationState = 'button';
-      }
-    });
   }
 
   get initData() {
@@ -36,8 +30,8 @@ class ProfileStore {
     return this._isLoading;
   }
 
-  get emailVerificationState() {
-    return this._emailVerificationState;
+  get emailFieldStep() {
+    return this._emailFieldStep;
   }
 
   getProfileData = async () => {
@@ -47,7 +41,6 @@ class ProfileStore {
       const profile = await geteProfileApi();
 
       runInAction(() => {
-        // TODO Вернуть email после реализации функционала
         this._initData = {
           name: profile.name,
           patronymic: profile.patronymic,
@@ -70,7 +63,6 @@ class ProfileStore {
       const profile = await updateProfileApi(data);
 
       runInAction(() => {
-        // TODO Вернуть email после реализации функционала
         this._initData = {
           name: profile.name,
           patronymic: profile.patronymic,
@@ -112,14 +104,14 @@ class ProfileStore {
     }
   };
 
-  getOtp = async () => {
+  getVerificationOtp = async () => {
     this._isLoading = true;
 
     try {
       await getOtpApi();
 
       runInAction(() => {
-        this._emailVerificationState = 'otp';
+        this._emailFieldStep = 'otp';
       });
     } catch (error) {
       notificationService.error(
@@ -130,19 +122,58 @@ class ProfileStore {
     }
   };
 
-  sendOtp = async (otp: string) => {
+  sendVerificationOtp = async (otp: string) => {
     this._isLoading = true;
 
     try {
       await sendOtpApi(otp);
 
       runInAction(() => {
-        this._emailVerificationState = 'empty';
+        this._emailFieldStep = 'button';
         userStore.getPermissions();
       });
     } catch (error) {
       notificationService.error(
         i18nUserInstance.t('Profile.PersonalData.EmailVerification.ErrorSend')
+      );
+    } finally {
+      this._isLoading = false;
+    }
+  };
+
+  getEmailChangeOtp = async (email: string) => {
+    this._isLoading = true;
+
+    try {
+      await getEmailChangeOtpApi(email);
+
+      runInAction(() => {
+        this._emailFieldStep = 'otp';
+      });
+    } catch (error) {
+      notificationService.error(
+        i18nUserInstance.t('Profile.PersonalData.ChangeEmail.ErrorGet')
+      );
+    } finally {
+      this._isLoading = false;
+    }
+  };
+
+  sendEmailChangeOtp = async (otp: string) => {
+    this._isLoading = true;
+
+    try {
+      await sendEmailChangeOtpApi(otp);
+
+      runInAction(() => {
+        this._emailFieldStep = 'button';
+        notificationService.success(
+          i18nUserInstance.t('Profile.PersonalData.ChangeEmail.EmailChanged')
+        );
+      });
+    } catch (error) {
+      notificationService.error(
+        i18nUserInstance.t('Profile.PersonalData.ChangeEmail.ErrorSend')
       );
     } finally {
       this._isLoading = false;

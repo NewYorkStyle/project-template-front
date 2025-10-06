@@ -12,6 +12,19 @@
       "SurnameRequired": "Please input your surname!",
       "NameRequired": "Please input your name!",
       "OnlyLettersAllowed": "Only letters allowed",
+      "ChangeEmail": {
+        "EmailRequired": "Please input your email!",
+        "EmailRules": "The input is not valid E-mail!",
+        "Email": "Email",
+        "Verify": "Change email",
+        "EnterOtp": "Enter OTP",
+        "Submit": "Submit",
+        "OtpLabel": "Enter the code sent to the provided email",
+        "ErrorGet": "Error receiving code",
+        "ErrorSend": "Error sending code",
+        "SendNew": "Send new code",
+        "EmailChanged": "New email saved"
+      },
       "EmailVerification": {
         "Verify": "Verify email",
         "EnterOtp": "Enter OTP",
