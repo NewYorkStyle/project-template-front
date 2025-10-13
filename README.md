@@ -1,17 +1,17 @@
 # Project template
 
-Заготовка для проекта. За основу взят nx с module federation архитектурой.
+Заготовка для проекта.
 
 ## Run tasks
 
 Команда для запуска:
 
 ```sh
-npx nx serve shell
+npm run dev
 ```
 
 Команда для запуска storybook
 
 ```sh
-npx nx storybook @common
+npm run storybook
 ```

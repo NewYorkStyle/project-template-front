@@ -1,11 +1,15 @@
-/* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
+
 import {
-  TColorPalette,
-  TDesignTokens,
+  type TColorPalette,
+  type TDesignTokens,
   designTokens,
-} from '../../libs/common/src/shared/constants/design-tokens';
+} from '../../src/shared/lib/constants/design-tokens';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Функция для преобразования camelCase в kebab-case
 const camelToKebab = (str: string): string => {
@@ -24,7 +28,8 @@ const generateCssVariables = (palette: TColorPalette, prefix = ''): string => {
   return cssVariables;
 };
 
-export const generateLessVariables = (tokens: TDesignTokens): string => {
+// Функция для генерации Less переменных
+const generateLessVariables = (tokens: TDesignTokens): string => {
   let lessContent = '// Auto-generated from TypeScript\n\n';
 
   // Размеры
@@ -39,7 +44,22 @@ export const generateLessVariables = (tokens: TDesignTokens): string => {
     lessContent += `@border-radius-${key}: ${value}px;\n`;
   });
 
-  lessContent += '\n';
+  return lessContent;
+};
+
+// Функция для генерации основного Less файла с CSS переменными
+const generateGlobalLess = (tokens: TDesignTokens): string => {
+  let lessContent = '// Auto-generated from TypeScript\n\n';
+
+  // Импорт переменных
+  lessContent += `@import './variables.less';\n\n`;
+
+  lessContent += `body {
+  padding: 0;
+  margin: 0;
+}
+
+`;
 
   // CSS переменные для переключения тем
   lessContent += `:root {\n`;
@@ -56,31 +76,31 @@ export const generateLessVariables = (tokens: TDesignTokens): string => {
 const workspaceRoot = path.resolve(__dirname, '../../');
 console.log('📁 Workspace root:', workspaceRoot);
 
-const outputPath = path.join(
-  workspaceRoot,
-  'libs/common/src/app/styles/global.less'
-);
-console.log('📄 Output path:', outputPath);
+const stylesDir = path.join(workspaceRoot, 'src/app/ui/styles');
 
 // Создаем директорию, если её нет
-const outputDir = path.dirname(outputPath);
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, {recursive: true});
-  console.log('📁 Created directory:', outputDir);
+if (!fs.existsSync(stylesDir)) {
+  fs.mkdirSync(stylesDir, {recursive: true});
+  console.log('📁 Created directory:', stylesDir);
 }
 
-// Генерируем содержимое
-const lessContent = generateLessVariables(designTokens);
+// Генерируем и записываем variables.less
+const variablesPath = path.join(stylesDir, 'variables.less');
+const variablesContent = generateLessVariables(designTokens);
+fs.writeFileSync(variablesPath, variablesContent);
+console.log('✅ Less variables generated to:', variablesPath);
+console.log('📄 Variables file size:', variablesContent.length, 'bytes');
 
-// Записываем файл
-fs.writeFileSync(outputPath, lessContent);
+// Генерируем и записываем global.less
+const globalPath = path.join(stylesDir, 'global.less');
+const globalContent = generateGlobalLess(designTokens);
+fs.writeFileSync(globalPath, globalContent);
+console.log('✅ Global less generated to:', globalPath);
+console.log('📄 Global file size:', globalContent.length, 'bytes');
 
-console.log('✅ Less variables generated to:', outputPath);
-console.log('📄 File size:', lessContent.length, 'bytes');
-
-// Проверяем, что файл создался
-if (fs.existsSync(outputPath)) {
-  console.log('✅ File successfully created!');
+// Проверяем, что файлы создались
+if (fs.existsSync(variablesPath) && fs.existsSync(globalPath)) {
+  console.log('✅ Both files successfully created!');
 } else {
-  console.log('❌ File was not created!');
+  console.log('❌ Some files were not created!');
 }

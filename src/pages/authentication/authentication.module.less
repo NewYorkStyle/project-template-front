@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  background-size: cover;
+  background-image: url(../../../public/images/background-light.jpg);
+}
+
+body[data-theme='dark'] {
+  .root {
+    background-image: url(../../../public/images/background-dark.jpg);
+  }
+}
