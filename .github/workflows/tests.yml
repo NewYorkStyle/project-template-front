@@ -28,6 +28,9 @@ jobs:
 
       - name: Run tests
         run: npm run test:coverage
+        env:
+          API_URL: http://localhost:3001
+          NODE_ENV: test
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3

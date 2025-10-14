@@ -17,10 +17,9 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   /**
-   * Конфигурация для правила project-structure/folder-structure
+   * Глобальные игноры
    */
   {
-    files: ['**/*'],
     ignores: [
       '**/dist/**',
       '**/build/**',
@@ -28,9 +27,17 @@ export default tseslint.config(
       '**/*.config.js',
       '**/*.d.ts',
       '**/coverage/**',
+      'coverage/**',
       '**/tools/**',
       'projectStructure.cache.json',
     ],
+  },
+
+  /**
+   * Конфигурация для правила project-structure/folder-structure
+   */
+  {
+    files: ['**/*'],
     languageOptions: {
       parser: projectStructureParser,
     },
@@ -152,44 +159,7 @@ export default tseslint.config(
         },
       ],
 
-      '@typescript-eslint/naming-convention': [
-        'error',
-        {
-          selector: 'typeAlias',
-          format: ['PascalCase'],
-          prefix: ['T'],
-        },
-        {
-          selector: 'enum',
-          format: ['UPPER_CASE'],
-          prefix: ['E_'],
-        },
-        {
-          selector: 'class',
-          format: ['PascalCase'],
-        },
-        {
-          selector: 'variable',
-          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
-          leadingUnderscore: 'allow',
-        },
-        {
-          selector: 'function',
-          format: ['camelCase', 'PascalCase'],
-        },
-      ],
-
-      'prettier/prettier': 'error',
-    },
-  },
-
-  /**
-   * 🏗️ КОНФИГУРАЦИЯ FSD АРХИТЕКТУРЫ
-   * Правила для контроля импортов между слоями
-   */
-  {
-    files: ['**/*.{ts,tsx,js,jsx}'],
-    rules: {
+      // 🏗️ КОНФИГУРАЦИЯ FSD АРХИТЕКТУРЫ
       'import/no-restricted-paths': [
         'error',
         {
@@ -237,6 +207,35 @@ export default tseslint.config(
           ],
         },
       ],
+
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'typeAlias',
+          format: ['PascalCase'],
+          prefix: ['T'],
+        },
+        {
+          selector: 'enum',
+          format: ['UPPER_CASE'],
+          prefix: ['E_'],
+        },
+        {
+          selector: 'class',
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'variable',
+          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'function',
+          format: ['camelCase', 'PascalCase'],
+        },
+      ],
+
+      'prettier/prettier': 'error',
     },
   },
 
@@ -252,6 +251,7 @@ export default tseslint.config(
     rules: {
       'no-console': 'off',
       'import/order': 'off',
+      'import/no-restricted-paths': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       'sort-keys-fix/sort-keys-fix': 'off',
       'sort-destructure-keys/sort-destructure-keys': 'off',
@@ -270,6 +270,9 @@ export default tseslint.config(
       '**/*.spec.*',
       'src/setupTests.ts',
     ],
+    rules: {
+      'import/no-restricted-paths': 'off',
+    },
     languageOptions: {
       globals: {
         ...globals.jest,
