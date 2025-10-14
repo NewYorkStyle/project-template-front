@@ -1,8 +1,0 @@
-{
-  "name": "user-e2e",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "sourceRoot": "apps/user-e2e/src",
-  "implicitDependencies": ["user"],
-  "targets": {}
-}

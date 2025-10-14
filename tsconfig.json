@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES6"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@shared": ["shared/index.ts"],
+      "@pages": ["pages/index.ts"],
+      "@entities": ["entities/index.ts"],
+      "@features": ["features/index.ts"],
+      "@widgets": ["widgets/index.ts"]
+    },
+    "types": ["node", "react", "jest"],
+     "useUnknownInCatchVariables": false
+  },
+  "include": [
+    "src/**/*",
+    "src/setup-tests.ts",
+    ".storybook/**/*",
+    "src/**/__tests__/**/*",
+    "tools/*",
+    "tools/**/*",
+    "**/*.config.js",
+    "**/*.config.ts",
+    ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+  ]
+}
