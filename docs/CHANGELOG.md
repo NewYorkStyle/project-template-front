@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.13.0...v2.0.0) (2025-10-14)
+
+### ⚠ BREAKING CHANGES
+
+* PROJECTTEMPLATE-28 Уход от Nx к классическому монолиту (#41)
+
+### Features
+
+* PROJECTTEMPLATE-28 Уход от Nx к классическому монолиту ([#41](https://github.com/NewYorkStyle/project-template-front/issues/41)) ([6c8ec1c](https://github.com/NewYorkStyle/project-template-front/commit/6c8ec1c1da516d5a3368a4f855fa04d973308868))
+
 ## [1.13.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.12.0...v1.13.0) (2025-10-06)
 
 ### Features
