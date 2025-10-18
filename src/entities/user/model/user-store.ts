@@ -12,8 +12,6 @@ class UserStore {
 
   constructor() {
     makeAutoObservable(this);
-
-    this.getPermissions();
   }
 
   get isUserLogged() {
@@ -56,7 +54,7 @@ class UserStore {
     Cookies.remove('isUserLoggedIn');
   };
 
-  setUserLogger = (value: boolean) => {
+  setUserLogged = (value: boolean) => {
     this._isUserLogged = value;
   };
 

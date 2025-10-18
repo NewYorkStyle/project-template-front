@@ -1,0 +1,6 @@
+{
+  "tags": {
+    "@auth": ["src/features/auth/**/*", "src/pages/auth/**/*"],
+    "@shared": ["src/shared/**/*"]
+  }
+}

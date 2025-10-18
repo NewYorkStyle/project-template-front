@@ -1,7 +1,7 @@
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
-import {Button, E_METRICS_NAMESPACES, Form, Input} from '@shared';
+import {Button, E_METRICS_NAMESPACES, Form, Input, TEST_IDS} from '@shared';
 
 import {signInStore} from '../model';
 import {type TSignInFormValues} from '../types';
@@ -39,7 +39,10 @@ export const SignIn = observer(() => {
             },
           ]}
         >
-          <Input placeholder={t('Authentication.SignIn.LoginPlaceholder')} />
+          <Input
+            placeholder={t('Authentication.SignIn.LoginPlaceholder')}
+            data-testid={TEST_IDS.AUTH.USER_NAME}
+          />
         </Form.Item>
         <Form.Item
           name='password'
@@ -53,6 +56,7 @@ export const SignIn = observer(() => {
           <Input.Password
             visibilityToggle
             placeholder={t('Authentication.SignIn.PasswordPlaceholder')}
+            data-testid={TEST_IDS.AUTH.PASSWORD}
           />
         </Form.Item>
         <Form.Item noStyle>
@@ -63,6 +67,7 @@ export const SignIn = observer(() => {
               namespace: E_METRICS_NAMESPACES.AUTH,
             }}
             htmlType='submit'
+            data-testid={TEST_IDS.AUTH.SIGN_IN}
           >
             {t('Authentication.SignIn.Label')}
           </Button>

@@ -1,3 +1,3 @@
-export * from './authentication';
-export * from './main';
+export * from './auth';
+export * from './home';
 export * from './profile';
