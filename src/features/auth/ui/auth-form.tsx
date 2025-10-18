@@ -15,11 +15,11 @@ import {
 import packageJson from '../../../../package.json';
 import {signInStore, signUpStore} from '../model';
 
-import style from './auth.module.less';
+import style from './auth-form.module.less';
 import {SignIn} from './sign-in';
 import {SignUp} from './sign-up';
 
-export const Auth = observer(() => {
+export const AuthForm = observer(() => {
   const loading = signInStore.isLoading || signUpStore.isLoading;
   const {t} = useTranslation('Auth');
 

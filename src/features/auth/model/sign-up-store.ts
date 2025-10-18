@@ -24,7 +24,7 @@ class SignUpStore {
       await signUpApi(values.login, values.password, values.email);
 
       runInAction(() => {
-        userStore.setUserLogger(true);
+        userStore.setUserLogged(true);
         userStore.getPermissions();
       });
     } catch (_error) {

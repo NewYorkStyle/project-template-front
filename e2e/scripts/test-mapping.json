@@ -1,0 +1,12 @@
+{
+  "tags": {
+    "@auth": ["src/features/auth/**/*", "src/pages/auth/**/*"],
+    "@profile": [
+      "src/features/profile/**/*",
+      "src/features/otp/**/*",
+      "src/pages/profile/**/*",
+      "src/entities/user/**/*"
+    ],
+    "@shared": ["src/shared/**/*"]
+  }
+}

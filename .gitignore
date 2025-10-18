@@ -3,6 +3,7 @@ dist
 tmp
 /out-tsc
 coverage
+projectStructure.cache.json
 
 # dependencies
 node_modules
@@ -18,3 +19,11 @@ src/app/ui/styles/global.less
 src/app/ui/styles/variables.less
 *storybook.log
 storybook-static
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+allure-results

@@ -14,6 +14,7 @@ import {
   Flex,
   Form,
   Input,
+  TEST_IDS,
   Typography,
   designTokens,
 } from '@shared';
@@ -213,7 +214,12 @@ export const PersonalData = observer(() => {
       </Form>
       <Divider />
       {isEmailVerified ? (
-        <Flex vertical gap={designTokens.spacing.sm} align='flex-start'>
+        <Flex
+          vertical
+          gap={designTokens.spacing.sm}
+          align='flex-start'
+          data-testid={TEST_IDS.USER.EMAIL_CHANGE_SECTION}
+        >
           <Form
             form={emailForm}
             requiredMark={false}
@@ -250,15 +256,17 @@ export const PersonalData = observer(() => {
           />
         </Flex>
       ) : (
-        <OTP
-          currentStep={emailFieldStep}
-          onGetOtpClick={handleEmailVerificationGetOtpClick}
-          onSendOtp={(otp: string) => handleEmailVerificationSubmitOtp(otp)}
-          sendOtpLabel={t('Profile.PersonalData.EmailVerification.Verify')}
-          otpTitle={t('Profile.PersonalData.EmailVerification.OtpLabel')}
-          sendNewLabel={t('Profile.PersonalData.EmailVerification.SendNew')}
-          submitLabel={t('Profile.PersonalData.EmailVerification.Submit')}
-        />
+        <div data-testid={TEST_IDS.USER.EMAIL_VERIFICATION_SECTION}>
+          <OTP
+            currentStep={emailFieldStep}
+            onGetOtpClick={handleEmailVerificationGetOtpClick}
+            onSendOtp={(otp: string) => handleEmailVerificationSubmitOtp(otp)}
+            sendOtpLabel={t('Profile.PersonalData.EmailVerification.Verify')}
+            otpTitle={t('Profile.PersonalData.EmailVerification.OtpLabel')}
+            sendNewLabel={t('Profile.PersonalData.EmailVerification.SendNew')}
+            submitLabel={t('Profile.PersonalData.EmailVerification.Submit')}
+          />
+        </div>
       )}
     </>
   );
