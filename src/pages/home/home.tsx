@@ -1,5 +1,5 @@
 import {Placeholder} from '@features';
 
-export const Main = () => {
+export const Home = () => {
   return <Placeholder />;
 };

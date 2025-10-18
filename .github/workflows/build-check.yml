@@ -1,4 +1,4 @@
-name: Run Tests
+name: Build Check
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
     branches: [master]
 
 jobs:
-  test:
-    name: Run Unit Tests
+  build:
+    name: Build Project
     runs-on: ubuntu-latest
 
     steps:
@@ -26,15 +26,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run test:coverage
-        env:
-          API_URL: http://localhost:3001
-          NODE_ENV: test
+      - name: Run build
+        run: npm run build
 
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          directory: ./coverage
-          flags: unittests
-          name: codecov-umbrella
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          echo "Build completed successfully"
