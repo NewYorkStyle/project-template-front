@@ -7,6 +7,7 @@ import {
   Form,
   Input,
   Statistic,
+  TEST_IDS,
   Typography,
   designTokens,
 } from '@shared';
@@ -57,6 +58,7 @@ export const OTP = ({
               label: 'Get OTP button',
               namespace: E_METRICS_NAMESPACES.AUTH,
             }}
+            data-testid={TEST_IDS.OTP.GET_OTP}
           >
             {sendOtpLabel}
           </Button>
@@ -70,7 +72,11 @@ export const OTP = ({
                 <Typography.Text>{otpTitle}</Typography.Text>
                 <Flex gap={designTokens.spacing.sm} align='center'>
                   <Form.Item noStyle rules={[{required: true}]} name='otp'>
-                    <Input.OTP length={6} disabled={timerFinished} />
+                    <Input.OTP
+                      length={6}
+                      disabled={timerFinished}
+                      data-testid={TEST_IDS.OTP.INPUT}
+                    />
                   </Form.Item>
                   <Statistic.Timer
                     type='countdown'
@@ -87,6 +93,7 @@ export const OTP = ({
                       label: 'Send OTP button',
                       namespace: E_METRICS_NAMESPACES.AUTH,
                     }}
+                    data-testid={TEST_IDS.OTP.SUBMIT}
                   >
                     {submitLabel}
                   </Button>
@@ -99,6 +106,7 @@ export const OTP = ({
                         label: 'Get new OTP button',
                         namespace: E_METRICS_NAMESPACES.AUTH,
                       }}
+                      data-testid={TEST_IDS.OTP.GET_NEW_OTP}
                     >
                       {sendNewLabel}
                     </Button>

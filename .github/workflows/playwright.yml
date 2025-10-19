@@ -1,0 +1,65 @@
+name: Playwright Tests with Allure
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    name: Run e2e Tests
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run selective Playwright tests
+        run: npm run e2e:changed
+        env:
+          CI: true
+
+      - name: Generate Allure Report
+        if: always()
+        run: |
+          npx allure generate ./allure-results --clean
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+
+      - name: Comment PR with Allure Results
+        if: always() && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: allure-tests
+          message: |
+            ## 📊 Allure Test Report
+
+            🎯 [Download Allure Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            ### Как посмотреть Allure отчет:
+            1. Перейдите по ссылке выше
+            2. В разделе **Artifacts** скачайте **allure-report**
+            3. Распакуйте архив
+            4. Запустите команду в терминале:
+               ```bash
+               npx allure open .
+               ```
+
+            💡 _Allure отчет сохраняется 30 дней_

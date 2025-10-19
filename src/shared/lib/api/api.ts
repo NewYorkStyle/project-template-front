@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import axios, {
   type AxiosError,
   type AxiosInstance,
@@ -6,11 +5,7 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from 'axios';
 
-const API_BASE_URL = process.env.API_URL;
-
-if (!API_BASE_URL) {
-  console.warn('API_URL is not defined');
-}
+const API_BASE_URL = '/api';
 
 type TRefreshSubscriber = {
   resolve: (value: unknown) => void;
