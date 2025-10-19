@@ -13,6 +13,7 @@ import style from './placeholder.module.less';
 
 export const Placeholder = () => {
   const {t} = useTranslation('Main');
+
   return (
     <Flex
       vertical

@@ -91,7 +91,10 @@ const baseConfig = {
       template: './public/index.html',
       minify: !isDevelopment,
     }),
-    isDevelopment && new ReactRefreshWebpackPlugin(),
+    isDevelopment &&
+      new ReactRefreshWebpackPlugin({
+        overlay: false,
+      }),
     new Dotenv(),
   ].filter(Boolean),
 
@@ -104,10 +107,7 @@ const baseConfig = {
       publicPath: '/',
     },
     client: {
-      overlay: {
-        errors: true,
-        warnings: false,
-      },
+      overlay: false,
     },
     proxy: [
       {
