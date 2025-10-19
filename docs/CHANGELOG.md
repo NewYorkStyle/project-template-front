@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.0.0...v2.1.0) (2025-10-19)
+
+### Features
+
+* PROJECTTEMPLATE-20 Добавлены e2e тесты ([#42](https://github.com/NewYorkStyle/project-template-front/issues/42)) ([a4353aa](https://github.com/NewYorkStyle/project-template-front/commit/a4353aa2aee8a70902a7bec0211735db01c6fd46))
+
 ## [2.0.0](https://github.com/NewYorkStyle/project-template-front/compare/v1.13.0...v2.0.0) (2025-10-14)
 
 ### ⚠ BREAKING CHANGES
