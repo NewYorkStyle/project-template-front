@@ -12,6 +12,7 @@ import {
   NotificationProvider,
   ModalProvider,
   i18nInstance,
+  ErrorBoundary,
 } from '@shared';
 
 import {Router} from '../../lib';
@@ -43,18 +44,20 @@ export const AppProviders = observer(() => {
   }, []);
 
   return (
-    <App>
+    <ConfigProvider theme={getAntdThemeConfig(theme)} locale={antLocale}>
       <I18nextProvider i18n={i18nInstance}>
-        <ApiProvider>
-          <ConfigProvider theme={getAntdThemeConfig(theme)} locale={antLocale}>
-            <ModalProvider />
-            <NotificationProvider />
-            <AuthProvider>
-              <Router />
-            </AuthProvider>
-          </ConfigProvider>
-        </ApiProvider>
+        <ErrorBoundary>
+          <App>
+            <ApiProvider>
+              <ModalProvider />
+              <NotificationProvider />
+              <AuthProvider>
+                <Router />
+              </AuthProvider>
+            </ApiProvider>
+          </App>
+        </ErrorBoundary>
       </I18nextProvider>
-    </App>
+    </ConfigProvider>
   );
 });
