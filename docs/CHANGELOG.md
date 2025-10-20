@@ -1,3 +1,9 @@
+## [2.2.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.1.0...v2.2.0) (2025-10-20)
+
+### Features
+
+* PROJECTTEMPLATE-30 Добавил ErrorBoundary ([#43](https://github.com/NewYorkStyle/project-template-front/issues/43)) ([66657c1](https://github.com/NewYorkStyle/project-template-front/commit/66657c130aa0a1df45d5988e3fea43471c771f8a))
+
 ## [2.1.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.0.0...v2.1.0) (2025-10-19)
 
 ### Features
