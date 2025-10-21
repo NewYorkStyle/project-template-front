@@ -35,6 +35,10 @@ class AuthInterceptor {
     );
   }
 
+  private isLogoutRequest(config: InternalAxiosRequestConfig): boolean {
+    return config.url?.includes('/auth/logout') ?? false;
+  }
+
   private isRefreshRequest(config: InternalAxiosRequestConfig): boolean {
     return config.url?.includes('/auth/refresh') ?? false;
   }
@@ -72,14 +76,28 @@ class AuthInterceptor {
   private async handleResponseError(error: AxiosError) {
     const originalRequest = error.config as InternalAxiosRequestConfig;
 
+    // Игнорируем logout запросы - они не должны триггерить refresh
+    if (this.isLogoutRequest(originalRequest)) {
+      return Promise.reject(error);
+    }
+
+    // Если это запрос refresh и он упал с 401 - сразу logout
+    if (
+      this.isRefreshRequest(originalRequest) &&
+      this.isAuthError(error.response?.status ?? 0)
+    ) {
+      if (this.onLogoutCallback) {
+        this.onLogoutCallback();
+      }
+      return Promise.reject(error);
+    }
+
+    // Если это не 401 ошибка или нет оригинального запроса
     if (!this.isAuthError(error.response?.status ?? 0) || !originalRequest) {
       return Promise.reject(error);
     }
 
-    if (this.isRefreshRequest(originalRequest)) {
-      return Promise.reject(error);
-    }
-
+    // Если уже в процессе обновления токена
     if (this.isRefreshing) {
       return new Promise((resolve, reject) => {
         this.addRefreshSubscriber({config: originalRequest, reject, resolve});
@@ -89,10 +107,14 @@ class AuthInterceptor {
     this.isRefreshing = true;
 
     try {
+      // Пытаемся обновить токен
       await this.axiosInstance.get('/auth/refresh');
       this.onRefreshSuccess();
+
+      // Повторяем оригинальный запрос
       return this.axiosInstance(originalRequest);
     } catch (refreshError) {
+      // Если refresh тоже упал с ошибкой
       this.onRefreshFailure(refreshError);
       return Promise.reject(refreshError);
     } finally {
