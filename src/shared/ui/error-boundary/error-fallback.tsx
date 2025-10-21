@@ -31,7 +31,10 @@ export const ErrorFallback: React.FC<TProps> = ({
           <span>{t('ErrorBoundary.SubTitle')}</span>
 
           {process.env.NODE_ENV === 'development' && (
-            <details>{error?.message}</details>
+            <details>
+              <summary>{error?.message}</summary>
+              <pre>{error?.stack}</pre>
+            </details>
           )}
         </Flex>
       }

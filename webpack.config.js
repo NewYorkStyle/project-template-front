@@ -18,7 +18,7 @@ const baseConfig = {
     path: path.resolve(__dirname, 'dist'),
     filename: isDevelopment ? '[name].js' : '[name].[contenthash].js',
     clean: true,
-    publicPath: '/',
+    publicPath: isDevelopment ? '/' : './',
   },
 
   resolve: {
@@ -42,9 +42,6 @@ const baseConfig = {
           loader: 'ts-loader',
           options: {
             transpileOnly: isDevelopment,
-            compilerOptions: {
-              jsx: isDevelopment ? 'react-jsxdev' : 'react-jsx',
-            },
           },
         },
       },
@@ -90,6 +87,8 @@ const baseConfig = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       minify: !isDevelopment,
+      publicPath: isDevelopment ? '/' : './',
+      favicon: 'public/favicon.ico',
     }),
     isDevelopment &&
       new ReactRefreshWebpackPlugin({
