@@ -1,7 +1,6 @@
-name: Playwright Tests with Allure
+name: Playwright Tests with Allure Deploy
+
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -43,23 +42,47 @@ jobs:
           path: allure-report/
           retention-days: 30
 
-      - name: Comment PR with Allure Results
-        if: always() && github.event_name == 'pull_request'
+  deploy-allure:
+    name: Deploy Allure Report
+    needs: test
+    if: always() && needs.test.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Allure Report
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-report
+          path: ./downloaded-allure-report
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+
+      - name: Deploy Allure Report to Server
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./downloaded-allure-report/* \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/deployer/allure-reports/pr-${{ github.event.number }}/
+
+      - name: Verify Deployment
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "ls -la /home/deployer/allure-reports/pr-${{ github.event.number }}/"
+
+      - name: Comment PR with Allure Link
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: allure-tests
+          header: allure-report
           message: |
             ## 📊 Allure Test Report
 
-            🎯 [Download Allure Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            ### 🎯 Online Report Available:
+            **[View Allure Report](http://176.108.254.146:8888/pr-${{ github.event.number }}/)**
 
-            ### Как посмотреть Allure отчет:
-            1. Перейдите по ссылке выше
-            2. В разделе **Artifacts** скачайте **allure-report**
-            3. Распакуйте архив
-            4. Запустите команду в терминале:
-               ```bash
-               npx allure open .
-               ```
+            ### 📋 Test Summary:
+            - **Status:** ${{ needs.test.result }}
+            - **PR:** #${{ github.event.number }}
+            - **Report URL:** http://176.108.254.146:8888/pr-${{ github.event.number }}/
+            - **Last Updated:** ${{ github.event.pull_request.updated_at }}
 
-            💡 _Allure отчет сохраняется 30 дней_
+            💡 _Report updates automatically on each test run_
