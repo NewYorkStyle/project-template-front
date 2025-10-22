@@ -1,3 +1,9 @@
+## [2.3.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.2.1...v2.3.0) (2025-10-22)
+
+### Features
+
+* PROJECTTEMPLATE-36 Переработка api ([#45](https://github.com/NewYorkStyle/project-template-front/issues/45)) ([cd39281](https://github.com/NewYorkStyle/project-template-front/commit/cd39281c5619fa37ede9ddf97c539f9901389ef6))
+
 ## [2.2.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.2.0...v2.2.1) (2025-10-21)
 
 ## [2.2.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.1.0...v2.2.0) (2025-10-20)
