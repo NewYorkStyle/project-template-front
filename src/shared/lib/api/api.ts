@@ -1,154 +1,129 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 import axios, {
-  type AxiosError,
-  type AxiosInstance,
   type AxiosRequestConfig,
-  type InternalAxiosRequestConfig,
+  type AxiosResponse,
+  type AxiosError,
 } from 'axios';
 
-const API_BASE_URL = '/api';
-
-type TRefreshSubscriber = {
-  resolve: (value: unknown) => void;
-  reject: (error: unknown) => void;
-  config: InternalAxiosRequestConfig;
-};
-
-class AuthInterceptor {
-  private isRefreshing = false;
-  private refreshSubscribers: TRefreshSubscriber[] = [];
-  private onLogoutCallback: (() => void) | null = null;
-
-  constructor(private axiosInstance: AxiosInstance) {
-    this.setupInterceptors();
-  }
-
-  setOnLogout(callback: () => void) {
-    this.onLogoutCallback = callback;
-  }
-
-  private setupInterceptors() {
-    this.axiosInstance.interceptors.response.use(
-      (response) => response,
-      async (error: AxiosError) => {
-        return this.handleResponseError(error);
-      }
-    );
-  }
-
-  private isLogoutRequest(config: InternalAxiosRequestConfig): boolean {
-    return config.url?.includes('/auth/logout') ?? false;
-  }
-
-  private isRefreshRequest(config: InternalAxiosRequestConfig): boolean {
-    return config.url?.includes('/auth/refresh') ?? false;
-  }
-
-  private isAuthError(status: number): boolean {
-    return status === 401;
-  }
-
-  private addRefreshSubscriber(subscriber: TRefreshSubscriber) {
-    this.refreshSubscribers.push(subscriber);
-  }
-
-  private onRefreshSuccess() {
-    this.refreshSubscribers.forEach(({config, resolve}) => {
-      this.axiosInstance(config)
-        .then(resolve)
-        .catch(() => {
-          /* empty */
-        });
-    });
-    this.refreshSubscribers = [];
-  }
-
-  private onRefreshFailure(error: unknown) {
-    this.refreshSubscribers.forEach(({reject}) => {
-      reject(error);
-    });
-    this.refreshSubscribers = [];
-
-    if (this.onLogoutCallback) {
-      this.onLogoutCallback();
-    }
-  }
-
-  private async handleResponseError(error: AxiosError) {
-    const originalRequest = error.config as InternalAxiosRequestConfig;
-
-    // Игнорируем logout запросы - они не должны триггерить refresh
-    if (this.isLogoutRequest(originalRequest)) {
-      return Promise.reject(error);
-    }
-
-    // Если это запрос refresh и он упал с 401 - сразу logout
-    if (
-      this.isRefreshRequest(originalRequest) &&
-      this.isAuthError(error.response?.status ?? 0)
-    ) {
-      if (this.onLogoutCallback) {
-        this.onLogoutCallback();
-      }
-      return Promise.reject(error);
-    }
-
-    // Если это не 401 ошибка или нет оригинального запроса
-    if (!this.isAuthError(error.response?.status ?? 0) || !originalRequest) {
-      return Promise.reject(error);
-    }
-
-    // Если уже в процессе обновления токена
-    if (this.isRefreshing) {
-      return new Promise((resolve, reject) => {
-        this.addRefreshSubscriber({config: originalRequest, reject, resolve});
-      });
-    }
-
-    this.isRefreshing = true;
-
-    try {
-      // Пытаемся обновить токен
-      await this.axiosInstance.get('/auth/refresh');
-      this.onRefreshSuccess();
-
-      // Повторяем оригинальный запрос
-      return this.axiosInstance(originalRequest);
-    } catch (refreshError) {
-      // Если refresh тоже упал с ошибкой
-      this.onRefreshFailure(refreshError);
-      return Promise.reject(refreshError);
-    } finally {
-      this.isRefreshing = false;
-    }
-  }
-}
-
-// Создание экземпляра axios
-const axiosApiInstance: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000,
+// Базовый клиент API
+const apiClient = axios.create({
+  baseURL: '/api',
   withCredentials: true,
 });
 
-// Инициализация перехватчика
-const authInterceptor = new AuthInterceptor(axiosApiInstance);
+// Типы для очереди запросов
+type TQueuedRequest = {
+  resolve: (value: any) => void;
+  reject: (error: any) => void;
+  config: AxiosRequestConfig;
+  endpoint: string;
+  method: 'get' | 'post';
+  data?: any;
+};
+
+// Глобальные переменные для управления состоянием
+let isRefreshing = false;
+let failedQueue: TQueuedRequest[] = [];
+
+// Функция для обработки очереди неудачных запросов
+const processQueue = (error: any) => {
+  failedQueue.forEach((queued) => {
+    if (error) {
+      queued.reject(error);
+    } else {
+      // Выполняем оригинальный запрос с обновленными куками
+      apiClient(queued.config).then(queued.resolve).catch(queued.reject);
+    }
+  });
+
+  failedQueue = [];
+};
+
+let logout = (): void => {
+  console.warn('LogOut callback not set. Use setOnLogOut to configure it.');
+};
 
 export const setOnLogout = (callback: () => void) => {
-  authInterceptor.setOnLogout(callback);
+  logout = callback;
 };
+
+// Функция обновления токена
+const refreshToken = async (): Promise<void> => {
+  await apiClient.get('auth/refresh');
+};
+
+// Интерцептор для обработки ответов и ошибок
+apiClient.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _retry?: boolean;
+    };
+
+    // Если ошибка 401 и это не запрос обновления токена
+    if (
+      error.response?.status === 401 &&
+      !originalRequest.url?.includes('auth/refresh')
+    ) {
+      // Если запрос уже был повторен, отклоняем его
+      if (originalRequest._retry) {
+        return Promise.reject(error);
+      }
+
+      originalRequest._retry = true;
+
+      // Если уже происходит обновление токена, добавляем запрос в очередь
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({
+            config: originalRequest,
+            data: (originalRequest as any).data,
+            endpoint: originalRequest.url || '',
+            method: (originalRequest.method as 'get' | 'post') || 'get',
+            reject,
+            resolve,
+          });
+        });
+      }
+
+      isRefreshing = true;
+
+      try {
+        // Пытаемся обновить токен - сервер обновит httpOnly куки
+        await refreshToken();
+
+        // Обрабатываем очередь с обновленными куками
+        processQueue(null);
+        isRefreshing = false;
+
+        // Повторяем оригинальный запрос с обновленными куками
+        return apiClient(originalRequest);
+      } catch (refreshError) {
+        // Если обновление токена не удалось, выходим из системы
+        processQueue(refreshError);
+        isRefreshing = false;
+        logout();
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export const api = {
   get: async <T>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
-    const response = await axiosApiInstance.get<T>(endpoint, config);
+    const response = await apiClient.get<T>(endpoint, config);
     return response.data;
   },
+
   post: async <T>(
     endpoint: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<T> => {
-    const response = await axiosApiInstance.post<T>(endpoint, data, config);
+    const response = await apiClient.post<T>(endpoint, data, config);
     return response.data;
   },
 };
