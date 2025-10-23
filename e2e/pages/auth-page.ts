@@ -24,7 +24,7 @@ export class AuthPage extends BasePage {
   }
 
   async open(): Promise<void> {
-    await this.goto(APP_ROUTES.ROOT);
+    await this.goto(APP_ROUTES.AUTH.ROOT);
     await this.waitForAuthForm();
   }
 
@@ -65,7 +65,8 @@ export class AuthPage extends BasePage {
   isOnAuthPage(): boolean {
     const currentUrl = this.getUrl();
     return (
-      currentUrl === APP_ROUTES.ROOT || currentUrl.includes(APP_ROUTES.ROOT)
+      currentUrl === APP_ROUTES.AUTH.ROOT ||
+      currentUrl.includes(APP_ROUTES.AUTH.ROOT)
     );
   }
 }

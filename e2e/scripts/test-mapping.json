@@ -7,6 +7,6 @@
       "src/pages/profile/**/*",
       "src/entities/user/**/*"
     ],
-    "@shared": ["src/shared/**/*"]
+    "@shared": ["src/shared/**/*", "src/app/**/*"]
   }
 }
