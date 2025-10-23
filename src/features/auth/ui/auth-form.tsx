@@ -48,7 +48,7 @@ export const AuthForm = observer(() => {
 
   return (
     <div className={style.root}>
-      <Typography.Title>{t('Welcome')}</Typography.Title>
+      <Typography.Title>{t('Title')}</Typography.Title>
       <Spin spinning={loading}>
         <div className={style.tabsWrapper}>
           <Tabs
