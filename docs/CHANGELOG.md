@@ -1,3 +1,9 @@
+## [2.4.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.3...v2.4.0) (2025-10-23)
+
+### Features
+
+* PROJECTTEMPLATE-34 Добавлен helmet ([#49](https://github.com/NewYorkStyle/project-template-front/issues/49)) ([f7f76a6](https://github.com/NewYorkStyle/project-template-front/commit/f7f76a63c423efc7f8438df4d5597db0e370859b))
+
 ## [2.3.3](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.2...v2.3.3) (2025-10-23)
 
 ### Bug Fixes
