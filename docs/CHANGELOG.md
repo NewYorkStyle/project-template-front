@@ -1,3 +1,9 @@
+## [2.3.3](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.2...v2.3.3) (2025-10-23)
+
+### Bug Fixes
+
+* PROJECTTEMPLATE-32 Исправление роутера ([#48](https://github.com/NewYorkStyle/project-template-front/issues/48)) ([0fdd78c](https://github.com/NewYorkStyle/project-template-front/commit/0fdd78cd3cb507c012a7cc0f924a73b6f3ca3fa6))
+
 ## [2.3.2](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.1...v2.3.2) (2025-10-23)
 
 ### Bug Fixes
