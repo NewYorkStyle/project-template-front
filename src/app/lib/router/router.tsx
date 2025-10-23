@@ -1,20 +1,38 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
 
-import {Home, Profile} from '@pages';
+import {Auth, Home, Profile} from '@pages';
 import {APP_ROUTES} from '@shared';
 
-import {AppLayout} from '../../ui';
+import {AppLayout, AuthLayout} from '../../ui';
+
+import {ProtectedRoute} from './protected-route';
+import {PublicRoute} from './public-route';
 
 export const Router = () => {
   return (
     <Routes>
-      <Route element={<AppLayout />}>
-        <Route id='root' path={APP_ROUTES.HOME.ROOT}>
-          <Route index element={<Home />} />
-        </Route>
-        <Route id='user' path={APP_ROUTES.USER.ROOT}>
-          <Route index element={<Profile />} />
-        </Route>
+      <Route
+        path={APP_ROUTES.AUTH.ROOT}
+        element={
+          <PublicRoute>
+            <AuthLayout>
+              <Auth />
+            </AuthLayout>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path='/*'
+        element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Navigate to={APP_ROUTES.HOME.ROOT} replace />} />
+        <Route path={APP_ROUTES.HOME.ROOT} element={<Home />} />
+        <Route path={APP_ROUTES.USER.ROOT} element={<Profile />} />
         <Route
           path='*'
           element={<Navigate to={APP_ROUTES.HOME.ROOT} replace />}

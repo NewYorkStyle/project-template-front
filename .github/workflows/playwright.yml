@@ -61,8 +61,17 @@ jobs:
 
       - name: Deploy Allure Report to Server
         run: |
+          # Создаем папку с правильными правами
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "mkdir -p /home/deployer/allure-reports/pr-${{ github.event.number }} && chmod 755 /home/deployer/allure-reports/pr-${{ github.event.number }}"
+
+          # Копируем файлы
           scp -o StrictHostKeyChecking=no -r ./downloaded-allure-report/* \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/deployer/allure-reports/pr-${{ github.event.number }}/
+
+          # Фиксим права после копирования
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "chmod -R 755 /home/deployer/allure-reports/pr-${{ github.event.number }}/"
 
       - name: Verify Deployment
         run: |

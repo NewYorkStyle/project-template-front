@@ -18,7 +18,6 @@ import {
 import {Router} from '../../lib';
 
 import {ApiProvider} from './api-provider';
-import {AuthProvider} from './auth-provider';
 
 export const AppProviders = observer(() => {
   const {init, language, theme} = paramsStore;
@@ -51,9 +50,7 @@ export const AppProviders = observer(() => {
             <ApiProvider>
               <ModalProvider />
               <NotificationProvider />
-              <AuthProvider>
-                <Router />
-              </AuthProvider>
+              <Router />
             </ApiProvider>
           </App>
         </ErrorBoundary>
