@@ -105,48 +105,56 @@ export const SignUp = observer(() => {
         >
           <Input placeholder={t('Authentication.SignUp.EmailPlaceholder')} />
         </Form.Item>
-        <Popover
-          trigger='focus'
-          placement='right'
-          content={
-            <>
-              <Typography.Text>
-                {t('Authentication.SignUp.PasswordSuggestions.Header')}
-              </Typography.Text>
-              <ul>
-                <li>
-                  <Typography.Text>
-                    {t('Authentication.SignUp.PasswordSuggestions.LowerCase')}
-                  </Typography.Text>
-                </li>
-                <li>
-                  <Typography.Text>
-                    {t('Authentication.SignUp.PasswordSuggestions.UpperCase')}
-                  </Typography.Text>
-                </li>
-                <li>
-                  <Typography.Text>
-                    {t('Authentication.SignUp.PasswordSuggestions.Numeric')}
-                  </Typography.Text>
-                </li>
-                <li>
-                  <Typography.Text>
-                    {t('Authentication.SignUp.PasswordSuggestions.MinLength', {
-                      minLength: PASSWORD_MIN_LENGTH,
-                    })}
-                  </Typography.Text>
-                </li>
-              </ul>
-            </>
-          }
-        >
-          <Form.Item name='password' rules={[{validator: passwordValidator}]}>
+
+        <Form.Item name='password' rules={[{validator: passwordValidator}]}>
+          <Popover
+            trigger='focus'
+            placement='right'
+            getPopupContainer={(trigger) =>
+              trigger.parentElement || document.body
+            }
+            content={
+              <>
+                <Typography.Text>
+                  {t('Authentication.SignUp.PasswordSuggestions.Header')}
+                </Typography.Text>
+                <ul>
+                  <li>
+                    <Typography.Text>
+                      {t('Authentication.SignUp.PasswordSuggestions.LowerCase')}
+                    </Typography.Text>
+                  </li>
+                  <li>
+                    <Typography.Text>
+                      {t('Authentication.SignUp.PasswordSuggestions.UpperCase')}
+                    </Typography.Text>
+                  </li>
+                  <li>
+                    <Typography.Text>
+                      {t('Authentication.SignUp.PasswordSuggestions.Numeric')}
+                    </Typography.Text>
+                  </li>
+                  <li>
+                    <Typography.Text>
+                      {t(
+                        'Authentication.SignUp.PasswordSuggestions.MinLength',
+                        {
+                          minLength: PASSWORD_MIN_LENGTH,
+                        }
+                      )}
+                    </Typography.Text>
+                  </li>
+                </ul>
+              </>
+            }
+          >
             <Input.Password
               visibilityToggle
               placeholder={t('Authentication.SignUp.PasswordPlaceholder')}
             />
-          </Form.Item>
-        </Popover>
+          </Popover>
+        </Form.Item>
+
         <Form.Item
           name='passwordConfirm'
           dependencies={['password']}
