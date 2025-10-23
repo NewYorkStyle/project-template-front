@@ -1,3 +1,9 @@
+## [2.3.2](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.1...v2.3.2) (2025-10-23)
+
+### Bug Fixes
+
+* PROJECTTEMPLATE-31 Исправлено отображение подсказки для пароля ([#47](https://github.com/NewYorkStyle/project-template-front/issues/47)) ([ef1220d](https://github.com/NewYorkStyle/project-template-front/commit/ef1220df6f39a2add308a92e8359a4e52e9b3c1c))
+
 ## [2.3.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.0...v2.3.1) (2025-10-22)
 
 ## [2.3.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.2.1...v2.3.0) (2025-10-22)
