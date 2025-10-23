@@ -1,5 +1,6 @@
 export * from './button';
 export * from './divider';
+export * from './drawer';
 export * from './error-boundary';
 export * from './flex';
 export * from './form';

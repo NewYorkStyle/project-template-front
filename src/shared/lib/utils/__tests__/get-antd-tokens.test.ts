@@ -52,7 +52,7 @@ describe('getAntdThemeConfig', () => {
 
     expect(config.components?.Layout).toEqual({
       headerBg: designTokens.colors.light.backgroundPrimary,
-      headerPadding: designTokens.spacing.lg,
+      headerPadding: designTokens.spacing.md,
       triggerBg: 'transparent',
     });
   });

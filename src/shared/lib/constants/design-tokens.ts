@@ -27,13 +27,29 @@ export type TDesignTokens = {
     sm: number;
     md: number;
   };
+  breakpoints: {
+    phone: number;
+    tablet: number;
+    tabletLg: number;
+    desktop: number;
+    desktopLg: number;
+    desktopXl: number;
+  };
 };
 
 export const designTokens: TDesignTokens = {
   borderRadius: {
-    lg: 14,
     md: 12,
+    lg: 14,
     sm: 10,
+  },
+  breakpoints: {
+    phone: 480,
+    tablet: 768,
+    tabletLg: 1024,
+    desktop: 1280,
+    desktopLg: 1440,
+    desktopXl: 1920,
   },
   colors: {
     dark: {
@@ -54,13 +70,13 @@ export const designTokens: TDesignTokens = {
     },
   },
   spacing: {
-    lg: 24,
-    md: 16,
-    sm: 8,
     xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
   },
   textSise: {
-    md: 16,
     sm: 14,
+    md: 16,
   },
 };

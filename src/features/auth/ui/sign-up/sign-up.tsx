@@ -9,17 +9,21 @@ import {
   Input,
   Popover,
   Typography,
+  useWindowSize,
+  designTokens,
 } from '@shared';
 
-import {PASSWORD_MIN_LENGTH} from '../lib';
-import {signUpStore} from '../model';
-import {type TSignUpFormValues} from '../types';
+import {PASSWORD_MIN_LENGTH} from '../../lib';
+import {signUpStore} from '../../model';
+import {type TSignUpFormValues} from '../../types';
 
 import style from './sing-up.module.less';
 
 export const SignUp = observer(() => {
   const {t} = useTranslation('Auth');
   const {isLoading} = signUpStore;
+
+  const {width} = useWindowSize();
 
   const initialValues: TSignUpFormValues = {
     email: '',
@@ -109,7 +113,9 @@ export const SignUp = observer(() => {
         <Form.Item name='password' rules={[{validator: passwordValidator}]}>
           <Popover
             trigger='focus'
-            placement='right'
+            placement={
+              width < designTokens.breakpoints.tabletLg ? 'top' : 'right'
+            }
             getPopupContainer={(trigger) =>
               trigger.parentElement || document.body
             }

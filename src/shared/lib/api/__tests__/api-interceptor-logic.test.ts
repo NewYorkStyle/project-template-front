@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Тестируем логику интерцепторов отдельно
 describe('API Interceptor Logic', () => {
   // Мокаем глобальные переменные

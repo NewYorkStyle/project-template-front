@@ -15,8 +15,7 @@ node_modules
 .env
 
 # generated
-src/app/ui/styles/global.less
-src/app/ui/styles/variables.less
+src/app/styles
 *storybook.log
 storybook-static
 

@@ -3,8 +3,8 @@ import {useTranslation} from 'react-i18next';
 
 import {Button, E_METRICS_NAMESPACES, Form, Input, TEST_IDS} from '@shared';
 
-import {signInStore} from '../model';
-import {type TSignInFormValues} from '../types';
+import {signInStore} from '../../model';
+import {type TSignInFormValues} from '../../types';
 
 import style from './sing-in.module.less';
 

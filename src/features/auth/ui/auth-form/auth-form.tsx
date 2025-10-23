@@ -12,12 +12,12 @@ import {
   Typography,
 } from '@shared';
 
-import packageJson from '../../../../package.json';
-import {signInStore, signUpStore} from '../model';
+import packageJson from '../../../../../package.json';
+import {signInStore, signUpStore} from '../../model';
+import {SignIn} from '../sign-in';
+import {SignUp} from '../sign-up';
 
 import style from './auth-form.module.less';
-import {SignIn} from './sign-in';
-import {SignUp} from './sign-up';
 
 export const AuthForm = observer(() => {
   const loading = signInStore.isLoading || signUpStore.isLoading;
@@ -47,7 +47,7 @@ export const AuthForm = observer(() => {
   );
 
   return (
-    <div className={style.root}>
+    <Flex className={style.root} vertical align='center' justify='center'>
       <Typography.Title>{t('Title')}</Typography.Title>
       <Spin spinning={loading}>
         <div className={style.tabsWrapper}>
@@ -65,6 +65,6 @@ export const AuthForm = observer(() => {
           </Flex>
         </div>
       </Spin>
-    </div>
+    </Flex>
   );
 });

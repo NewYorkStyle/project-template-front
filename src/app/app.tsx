@@ -1,5 +1,5 @@
 import '@ant-design/v5-patch-for-react-19';
-import './ui/styles/global.less';
+import './styles/global.less';
 
 import {AppProviders} from './model';
 
