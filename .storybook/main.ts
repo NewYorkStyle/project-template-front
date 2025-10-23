@@ -1,4 +1,38 @@
+import path from 'path';
+
 import type {StorybookConfig} from '@storybook/react-webpack5';
+
+// Упрощенная версия плагина
+const withGlobalLessResources = () => (config: any) => {
+  const lessResources = [
+    path.resolve(__dirname, '../src/app/styles/variables.less'),
+  ];
+
+  // Находим все правила с less-loader и добавляем style-resources-loader
+  config.module?.rules?.forEach((rule: any) => {
+    if (rule.test && rule.test.toString().includes('less')) {
+      if (Array.isArray(rule.use)) {
+        const lessLoaderIndex = rule.use.findIndex(
+          (use: any) =>
+            typeof use === 'object' &&
+            use.loader &&
+            use.loader.includes('less-loader')
+        );
+
+        if (lessLoaderIndex !== -1) {
+          rule.use.splice(lessLoaderIndex + 1, 0, {
+            loader: 'style-resources-loader',
+            options: {
+              patterns: lessResources,
+            },
+          });
+        }
+      }
+    }
+  });
+
+  return config;
+};
 
 const config: StorybookConfig = {
   framework: {
@@ -56,7 +90,7 @@ const config: StorybookConfig = {
       ];
     }
 
-    return config;
+    return withGlobalLessResources()(config);
   },
 };
 

@@ -23,21 +23,25 @@ export const Router = () => {
       />
 
       <Route
-        path='/*'
+        path='/'
         element={
           <ProtectedRoute>
             <AppLayout />
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to={APP_ROUTES.HOME.ROOT} replace />} />
+        <Route
+          index
+          element={<Navigate to={`/${APP_ROUTES.HOME.ROOT}`} replace />}
+        />
         <Route path={APP_ROUTES.HOME.ROOT} element={<Home />} />
         <Route path={APP_ROUTES.USER.ROOT} element={<Profile />} />
-        <Route
-          path='*'
-          element={<Navigate to={APP_ROUTES.HOME.ROOT} replace />}
-        />
       </Route>
+
+      <Route
+        path='*'
+        element={<Navigate to={`/${APP_ROUTES.HOME.ROOT}`} replace />}
+      />
     </Routes>
   );
 };
