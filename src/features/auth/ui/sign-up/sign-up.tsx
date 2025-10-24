@@ -109,57 +109,56 @@ export const SignUp = observer(() => {
         >
           <Input placeholder={t('Authentication.SignUp.EmailPlaceholder')} />
         </Form.Item>
-
-        <Form.Item name='password' rules={[{validator: passwordValidator}]}>
-          <Popover
-            trigger='focus'
-            placement={
-              width < designTokens.breakpoints.tabletLg ? 'top' : 'right'
-            }
-            getPopupContainer={(trigger) =>
-              trigger.parentElement || document.body
-            }
-            content={
-              <>
-                <Typography.Text>
-                  {t('Authentication.SignUp.PasswordSuggestions.Header')}
-                </Typography.Text>
-                <ul>
-                  <li>
-                    <Typography.Text>
-                      {t('Authentication.SignUp.PasswordSuggestions.LowerCase')}
-                    </Typography.Text>
-                  </li>
-                  <li>
-                    <Typography.Text>
-                      {t('Authentication.SignUp.PasswordSuggestions.UpperCase')}
-                    </Typography.Text>
-                  </li>
-                  <li>
-                    <Typography.Text>
-                      {t('Authentication.SignUp.PasswordSuggestions.Numeric')}
-                    </Typography.Text>
-                  </li>
-                  <li>
-                    <Typography.Text>
-                      {t(
-                        'Authentication.SignUp.PasswordSuggestions.MinLength',
-                        {
-                          minLength: PASSWORD_MIN_LENGTH,
-                        }
-                      )}
-                    </Typography.Text>
-                  </li>
-                </ul>
-              </>
-            }
-          >
+        <Popover
+          trigger='focus'
+          placement={
+            width < designTokens.breakpoints.tabletLg ? 'top' : 'right'
+          }
+          content={
+            <>
+              <Typography.Text>
+                {t('Authentication.SignUp.PasswordSuggestions.Header')}
+              </Typography.Text>
+              <ul>
+                <li>
+                  <Typography.Text>
+                    {t('Authentication.SignUp.PasswordSuggestions.LowerCase')}
+                  </Typography.Text>
+                </li>
+                <li>
+                  <Typography.Text>
+                    {t('Authentication.SignUp.PasswordSuggestions.UpperCase')}
+                  </Typography.Text>
+                </li>
+                <li>
+                  <Typography.Text>
+                    {t('Authentication.SignUp.PasswordSuggestions.Numeric')}
+                  </Typography.Text>
+                </li>
+                <li>
+                  <Typography.Text>
+                    {t('Authentication.SignUp.PasswordSuggestions.MinLength', {
+                      minLength: PASSWORD_MIN_LENGTH,
+                    })}
+                  </Typography.Text>
+                </li>
+              </ul>
+            </>
+          }
+        >
+          {/**
+           * Прикол antd - если обернуть Form.Item в Popover, он улетает в верхний левый угол (видимо улетает на body)
+           * Если обернуть Input, то Popover становится потомком Item и считывается его значение, а не инпута.
+           * Решение - внутрь Popover кладётся див рядом с Form.Item, который и является тригером
+           */}
+          <div style={{position: 'relative'}} />
+          <Form.Item name='password' rules={[{validator: passwordValidator}]}>
             <Input.Password
               visibilityToggle
               placeholder={t('Authentication.SignUp.PasswordPlaceholder')}
             />
-          </Popover>
-        </Form.Item>
+          </Form.Item>
+        </Popover>
 
         <Form.Item
           name='passwordConfirm'
