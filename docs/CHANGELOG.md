@@ -1,3 +1,9 @@
+## [2.5.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.5.0...v2.5.1) (2025-10-24)
+
+### Bug Fixes
+
+* PROJECTTEMPLATE-31 Исправлено поведение подсказки к паролю ([#51](https://github.com/NewYorkStyle/project-template-front/issues/51)) ([c1dc08b](https://github.com/NewYorkStyle/project-template-front/commit/c1dc08ba4ec857cb214abf5ecd0702a5252b22da))
+
 ## [2.5.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.4.0...v2.5.0) (2025-10-24)
 
 ### Features
