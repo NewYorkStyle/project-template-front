@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import path from 'path';
 
 import type {StorybookConfig} from '@storybook/react-webpack5';

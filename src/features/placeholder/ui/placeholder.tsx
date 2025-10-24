@@ -22,7 +22,9 @@ export const Placeholder = () => {
       className={style.root}
       gap={designTokens.spacing.lg}
     >
-      <Typography.Title>{t('Placeholder.Ad')}</Typography.Title>
+      <Typography.Title className={style.title}>
+        {t('Placeholder.Ad')}
+      </Typography.Title>
       <Button
         analyticProps={{
           label: 'didnt-work',

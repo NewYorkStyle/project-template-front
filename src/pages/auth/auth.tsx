@@ -2,7 +2,7 @@ import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {AuthForm} from '@features';
-import {Page} from '@shared';
+import {Flex, Page} from '@shared';
 
 import style from './auth.module.less';
 
@@ -11,9 +11,9 @@ export const Auth = observer(() => {
 
   return (
     <Page title={t('Title')}>
-      <div className={style.root}>
+      <Flex className={style.root} vertical align='center' justify='center'>
         <AuthForm />
-      </div>
+      </Flex>
     </Page>
   );
 });

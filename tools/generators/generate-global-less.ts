@@ -32,7 +32,8 @@ const generateCssVariables = (palette: TColorPalette, prefix = ''): string => {
 const generateLessVariables = (tokens: TDesignTokens): string => {
   let lessContent = '// Auto-generated from TypeScript\n\n';
 
-  // Размеры
+  // Отступы
+  lessContent += '// Отступы\n';
   Object.entries(tokens.spacing).forEach(([key, value]) => {
     lessContent += `@spacing-${key}: ${value}px;\n`;
   });
@@ -40,8 +41,25 @@ const generateLessVariables = (tokens: TDesignTokens): string => {
   lessContent += '\n';
 
   // Радиусы
+  lessContent += '// Радиусы скругления\n';
   Object.entries(tokens.borderRadius).forEach(([key, value]) => {
     lessContent += `@border-radius-${key}: ${value}px;\n`;
+  });
+
+  lessContent += '\n';
+
+  // Размеры текста
+  lessContent += '// Размеры текста\n';
+  Object.entries(tokens.textSise).forEach(([key, value]) => {
+    lessContent += `@text-size-${key}: ${value}px;\n`;
+  });
+
+  lessContent += '\n';
+
+  // Брейкпоинты
+  lessContent += '// Брейкпоинты\n';
+  Object.entries(tokens.breakpoints).forEach(([key, value]) => {
+    lessContent += `@breakpoint-${camelToKebab(key)}: ${value}px;\n`;
   });
 
   return lessContent;
@@ -76,7 +94,7 @@ const generateGlobalLess = (tokens: TDesignTokens): string => {
 const workspaceRoot = path.resolve(__dirname, '../../');
 console.log('📁 Workspace root:', workspaceRoot);
 
-const stylesDir = path.join(workspaceRoot, 'src/app/ui/styles');
+const stylesDir = path.join(workspaceRoot, 'src/app/styles');
 
 // Создаем директорию, если её нет
 if (!fs.existsSync(stylesDir)) {

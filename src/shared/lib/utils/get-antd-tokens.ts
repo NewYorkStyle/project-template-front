@@ -18,7 +18,7 @@ export const getAntdThemeConfig = (theme: 'light' | 'dark'): ThemeConfig => {
       },
       Layout: {
         headerBg: palette.backgroundPrimary,
-        headerPadding: designTokens.spacing.lg,
+        headerPadding: designTokens.spacing.md,
         triggerBg: 'transparent',
       },
       Select: {

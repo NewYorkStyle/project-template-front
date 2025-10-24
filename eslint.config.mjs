@@ -3,7 +3,6 @@ import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
-import sortKeysFix from 'eslint-plugin-sort-keys-fix';
 import sortDestructureKeys from 'eslint-plugin-sort-destructure-keys';
 import prettier from 'eslint-config-prettier';
 import prettierPlugin from 'eslint-plugin-prettier';
@@ -76,7 +75,6 @@ export default tseslint.config(
     plugins: {
       '@typescript-eslint': typescript,
       import: importPlugin,
-      'sort-keys-fix': sortKeysFix,
       'sort-destructure-keys': sortDestructureKeys,
       prettier: prettierPlugin,
     },
@@ -122,7 +120,6 @@ export default tseslint.config(
       'no-trailing-spaces': 'warn',
       'max-lines': ['error', 1015],
 
-      'sort-keys-fix/sort-keys-fix': 'warn',
       'sort-destructure-keys/sort-destructure-keys': 'warn',
 
       // ✅ Правила для импортов

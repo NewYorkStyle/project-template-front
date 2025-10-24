@@ -1,13 +1,26 @@
+import {useState} from 'react';
+
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {DeleteUser, PersonalData} from '@features';
-import {E_METRICS_NAMESPACES, Page, type TTabItem, Tabs} from '@shared';
+import {
+  E_METRICS_NAMESPACES,
+  Page,
+  Select,
+  type TTabItem,
+  Tabs,
+  designTokens,
+  useWindowSize,
+} from '@shared';
 
 import style from './profile.module.less';
 
 export const Profile = observer(() => {
   const {t} = useTranslation('User');
+  const {width} = useWindowSize();
+  const isMobile = width < designTokens.breakpoints.tablet;
+  const [selectedTab, setSelectedTab] = useState('personal-data');
 
   const tabConfig: TTabItem[] = [
     {
@@ -27,6 +40,17 @@ export const Profile = observer(() => {
   return (
     <Page title={t('Title')}>
       <div className={style.root}>
+        {isMobile && (
+          <Select
+            options={[
+              {label: t('Profile.PersonalData.Header'), value: 'personal-data'},
+              {label: t('Profile.Delete.Header'), value: 'delete'},
+            ]}
+            onChange={(value: string) => setSelectedTab(value)}
+            value={selectedTab}
+            className={style.selectTab}
+          />
+        )}
         <Tabs
           items={tabConfig}
           analyticProps={{
@@ -35,6 +59,9 @@ export const Profile = observer(() => {
           }}
           tabPosition='left'
           className={style.fullHeightTabs}
+          tabBarStyle={isMobile ? {display: 'none'} : undefined}
+          activeKey={selectedTab}
+          onChange={(value: string) => setSelectedTab(value)}
         />
       </div>
     </Page>

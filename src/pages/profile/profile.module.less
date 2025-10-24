@@ -1,6 +1,7 @@
 .root {
   padding: @spacing-sm;
   height: 100%;
+  overflow: auto;
 
   .fullHeightTabs {
     height: 100%;
@@ -9,6 +10,20 @@
       .ant-tabs-nav {
         width: 200px;
       }
+
+      .ant-tabs-content-holder {
+        @media (max-width: calc(@breakpoint-tablet - 1px)) {
+          border-left: none;
+
+          .ant-tabs-tabpane {
+            padding-left: @spacing-sm;
+          }
+        }
+      }
     }
+  }
+
+  .selectTab {
+    width: 100%;
   }
 }
