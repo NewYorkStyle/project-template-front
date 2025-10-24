@@ -9,11 +9,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const getChangedFiles = () => {
   try {
     console.log('🔍 Checking for changed files...');
-
     // Определяем окружение
     const isCI = process.env.CI === 'true';
-    console.log(`🏷️  Environment: ${isCI ? 'CI' : 'Local'}`);
-
     let changedFiles = [];
 
     if (isCI) {
@@ -58,8 +55,13 @@ const getChangedFiles = () => {
 };
 
 const convertPatternToRegex = (pattern) => {
+  const normalizedPattern = pattern.replace(/\\/g, '/');
+
   const regexPattern =
-    '^' + pattern.replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*') + '$';
+    '^' +
+    normalizedPattern.replace(/\*\*/g, '(.+)').replace(/\*/g, '([^/]*)') +
+    '$';
+
   return new RegExp(regexPattern);
 };
 
@@ -67,12 +69,16 @@ const getAffectedTags = (changedFiles, mapping) => {
   const affectedTags = new Set();
 
   changedFiles.forEach((file) => {
+    const normalizedFile = file.replace(/\\/g, '/');
+
     for (const [tag, patterns] of Object.entries(mapping.tags)) {
       if (
-        patterns.some((pattern) => convertPatternToRegex(pattern).test(file))
+        patterns.some((pattern) =>
+          convertPatternToRegex(pattern).test(normalizedFile)
+        )
       ) {
         affectedTags.add(tag);
-        console.log(`✅ File "${file}" → tag "${tag}"`);
+        console.log(`✅ File "${normalizedFile}" → tag "${tag}"`);
       }
     }
   });
@@ -92,12 +98,11 @@ const main = () => {
 
   try {
     const mappingPath = join(__dirname, './test-mapping.json');
-    console.log(`📄 Loading mapping from: ${mappingPath}`);
     const mapping = JSON.parse(readFileSync(mappingPath, 'utf8'));
 
     const affectedTags = getAffectedTags(changedFiles, mapping);
     console.log(
-      `\n🏷️  Total affected tags: ${Array.from(affectedTags).join(', ')}`
+      `\n🏷️  Affected tags: ${Array.from(affectedTags).join(', ') || 'none'}`
     );
 
     let command;
