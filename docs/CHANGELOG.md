@@ -1,3 +1,9 @@
+## [2.5.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.4.0...v2.5.0) (2025-10-24)
+
+### Features
+
+* PROJECTTEMPLATE-33 Добавлен адаптив ([#50](https://github.com/NewYorkStyle/project-template-front/issues/50)) ([359f5d6](https://github.com/NewYorkStyle/project-template-front/commit/359f5d6602e664c5ab7ab86a294c84b4eff6ee7e))
+
 ## [2.4.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.3.3...v2.4.0) (2025-10-23)
 
 ### Features
