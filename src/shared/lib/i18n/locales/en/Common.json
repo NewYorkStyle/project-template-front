@@ -3,5 +3,7 @@
     "Title": "Oops! Something went wrong.",
     "SubTitle": "Please try again.",
     "Home": "Return to home page"
-  }
+  },
+  "PageNotFound": "Page not found",
+  "Back": "Back"
 }
