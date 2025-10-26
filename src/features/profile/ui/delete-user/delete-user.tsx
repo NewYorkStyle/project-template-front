@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {
@@ -12,14 +11,16 @@ import {
   useModal,
 } from '@shared';
 
-import {profileStore} from '../../model';
+import {useDeleteProfile} from '../../api';
 
 import style from './delete-user.module.less';
 
-export const DeleteUser = observer(() => {
+export const DeleteUser = () => {
   const {t} = useTranslation('User');
   const {closeModal, openModal} = useModal();
   const [form] = Form.useForm();
+
+  const {isPending: isDeleting, mutate: deleteProfile} = useDeleteProfile();
 
   const onFinish = (values: {password: string}) => {
     openModal({
@@ -38,9 +39,10 @@ export const DeleteUser = observer(() => {
         },
         color: 'danger',
         variant: 'solid',
+        loading: isDeleting,
       },
       onOk: () => {
-        profileStore.deleteProfile(values.password);
+        deleteProfile(values.password);
         closeModal('user-delete-modal');
       },
       title: t('Profile.Delete.ConfirmationDialog.Header'),
@@ -75,6 +77,7 @@ export const DeleteUser = observer(() => {
             color='danger'
             variant='solid'
             htmlType='submit'
+            loading={isDeleting}
             analyticProps={{
               label: 'Delete profile button',
               namespace: E_METRICS_NAMESPACES.USER,
@@ -86,4 +89,4 @@ export const DeleteUser = observer(() => {
       </Flex>
     </Form>
   );
-});
+};

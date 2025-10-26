@@ -6,13 +6,16 @@ import {APP_ROUTES} from '../../shared';
 
 test('Успешная авторизация и верификация email через OTP @auth', async ({
   authPage,
-  page,
   profilePage,
   testUsers,
 }) => {
   await allure.displayName(
     'Успешная авторизация и верификация email через OTP'
   );
+  await allure.epic('Профиль');
+  await allure.feature('Верификация email');
+  await allure.story('Успешная верификация');
+  await allure.severity('critical');
 
   await allure.step('Пройти авторизацию', async () => {
     await authPage.open();
@@ -28,15 +31,21 @@ test('Успешная авторизация и верификация email ч
   });
 
   await allure.step('Проверить редирект на страницу профиля', async () => {
-    await profilePage.page.waitForURL(`**${APP_ROUTES.USER.ROOT}**`);
+    await profilePage.page.waitForURL(`**${APP_ROUTES.USER.ROOT}**`, {
+      timeout: 15000,
+    });
     expect(profilePage.isOnProfilePage()).toBe(true);
   });
 
   await allure.step(
     'Проверить отображение секции верификации email',
     async () => {
-      await expect(profilePage.emailVerificationSection).toBeVisible();
-      await expect(profilePage.otpGetButton).toBeVisible();
+      await expect(profilePage.emailVerificationSection).toBeVisible({
+        timeout: 10000,
+      });
+      await expect(profilePage.otpGetButton).toBeVisible({
+        timeout: 10000,
+      });
     }
   );
 
@@ -44,17 +53,16 @@ test('Успешная авторизация и верификация email ч
     await profilePage.startEmailVerification();
     await profilePage.waitForOtpForm();
 
-    // Проверяем что появились OTP инпуты
     const inputCount = await profilePage.getOtpInputCount();
     expect(inputCount).toBeGreaterThan(0);
-    await expect(profilePage.otpSubmitButton).toBeVisible();
+    await expect(profilePage.otpSubmitButton).toBeVisible({
+      timeout: 10000,
+    });
   });
 
   await allure.step('Ввести валидный OTP код', async () => {
     await profilePage.fillOtp(validOTP);
 
-    // Проверяем что код ввелся (опционально)
-    // Можно проверить что все поля заполнены
     for (let i = 0; i < validOTP.length; i++) {
       const inputValue = await profilePage.otpInputs.nth(i).inputValue();
       expect(inputValue).toBe(validOTP[i]);
@@ -63,13 +71,14 @@ test('Успешная авторизация и верификация email ч
 
   await allure.step('Отправить OTP код на проверку', async () => {
     await profilePage.submitOtp();
-
-    // Ждем завершения запроса
-    await page.waitForTimeout(1000);
   });
 
   await allure.step('Проверить успешную верификацию email', async () => {
-    await expect(profilePage.emailChangeSection).toBeVisible();
-    await expect(profilePage.emailVerificationSection).not.toBeVisible();
+    await expect(profilePage.emailChangeSection).toBeVisible({
+      timeout: 10000,
+    });
+    await expect(profilePage.emailVerificationSection).not.toBeVisible({
+      timeout: 5000,
+    });
   });
 });

@@ -1,7 +1,7 @@
 import {Header} from 'antd/es/layout/layout';
 import {observer} from 'mobx-react-lite';
 
-import {userStore} from '@entities';
+import {useAuth} from '@entities';
 import {appStore, BurgerIcon, designTokens, Flex, Logo} from '@shared';
 
 import {LanguageSelect} from '../language-select';
@@ -14,7 +14,7 @@ import {UserIcon} from './ui';
  * Шапка страницы.
  */
 export const AppHeader = observer(() => {
-  const {isUserLogged} = userStore;
+  const {isUserLogged} = useAuth();
   const {closeMenu, openMenu, showMenu} = appStore;
 
   return (

@@ -1,23 +1,22 @@
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {Button, E_METRICS_NAMESPACES, Form, Input, TEST_IDS} from '@shared';
 
-import {signInStore} from '../../model';
+import {useSignIn} from '../../api';
 import {type TSignInFormValues} from '../../types';
 
 import style from './sing-in.module.less';
 
-export const SignIn = observer(() => {
+export const SignIn = () => {
   const {t} = useTranslation('Auth');
-  const {isLoading, signIn} = signInStore;
+  const {isPending: isLoading, mutate: signIn} = useSignIn();
 
   const handleSubmit = (values: TSignInFormValues) => {
     signIn(values);
   };
 
   const initialValues: TSignInFormValues = {
-    login: '',
+    username: '',
     password: '',
   };
 
@@ -31,7 +30,7 @@ export const SignIn = observer(() => {
         disabled={isLoading}
       >
         <Form.Item
-          name='login'
+          name='username'
           rules={[
             {
               message: t('Authentication.SignIn.LoginRequired'),
@@ -67,6 +66,7 @@ export const SignIn = observer(() => {
               namespace: E_METRICS_NAMESPACES.AUTH,
             }}
             htmlType='submit'
+            loading={isLoading}
             data-testid={TEST_IDS.AUTH.SIGN_IN}
           >
             {t('Authentication.SignIn.Label')}
@@ -75,4 +75,4 @@ export const SignIn = observer(() => {
       </Form>
     </div>
   );
-});
+};

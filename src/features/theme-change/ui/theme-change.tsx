@@ -1,6 +1,4 @@
-import {observer} from 'mobx-react-lite';
-
-import {paramsStore} from '@entities';
+import {useTheme} from '@entities';
 import {
   BulbLightningIcon,
   E_METRICS_NAMESPACES,
@@ -11,8 +9,8 @@ import {
 /**
  * Компонент выбора темы.
  */
-export const ThemeChange = observer(() => {
-  const {theme, toggleTheme} = paramsStore;
+export const ThemeChange = () => {
+  const {theme, toggleTheme} = useTheme();
 
   return (
     <Segmented
@@ -30,4 +28,4 @@ export const ThemeChange = observer(() => {
       size='small'
     />
   );
-});
+};

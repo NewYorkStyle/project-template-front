@@ -1,13 +1,12 @@
 import {type PropsWithChildren} from 'react';
 
-import {observer} from 'mobx-react-lite';
 import {Navigate, useLocation} from 'react-router-dom';
 
-import {userStore} from '@entities';
+import {useAuth} from '@entities';
 import {APP_ROUTES} from '@shared';
 
-export const PublicRoute = observer(({children}: PropsWithChildren) => {
-  const {isUserLogged} = userStore;
+export const PublicRoute = ({children}: PropsWithChildren) => {
+  const {isUserLogged} = useAuth();
   const location = useLocation();
 
   if (isUserLogged) {
@@ -17,4 +16,4 @@ export const PublicRoute = observer(({children}: PropsWithChildren) => {
   }
 
   return <>{children}</>;
-});
+};

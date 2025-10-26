@@ -65,7 +65,7 @@ export const designTokens: TDesignTokens = {
     },
     light: {
       accentPrimary: '#4594d1',
-      backgroundPrimary: '#FFFFFF',
+      backgroundPrimary: '#CBCBCB',
       backgroundSecondary: '#D9D9DC',
       borderPrimary: '#C1C0C0',
       textPrimary: '#000000',

@@ -11,12 +11,6 @@ export class HomePage extends BasePage {
 
   async open(): Promise<void> {
     await this.goto(APP_ROUTES.HOME.ROOT);
-    await this.waitForPageLoad();
-  }
-
-  async waitForPageLoad(): Promise<void> {
-    await this.page.waitForLoadState('networkidle');
-    await this.body.waitFor({state: 'visible'});
   }
 
   isOnHomePage(): boolean {

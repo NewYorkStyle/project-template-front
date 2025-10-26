@@ -1,5 +1,17 @@
-import {api} from '@shared';
+import {useMutation} from '@tanstack/react-query';
+import {useTranslation} from 'react-i18next';
 
-export const getOtpApi = (): Promise<void> => {
-  return api.get<void>('/users/requestEmailVerification');
+import {api, notificationService} from '@shared';
+
+export const useRequestEmailVerification = () => {
+  const {t} = useTranslation('User');
+
+  return useMutation({
+    mutationFn: () => api.get<void>('/users/requestEmailVerification'),
+    onError: () => {
+      notificationService.error(
+        t('Profile.PersonalData.EmailVerification.ErrorGet')
+      );
+    },
+  });
 };

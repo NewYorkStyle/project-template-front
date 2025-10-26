@@ -1,6 +1,3 @@
-import {useEffect} from 'react';
-
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {
@@ -13,15 +10,19 @@ import {
 } from '@shared';
 
 import packageJson from '../../../../../package.json';
-import {signInStore, signUpStore} from '../../model';
+import {useSignIn, useSignUp} from '../../api';
 import {SignIn} from '../sign-in';
 import {SignUp} from '../sign-up';
 
 import style from './auth-form.module.less';
 
-export const AuthForm = observer(() => {
-  const loading = signInStore.isLoading || signUpStore.isLoading;
+export const AuthForm = () => {
   const {t} = useTranslation('Auth');
+
+  const {isPending: isSignInLoading} = useSignIn();
+  const {isPending: isSignUpLoading} = useSignUp();
+
+  const loading = isSignInLoading || isSignUpLoading;
 
   const tabConfig: TTabItem[] = [
     {
@@ -37,14 +38,6 @@ export const AuthForm = observer(() => {
       label: t('Authentication.SignUp.Label'),
     },
   ];
-
-  useEffect(
-    () => () => {
-      signInStore.clear();
-      signUpStore.clear();
-    },
-    []
-  );
 
   return (
     <Flex className={style.root} vertical align='center' justify='center'>
@@ -67,4 +60,4 @@ export const AuthForm = observer(() => {
       </Spin>
     </Flex>
   );
-});
+};

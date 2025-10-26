@@ -1,6 +1,6 @@
-import {type Page, type Locator} from '@playwright/test';
+import {type Page} from '@playwright/test';
 
-import {APP_ROUTES} from '../shared/constants';
+import {APP_ROUTES} from '../shared';
 
 export class BasePage {
   readonly page: Page;
@@ -10,28 +10,22 @@ export class BasePage {
   }
 
   async goto(url: string = APP_ROUTES.ROOT): Promise<void> {
-    await this.page.goto(url);
-    await this.page.waitForLoadState('networkidle');
-  }
+    await this.page.goto(url, {
+      waitUntil: 'domcontentloaded',
+      timeout: 15000,
+    });
 
-  async getTitle(): Promise<string> {
-    return await this.page.title();
+    await this.page.waitForSelector('body', {
+      state: 'attached',
+      timeout: 5000,
+    });
   }
 
   getUrl(): string {
     return this.page.url();
   }
 
-  get body(): Locator {
-    return this.page.locator('body');
-  }
-
-  async isLoaded(): Promise<boolean> {
-    try {
-      await this.body.waitFor({state: 'visible', timeout: 10000});
-      return true;
-    } catch {
-      return false;
-    }
+  async getTitle(): Promise<string> {
+    return await this.page.title();
   }
 }

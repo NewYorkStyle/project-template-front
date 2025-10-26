@@ -45,7 +45,7 @@ jobs:
   deploy-allure:
     name: Deploy Allure Report
     needs: test
-    if: always() && needs.test.result == 'success'
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Download Allure Report
@@ -86,12 +86,12 @@ jobs:
             ## 📊 Allure Test Report
 
             ### 🎯 Online Report Available:
-            **[View Allure Report](http://176.108.254.146:8888/pr-${{ github.event.number }}/)**
+            **[View Allure Report](http://${{ secrets.SERVER_HOST }}:8888/pr-${{ github.event.number }}/)**
 
             ### 📋 Test Summary:
             - **Status:** ${{ needs.test.result }}
             - **PR:** #${{ github.event.number }}
-            - **Report URL:** http://176.108.254.146:8888/pr-${{ github.event.number }}/
+            - **Report URL:** http://${{ secrets.SERVER_HOST }}:8888/pr-${{ github.event.number }}/
             - **Last Updated:** ${{ github.event.pull_request.updated_at }}
 
             💡 _Report updates automatically on each test run_

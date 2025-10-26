@@ -12,7 +12,18 @@ export type TFixtures = {
   testUsers: typeof testUsers;
 };
 
+async function waitForAppReady(page: any) {
+  await page.waitForLoadState('networkidle');
+  await page.waitForSelector('body', {state: 'attached'});
+}
+
 export const test = base.extend<TFixtures>({
+  page: async ({page}, use) => {
+    setupAllMocks(page);
+    await waitForAppReady(page);
+    await use(page);
+  },
+
   authPage: async ({page}, use) => {
     const authPage = new AuthPage(page);
     await use(authPage);
@@ -21,11 +32,6 @@ export const test = base.extend<TFixtures>({
   homePage: async ({page}, use) => {
     const homePage = new HomePage(page);
     await use(homePage);
-  },
-
-  page: async ({page}, use) => {
-    setupAllMocks(page);
-    await use(page);
   },
 
   profilePage: async ({page}, use) => {

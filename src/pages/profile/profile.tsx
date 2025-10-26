@@ -1,6 +1,5 @@
 import {useState} from 'react';
 
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {DeleteUser, PersonalData} from '@features';
@@ -16,7 +15,7 @@ import {
 
 import style from './profile.module.less';
 
-export const Profile = observer(() => {
+export const Profile = () => {
   const {t} = useTranslation('User');
   const {width} = useWindowSize();
   const isMobile = width < designTokens.breakpoints.tablet;
@@ -66,4 +65,4 @@ export const Profile = observer(() => {
       </div>
     </Page>
   );
-});
+};

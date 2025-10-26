@@ -1,10 +1,9 @@
 import {useState} from 'react';
 
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
-import {userStore} from '@entities';
+import {useLogout} from '@entities';
 import {
   Popover,
   Flex,
@@ -19,9 +18,9 @@ import {
 /**
  * Компонент иконки юзера.
  */
-export const UserIcon = observer(() => {
+export const UserIcon = () => {
   const {t} = useTranslation('AppHeader');
-  const {loggout} = userStore;
+  const {isPending: isLoggingOut, mutate: logout} = useLogout();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const handleUserIconClick = () => {
@@ -30,7 +29,7 @@ export const UserIcon = observer(() => {
 
   const handleLogout = () => {
     setIsPopoverOpen(false);
-    loggout();
+    logout();
   };
 
   const handleProfileClick = () => {
@@ -47,7 +46,7 @@ export const UserIcon = observer(() => {
             <Typography.Link
               onClick={handleProfileClick}
               analyticProps={{
-                label: 'Log out',
+                label: 'Profile',
                 namespace: E_METRICS_NAMESPACES.USER,
               }}
             >
@@ -57,6 +56,7 @@ export const UserIcon = observer(() => {
 
           <Typography.Link
             onClick={handleLogout}
+            disabled={isLoggingOut}
             analyticProps={{
               label: 'Log out',
               namespace: E_METRICS_NAMESPACES.USER,
@@ -71,6 +71,7 @@ export const UserIcon = observer(() => {
         icon={<Profile />}
         shape='circle'
         onClick={handleUserIconClick}
+        disabled={isLoggingOut}
         analyticProps={{
           label: `Icon ${isPopoverOpen ? 'close' : 'open'}`,
           namespace: E_METRICS_NAMESPACES.USER,
@@ -78,4 +79,4 @@ export const UserIcon = observer(() => {
       />
     </Popover>
   );
-});
+};

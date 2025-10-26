@@ -1,10 +1,9 @@
 import {useEffect, useMemo, useState} from 'react';
 
 import isEqual from 'lodash/isEqual';
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
-import {E_PERMISSIONS, userStore} from '@entities';
+import {E_PERMISSIONS, usePermissionCheck} from '@entities';
 import {
   APLHABETIC,
   Button,
@@ -17,35 +16,54 @@ import {
   TEST_IDS,
   Typography,
   designTokens,
+  notificationService,
 } from '@shared';
 
 import {OTP} from '../../../otp';
-import {profileStore} from '../../model';
+import {
+  useConfirmEmailChange,
+  useProfile,
+  useRequestEmailChange,
+  useRequestEmailVerification,
+  useUpdateProfile,
+  useVerifyEmail,
+} from '../../api';
 import {type TProfileData} from '../../types';
 
 import style from './personal-data.module.less';
 
-export const PersonalData = observer(() => {
+export const PersonalData = () => {
   const {t} = useTranslation('User');
+
+  const {hasPermission} = usePermissionCheck();
+
+  const {data: profileData, error, isLoading: isProfileLoading} = useProfile();
+  const {isPending: isUpdating, mutate: updateProfile} = useUpdateProfile();
+
   const {
-    clear,
-    emailFieldStep,
-    getEmailChangeOtp,
-    getProfileData,
-    getVerificationOtp,
-    initData,
-    isLoading,
-    saveData,
-    sendEmailChangeOtp,
-    sendVerificationOtp,
-  } = profileStore;
+    isPending: isVerificationOtpRequesting,
+    mutate: requestVerificationOtp,
+  } = useRequestEmailVerification();
+
+  const {isPending: isVerificationOtpSending, mutate: sendVerificationOtp} =
+    useVerifyEmail();
+
+  const {isPending: isEmailChangeOtpRequesting, mutate: requestEmailChangeOtp} =
+    useRequestEmailChange();
+
+  const {isPending: isEmailChangeOtpSending, mutate: confirmEmailChange} =
+    useConfirmEmailChange();
+
+  const [emailFieldStep, setEmailFieldStep] = useState<'button' | 'otp'>(
+    'button'
+  );
 
   const [personalDataForm] = Form.useForm();
   const [emailForm] = Form.useForm();
 
   const isEmailVerified = useMemo(
-    () => userStore.permissions.includes(E_PERMISSIONS.EMAIL_VERIFIED),
-    [userStore.permissions]
+    () => hasPermission(E_PERMISSIONS.EMAIL_VERIFIED),
+    [hasPermission]
   );
 
   const [isPersonalDataFormChanged, setIsPersonalDataFormChanged] =
@@ -53,70 +71,112 @@ export const PersonalData = observer(() => {
   const [isEmailChangeButtonDisabled, setIsEmailChangeButtonDisabled] =
     useState(true);
 
+  // Инициализация формы данными из кэша
   useEffect(() => {
-    getProfileData();
-
-    return () => clear();
-  }, []);
-
-  useEffect(() => {
-    if (initData) {
+    if (profileData) {
+      const initData = {
+        name: profileData.name,
+        patronymic: profileData.patronymic,
+        surname: profileData.surname,
+      };
       personalDataForm.setFieldsValue(initData);
       setIsPersonalDataFormChanged(false);
     }
-  }, [initData, personalDataForm]);
+  }, [profileData, personalDataForm]);
+
+  // Обработка ошибок загрузки профиля
+  useEffect(() => {
+    if (error) {
+      notificationService.error(t('Profile.PersonalData.ErrorGetData'));
+    }
+  }, [error, t]);
 
   const handleFormChange = () => {
     const currentValues = personalDataForm.getFieldsValue();
-    const hasChanges = !isEqual(currentValues, initData);
+    const initData = profileData
+      ? {
+          name: profileData.name,
+          patronymic: profileData.patronymic,
+          surname: profileData.surname,
+        }
+      : null;
 
-    setIsPersonalDataFormChanged(hasChanges);
+    const hasChanges = initData && !isEqual(currentValues, initData);
+    setIsPersonalDataFormChanged(!!hasChanges);
   };
 
   const handleSubmit = (values: TProfileData) => {
-    saveData(values);
+    updateProfile(values);
   };
 
   // Функция для фильтрации только букв
   const handleValidateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Оставляем только русские и английские буквы, а также пробелы и дефисы
     return value.replace(/[^a-zA-Zа-яА-Я\s-]/g, '');
   };
 
   const handleEmailVerificationGetOtpClick = () => {
-    getVerificationOtp();
+    requestVerificationOtp(undefined, {
+      onSuccess: () => {
+        setEmailFieldStep('otp');
+      },
+    });
   };
 
   const handleEmailVerificationSubmitOtp = (otp: string) => {
-    sendVerificationOtp(otp);
+    sendVerificationOtp(otp, {
+      onSuccess: () => {
+        setEmailFieldStep('button');
+      },
+    });
   };
 
   const handleEmailFormChange = (
     _changedValues: {email: string},
     allValues: {email: string}
   ) => {
-    // Проверяем валидность email
     const email = allValues.email || '';
     const isValidEmail = EMAIL.test(email);
-
-    // Если email пустой или невалидный - disabled = true, иначе false
     setIsEmailChangeButtonDisabled(!email || !isValidEmail);
   };
 
   const handleEmailChangeGetOtpClick = () => {
-    getEmailChangeOtp(emailForm.getFieldValue('email'));
+    const email = emailForm.getFieldValue('email');
+    requestEmailChangeOtp(email, {
+      onSuccess: () => {
+        setEmailFieldStep('otp');
+      },
+    });
   };
 
   const handleEmailChangeSubmitOtp = (otp: string) => {
-    sendEmailChangeOtp(otp);
+    confirmEmailChange(otp, {
+      onSuccess: () => {
+        setEmailFieldStep('button');
+        emailForm.resetFields();
+      },
+    });
   };
+
+  const isLoading = isProfileLoading || isUpdating;
+  const isVerificationLoading =
+    isVerificationOtpRequesting || isVerificationOtpSending;
+  const isEmailChangeLoading =
+    isEmailChangeOtpRequesting || isEmailChangeOtpSending;
 
   return (
     <>
       <Form
         form={personalDataForm}
-        initialValues={initData}
+        initialValues={
+          profileData
+            ? {
+                name: profileData.name,
+                patronymic: profileData.patronymic,
+                surname: profileData.surname,
+              }
+            : undefined
+        }
         onFinish={handleSubmit}
         onFieldsChange={handleFormChange}
         className={style.form}
@@ -145,7 +205,6 @@ export const PersonalData = observer(() => {
             <Input
               onChange={(e) => {
                 const filteredValue = handleValidateInput(e);
-                // Обновляем значение в форме
                 if (e.target.value !== filteredValue) {
                   personalDataForm.setFieldValue('surname', filteredValue);
                 }
@@ -212,7 +271,9 @@ export const PersonalData = observer(() => {
           </Button>
         </Form.Item>
       </Form>
+
       <Divider />
+
       {isEmailVerified ? (
         <Flex
           vertical
@@ -234,7 +295,6 @@ export const PersonalData = observer(() => {
                   message: t('Profile.PersonalData.ChangeEmail.EmailRequired'),
                   required: true,
                 },
-
                 {
                   message: t('Profile.PersonalData.ChangeEmail.EmailRules'),
                   type: 'email',
@@ -253,6 +313,7 @@ export const PersonalData = observer(() => {
             sendNewLabel={t('Profile.PersonalData.ChangeEmail.SendNew')}
             submitLabel={t('Profile.PersonalData.ChangeEmail.Submit')}
             getOtpDisabled={isEmailChangeButtonDisabled}
+            isLoading={isEmailChangeLoading}
           />
         </Flex>
       ) : (
@@ -265,9 +326,10 @@ export const PersonalData = observer(() => {
             otpTitle={t('Profile.PersonalData.EmailVerification.OtpLabel')}
             sendNewLabel={t('Profile.PersonalData.EmailVerification.SendNew')}
             submitLabel={t('Profile.PersonalData.EmailVerification.Submit')}
+            isLoading={isVerificationLoading}
           />
         </div>
       )}
     </>
   );
-});
+};
