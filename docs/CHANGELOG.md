@@ -1,3 +1,9 @@
+## [2.6.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.5.1...v2.6.0) (2025-10-26)
+
+### Features
+
+* PROJECTTEMPLATE-38 Добавил хедер на экран авторизации ([#52](https://github.com/NewYorkStyle/project-template-front/issues/52)) ([ea51c3f](https://github.com/NewYorkStyle/project-template-front/commit/ea51c3fd2050d6363fc0cba854bcb02bb40a9abf))
+
 ## [2.5.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.5.0...v2.5.1) (2025-10-24)
 
 ### Bug Fixes
