@@ -24,8 +24,11 @@ export type TDesignTokens = {
     lg: number;
   };
   textSise: {
+    xs: number;
     sm: number;
     md: number;
+    lg: number;
+    xl: number;
   };
   breakpoints: {
     phone: number;
@@ -76,7 +79,10 @@ export const designTokens: TDesignTokens = {
     lg: 24,
   },
   textSise: {
+    xs: 12,
     sm: 14,
     md: 16,
+    lg: 24,
+    xl: 36,
   },
 };

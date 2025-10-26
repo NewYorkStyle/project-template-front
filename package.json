@@ -38,7 +38,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/v5-patch-for-react-19": "1.0.3",
-    "@types/js-cookie": "3.0.6",
     "antd": "5.27.4",
     "axios": "1.12.2",
     "i18next": "25.5.2",
@@ -70,6 +69,7 @@
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "@types/jest": "30.0.0",
+    "@types/js-cookie": "3.0.6",
     "@types/lodash": "4.17.20",
     "@types/node": "24.7.2",
     "@types/react": "19.2.2",
