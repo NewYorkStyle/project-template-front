@@ -3,10 +3,10 @@ export const APP_ROUTES = {
     ROOT: '/auth',
   },
   HOME: {
-    ROOT: 'home',
+    ROOT: '/home',
   },
   ROOT: '/',
   USER: {
-    ROOT: 'user',
+    ROOT: '/user',
   },
 };
