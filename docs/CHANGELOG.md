@@ -1,3 +1,9 @@
+## [2.7.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.6.0...v2.7.0) (2025-10-26)
+
+### Features
+
+* PROJECTTEMPLATE-39 Добавил страницу 404 ([#53](https://github.com/NewYorkStyle/project-template-front/issues/53)) ([78ded18](https://github.com/NewYorkStyle/project-template-front/commit/78ded18aaf73a3d3394676c2241c0f3621432c05))
+
 ## [2.6.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.5.1...v2.6.0) (2025-10-26)
 
 ### Features
