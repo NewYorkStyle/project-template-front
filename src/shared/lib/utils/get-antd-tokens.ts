@@ -25,6 +25,10 @@ export const getAntdThemeConfig = (theme: 'light' | 'dark'): ThemeConfig => {
         optionSelectedBg: palette.accentPrimary,
         optionSelectedFontWeight: 'normal',
       },
+      Typography: {
+        fontSize: designTokens.textSise.md,
+        fontSizeHeading1: designTokens.textSise.xl,
+      },
     },
     token: {
       borderRadius: 12,

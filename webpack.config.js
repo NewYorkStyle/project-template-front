@@ -4,6 +4,7 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import {withGlobalLessResources} from './tools/webpack/plugins/with-global-less-resources.js';
 import {fileURLToPath} from 'url';
 import Dotenv from 'dotenv-webpack';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -95,6 +96,7 @@ const baseConfig = {
         overlay: false,
       }),
     new Dotenv(),
+    !isDevelopment && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
 
   devServer: {

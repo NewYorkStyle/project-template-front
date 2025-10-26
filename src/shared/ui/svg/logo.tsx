@@ -2,7 +2,7 @@ type TProps = {
   size?: number;
 };
 
-export const NotLogged = ({size = 24}: TProps) => {
+export const Logo = ({size = 24}: TProps) => {
   return (
     <svg
       version='1.1'
