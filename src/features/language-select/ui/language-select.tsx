@@ -1,7 +1,6 @@
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
-import {paramsStore} from '@entities';
+import {useLanguage} from '@entities';
 import {E_METRICS_NAMESPACES, Select} from '@shared';
 
 import {E_LANGUAGE} from '../lib';
@@ -11,10 +10,10 @@ import style from './language-select.module.less';
 /**
  * Компонент выбора языка.
  */
-export const LanguageSelect = observer(() => {
+export const LanguageSelect = () => {
   const {i18n, t} = useTranslation('AppHeader');
 
-  const {language, setLanguage} = paramsStore;
+  const {language, setLanguage} = useLanguage();
 
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
@@ -46,4 +45,4 @@ export const LanguageSelect = observer(() => {
       className={style.root}
     />
   );
-});
+};

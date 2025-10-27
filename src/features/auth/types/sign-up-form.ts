@@ -1,6 +1,6 @@
 export type TSignUpFormValues = {
   password: string;
   passwordConfirm: string;
-  login: string;
+  username: string;
   email: string;
 };

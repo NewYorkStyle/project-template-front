@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {AuthForm} from '@features';
@@ -6,7 +5,7 @@ import {Flex, Page} from '@shared';
 
 import style from './auth.module.less';
 
-export const Auth = observer(() => {
+export const Auth = () => {
   const {t} = useTranslation('Auth');
 
   return (
@@ -16,4 +15,4 @@ export const Auth = observer(() => {
       </Flex>
     </Page>
   );
-});
+};

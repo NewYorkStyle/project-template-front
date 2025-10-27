@@ -5,6 +5,8 @@ import {withGlobalLessResources} from './tools/webpack/plugins/with-global-less-
 import {fileURLToPath} from 'url';
 import Dotenv from 'dotenv-webpack';
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
+import TerserPlugin from 'terser-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +45,7 @@ const baseConfig = {
           loader: 'ts-loader',
           options: {
             transpileOnly: isDevelopment,
+            configFile: isDevelopment ? 'tsconfig.json' : 'tsconfig.prod.json',
           },
         },
       },
@@ -55,7 +58,9 @@ const baseConfig = {
             options: {
               modules: {
                 auto: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]',
+                localIdentName: isDevelopment
+                  ? '[name]__[local]--[hash:base64:5]'
+                  : '[hash:base64]',
               },
             },
           },
@@ -96,7 +101,11 @@ const baseConfig = {
         overlay: false,
       }),
     new Dotenv(),
-    !isDevelopment && new BundleAnalyzerPlugin(),
+    process.env.ANALYZE &&
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+        openAnalyzer: true,
+      }),
   ].filter(Boolean),
 
   devServer: {
@@ -124,6 +133,17 @@ const baseConfig = {
   },
 
   optimization: {
+    minimize: !isDevelopment,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: !isDevelopment,
+          },
+        },
+      }),
+      new CssMinimizerPlugin(),
+    ],
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
@@ -136,7 +156,7 @@ const baseConfig = {
     },
   },
 
-  devtool: isDevelopment ? 'eval-source-map' : 'source-map',
+  devtool: isDevelopment ? 'eval-source-map' : false,
 };
 
 export default withGlobalLessResources()(baseConfig);

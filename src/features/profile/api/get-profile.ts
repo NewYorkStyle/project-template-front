@@ -1,7 +1,12 @@
+import {useQuery} from '@tanstack/react-query';
+
 import {api} from '@shared';
 
 import {type TProfileData} from '../types';
 
-export const geteProfileApi = (): Promise<TProfileData> => {
-  return api.get<TProfileData>('/users/getProfile');
+export const useProfile = () => {
+  return useQuery<TProfileData, Error>({
+    queryKey: ['profile'],
+    queryFn: () => api.get<TProfileData>('/users/getProfile'),
+  });
 };

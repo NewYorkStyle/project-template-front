@@ -1,5 +1,4 @@
 import {type Rule} from 'antd/es/form';
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 
 import {
@@ -13,27 +12,26 @@ import {
   designTokens,
 } from '@shared';
 
+import {useSignUp} from '../../api';
 import {PASSWORD_MIN_LENGTH} from '../../lib';
-import {signUpStore} from '../../model';
 import {type TSignUpFormValues} from '../../types';
 
 import style from './sing-up.module.less';
 
-export const SignUp = observer(() => {
+export const SignUp = () => {
   const {t} = useTranslation('Auth');
-  const {isLoading} = signUpStore;
-
+  const {isPending: isLoading, mutate: signUp} = useSignUp();
   const {width} = useWindowSize();
 
   const initialValues: TSignUpFormValues = {
     email: '',
-    login: '',
+    username: '',
     password: '',
     passwordConfirm: '',
   };
 
   const handleSubmit = (values: TSignUpFormValues) => {
-    signUpStore.signUp(values);
+    signUp(values);
   };
 
   const passwordValidator = (_: Rule, value: string): Promise<void> => {
@@ -84,7 +82,7 @@ export const SignUp = observer(() => {
         disabled={isLoading}
       >
         <Form.Item
-          name='login'
+          name='username'
           rules={[
             {
               message: t('Authentication.SignUp.Rules.LoginRequired'),
@@ -195,6 +193,7 @@ export const SignUp = observer(() => {
               namespace: E_METRICS_NAMESPACES.AUTH,
             }}
             htmlType='submit'
+            loading={isLoading}
           >
             {t('Authentication.SignUp.Label')}
           </Button>
@@ -202,4 +201,4 @@ export const SignUp = observer(() => {
       </Form>
     </div>
   );
-});
+};

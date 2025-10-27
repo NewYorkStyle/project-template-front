@@ -24,14 +24,38 @@ export class AuthPage extends BasePage {
   }
 
   async open(): Promise<void> {
-    await this.goto(APP_ROUTES.AUTH.ROOT);
+    await this.page.goto(APP_ROUTES.AUTH.ROOT, {
+      waitUntil: 'networkidle',
+      timeout: 15000,
+    });
+
     await this.waitForAuthForm();
   }
 
   async waitForAuthForm(): Promise<void> {
-    await this.usernameInput.waitFor({state: 'visible'});
-    await this.passwordInput.waitFor({state: 'visible'});
-    await this.signInButton.waitFor({state: 'visible'});
+    await this.page.waitForSelector(
+      `[data-testid="${TEST_IDS.AUTH.USER_NAME}"]`,
+      {
+        state: 'visible',
+        timeout: 10000,
+      }
+    );
+
+    await this.page.waitForSelector(
+      `[data-testid="${TEST_IDS.AUTH.PASSWORD}"]`,
+      {
+        state: 'visible',
+        timeout: 10000,
+      }
+    );
+
+    await this.page.waitForSelector(
+      `[data-testid="${TEST_IDS.AUTH.SIGN_IN}"]`,
+      {
+        state: 'visible',
+        timeout: 10000,
+      }
+    );
   }
 
   async fillCredentials(username: string, password: string): Promise<void> {
@@ -46,20 +70,6 @@ export class AuthPage extends BasePage {
   async login(username: string, password: string): Promise<void> {
     await this.fillCredentials(username, password);
     await this.submit();
-  }
-
-  async isAuthFormVisible(): Promise<boolean> {
-    return (
-      (await this.usernameInput.isVisible()) &&
-      (await this.passwordInput.isVisible()) &&
-      (await this.signInButton.isVisible())
-    );
-  }
-
-  async areInputsEmpty(): Promise<boolean> {
-    const usernameValue = await this.usernameInput.inputValue();
-    const passwordValue = await this.passwordInput.inputValue();
-    return usernameValue === '' && passwordValue === '';
   }
 
   isOnAuthPage(): boolean {

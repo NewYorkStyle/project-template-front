@@ -6,6 +6,7 @@ import {APP_ROUTES} from '../../shared';
 test('Успешная авторизация и переход на домашнюю страницу @auth', async ({
   authPage,
   homePage,
+  page,
   testUsers,
 }) => {
   await allure.displayName(
@@ -18,7 +19,9 @@ test('Успешная авторизация и переход на домаш�
 
   await allure.step('Открыть страницу авторизации', async () => {
     await authPage.open();
-    expect(authPage.isOnAuthPage()).toBe(true);
+
+    const currentUrl = page.url();
+    expect(currentUrl).toContain(APP_ROUTES.AUTH.ROOT);
   });
 
   await allure.step('Заполнить форму авторизации', async () => {
@@ -33,7 +36,9 @@ test('Успешная авторизация и переход на домаш�
   });
 
   await allure.step('Проверить редирект', async () => {
-    await homePage.page.waitForURL(`**${APP_ROUTES.HOME.ROOT}**`);
+    await homePage.page.waitForURL(`**${APP_ROUTES.HOME.ROOT}**`, {
+      timeout: 15000,
+    });
     expect(homePage.isOnHomePage()).toBe(true);
   });
 });

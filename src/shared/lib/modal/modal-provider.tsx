@@ -1,12 +1,11 @@
 import {Modal} from 'antd';
-import {observer} from 'mobx-react-lite';
 
 import {E_METRICS_EVENTS} from '../constants';
 import {sendEvent} from '../metrics';
 
 import {type TModalConfig, modalService} from './modal-service';
 
-export const ModalProvider: React.FC = observer(() => {
+export const ModalProvider: React.FC = () => {
   const handleClose = (modal: TModalConfig) => {
     const analytics =
       modal.cancelButtonProps && modal.cancelButtonProps.analyticProps;
@@ -57,4 +56,4 @@ export const ModalProvider: React.FC = observer(() => {
       ))}
     </>
   );
-});
+};

@@ -1,14 +1,12 @@
-import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {Button, designTokens, Flex, Page, Typography} from '@shared';
 
 import style from './not-found.module.less';
 
-export const NotFound = observer(() => {
+export const NotFound = () => {
   const {t} = useTranslation('Common');
-  const location = useLocation();
 
   return (
     <Page title='404'>
@@ -27,4 +25,4 @@ export const NotFound = observer(() => {
       </Flex>
     </Page>
   );
-});
+};
