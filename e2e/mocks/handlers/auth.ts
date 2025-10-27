@@ -34,7 +34,6 @@ const setAuthCookies = async (page: Page, userId?: string) => {
 
   try {
     await page.context().addCookies(cookies);
-    console.log('Auth cookies set successfully');
   } catch (error) {
     console.error('Failed to set auth cookies:', error);
   }

@@ -1,8 +1,7 @@
 import {type Page} from '@playwright/test';
 
-import {APP_ROUTES} from '../shared';
-
-import {BasePage} from './base-page';
+import {APP_ROUTES} from '../../shared';
+import {BasePage} from '../base';
 
 export class HomePage extends BasePage {
   constructor(page: Page) {

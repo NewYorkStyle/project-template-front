@@ -1,6 +1,6 @@
 import {type Page} from '@playwright/test';
 
-import {APP_ROUTES} from '../shared';
+import {APP_ROUTES} from '../../shared';
 
 export class BasePage {
   readonly page: Page;

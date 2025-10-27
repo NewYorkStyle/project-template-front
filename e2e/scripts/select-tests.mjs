@@ -107,7 +107,7 @@ const main = () => {
 
     let command;
 
-    if (affectedTags.has('@shared')) {
+    if (affectedTags.has('@shared') || affectedTags.has('@e2eBase')) {
       console.log('🔀 Shared files changed - running ALL tests');
       command = 'npx playwright test';
     } else if (affectedTags.size > 0) {

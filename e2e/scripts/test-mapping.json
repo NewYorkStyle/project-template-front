@@ -2,17 +2,24 @@
   "tags": {
     "@auth": [
       "src/features/auth/**/*",
-      "src/pages/auth/**/*"
+      "src/pages/auth/**/*",
+      "e2e/tests/auth/**/*",
+      "e2e/pages/auth/**/*"
     ],
     "@profile": [
       "src/features/profile/**/*",
       "src/features/otp/**/*",
       "src/pages/profile/**/*",
-      "src/entities/user/**/*"
+      "src/entities/user/**/*",
+      "e2e/tests/profile/**/*",
+      "e2e/pages/profile/**/*"
     ],
-    "@shared": [
-      "src/shared/**/*",
-      "src/app/**/*"
+    "@shared": ["src/shared/**/*", "src/app/**/*"],
+    "@e2eBase": [
+      "e2e/scripts",
+      "e2e/fixtures",
+      "e2e/pages/base",
+      "e2e/pages/home"
     ]
   }
 }

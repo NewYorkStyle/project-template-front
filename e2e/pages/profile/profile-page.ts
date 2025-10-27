@@ -1,8 +1,7 @@
 import {type Page, type Locator} from '@playwright/test';
 
-import {APP_ROUTES, TEST_IDS} from '../shared';
-
-import {BasePage} from './base-page';
+import {APP_ROUTES, TEST_IDS} from '../../shared';
+import {BasePage} from '../base';
 
 export class ProfilePage extends BasePage {
   readonly otpGetButton: Locator;
