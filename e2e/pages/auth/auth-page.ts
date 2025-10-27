@@ -1,8 +1,7 @@
 import {type Page, type Locator} from '@playwright/test';
 
-import {TEST_IDS, APP_ROUTES} from '../shared';
-
-import {BasePage} from './base-page';
+import {TEST_IDS, APP_ROUTES} from '../../shared';
+import {BasePage} from '../base';
 
 export class AuthPage extends BasePage {
   readonly usernameInput: Locator;
