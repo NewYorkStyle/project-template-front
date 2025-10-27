@@ -1,3 +1,9 @@
+## [2.8.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.7.0...v2.8.0) (2025-10-27)
+
+### Features
+
+* PROJECTTEMPLATE-35 Добавлен Tanstack querry ([#54](https://github.com/NewYorkStyle/project-template-front/issues/54)) ([b398804](https://github.com/NewYorkStyle/project-template-front/commit/b3988049cf5cd8f7d7d957f21b9ccd27727e82ca))
+
 ## [2.7.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.6.0...v2.7.0) (2025-10-26)
 
 ### Features
