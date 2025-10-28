@@ -1,3 +1,9 @@
+## [2.9.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.8.1...v2.9.0) (2025-10-28)
+
+### Features
+
+* PROJECTTEMPLATE-41 Добавлен Web Vitals ([#56](https://github.com/NewYorkStyle/project-template-front/issues/56)) ([54a2c23](https://github.com/NewYorkStyle/project-template-front/commit/54a2c23da532d154699204ec9130480a0e6d9cb4))
+
 ## [2.8.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.8.0...v2.8.1) (2025-10-27)
 
 ## [2.8.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.7.0...v2.8.0) (2025-10-27)
