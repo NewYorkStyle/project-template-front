@@ -1,4 +1,4 @@
-import {type TMetricsEventProps} from '../constants';
+import {type TMetricsEventProps} from '../types';
 
 import {metricsService} from './metrics-service';
 

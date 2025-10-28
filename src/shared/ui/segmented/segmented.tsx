@@ -1,8 +1,7 @@
 import {Segmented as AntdSegmented, type SegmentedProps} from 'antd';
 import {type SegmentedValue} from 'antd/es/segmented';
 
-import {sendEvent} from '../../lib';
-import {E_METRICS_EVENTS, type TMetricsProps} from '../../lib/constants';
+import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
 type TProps = SegmentedProps & {
   analyticProps?: TMetricsProps;

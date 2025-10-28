@@ -1,7 +1,6 @@
 import {Tabs as AntdTabs, type TabsProps} from 'antd';
 
-import {sendEvent} from '../../lib';
-import {E_METRICS_EVENTS, type TMetricsProps} from '../../lib/constants';
+import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
 type TTabItemType = NonNullable<TabsProps['items']>[number];
 

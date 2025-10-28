@@ -1,7 +1,6 @@
 import {Select as AntdSelect, type SelectProps} from 'antd';
 
-import {sendEvent} from '../../lib';
-import {E_METRICS_EVENTS, type TMetricsProps} from '../../lib/constants';
+import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
 type TOptionType = NonNullable<SelectProps['options']>[number];
 
