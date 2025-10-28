@@ -3,7 +3,7 @@ import {type ReactNode} from 'react';
 import {type ButtonProps, type ModalProps} from 'antd';
 import {makeAutoObservable} from 'mobx';
 
-import {type TMetricsProps} from '../constants';
+import {type TMetricsProps} from '../types';
 
 type TExtendedButtonProps = ButtonProps & {analyticProps?: TMetricsProps};
 

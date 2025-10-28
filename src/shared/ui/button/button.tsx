@@ -1,7 +1,6 @@
 import {Button as AntdButton, type ButtonProps} from 'antd';
 
-import {sendEvent} from '../../lib';
-import {E_METRICS_EVENTS, type TMetricsProps} from '../../lib/constants';
+import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
 type TProps = ButtonProps & {analyticProps?: TMetricsProps};
 

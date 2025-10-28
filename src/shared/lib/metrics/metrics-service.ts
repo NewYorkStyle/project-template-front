@@ -1,4 +1,4 @@
-import {type TMetricsEventProps} from '../constants/metrics';
+import {type TMetricsEventProps} from '../types/metrics';
 
 declare global {
   interface Window {
