@@ -8,10 +8,14 @@ RUN npm ci --production-only
 COPY . .
 RUN npm run build
 
-FROM nginx:alpine
+FROM node:18-alpine
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-EXPOSE 80
+RUN npm install -g serve
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /app/dist ./dist
+
+EXPOSE 4200
+
+CMD ["serve", "-s", "dist", "-l", "4200"]
