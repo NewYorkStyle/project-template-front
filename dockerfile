@@ -1,26 +1,17 @@
-# Стадия сборки
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci --production-only
 
 COPY . .
 RUN npm run build
 
-# Стадия запуска
-FROM node:18-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Устанавливаем простой HTTP-сервер
-RUN npm install -g serve
+EXPOSE 80
 
-# Копируем собранное приложение
-COPY --from=builder /app/dist ./dist
-
-EXPOSE 4200
-
-# Запускаем сервер для статики на порту 4200
-CMD ["serve", "-s", "dist", "-l", "4200"]
+CMD ["nginx", "-g", "daemon off;"]
