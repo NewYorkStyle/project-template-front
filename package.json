@@ -22,7 +22,8 @@
     "build-storybook": "storybook build",
     "e2e": "npx playwright test",
     "e2e:changed": "node e2e/scripts/select-tests.mjs",
-    "allure:show": "npx allure serve allure-results"
+    "allure:show": "npx allure serve allure-results",
+    "lhci:autorun": "lhci autorun"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.37.0",
+    "@lhci/cli": "0.15.1",
     "@playwright/test": "1.56.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.6.1",
     "@semantic-release/changelog": "6.0.3",

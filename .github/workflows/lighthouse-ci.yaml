@@ -1,0 +1,151 @@
+name: Lighthouse CI
+on:
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start application
+        run: |
+          npm run dev &
+          sleep 10
+
+      - name: Run Lighthouse CI
+        run: |
+          npx @lhci/cli autorun --config=./lighthouserc.cjs
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          retention-days: 1
+
+      - name: Generate detailed Lighthouse report
+        id: detailed-lighthouse
+        run: |
+          # Создаем детальный отчет с рекомендациями
+          REPORT=$(node -e "
+          const fs = require('fs');
+
+          try {
+            const manifest = JSON.parse(fs.readFileSync('./.lighthouseci/manifest.json', 'utf8'));
+            const latest = manifest[manifest.length - 1];
+            const summary = latest.summary;
+            
+            const assertionResults = JSON.parse(fs.readFileSync('./.lighthouseci/assertion-results.json', 'utf8'));
+            const passed = assertionResults.filter(r => r.expected === r.actual).length;
+            const total = assertionResults.length;
+            
+            const getScoreColor = (score) => {
+              if (score >= 0.9) return '🟢';
+              if (score >= 0.7) return '🟡';
+              return '🔴';
+            };
+            
+            const getScoreEmoji = (score) => {
+              if (score >= 0.9) return '✅';
+              if (score >= 0.7) return '⚠️';
+              return '❌';
+            };
+            
+            const performanceScore = (summary.performance * 100).toFixed(0);
+            const accessibilityScore = (summary.accessibility * 100).toFixed(0);
+            const bestPracticesScore = (summary['best-practices'] * 100).toFixed(0);
+            const seoScore = (summary.seo * 100).toFixed(0);
+            
+            console.log('## ⚡ Lighthouse CI Report\\n\\n');
+            
+            // Scores table
+            console.log('### 📊 Performance Scores\\n\\n');
+            console.log('| Metric | Score | Status |');
+            console.log('|--------|-------|--------|');
+            console.log('| Performance | ' + performanceScore + ' | ' + getScoreEmoji(summary.performance) + getScoreColor(summary.performance) + ' |');
+            console.log('| Accessibility | ' + accessibilityScore + ' | ' + getScoreEmoji(summary.accessibility) + getScoreColor(summary.accessibility) + ' |');
+            console.log('| Best Practices | ' + bestPracticesScore + ' | ' + getScoreEmoji(summary['best-practices']) + getScoreColor(summary['best-practices']) + ' |');
+            console.log('| SEO | ' + seoScore + ' | ' + getScoreEmoji(summary.seo) + getScoreColor(summary.seo) + ' |');
+            
+            // Assertions
+            console.log('\\n### ✅ Assertions: **' + passed + '/' + total + '** passed\\n\\n');
+            
+            // Recommendations based on scores
+            console.log('### 💡 Recommendations\\n\\n');
+            
+            if (summary.performance < 0.7) {
+              console.log('**Performance (' + performanceScore + ') needs improvement:**\\n');
+              console.log('- Optimize images (WebP format, proper sizing)\\n');
+              console.log('- Remove unused JavaScript/CSS\\n');
+              console.log('- Implement lazy loading for images\\n');
+              console.log('- Reduce third-party scripts impact\\n\\n');
+            }
+            
+            if (summary['best-practices'] < 0.8) {
+              console.log('**Best Practices (' + bestPracticesScore + ') can be improved:**\\n');
+              console.log('- Ensure HTTPS is used\\n');
+              console.log('- Fix browser errors in console\\n');
+              console.log('- Use modern image formats\\n');
+              console.log('- Avoid deprecated APIs\\n\\n');
+            }
+            
+            if (summary.accessibility < 0.9) {
+              console.log('**Accessibility (' + accessibilityScore + ') suggestions:**\\n');
+              console.log('- Add proper alt texts to images\\n');
+              console.log('- Ensure sufficient color contrast\\n');
+              console.log('- Use semantic HTML elements\\n');
+              console.log('- Implement keyboard navigation\\n\\n');
+            }
+            
+            // Build info
+            console.log('### 📋 Build Information\\n');
+            console.log('- **PR:** #${{ github.event.number }}');
+            console.log('- **Last Updated:** ${{ github.event.pull_request.updated_at }}');
+            console.log('- **Workflow Run:** [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})');
+            console.log('\\n💡 _Report updates automatically on each run_');
+            
+          } catch (error) {
+            console.log('## ⚡ Lighthouse CI Report\\n\\n');
+            console.log('❌ **Failed to generate report**');
+            console.log('Error: ' + error.message);
+          }
+          ")
+
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          echo "$REPORT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Debug Lighthouse results
+        if: always()
+        run: |
+          echo "=== Lighthouse Manifest ==="
+          cat .lighthouseci/manifest.json || echo "No manifest found"
+
+          echo "=== Assertion Results ==="
+          cat .lighthouseci/assertion-results.json || echo "No assertion results found"
+
+          echo "=== Links to individual reports ==="
+          find .lighthouseci -name "*.html" -exec echo "Report: {}" \; || echo "No HTML reports found"
+
+      - name: Comment PR with detailed Lighthouse results
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: lighthouse-report
+          message: ${{ steps.detailed-lighthouse.outputs.report }}
