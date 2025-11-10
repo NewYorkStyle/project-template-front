@@ -1,3 +1,5 @@
+## [2.9.4](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.3...v2.9.4) (2025-11-10)
+
 ## [2.9.3](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.2...v2.9.3) (2025-11-10)
 
 ## [2.9.2](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.1...v2.9.2) (2025-11-10)
