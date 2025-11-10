@@ -5,9 +5,9 @@
   "author": "New York Style",
   "type": "module",
   "scripts": {
-    "dev": "npm run generate:tokens && cross-env NODE_ENV=development webpack serve --mode development",
-    "build": "npm run generate:tokens && cross-env NODE_ENV=production webpack --mode production",
-    "build:analyze": "cross-env NODE_ENV=production ANALYZE=true npm run build && npx webpack-bundle-analyzer dist",
+    "dev": "npm run generate:tokens && webpack serve --mode development ",
+    "build": "npm run generate:tokens && webpack --mode production",
+    "build:analyze": "cross-env ANALYZE=true npm run build && npx webpack-bundle-analyzer dist",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
     "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
     "generate:tokens": "npx tsx tools/generators/generate-global-less.ts",

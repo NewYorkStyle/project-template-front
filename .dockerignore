@@ -1,9 +1,74 @@
-node_modules
+# Node.js зависимости (устанавливаются заново)
+node_modules/
 npm-debug.log
-dist
-.git
+yarn-error.log
+.pnpm-debug.log
+
+# Артефакты сборки (создаются заново)
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Системные файлы
+.git/
+.gitignore
+.DS_Store
+*.tgz
+*.tar.gz
+
+# Environment файлы (кроме примера)
 .env
 .env.*
-.nyc_output
-coverage
+!.example.env
+
+# Документация
 *.md
+CHANGELOG.md
+docs/
+
+# Тестовые репорты и результаты
+test-results/
+allure-results/
+playwright-report/
+jest-results.json
+
+# Конфигурации IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи
+logs/
+*.log
+
+# Временные файлы
+tmp/
+temp/
+.cache/
+
+# Storybook (для разработки)
+.storybook/
+storybook-static/
+
+# E2E тесты (не нужны для сборки)
+e2e/
+
+# CI/CD и инструменты разработки
+.github/
+.husky/
+
+# Конфиги, которые не нужны в production
+.releaserc.json
+.pr_agent.toml
+.prettierignore
+.prettierrc
+.eslint.*
+jest.config.ts
+playwright.config.ts
+
+# Деплой файлы
+.dockerignore
+Dockerfile*
+docker-compose*
