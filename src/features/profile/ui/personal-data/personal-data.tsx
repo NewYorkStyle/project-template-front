@@ -13,13 +13,13 @@ import {
   Flex,
   Form,
   Input,
+  OTP,
   TEST_IDS,
   Typography,
   designTokens,
   notificationService,
 } from '@shared';
 
-import {OTP} from '../../../otp';
 import {
   useConfirmEmailChange,
   useProfile,

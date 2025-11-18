@@ -8,6 +8,7 @@ import {
   Input,
   Statistic,
   TEST_IDS,
+  type TMetricsProps,
   Typography,
   designTokens,
 } from '@shared';
@@ -22,9 +23,11 @@ type TProps = {
   sendNewLabel: string;
   submitLabel: string;
   getOtpDisabled?: boolean;
+  analyticProps?: TMetricsProps;
 };
 
 export const OTP = ({
+  analyticProps,
   currentStep,
   getOtpDisabled,
   isLoading,
@@ -54,10 +57,12 @@ export const OTP = ({
             onClick={handleGetOtpClick}
             disabled={isLoading || getOtpDisabled}
             loading={isLoading}
-            analyticProps={{
-              label: 'Get OTP button',
-              namespace: E_METRICS_NAMESPACES.AUTH,
-            }}
+            analyticProps={
+              analyticProps && {
+                label: `${analyticProps.label} - Get OTP button`,
+                namespace: analyticProps.namespace,
+              }
+            }
             data-testid={TEST_IDS.OTP.GET_OTP}
           >
             {sendOtpLabel}
@@ -89,10 +94,12 @@ export const OTP = ({
                   <Button
                     htmlType='submit'
                     disabled={timerFinished}
-                    analyticProps={{
-                      label: 'Send OTP button',
-                      namespace: E_METRICS_NAMESPACES.AUTH,
-                    }}
+                    analyticProps={
+                      analyticProps && {
+                        label: `${analyticProps.label} - Send OTP button`,
+                        namespace: analyticProps.namespace,
+                      }
+                    }
                     data-testid={TEST_IDS.OTP.SUBMIT}
                   >
                     {submitLabel}
@@ -102,10 +109,12 @@ export const OTP = ({
                       onClick={handleGetOtpClick}
                       disabled={isLoading}
                       loading={isLoading}
-                      analyticProps={{
-                        label: 'Get new OTP button',
-                        namespace: E_METRICS_NAMESPACES.AUTH,
-                      }}
+                      analyticProps={
+                        analyticProps && {
+                          label: `${analyticProps.label} - Get new OTP button`,
+                          namespace: analyticProps.namespace,
+                        }
+                      }
                       data-testid={TEST_IDS.OTP.GET_NEW_OTP}
                     >
                       {sendNewLabel}
