@@ -5,7 +5,6 @@ import {observer} from 'mobx-react-lite';
 import {Outlet} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 
-import {AppHeader} from '@features';
 import {
   APP_ROUTES,
   appStore,
@@ -14,6 +13,7 @@ import {
   HomeIcon,
   useWindowSize,
 } from '@shared';
+import {AppHeader} from '@widgets';
 
 import styles from './app-layout.module.less';
 

@@ -5,6 +5,7 @@ export * from './error-boundary';
 export * from './flex';
 export * from './form';
 export * from './input';
+export * from './otp';
 export * from './page';
 export * from './popover';
 export * from './result';

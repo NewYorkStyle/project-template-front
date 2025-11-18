@@ -2,10 +2,8 @@ import {Header} from 'antd/es/layout/layout';
 import {observer} from 'mobx-react-lite';
 
 import {useAuth} from '@entities';
+import {ThemeChange, LanguageSelect} from '@features';
 import {appStore, BurgerIcon, designTokens, Flex, Logo} from '@shared';
-
-import {LanguageSelect} from '../language-select';
-import {ThemeChange} from '../theme-change';
 
 import style from './app-header.module.less';
 import {UserIcon} from './ui';
