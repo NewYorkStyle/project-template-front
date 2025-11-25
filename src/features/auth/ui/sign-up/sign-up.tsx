@@ -16,7 +16,7 @@ import {useSignUp} from '../../api';
 import {PASSWORD_MIN_LENGTH} from '../../lib';
 import {type TSignUpFormValues} from '../../types';
 
-import style from './sing-up.module.less';
+import style from './sing-up.module.scss';
 
 export const SignUp = () => {
   const {t} = useTranslation('Auth');

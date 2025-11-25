@@ -2,7 +2,6 @@ import {useState} from 'react';
 
 import {
   Button,
-  E_METRICS_NAMESPACES,
   Flex,
   Form,
   Input,

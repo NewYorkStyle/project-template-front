@@ -1,4 +1,4 @@
-import {type FallbackProps} from 'react-error-boundary';
+﻿import {type FallbackProps} from 'react-error-boundary';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import {Button} from '../button';
 import {Flex} from '../flex';
 import {Result} from '../result';
 
-import styles from './error-boundary.module.less';
+import styles from './error-boundary.module.scss';
 
 type TProps = FallbackProps;
 

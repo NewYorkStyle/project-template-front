@@ -3,7 +3,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/setup-tests.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '\\.(css|scss|sass)$': 'identity-obj-proxy',
   },
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',

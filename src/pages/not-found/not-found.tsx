@@ -1,9 +1,9 @@
-import {useTranslation} from 'react-i18next';
+﻿import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
 import {Button, designTokens, Flex, Page, Typography} from '@shared';
 
-import style from './not-found.module.less';
+import style from './not-found.module.scss';
 
 export const NotFound = () => {
   const {t} = useTranslation('Common');

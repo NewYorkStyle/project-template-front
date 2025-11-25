@@ -28,51 +28,51 @@ const generateCssVariables = (palette: TColorPalette, prefix = ''): string => {
   return cssVariables;
 };
 
-// Функция для генерации Less переменных
-const generateLessVariables = (tokens: TDesignTokens): string => {
-  let lessContent = '// Auto-generated from TypeScript\n\n';
+// Функция для генерации SCSS переменных
+const generateScssVariables = (tokens: TDesignTokens): string => {
+  let scssContent = '// Auto-generated from TypeScript\n\n';
 
   // Отступы
-  lessContent += '// Отступы\n';
+  scssContent += '// Отступы\n';
   Object.entries(tokens.spacing).forEach(([key, value]) => {
-    lessContent += `@spacing-${key}: ${value}px;\n`;
+    scssContent += `$spacing-${key}: ${value}px;\n`;
   });
 
-  lessContent += '\n';
+  scssContent += '\n';
 
   // Радиусы
-  lessContent += '// Радиусы скругления\n';
+  scssContent += '// Радиусы скругления\n';
   Object.entries(tokens.borderRadius).forEach(([key, value]) => {
-    lessContent += `@border-radius-${key}: ${value}px;\n`;
+    scssContent += `$border-radius-${key}: ${value}px;\n`;
   });
 
-  lessContent += '\n';
+  scssContent += '\n';
 
   // Размеры текста
-  lessContent += '// Размеры текста\n';
+  scssContent += '// Размеры текста\n';
   Object.entries(tokens.textSise).forEach(([key, value]) => {
-    lessContent += `@text-size-${key}: ${value}px;\n`;
+    scssContent += `$text-size-${key}: ${value}px;\n`;
   });
 
-  lessContent += '\n';
+  scssContent += '\n';
 
   // Брейкпоинты
-  lessContent += '// Брейкпоинты\n';
+  scssContent += '// Брейкпоинты\n';
   Object.entries(tokens.breakpoints).forEach(([key, value]) => {
-    lessContent += `@breakpoint-${camelToKebab(key)}: ${value}px;\n`;
+    scssContent += `$breakpoint-${camelToKebab(key)}: ${value}px;\n`;
   });
 
-  return lessContent;
+  return scssContent;
 };
 
-// Функция для генерации основного Less файла с CSS переменными
-const generateGlobalLess = (tokens: TDesignTokens): string => {
-  let lessContent = '// Auto-generated from TypeScript\n\n';
+// Функция для генерации основного SCSS файла с CSS переменными
+const generateGlobalScss = (tokens: TDesignTokens): string => {
+  let scssContent = '// Auto-generated from TypeScript\n\n';
 
   // Импорт переменных
-  lessContent += `@import './variables.less';\n\n`;
+  scssContent += `@use './variables.scss';\n\n`;
 
-  lessContent += `body {
+  scssContent += `body {
   padding: 0;
   margin: 0;
 }
@@ -80,15 +80,15 @@ const generateGlobalLess = (tokens: TDesignTokens): string => {
 `;
 
   // CSS переменные для переключения тем
-  lessContent += `:root {\n`;
-  lessContent += generateCssVariables(tokens.colors.light);
-  lessContent += `}\n\n`;
+  scssContent += `:root {\n`;
+  scssContent += generateCssVariables(tokens.colors.light);
+  scssContent += `}\n\n`;
 
-  lessContent += `[data-theme="dark"] {\n`;
-  lessContent += generateCssVariables(tokens.colors.dark);
-  lessContent += `}`;
+  scssContent += `[data-theme="dark"] {\n`;
+  scssContent += generateCssVariables(tokens.colors.dark);
+  scssContent += `}`;
 
-  return lessContent;
+  return scssContent;
 };
 
 const workspaceRoot = path.resolve(__dirname, '../../');
@@ -102,18 +102,18 @@ if (!fs.existsSync(stylesDir)) {
   console.log('📁 Created directory:', stylesDir);
 }
 
-// Генерируем и записываем variables.less
-const variablesPath = path.join(stylesDir, 'variables.less');
-const variablesContent = generateLessVariables(designTokens);
+// Генерируем и записываем variables.scss
+const variablesPath = path.join(stylesDir, 'variables.scss');
+const variablesContent = generateScssVariables(designTokens);
 fs.writeFileSync(variablesPath, variablesContent);
-console.log('✅ Less variables generated to:', variablesPath);
+console.log('✅ SCSS variables generated to:', variablesPath);
 console.log('📄 Variables file size:', variablesContent.length, 'bytes');
 
-// Генерируем и записываем global.less
-const globalPath = path.join(stylesDir, 'global.less');
-const globalContent = generateGlobalLess(designTokens);
+// Генерируем и записываем global.scss
+const globalPath = path.join(stylesDir, 'global.scss');
+const globalContent = generateGlobalScss(designTokens);
 fs.writeFileSync(globalPath, globalContent);
-console.log('✅ Global less generated to:', globalPath);
+console.log('✅ Global scss generated to:', globalPath);
 console.log('📄 Global file size:', globalContent.length, 'bytes');
 
 // Проверяем, что файлы создались

@@ -15,7 +15,7 @@ import {
 } from '@shared';
 import {AppHeader} from '@widgets';
 
-import styles from './app-layout.module.less';
+import styles from './app-layout.module.scss';
 
 export const AppLayout = observer(() => {
   const navigate = useNavigate();

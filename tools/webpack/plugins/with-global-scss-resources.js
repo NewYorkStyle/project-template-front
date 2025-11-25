@@ -7,13 +7,13 @@ const __dirname = path.dirname(__filename);
 
 /*
  * Утилита-плагин, автоматически добавляющая style-resources-loader
- * сразу после less-loader во всех правилах.
- * Позволяет инжектить общий список Less-ресурсов (переменные/миксины)
- * во ВСЕ .less файлы без явных импортов.
+ * сразу после sass-loader во всех правилах.
+ * Позволяет инжектить общий список SCSS-ресурсов (переменные/миксины)
+ * во ВСЕ .scss файлы без явных импортов.
  */
-export const withGlobalLessResources = () => (config) => {
+export const withGlobalScssResources = () => (config) => {
   const list = [
-    path.resolve(__dirname, '../../../src/app/styles/variables.less'),
+    path.resolve(__dirname, '../../../src/app/styles/variables.scss'),
   ];
 
   const ensureArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
@@ -25,19 +25,19 @@ export const withGlobalLessResources = () => (config) => {
 
     if (rule.use) {
       const useArr = ensureArray(rule.use);
-      const lessIdx = useArr.findIndex((u) => {
+      const sassIdx = useArr.findIndex((u) => {
         const loader = typeof u === 'string' ? u : u && u.loader;
-        return loader && loader.includes('less-loader');
+        return loader && loader.includes('sass-loader');
       });
 
-      if (lessIdx !== -1) {
+      if (sassIdx !== -1) {
         const already = useArr.some((u) => {
           const loader = typeof u === 'string' ? u : u && u.loader;
           return loader && loader.includes('style-resources-loader');
         });
 
         if (!already) {
-          useArr.splice(lessIdx + 1, 0, {
+          useArr.splice(sassIdx + 1, 0, {
             loader: 'style-resources-loader',
             options: {patterns: list},
           });
@@ -53,4 +53,4 @@ export const withGlobalLessResources = () => (config) => {
   return config;
 };
 
-export default withGlobalLessResources;
+export default withGlobalScssResources;

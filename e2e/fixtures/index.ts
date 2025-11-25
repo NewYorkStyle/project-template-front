@@ -12,6 +12,7 @@ export type TFixtures = {
   testUsers: typeof testUsers;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function waitForAppReady(page: any) {
   await page.waitForLoadState('networkidle');
   await page.waitForSelector('body', {state: 'attached'});

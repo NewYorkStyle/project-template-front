@@ -1,11 +1,11 @@
-import {useTranslation} from 'react-i18next';
+﻿import {useTranslation} from 'react-i18next';
 
 import {Button, E_METRICS_NAMESPACES, Form, Input, TEST_IDS} from '@shared';
 
 import {useSignIn} from '../../api';
 import {type TSignInFormValues} from '../../types';
 
-import style from './sing-in.module.less';
+import style from './sing-in.module.scss';
 
 export const SignIn = () => {
   const {t} = useTranslation('Auth');
