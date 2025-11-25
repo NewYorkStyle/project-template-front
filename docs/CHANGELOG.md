@@ -1,3 +1,9 @@
+## [2.10.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.5...v2.10.0) (2025-11-25)
+
+### Features
+
+* PROJECTTEMPLATE-48 Переход с less на scss ([#63](https://github.com/NewYorkStyle/project-template-front/issues/63)) ([e66281b](https://github.com/NewYorkStyle/project-template-front/commit/e66281bfd973a833d3290bd7c2df90834eca0b8a))
+
 ## [2.9.5](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.4...v2.9.5) (2025-11-18)
 
 ## [2.9.4](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.3...v2.9.4) (2025-11-10)
