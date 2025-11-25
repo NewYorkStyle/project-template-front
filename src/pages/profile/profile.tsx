@@ -1,4 +1,4 @@
-import {useState} from 'react';
+﻿import {useState} from 'react';
 
 import {useTranslation} from 'react-i18next';
 
@@ -13,7 +13,7 @@ import {
   useWindowSize,
 } from '@shared';
 
-import style from './profile.module.less';
+import style from './profile.module.scss';
 
 export const Profile = () => {
   const {t} = useTranslation('User');

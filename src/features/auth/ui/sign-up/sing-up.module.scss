@@ -1,9 +1,9 @@
-.root {
+﻿.root {
   height: 275px;
 
   .submitButton {
     position: absolute;
-    bottom: @spacing-md;
+    bottom: $spacing-md;
     left: 50%;
     transform: translateX(-50%);
   }

@@ -1,11 +1,11 @@
-.root {
+﻿.root {
   h1 {
     text-align: center;
   }
 
   .tabsWrapper {
-    padding: @spacing-sm;
-    box-shadow: 0px 0px @spacing-sm @spacing-sm var(--border-primary);
+    padding: $spacing-sm;
+    box-shadow: 0px 0px $spacing-sm $spacing-sm var(--border-primary);
     width: 300px;
   }
 

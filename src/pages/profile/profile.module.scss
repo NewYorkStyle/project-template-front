@@ -1,5 +1,5 @@
-.root {
-  padding: @spacing-sm;
+﻿.root {
+  padding: $spacing-sm;
   height: 100%;
   overflow: auto;
 
@@ -12,11 +12,11 @@
       }
 
       .ant-tabs-content-holder {
-        @media (max-width: calc(@breakpoint-tablet - 1px)) {
+        @media (max-width: calc($breakpoint-tablet - 1px)) {
           border-left: none;
 
           .ant-tabs-tabpane {
-            padding-left: @spacing-sm;
+            padding-left: $spacing-sm;
           }
         }
       }

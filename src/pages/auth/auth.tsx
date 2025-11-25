@@ -1,9 +1,9 @@
-import {useTranslation} from 'react-i18next';
+﻿import {useTranslation} from 'react-i18next';
 
 import {AuthForm} from '@features';
 import {Flex, Page} from '@shared';
 
-import style from './auth.module.less';
+import style from './auth.module.scss';
 
 export const Auth = () => {
   const {t} = useTranslation('Auth');

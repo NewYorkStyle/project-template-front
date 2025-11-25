@@ -1,7 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import {withGlobalLessResources} from './tools/webpack/plugins/with-global-less-resources.js';
+import {withGlobalScssResources} from './tools/webpack/plugins/with-global-scss-resources.js';
 import {fileURLToPath} from 'url';
 import Dotenv from 'dotenv-webpack';
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
@@ -50,7 +50,7 @@ const baseConfig = {
         },
       },
       {
-        test: /\.less$/,
+        test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
           {
@@ -64,7 +64,7 @@ const baseConfig = {
               },
             },
           },
-          'less-loader',
+          'sass-loader',
         ],
       },
       {
@@ -159,4 +159,4 @@ const baseConfig = {
   devtool: isDevelopment ? 'eval-source-map' : false,
 };
 
-export default withGlobalLessResources()(baseConfig);
+export default withGlobalScssResources()(baseConfig);

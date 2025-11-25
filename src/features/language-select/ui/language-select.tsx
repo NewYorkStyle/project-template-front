@@ -1,11 +1,11 @@
-import {useTranslation} from 'react-i18next';
+﻿import {useTranslation} from 'react-i18next';
 
 import {useLanguage} from '@entities';
 import {E_METRICS_NAMESPACES, Select} from '@shared';
 
 import {E_LANGUAGE} from '../lib';
 
-import style from './language-select.module.less';
+import style from './language-select.module.scss';
 
 /**
  * Компонент выбора языка.

@@ -1,4 +1,4 @@
-import {useTranslation} from 'react-i18next';
+﻿import {useTranslation} from 'react-i18next';
 
 import {
   Button,
@@ -13,7 +13,7 @@ import {
 
 import {useDeleteProfile} from '../../api';
 
-import style from './delete-user.module.less';
+import style from './delete-user.module.scss';
 
 export const DeleteUser = () => {
   const {t} = useTranslation('User');

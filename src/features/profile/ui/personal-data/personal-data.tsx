@@ -30,7 +30,7 @@ import {
 } from '../../api';
 import {type TProfileData} from '../../types';
 
-import style from './personal-data.module.less';
+import style from './personal-data.module.scss';
 
 export const PersonalData = () => {
   const {t} = useTranslation('User');

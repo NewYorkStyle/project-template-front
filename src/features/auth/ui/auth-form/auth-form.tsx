@@ -1,4 +1,4 @@
-import {useTranslation} from 'react-i18next';
+﻿import {useTranslation} from 'react-i18next';
 
 import {
   E_METRICS_NAMESPACES,
@@ -14,7 +14,7 @@ import {useSignIn, useSignUp} from '../../api';
 import {SignIn} from '../sign-in';
 import {SignUp} from '../sign-up';
 
-import style from './auth-form.module.less';
+import style from './auth-form.module.scss';
 
 export const AuthForm = () => {
   const {t} = useTranslation('Auth');

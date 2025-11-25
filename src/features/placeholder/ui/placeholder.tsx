@@ -1,4 +1,4 @@
-import noop from 'lodash/noop';
+﻿import noop from 'lodash/noop';
 import {useTranslation} from 'react-i18next';
 
 import {
@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@shared';
 
-import style from './placeholder.module.less';
+import style from './placeholder.module.scss';
 
 export const Placeholder = () => {
   const {t} = useTranslation('Main');
