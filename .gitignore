@@ -8,9 +8,6 @@ projectStructure.cache.json
 # dependencies
 node_modules
 
-# IDE - VSCode
-.vscode
-
 # Environment
 .env
 

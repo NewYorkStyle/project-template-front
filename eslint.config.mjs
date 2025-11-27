@@ -36,7 +36,7 @@ export default tseslint.config(
    * Конфигурация для правила project-structure/folder-structure
    */
   {
-    files: ['**/*'],
+    files: ['**/*.{ts,tsx,js,jsx,scss,css}'],
     languageOptions: {
       parser: projectStructureParser,
     },
@@ -233,6 +233,17 @@ export default tseslint.config(
       ],
 
       'prettier/prettier': 'error',
+    },
+  },
+
+  /**
+   * Конфигурация для SCSS файлов
+   */
+  {
+    files: ['**/*.scss', '**/*.css'],
+    rules: {
+      // Отключаем все TypeScript/JavaScript правила для SCSS файлов
+      // Оставляем только проверку структуры папок
     },
   },
 

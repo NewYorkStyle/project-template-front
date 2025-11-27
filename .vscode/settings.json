@@ -4,5 +4,27 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "en",
-  "exportall.config.folderListener": ["/src/shared/ui"]
+  "exportall.config.folderListener": ["/src/shared/ui"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "scss",
+    "css"
+  ],
+  "eslint.options": {
+    "overrideConfig": {
+      "files": ["**/*.{ts,tsx,js,jsx,scss,css}"]
+    }
+  },
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.associations": {
+    "*.scss": "scss"
+  }
 }
