@@ -6,7 +6,7 @@ const withBarrelFile = (rules) => [{name: 'index.ts'}, ...rules];
 // Базовые файлы для папок с файлами
 const BASE_FILES = [
   {name: '{kebab-case}.(ts|tsx)'},
-  {name: '{kebab-case}.scss'},
+  {name: '{kebab-case}.module.scss'},
   {name: '{kebab-case}.stories.(ts|tsx)'},
 ];
 
@@ -60,7 +60,7 @@ const FSD_SLICE = {
   name: '{kebab-case}',
   children: withBarrelFile([
     {name: '{kebab-case}.(ts|tsx)'},
-    {name: '{kebab-case}.scss'},
+    {name: '{kebab-case}.module.scss'},
     ...SEGMENTS, // Добавляем сегменты внутрь слайса
     {
       name: '__tests__',
