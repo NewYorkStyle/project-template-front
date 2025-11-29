@@ -1,3 +1,9 @@
+## [2.11.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.10.1...v2.11.0) (2025-11-29)
+
+### Features
+
+* PROJECTTEMPLATE-50 Обновление версии antd ([#65](https://github.com/NewYorkStyle/project-template-front/issues/65)) ([0352090](https://github.com/NewYorkStyle/project-template-front/commit/0352090b5f7a4d13a58f8050619ea562afe9900d))
+
 ## [2.10.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.10.0...v2.10.1) (2025-11-27)
 
 ## [2.10.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.9.5...v2.10.0) (2025-11-25)
