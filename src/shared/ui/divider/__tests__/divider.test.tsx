@@ -25,8 +25,8 @@ describe('Divider Component', () => {
     expect(divider).not.toHaveClass('ant-divider-vertical');
   });
 
-  test('renders vertical divider when type is vertical', () => {
-    render(<Divider type='vertical' />);
+  test('renders vertical divider when orientation is vertical', () => {
+    render(<Divider orientation='vertical' />);
     const divider = screen.getByRole('separator');
     expect(divider).toHaveClass('ant-divider-vertical');
     expect(divider).not.toHaveClass('ant-divider-horizontal');
@@ -38,21 +38,20 @@ describe('Divider Component', () => {
     expect(divider).toHaveClass('ant-divider-dashed');
   });
 
-  test('applies orientation class', () => {
-    render(<Divider orientation='left'>Left Text</Divider>);
+  test('applies title placement classes correctly', () => {
+    render(<Divider titlePlacement='left'>Left Text</Divider>);
     const divider = screen.getByRole('separator');
-    // В Ant Design v5 изменились классы для orientation
     expect(divider).toHaveClass('ant-divider-with-text-start');
   });
 
-  test('applies center orientation class', () => {
-    render(<Divider orientation='center'>Center Text</Divider>);
+  test('applies center title placement class', () => {
+    render(<Divider titlePlacement='center'>Center Text</Divider>);
     const divider = screen.getByRole('separator');
     expect(divider).toHaveClass('ant-divider-with-text');
   });
 
-  test('applies right orientation class', () => {
-    render(<Divider orientation='right'>Right Text</Divider>);
+  test('applies right title placement class', () => {
+    render(<Divider titlePlacement='right'>Right Text</Divider>);
     const divider = screen.getByRole('separator');
     expect(divider).toHaveClass('ant-divider-with-text-end');
   });
@@ -74,9 +73,9 @@ describe('Divider Component', () => {
   test('combines multiple props correctly', () => {
     render(
       <Divider
-        type='horizontal'
+        orientation='horizontal'
         dashed
-        orientation='center'
+        titlePlacement='center'
         plain
         className='test-class'
       >
