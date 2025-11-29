@@ -58,7 +58,7 @@ describe('Statistic Component', () => {
         <Statistic
           title='Custom Style'
           value={112893}
-          valueStyle={valueStyle}
+          styles={{content: valueStyle}}
         />
       );
 
@@ -263,7 +263,7 @@ describe('Statistic Component', () => {
         <Statistic
           title='Large Stat'
           value={2000}
-          valueStyle={{fontSize: 32}}
+          styles={{content: {fontSize: 32}}}
         />
       );
 

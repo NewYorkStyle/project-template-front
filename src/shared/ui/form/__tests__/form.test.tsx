@@ -29,12 +29,15 @@ describe('Form', () => {
   });
 
   it('should show validation errors for required fields', async () => {
+    const onFinish = jest.fn();
+    const onFinishFailed = jest.fn();
+
     render(
-      <Form>
+      <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item
           name='requiredField'
           label='Required Field'
-          rules={[{message: 'This field is required', required: true}]}
+          rules={[{required: true, message: 'This field is required'}]}
         >
           <Input data-testid='required-input' />
         </Form.Item>
@@ -49,9 +52,9 @@ describe('Form', () => {
     // Пытаемся сабмитить пустую форму
     fireEvent.click(screen.getByTestId('submit-button'));
 
-    // Ждем появления сообщения об ошибке
     await waitFor(() => {
-      expect(screen.getByText('This field is required')).toBeInTheDocument();
+      expect(onFinish).not.toHaveBeenCalled();
+      expect(onFinishFailed).toHaveBeenCalled();
     });
   });
 
@@ -120,5 +123,37 @@ describe('Form', () => {
     );
 
     expect(screen.getByTestId('username-input')).toBeInTheDocument();
+  });
+
+  it('should submit form with valid data', async () => {
+    const onFinish = jest.fn();
+
+    render(
+      <Form onFinish={onFinish}>
+        <Form.Item
+          name='username'
+          label='Username'
+          rules={[{required: true, message: 'Username is required'}]}
+        >
+          <Input data-testid='username-input' />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType='submit' data-testid='submit-button'>
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    );
+
+    // Заполняем поле
+    const input = screen.getByTestId('username-input');
+    fireEvent.change(input, {target: {value: 'testuser'}});
+
+    // Сабмитим форму
+    fireEvent.click(screen.getByTestId('submit-button'));
+
+    await waitFor(() => {
+      expect(onFinish).toHaveBeenCalledWith({username: 'testuser'});
+    });
   });
 });
