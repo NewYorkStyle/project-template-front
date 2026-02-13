@@ -1,10 +1,18 @@
 export type TColorPalette = {
   textPrimary: string;
   textSecondary: string;
+  textDisabled: string;
+
   backgroundPrimary: string;
   backgroundSecondary: string;
+  backgroundElevated: string;
+
   borderPrimary: string;
+  borderSecondary: string;
+
   accentPrimary: string;
+  accentHover: string;
+  accentActive: string;
 };
 
 export type TDesignTokens = {
@@ -23,7 +31,7 @@ export type TDesignTokens = {
     md: number;
     lg: number;
   };
-  textSise: {
+  textSize: {
     xs: number;
     sm: number;
     md: number;
@@ -42,9 +50,9 @@ export type TDesignTokens = {
 
 export const designTokens: TDesignTokens = {
   borderRadius: {
+    sm: 8,
     md: 12,
-    lg: 14,
-    sm: 10,
+    lg: 16,
   },
   breakpoints: {
     phone: 480,
@@ -55,21 +63,37 @@ export const designTokens: TDesignTokens = {
     desktopXl: 1920,
   },
   colors: {
-    dark: {
-      accentPrimary: '#4594d1',
-      backgroundPrimary: '#383535',
-      backgroundSecondary: '#4b4948',
-      borderPrimary: '#545353',
-      textPrimary: '#CBCDD0',
-      textSecondary: '#A4A6A8',
-    },
     light: {
-      accentPrimary: '#4594d1',
+      textPrimary: '#000000',
+      textSecondary: '#6B6B6B',
+      textDisabled: '#A4A6A8',
+
       backgroundPrimary: '#CBCBCB',
       backgroundSecondary: '#D9D9DC',
+      backgroundElevated: '#FFFFFF',
+
       borderPrimary: '#C1C0C0',
-      textPrimary: '#000000',
+      borderSecondary: '#E0E0E0',
+
+      accentPrimary: '#4594D1',
+      accentHover: '#5AA3DB',
+      accentActive: '#2F7AB8',
+    },
+    dark: {
+      textPrimary: '#CBCDD0',
       textSecondary: '#A4A6A8',
+      textDisabled: '#7A7C7E',
+
+      backgroundPrimary: '#383535',
+      backgroundSecondary: '#4B4948',
+      backgroundElevated: '#5A5857',
+
+      borderPrimary: '#545353',
+      borderSecondary: '#6A6867',
+
+      accentPrimary: '#4594D1',
+      accentHover: '#5AA3DB',
+      accentActive: '#2F7AB8',
     },
   },
   spacing: {
@@ -78,7 +102,7 @@ export const designTokens: TDesignTokens = {
     md: 16,
     lg: 24,
   },
-  textSise: {
+  textSize: {
     xs: 12,
     sm: 14,
     md: 16,

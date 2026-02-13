@@ -1,4 +1,4 @@
-import '../src/app/styles/global.less';
+import '../src/app/styles/global.scss';
 
 import React, {useState} from 'react';
 
