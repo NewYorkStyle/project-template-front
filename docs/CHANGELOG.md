@@ -1,3 +1,9 @@
+## [2.12.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.11.0...v2.12.0) (2026-02-25)
+
+### Features
+
+* PROJECTTEMPLATE-0 Правки документации, токенов, сторибука, апи ([#66](https://github.com/NewYorkStyle/project-template-front/issues/66)) ([5629d0a](https://github.com/NewYorkStyle/project-template-front/commit/5629d0a5d0abcf0925cfcdeb3dcb33e9626e5594))
+
 ## [2.11.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.10.1...v2.11.0) (2025-11-29)
 
 ### Features
