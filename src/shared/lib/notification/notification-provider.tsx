@@ -40,14 +40,14 @@ export const NotificationProvider: React.FC<PropsWithChildren> = ({
 
   const showNotification = (
     type: 'success' | 'info' | 'warning' | 'error',
-    message: string,
+    title: string,
     description?: string,
     duration = 4.5
   ) => {
     api[type]({
       description,
       duration,
-      message,
+      title,
       placement: 'topRight',
     });
   };

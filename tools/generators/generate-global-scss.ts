@@ -50,7 +50,7 @@ const generateScssVariables = (tokens: TDesignTokens): string => {
 
   // Размеры текста
   scssContent += '// Размеры текста\n';
-  Object.entries(tokens.textSise).forEach(([key, value]) => {
+  Object.entries(tokens.textSize).forEach(([key, value]) => {
     scssContent += `$text-size-${key}: ${value}px;\n`;
   });
 

@@ -26,19 +26,19 @@ export const getAntdThemeConfig = (theme: 'light' | 'dark'): ThemeConfig => {
         optionSelectedFontWeight: 'normal',
       },
       Typography: {
-        fontSize: designTokens.textSise.md,
-        fontSizeHeading1: designTokens.textSise.xl,
+        fontSize: designTokens.textSize.md,
+        fontSizeHeading1: designTokens.textSize.xl,
       },
     },
     token: {
-      borderRadius: 12,
+      borderRadius: designTokens.borderRadius.md,
       colorBgBase: palette.backgroundPrimary,
       colorBgContainer: palette.backgroundSecondary,
       colorTextBase: palette.textPrimary,
       colorTextPlaceholder: palette.textSecondary,
       fontFamily:
         "'Franklin Gothic Medium', 'Arial Narrow',\n  Arial,\n  sans-serif;",
-      fontSize: designTokens.textSise.md,
+      fontSize: designTokens.textSize.md,
     },
   };
 };

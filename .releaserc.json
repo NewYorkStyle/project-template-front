@@ -53,10 +53,6 @@
             "release": "patch"
           },
           {
-            "type": "nx-cloud",
-            "release": false
-          },
-          {
             "breaking": true,
             "release": "major"
           }
@@ -118,11 +114,6 @@
             {
               "type": "ci",
               "section": "Continuous Integration",
-              "hidden": true
-            },
-            {
-              "type": "nx-cloud",
-              "section": "Nx Cloud",
               "hidden": true
             }
           ]

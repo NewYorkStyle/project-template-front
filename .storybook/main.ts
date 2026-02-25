@@ -1,39 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import path from 'path';
 
 import type {StorybookConfig} from '@storybook/react-webpack5';
 
-// Упрощенная версия плагина
-const withGlobalLessResources = () => (config: any) => {
-  const lessResources = [
-    path.resolve(__dirname, '../src/app/styles/variables.less'),
-  ];
-
-  // Находим все правила с less-loader и добавляем style-resources-loader
-  config.module?.rules?.forEach((rule: any) => {
-    if (rule.test && rule.test.toString().includes('less')) {
-      if (Array.isArray(rule.use)) {
-        const lessLoaderIndex = rule.use.findIndex(
-          (use: any) =>
-            typeof use === 'object' &&
-            use.loader &&
-            use.loader.includes('less-loader')
-        );
-
-        if (lessLoaderIndex !== -1) {
-          rule.use.splice(lessLoaderIndex + 1, 0, {
-            loader: 'style-resources-loader',
-            options: {
-              patterns: lessResources,
-            },
-          });
-        }
-      }
-    }
-  });
-
-  return config;
-};
+const globalScssPath = path.resolve(
+  __dirname,
+  '../src/app/styles/variables.scss'
+);
 
 const config: StorybookConfig = {
   framework: {
@@ -68,16 +40,30 @@ const config: StorybookConfig = {
     });
 
     config.module?.rules?.push({
-      test: /\.less$/,
+      test: /\.s[ac]ss$/i,
       use: [
         'style-loader',
-        'css-loader',
         {
-          loader: 'less-loader',
+          loader: 'css-loader',
           options: {
-            lessOptions: {
+            modules: {
+              auto: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sassOptions: {
               javascriptEnabled: true,
             },
+          },
+        },
+        {
+          loader: 'style-resources-loader',
+          options: {
+            patterns: [globalScssPath],
           },
         },
       ],
@@ -89,9 +75,18 @@ const config: StorybookConfig = {
         '.ts',
         '.tsx',
       ];
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@entities': path.resolve(__dirname, '../src/entities'),
+        '@shared': path.resolve(__dirname, '../src/shared'),
+        '@pages': path.resolve(__dirname, '../src/pages'),
+        '@features': path.resolve(__dirname, '../src/features'),
+        '@widgets': path.resolve(__dirname, '../src/widgets'),
+        '@common': path.resolve(__dirname, '../src/common'),
+      };
     }
 
-    return withGlobalLessResources()(config);
+    return config;
   },
 };
 
