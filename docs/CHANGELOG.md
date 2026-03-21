@@ -1,3 +1,9 @@
+## [2.13.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.12.0...v2.13.0) (2026-03-21)
+
+### Features
+
+* PROJECTTEMPLATE-53 Замена компонентов на вынесенные в ui-kit ([#67](https://github.com/NewYorkStyle/project-template-front/issues/67)) ([810612a](https://github.com/NewYorkStyle/project-template-front/commit/810612afa68a7bc48accbf83f01dcef9070b7dd9))
+
 ## [2.12.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.11.0...v2.12.0) (2026-02-25)
 
 ### Features
