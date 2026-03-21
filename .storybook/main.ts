@@ -82,7 +82,6 @@ const config: StorybookConfig = {
         '@pages': path.resolve(__dirname, '../src/pages'),
         '@features': path.resolve(__dirname, '../src/features'),
         '@widgets': path.resolve(__dirname, '../src/widgets'),
-        '@common': path.resolve(__dirname, '../src/common'),
       };
     }
 

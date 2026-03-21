@@ -1,17 +1,14 @@
-import {useMemo} from 'react';
-
-import {App, ConfigProvider} from 'antd';
-import en_US from 'antd/locale/en_US';
-import ru_RU from 'antd/locale/ru_RU';
+import {UiProvider} from '@new_york_style/project-template-ui';
+import {App} from 'antd';
 import {I18nextProvider} from 'react-i18next';
 
 import {useLanguage, useMetrics, useParams, useTheme} from '@entities';
 import {
-  getAntdThemeConfig,
   NotificationProvider,
   ModalProvider,
   i18nInstance,
   ErrorBoundary,
+  designTokens,
 } from '@shared';
 
 import {Router} from '../../lib';
@@ -23,24 +20,8 @@ export const AppInitializer = () => {
 
   useMetrics(params);
 
-  const antLocale = useMemo(() => {
-    let antdLocale = en_US;
-
-    switch (language) {
-      case 'ru':
-        antdLocale = ru_RU;
-        break;
-      case 'en':
-      default:
-        antdLocale = en_US;
-        break;
-    }
-
-    return antdLocale;
-  }, [language]);
-
   return (
-    <ConfigProvider theme={getAntdThemeConfig(theme)} locale={antLocale}>
+    <UiProvider tokens={designTokens.colors[theme]} language={language}>
       <I18nextProvider i18n={i18nInstance}>
         <ErrorBoundary>
           <App>
@@ -50,6 +31,6 @@ export const AppInitializer = () => {
           </App>
         </ErrorBoundary>
       </I18nextProvider>
-    </ConfigProvider>
+    </UiProvider>
   );
 };

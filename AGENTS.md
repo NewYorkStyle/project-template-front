@@ -7,6 +7,11 @@ React-приложение (SPA). Стек: React 19, TypeScript 5, Ant Design 6
 
 ---
 
+## Язык ответов
+
+- Все ответы и предложения по коду формулируй на русском языке.
+- Технические термины (API, HTTP, SQL и т.д.) оставляй на английском.
+
 ## Структура папок
 
 ```
@@ -52,11 +57,11 @@ app → pages → widgets → features → entities → shared
 
 **Path aliases:**
 
-- `@shared` → `src/shared`
-- `@entities` → `src/entities`
-- `@features` → `src/features`
-- `@widgets` → `src/widgets`
-- `@pages` → `src/pages`
+- `@shared` → `src/shared/index.ts`
+- `@entities` → `src/entities/index.ts`
+- `@features` → `src/features/index.ts`
+- `@widgets` → `src/widgets/index.ts`
+- `@pages` → `src/pages/index.ts`
 
 ---
 
@@ -141,7 +146,7 @@ src/entities/my-entity/
 
 - CSS-модули везде, глобальные стили — только при необходимости
 - Дизайн-токены (цвета, отступы, размеры): `src/shared/lib/constants/design-tokens.ts`
-- SCSS-переменные генерируются автоматически из токенов — не редактировать `variables.scss` руками
+- SCSS-переменные генерируются автоматически из токенов командой `npm run generate:tokens` и пишутся в `src/app/styles/variables.scss` — не редактировать вручную
 - Глобальные SCSS-переменные доступны во всех файлах без импорта (подключает Webpack-плагин)
 - Темы: светлая и тёмная, конфигурируются через `getAntdThemeConfig` и CSS-переменные
 
@@ -151,7 +156,7 @@ src/entities/my-entity/
 
 - i18next, языки: русский и английский
 - Файлы переводов: `src/shared/lib/i18n/`
-- Пространства имён: `Common`, `Auth`, `Main`, `User`
+- Пространства имён: `Common`, `AppHeader`, `Auth`, `Main`, `User`
 - Весь пользовательский текст — только через i18n, строки в коде запрещены
 
 ---

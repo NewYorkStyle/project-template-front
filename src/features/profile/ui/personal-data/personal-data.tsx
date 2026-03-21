@@ -1,5 +1,6 @@
 import {useEffect, useMemo, useState} from 'react';
 
+import {Divider, Flex, Form, Input} from '@new_york_style/project-template-ui';
 import isEqual from 'lodash/isEqual';
 import {useTranslation} from 'react-i18next';
 
@@ -7,12 +8,8 @@ import {E_PERMISSIONS, usePermissionCheck} from '@entities';
 import {
   APLHABETIC,
   Button,
-  Divider,
   EMAIL,
   E_METRICS_NAMESPACES,
-  Flex,
-  Form,
-  Input,
   OTP,
   TEST_IDS,
   Typography,
@@ -132,7 +129,7 @@ export const PersonalData = () => {
   };
 
   const handleEmailFormChange = (
-    _changedValues: {email: string},
+    _changedValues: Partial<{email: string}>,
     allValues: {email: string}
   ) => {
     const email = allValues.email || '';

@@ -1,13 +1,7 @@
-﻿import {useTranslation} from 'react-i18next';
+﻿import {Flex, Spin} from '@new_york_style/project-template-ui';
+import {useTranslation} from 'react-i18next';
 
-import {
-  E_METRICS_NAMESPACES,
-  Flex,
-  Spin,
-  Tabs,
-  type TTabItem,
-  Typography,
-} from '@shared';
+import {E_METRICS_NAMESPACES, Tabs, type TTabItem, Typography} from '@shared';
 
 import packageJson from '../../../../../package.json';
 import {useSignIn, useSignUp} from '../../api';

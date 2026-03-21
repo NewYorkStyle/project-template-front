@@ -1,8 +1,11 @@
-import {Button as AntdButton, type ButtonProps} from 'antd';
+import {
+  Button as BaseButton,
+  type TButtonProps,
+} from '@new_york_style/project-template-ui';
 
 import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
-type TProps = ButtonProps & {analyticProps?: TMetricsProps};
+type TProps = TButtonProps & {analyticProps?: TMetricsProps};
 
 export const Button = ({analyticProps, onClick, ...restProps}: TProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,5 +21,5 @@ export const Button = ({analyticProps, onClick, ...restProps}: TProps) => {
       });
   };
 
-  return <AntdButton onClick={handleClick} {...restProps} />;
+  return <BaseButton onClick={handleClick} {...restProps} />;
 };

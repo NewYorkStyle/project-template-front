@@ -1,11 +1,14 @@
 import {useState} from 'react';
 
 import {
-  Button,
   Flex,
   Form,
   Input,
   Statistic,
+} from '@new_york_style/project-template-ui';
+
+import {
+  Button,
   TEST_IDS,
   type TMetricsProps,
   Typography,

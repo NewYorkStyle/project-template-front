@@ -1,12 +1,10 @@
+import {Form, Input, Popover} from '@new_york_style/project-template-ui';
 import {type Rule} from 'antd/es/form';
 import {useTranslation} from 'react-i18next';
 
 import {
   Button,
   E_METRICS_NAMESPACES,
-  Form,
-  Input,
-  Popover,
   Typography,
   useWindowSize,
   designTokens,

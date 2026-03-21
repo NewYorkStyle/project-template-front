@@ -1,3 +1,4 @@
+import {Drawer, Icon} from '@new_york_style/project-template-ui';
 import {Layout, Menu} from 'antd';
 import {Content} from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
@@ -5,14 +6,7 @@ import {observer} from 'mobx-react-lite';
 import {Outlet} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 
-import {
-  APP_ROUTES,
-  appStore,
-  designTokens,
-  Drawer,
-  HomeIcon,
-  useWindowSize,
-} from '@shared';
+import {APP_ROUTES, appStore, designTokens, useWindowSize} from '@shared';
 import {AppHeader} from '@widgets';
 
 import styles from './app-layout.module.scss';
@@ -32,7 +26,7 @@ export const AppLayout = observer(() => {
         {
           icon: (
             <span>
-              <HomeIcon size={32} />
+              <Icon name='home' size={32} />
             </span>
           ),
           key: 'home',
