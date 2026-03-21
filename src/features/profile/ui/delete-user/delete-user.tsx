@@ -1,11 +1,9 @@
-﻿import {useTranslation} from 'react-i18next';
+﻿import {Flex, Form, Input} from '@new_york_style/project-template-ui';
+import {useTranslation} from 'react-i18next';
 
 import {
   Button,
   E_METRICS_NAMESPACES,
-  Flex,
-  Form,
-  Input,
   Typography,
   designTokens,
   useModal,

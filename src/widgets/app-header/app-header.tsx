@@ -1,9 +1,10 @@
-﻿import {Header} from 'antd/es/layout/layout';
+﻿import {Flex, Icon} from '@new_york_style/project-template-ui';
+import {Header} from 'antd/es/layout/layout';
 import {observer} from 'mobx-react-lite';
 
 import {useAuth} from '@entities';
 import {ThemeChange, LanguageSelect} from '@features';
-import {appStore, BurgerIcon, designTokens, Flex, Logo} from '@shared';
+import {appStore, designTokens} from '@shared';
 
 import style from './app-header.module.scss';
 import {UserIcon} from './ui';
@@ -23,7 +24,7 @@ export const AppHeader = observer(() => {
             className={style.burger}
             onClick={showMenu ? closeMenu : openMenu}
           >
-            <BurgerIcon size={32} />
+            <Icon name='burger' size={32} />
           </div>
         ) : (
           <div />
@@ -31,7 +32,7 @@ export const AppHeader = observer(() => {
         <Flex align='center' gap={designTokens.spacing.sm}>
           <ThemeChange />
           <LanguageSelect />
-          {isUserLogged ? <UserIcon /> : <Logo />}
+          {isUserLogged ? <UserIcon /> : <Icon name='logo' />}
         </Flex>
       </Flex>
     </Header>

@@ -1,7 +1,8 @@
-﻿import {useTranslation} from 'react-i18next';
+﻿import {Flex} from '@new_york_style/project-template-ui';
+import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
-import {Button, designTokens, Flex, Page, Typography} from '@shared';
+import {Button, designTokens, Page, Typography} from '@shared';
 
 import style from './not-found.module.scss';
 

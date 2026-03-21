@@ -1,11 +1,10 @@
-﻿import {type FallbackProps} from 'react-error-boundary';
+﻿import {Flex, Result} from '@new_york_style/project-template-ui';
+import {type FallbackProps} from 'react-error-boundary';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
 import {APP_ROUTES} from '../../lib';
 import {Button} from '../button';
-import {Flex} from '../flex';
-import {Result} from '../result';
 
 import styles from './error-boundary.module.scss';
 

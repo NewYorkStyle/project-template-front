@@ -1,10 +1,13 @@
-import {Select as AntdSelect, type SelectProps} from 'antd';
+import {
+  Select as BaseSelect,
+  type TSelectProps,
+} from '@new_york_style/project-template-ui';
 
 import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
-type TOptionType = NonNullable<SelectProps['options']>[number];
+type TOptionType = NonNullable<TSelectProps['options']>[number];
 
-type TProps = SelectProps & {
+type TProps = TSelectProps & {
   options: (TOptionType & {
     analyticsLabel?: string;
   })[];
@@ -48,7 +51,7 @@ export const Select = ({
   };
 
   return (
-    <AntdSelect
+    <BaseSelect
       onChange={handleChange}
       onFocus={onFocus}
       options={options}

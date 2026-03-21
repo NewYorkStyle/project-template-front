@@ -1,9 +1,12 @@
-import {Segmented as AntdSegmented, type SegmentedProps} from 'antd';
+import {
+  Segmented as BaseSegmented,
+  type TSegmentedProps,
+} from '@new_york_style/project-template-ui';
 import {type SegmentedValue} from 'antd/es/segmented';
 
 import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
-type TProps = SegmentedProps & {
+type TProps = TSegmentedProps & {
   analyticProps?: TMetricsProps;
 };
 
@@ -21,5 +24,5 @@ export const Segmented = ({analyticProps, onChange, ...restProps}: TProps) => {
       });
   };
 
-  return <AntdSegmented onChange={handleChange} {...restProps} />;
+  return <BaseSegmented onChange={handleChange} {...restProps} />;
 };

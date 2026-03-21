@@ -1,12 +1,15 @@
-import {Tabs as AntdTabs, type TabsProps} from 'antd';
+import {
+  Tabs as BaseTabs,
+  type TTabsProps,
+} from '@new_york_style/project-template-ui';
 
 import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
-type TTabItemType = NonNullable<TabsProps['items']>[number];
+type TTabItemType = NonNullable<TTabsProps['items']>[number];
 
 export type TTabItem = TTabItemType & {analyticsLabel?: string};
 
-type TProps = Omit<TabsProps, 'items'> & {
+type TProps = Omit<TTabsProps, 'items'> & {
   analyticProps?: TMetricsProps;
   items: TTabItem[];
 };
@@ -32,5 +35,5 @@ export const Tabs = ({
     }
   };
 
-  return <AntdTabs onChange={handleTabChange} items={items} {...restProps} />;
+  return <BaseTabs onChange={handleTabChange} items={items} {...restProps} />;
 };

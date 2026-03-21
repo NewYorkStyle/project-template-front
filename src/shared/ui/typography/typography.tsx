@@ -1,26 +1,28 @@
-import {Typography as AntdTypography} from 'antd';
-import {type LinkProps} from 'antd/es/typography/Link';
-import {type ParagraphProps} from 'antd/es/typography/Paragraph';
-import {type TextProps} from 'antd/es/typography/Text';
-import {type TitleProps} from 'antd/es/typography/Title';
+import {
+  Typography as BaseTypography,
+  type TParagraphProps as TBaseParagraphProps,
+  type TTextProps as TBaseTextProps,
+  type TTitleProps as TBaseTitleProps,
+  type TLinkProps as TBaseLinkProps,
+} from '@new_york_style/project-template-ui';
 
 import {E_METRICS_EVENTS, sendEvent, type TMetricsProps} from '../../lib';
 
 const {
-  Link: AntdLink,
-  Paragraph: AntdParagraph,
-  Text: AntdText,
-  Title: AntdTitle,
-} = AntdTypography;
+  Link: BaseLink,
+  Paragraph: BaseParagraph,
+  Text: BaseText,
+  Title: BaseTitle,
+} = BaseTypography;
 
 type TTypographyAnalyticsProps = {
   analyticProps?: TMetricsProps;
 };
 
-type TParagraphProps = ParagraphProps & TTypographyAnalyticsProps;
-type TTextProps = TextProps & TTypographyAnalyticsProps;
-type TTitleProps = TitleProps & TTypographyAnalyticsProps;
-type TLinkProps = LinkProps & TTypographyAnalyticsProps;
+type TParagraphProps = TBaseParagraphProps & TTypographyAnalyticsProps;
+type TTextProps = TBaseTextProps & TTypographyAnalyticsProps;
+type TTitleProps = TBaseTitleProps & TTypographyAnalyticsProps;
+type TLinkProps = TBaseLinkProps & TTypographyAnalyticsProps;
 
 const handleTypographyClick = (
   e: React.MouseEvent<HTMLDivElement>,
@@ -46,7 +48,7 @@ const Paragraph = ({analyticProps, onClick, ...restProps}: TParagraphProps) => {
   };
 
   return (
-    <AntdParagraph onClick={onClick ? handleClick : undefined} {...restProps} />
+    <BaseParagraph onClick={onClick ? handleClick : undefined} {...restProps} />
   );
 };
 
@@ -56,7 +58,7 @@ const Text = ({analyticProps, onClick, ...restProps}: TTextProps) => {
   };
 
   return (
-    <AntdText onClick={onClick ? handleClick : undefined} {...restProps} />
+    <BaseText onClick={onClick ? handleClick : undefined} {...restProps} />
   );
 };
 
@@ -66,7 +68,7 @@ const Title = ({analyticProps, onClick, ...restProps}: TTitleProps) => {
   };
 
   return (
-    <AntdTitle onClick={onClick ? handleClick : undefined} {...restProps} />
+    <BaseTitle onClick={onClick ? handleClick : undefined} {...restProps} />
   );
 };
 
@@ -76,7 +78,7 @@ const Link = ({analyticProps, onClick, ...restProps}: TLinkProps) => {
   };
 
   return (
-    <AntdLink onClick={onClick ? handleClick : undefined} {...restProps} />
+    <BaseLink onClick={onClick ? handleClick : undefined} {...restProps} />
   );
 };
 

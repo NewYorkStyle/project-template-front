@@ -1,7 +1,8 @@
-﻿import {useTranslation} from 'react-i18next';
+﻿import {Flex} from '@new_york_style/project-template-ui';
+import {useTranslation} from 'react-i18next';
 
 import {AuthForm} from '@features';
-import {Flex, Page} from '@shared';
+import {Page} from '@shared';
 
 import style from './auth.module.scss';
 

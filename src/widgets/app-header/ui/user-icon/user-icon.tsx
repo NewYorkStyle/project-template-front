@@ -1,17 +1,15 @@
 import {useState} from 'react';
 
+import {Flex, Icon, Popover} from '@new_york_style/project-template-ui';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
 import {useLogout} from '@entities';
 import {
-  Popover,
-  Flex,
   Typography,
   Button,
   designTokens,
   E_METRICS_NAMESPACES,
-  Profile,
   APP_ROUTES,
 } from '@shared';
 
@@ -68,7 +66,7 @@ export const UserIcon = () => {
       }
     >
       <Button
-        icon={<Profile />}
+        icon={<Icon name='profile' />}
         shape='circle'
         onClick={handleUserIconClick}
         disabled={isLoggingOut}

@@ -2,16 +2,10 @@ import '../src/app/styles/global.scss';
 
 import React, {useState} from 'react';
 
+import {Icon, UiProvider} from '@new_york_style/project-template-ui';
 import type {Preview} from '@storybook/react-webpack5';
-import {ConfigProvider} from 'antd';
 
-import {
-  BulbLightningIcon,
-  MoonIcon,
-  Segmented,
-  designTokens,
-  getAntdThemeConfig,
-} from '../src/shared';
+import {Segmented, designTokens} from '../src/shared';
 
 const ThemeWrapper = (Story: React.ComponentType) => {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -32,7 +26,7 @@ const ThemeWrapper = (Story: React.ComponentType) => {
   };
 
   return (
-    <ConfigProvider theme={getAntdThemeConfig(theme)}>
+    <UiProvider tokens={designTokens.colors[theme]}>
       <div
         data-theme={theme}
         style={{
@@ -57,8 +51,8 @@ const ThemeWrapper = (Story: React.ComponentType) => {
           <Segmented
             shape='round'
             options={[
-              {icon: <BulbLightningIcon />, value: 'light'},
-              {icon: <MoonIcon />, value: 'dark'},
+              {icon: <Icon name='bulbLightning' />, value: 'light'},
+              {icon: <Icon name='moon' />, value: 'dark'},
             ]}
             onChange={(value) => handleChange(value as 'dark' | 'light')}
             value={theme}
@@ -67,7 +61,7 @@ const ThemeWrapper = (Story: React.ComponentType) => {
         </div>
         <Story />
       </div>
-    </ConfigProvider>
+    </UiProvider>
   );
 };
 

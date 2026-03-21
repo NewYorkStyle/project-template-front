@@ -1,10 +1,7 @@
+import {Icon} from '@new_york_style/project-template-ui';
+
 import {useTheme} from '@entities';
-import {
-  BulbLightningIcon,
-  E_METRICS_NAMESPACES,
-  MoonIcon,
-  Segmented,
-} from '@shared';
+import {E_METRICS_NAMESPACES, Segmented} from '@shared';
 
 /**
  * Компонент выбора темы.
@@ -20,8 +17,8 @@ export const ThemeChange = () => {
       }}
       shape='round'
       options={[
-        {icon: <BulbLightningIcon />, value: 'light'},
-        {icon: <MoonIcon />, value: 'dark'},
+        {icon: <Icon name='bulbLightning' />, value: 'light'},
+        {icon: <Icon name='moon' />, value: 'dark'},
       ]}
       onChange={toggleTheme}
       value={theme}

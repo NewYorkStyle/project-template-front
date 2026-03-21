@@ -1,6 +1,7 @@
-﻿import {useTranslation} from 'react-i18next';
+﻿import {Form, Input} from '@new_york_style/project-template-ui';
+import {useTranslation} from 'react-i18next';
 
-import {Button, E_METRICS_NAMESPACES, Form, Input, TEST_IDS} from '@shared';
+import {Button, E_METRICS_NAMESPACES, TEST_IDS} from '@shared';
 
 import {useSignIn} from '../../api';
 import {type TSignInFormValues} from '../../types';

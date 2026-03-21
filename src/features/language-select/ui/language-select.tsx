@@ -1,9 +1,7 @@
 ﻿import {useTranslation} from 'react-i18next';
 
-import {useLanguage} from '@entities';
+import {E_LANGUAGE, useLanguage} from '@entities';
 import {E_METRICS_NAMESPACES, Select} from '@shared';
-
-import {E_LANGUAGE} from '../lib';
 
 import style from './language-select.module.scss';
 
@@ -15,7 +13,7 @@ export const LanguageSelect = () => {
 
   const {language, setLanguage} = useLanguage();
 
-  const handleLanguageChange = (value: string) => {
+  const handleLanguageChange = (value: E_LANGUAGE) => {
     setLanguage(value);
     i18n.changeLanguage(value);
   };
