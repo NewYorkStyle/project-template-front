@@ -1,5 +1,7 @@
+import {zodResolver} from '@hookform/resolvers/zod';
 import {Form, Input, Popover} from '@new_york_style/project-template-ui';
-import {type Rule} from 'antd/es/form';
+import {useForm} from 'react-hook-form';
+import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
 
 import {
@@ -12,6 +14,7 @@ import {
 
 import {useSignUp} from '../../api';
 import {PASSWORD_MIN_LENGTH} from '../../lib';
+import {createSignUpSchema} from '../../model/sing-up.schema';
 import {type TSignUpFormValues} from '../../types';
 
 import style from './sing-up.module.scss';
@@ -20,6 +23,7 @@ export const SignUp = () => {
   const {t} = useTranslation('Auth');
   const {isPending: isLoading, mutate: signUp} = useSignUp();
   const {width} = useWindowSize();
+  const signUpSchema = createSignUpSchema(t);
 
   const initialValues: TSignUpFormValues = {
     email: '',
@@ -28,83 +32,31 @@ export const SignUp = () => {
     passwordConfirm: '',
   };
 
-  const handleSubmit = (values: TSignUpFormValues) => {
+  const onSubmit = (values: TSignUpFormValues) => {
     signUp(values);
   };
 
-  const passwordValidator = (_: Rule, value: string): Promise<void> => {
-    let error = false;
-
-    if (!value) {
-      return Promise.reject(
-        new Error(t('Authentication.SignUp.Rules.PasswordRequired'))
-      );
-    }
-
-    // Проверка минимальной длины
-    if (value.length < PASSWORD_MIN_LENGTH) {
-      error = true;
-    }
-
-    // Проверка на наличие символа в нижнем регистре
-    if (!/(?=.*[a-z])/.test(value)) {
-      error = true;
-    }
-
-    // Проверка на наличие символа в верхнем регистре
-    if (!/(?=.*[A-Z])/.test(value)) {
-      error = true;
-    }
-
-    // Проверка на наличие цифры
-    if (!/(?=.*\d)/.test(value)) {
-      error = true;
-    }
-
-    if (error) {
-      return Promise.reject(
-        new Error(t('Authentication.SignUp.Rules.PasswordRules'))
-      );
-    }
-
-    return Promise.resolve();
-  };
+  const {control, handleSubmit} = useForm<TSignUpFormValues>({
+    defaultValues: initialValues,
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(signUpSchema),
+  });
 
   return (
     <div className={style.root}>
       <Form<TSignUpFormValues>
         name='sign-up'
-        initialValues={initialValues}
-        onFinish={handleSubmit}
+        onFinish={() => void handleSubmit(onSubmit)()}
         autoComplete='off'
         disabled={isLoading}
       >
-        <Form.Item
-          name='username'
-          rules={[
-            {
-              message: t('Authentication.SignUp.Rules.LoginRequired'),
-              required: true,
-            },
-          ]}
-        >
+        <FormItem control={control} name='username'>
           <Input placeholder={t('Authentication.SignUp.LoginPlaceholder')} />
-        </Form.Item>
-        <Form.Item
-          name='email'
-          rules={[
-            {
-              message: t('Authentication.SignUp.Rules.EmailRequired'),
-              required: true,
-            },
-            {
-              message: t('Authentication.SignUp.Rules.EmailRules'),
-              type: 'email',
-            },
-          ]}
-        >
+        </FormItem>
+        <FormItem control={control} name='email'>
           <Input placeholder={t('Authentication.SignUp.EmailPlaceholder')} />
-        </Form.Item>
+        </FormItem>
         <Popover
           trigger='focus'
           placement={
@@ -148,41 +100,20 @@ export const SignUp = () => {
            * Решение - внутрь Popover кладётся див рядом с Form.Item, который и является тригером
            */}
           <div style={{position: 'relative'}} />
-          <Form.Item name='password' rules={[{validator: passwordValidator}]}>
+          <FormItem control={control} name='password'>
             <Input.Password
               visibilityToggle
               placeholder={t('Authentication.SignUp.PasswordPlaceholder')}
             />
-          </Form.Item>
+          </FormItem>
         </Popover>
 
-        <Form.Item
-          name='passwordConfirm'
-          dependencies={['password']}
-          rules={[
-            {
-              message: t('Authentication.SignUp.Rules.PasswordConfirmRequired'),
-              required: true,
-            },
-            ({getFieldValue}) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error(
-                    t('Authentication.SignUp.Rules.PasswordConfirmRules')
-                  )
-                );
-              },
-            }),
-          ]}
-        >
+        <FormItem control={control} name='passwordConfirm'>
           <Input.Password
             visibilityToggle
             placeholder={t('Authentication.SignUp.PasswordConfirmPlaceholder')}
           />
-        </Form.Item>
+        </FormItem>
         <Form.Item noStyle>
           <Button
             className={style.submitButton}
