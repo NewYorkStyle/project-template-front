@@ -1,224 +1,317 @@
-# Project Template Frontend
+# AGENTS.md — правила для AI (Cursor / Copilot / ChatGPT)
 
-## Что это за проект
-
-React-приложение (SPA). Стек: React 19, TypeScript 5, Ant Design 6, MobX 6, React Query 5, React Router 7, Webpack 5.
-Архитектура: Feature-Sliced Design (FSD).
-
----
+Проект: **React 19 + TypeScript**, **Feature-Sliced Design (FSD)**, Webpack, SCSS Modules. Рабочая область для изменений: `src/`, `e2e/`, `tools/`.
 
 ## Язык ответов
 
 - Все ответы и предложения по коду формулируй на русском языке.
 - Технические термины (API, HTTP, SQL и т.д.) оставляй на английском.
 
-## Структура папок
+---
 
-```
-src/
-├── app/           # Провайдеры, роутинг, глобальные стили
-├── pages/         # Страницы (компонуют widgets/features)
-├── widgets/       # Крупные составные блоки UI
-├── features/      # Изолированные фичи с бизнес-логикой
-├── entities/      # Доменные сущности (User, Auth, ...)
-└── shared/        # Утилиты, UI-кит, константы, API-клиент
-    ├── api/       # Базовый API-клиент, интерцепторы
-    ├── lib/
-    │   ├── constants/design-tokens.ts  # Цветовые токены, отступы
-    │   ├── i18n/                       # Локализация
-    │   └── api/                        # Хелперы для запросов
-    ├── model/     # Глобальные MobX-хранилища (AppStore, UserStore, ThemeStore)
-    └── ui/        # Переиспользуемые UI-компоненты
+## 1. Слои FSD (`src/`)
 
-e2e/
-├── fixtures/      # Фикстуры и настройки тестов
-├── mocks/         # Моки API
-├── pages/         # Page Object классы
-└── tests/         # Тесты
-```
+| Слой         | Роль                                                                                | Примеры в репозитории                                                                   |
+| ------------ | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **app**      | Инициализация приложения, провайдеры, роутинг, глобальные стили entry               | `src/app/app.tsx`, `src/app/model/providers/`, `src/app/lib/router/`, `src/app/styles/` |
+| **pages**    | Страницы — композиция виджетов и фич, без бизнес-логики                             | `src/pages/auth/`, `src/pages/home/`, `src/pages/profile/`                              |
+| **widgets**  | Крупные блоки UI из нескольких фич/сущностей                                        | `src/widgets/app-header/`                                                               |
+| **features** | Пользовательские сценарии (форма, действие)                                         | `src/features/auth/`, `src/features/profile/`                                           |
+| **entities** | Бизнес-сущности, API к ним, локальные хуки                                          | `src/entities/user/`, `src/entities/params/`                                            |
+| **shared**   | Переиспользуемый код без привязки к продукту: UI-kit обёртки, API-клиент, константы | `src/shared/ui/`, `src/shared/lib/`, `src/shared/model/`                                |
+
+### Ограничения импортов (ESLint `import/no-restricted-paths`, `eslint.config.mjs`)
+
+Импорт **запрещён** в указанный слой **из** перечисленных путей:
+
+| Целевой слой   | Запрещённые источники                                                 |
+| -------------- | --------------------------------------------------------------------- |
+| `src/pages`    | `src/app`                                                             |
+| `src/widgets`  | `src/app`, `src/pages`                                                |
+| `src/features` | `src/app`, `src/pages`, `src/widgets`                                 |
+| `src/entities` | `src/app`, `src/pages`, `src/widgets`, `src/features`                 |
+| `src/shared`   | `src/app`, `src/pages`, `src/widgets`, `src/features`, `src/entities` |
+
+**Слой `app`** может импортировать из остальных слоёв (ограничений `from` нет).
 
 ---
 
-## Правила импортов (FSD)
+## 2. Public API (`index.ts`)
 
-Слои могут импортировать только из слоёв **ниже** себя:
+- Каждый **слайс** и **сегмент** по возможности закрывается `index.ts` и реэкспортирует наружу.
+- Внешние импорты — через **баррели верхнего уровня** и алиасы из `tsconfig.json` / `webpack.config.js`:
+  - `@shared` → `src/shared/index.ts`
+  - `@entities` → `src/entities/index.ts`
+  - `@features` → `src/features/index.ts`
+  - `@widgets` → `src/widgets/index.ts`
+  - `@pages` → `src/pages/index.ts`
 
-```
-app → pages → widgets → features → entities → shared
-```
+### AI не должен
 
-**Запрещено:**
+- Импортировать из глубины чужого слайса, например: `import { X } from '@features/auth/ui/sign-in/sign-in'` или `from 'features/auth/api/sign-in'` — если есть экспорт в `src/features/auth/index.ts` / `src/features/index.ts`, использовать его.
+- Добавлять импорты, нарушающие зоны из §1.
 
-- `shared` импортирует из `features`, `entities`, `pages` и т.д.
-- `entities` импортирует из `features`
-- Перекрёстные импорты между фичами (`features/A` ↔ `features/B`)
-
-Каждый слайс обязан иметь `index.ts` — публичное API. Импортировать напрямую в обход `index.ts` нельзя.
-
-**Path aliases:**
-
-- `@shared` → `src/shared/index.ts`
-- `@entities` → `src/entities/index.ts`
-- `@features` → `src/features/index.ts`
-- `@widgets` → `src/widgets/index.ts`
-- `@pages` → `src/pages/index.ts`
+Исключение: внутри **одного** слайса относительные импорты между сегментами допустимы (как в `src/features/auth/ui/sign-in/sign-in.tsx`: `from '../../api'`).
 
 ---
 
-## Как создавать новые сущности
+## 3. Структура папок и генерация кода
 
-### Новая фича
+Фактическая схема зафиксирована в **`eslint.folder-structure.mjs`** (правило `project-structure/folder-structure`).
 
-```
-src/features/my-feature/
-├── index.ts           # Публичное API (реэкспорт)
-├── ui/
-│   └── MyFeature.tsx
-├── model/
-│   └── my-feature.store.ts
-└── api/
-    └── my-feature.api.ts
-```
+### Новая feature / entity / widget / page (слайс)
 
-### Новая страница
+Внутри слайса допустимы сегменты: **`ui/`**, **`api/`**, **`model/`**, **`lib/`**, **`types/`**, плюс корневые файлы слайса и **`__tests__/`**.
 
-```
-src/pages/my-page/
-├── index.ts
-└── ui/
-    └── MyPage.tsx     # Компонует widgets и features, никакой бизнес-логики
-```
+Для каждого сегмента: **`index.ts`** (barrel), файлы в **`kebab-case`**: `*.tsx`, `*.module.scss`, опционально `*.stories.tsx`, вложенные папки с тем же паттерном.
 
-### Новая сущность
+Минимальный набор для новой фичи (по необходимости):
 
-```
-src/entities/my-entity/
-├── index.ts
-├── model/
-│   └── my-entity.store.ts
-├── api/
-│   └── my-entity.api.ts
-└── ui/
-    └── MyEntityCard.tsx
-```
+- `ui/` — компоненты
+- `model/` — локальное состояние (если нужно)
+- `api/` — хуки/обёртки над HTTP + React Query
+- `lib/` — утилиты
+- `types/` — типы
+- **`index.ts`** в корне слайса — реэкспорт публичного API
+
+Эталон: `src/features/auth/` (`index.ts` реэкспортирует `api`, `lib`, `types`, `ui`).
+
+### Новый компонент в сегменте `ui`
+
+- `component-name.tsx`
+- `component-name.module.scss` (стили — CSS Modules; см. §5)
+- `component-name.stories.tsx` (если добавляете Storybook)
+- `index.ts` в папке компонента
+- Тесты: рядом в `__tests__/component-name.test.tsx` или `component-name.test.tsx` (см. §9)
+
+Эталон: `src/features/auth/ui/sign-in/`, `src/shared/ui/button/`.
 
 ---
 
-## Именование
+## 4. Инструменты (`tools/`)
 
-| Что                 | Стиль              | Пример                       |
-| ------------------- | ------------------ | ---------------------------- |
-| Переменные, функции | camelCase          | `getUserData()`              |
-| Константы           | UPPER_SNAKE_CASE   | `API_BASE_URL`               |
-| Булевы переменные   | префикс is/has/can | `isLoading`, `hasPermission` |
-| Компоненты, классы  | PascalCase         | `UserProfile.tsx`            |
-| Хуки                | префикс use        | `useAuth`                    |
-| Типы                | префикс T          | `TUser`, `TApiResponse`      |
-| Интерфейсы          | префикс I          | `IUser`, `IAuthResponse`     |
-| CSS-классы          | camelCase          | `.errorMessage`              |
+Перед ручным кодом **проверить** содержимое `tools/`. Сейчас в репозитории:
 
----
+| Инструмент                                            | Назначение                                                                                                                            |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `tools/generators/generate-global-scss.ts`            | Генерация `src/app/styles/variables.scss` и `src/app/styles/global.scss` из `src/shared/lib/constants/design-tokens.ts`               |
+| `tools/webpack/plugins/with-global-scss-resources.js` | Подключение `style-resources-loader`: инжект `src/app/styles/variables.scss` во **все** `.scss` без ручного `@import` в каждом модуле |
 
-## Управление состоянием
+Скрипт: `npm run generate:tokens` → запускает генератор SCSS.
 
-**MobX** — локальное и глобальное состояние приложения:
+### Правила
 
-- Хранилища используют `makeAutoObservable`
-- Глобальные хранилища: `AppStore` в `src/shared/model/`
+- Не дублировать логику генерации токенов вручную в других скриптах.
+- Не обходить `with-global-scss-resources` альтернативными loader-цепочками без необходимости.
+- Если поведения не хватает — **расширять** существующий генератор/плагин, а не создавать параллельный пайплайн.
 
-**React Query** — серверное состояние (данные с API):
-
-- Все запросы к API оборачиваются в `useQuery` / `useMutation`
-- Не хранить серверные данные в MobX
+Примечание: каталог `tools/**` в ESLint игнорируется отдельными правилами; при добавлении кода в `tools` ориентируйтесь на стиль соседних файлов.
 
 ---
 
-## API
+## 5. Стили (SCSS, CSS Modules, глобальные)
 
-- Базовый клиент: `src/shared/lib/api/`
-- API конкретной сущности: `src/entities/<entity>/api/`
-- Автоматическое обновление токенов при 401 — реализовано в интерцепторе
-- Типизировать все запросы и ответы обязательно
+- **Компоненты**: `*.module.scss` рядом с компонентом. Webpack: `css-loader` с `modules.auto: true` (`webpack.config.js`).
+- **Глобальные стили**: только через генерацию из токенов и entry-подключение. Точка входа: `src/app/app.tsx` импортирует `./styles/global.scss` (сгенерированный/поддерживаемый в связке с `generate-global-scss.ts`).
+- Переменные для модулей: автоматически доступны благодаря `with-global-scss-resources` и `variables.scss`.
 
----
+### AI не должен
 
-## Стили
-
-- CSS-модули везде, глобальные стили — только при необходимости
-- Дизайн-токены (цвета, отступы, размеры): `src/shared/lib/constants/design-tokens.ts`
-- SCSS-переменные генерируются автоматически из токенов командой `npm run generate:tokens` и пишутся в `src/app/styles/variables.scss` — не редактировать вручную
-- Глобальные SCSS-переменные доступны во всех файлах без импорта (подключает Webpack-плагин)
-- Темы: светлая и тёмная, конфигурируются через `getAntdThemeConfig` и CSS-переменные
+- Использовать inline-стили (`style={{}}`) для оформления — только классы и SCSS modules / глобальные правила по принятой схеме.
+- Копировать значения токенов в модули вместо переменных/CSS custom properties из сгенерированных файлов.
+- Редактировать `global.scss` / `variables.scss` вручную, если изменение должно идти от дизайн-токенов — править `design-tokens.ts` и перегенерировать.
 
 ---
 
-## Локализация
+## 6. Design tokens
 
-- i18next, языки: русский и английский
-- Файлы переводов: `src/shared/lib/i18n/`
-- Пространства имён: `Common`, `AppHeader`, `Auth`, `Main`, `User`
-- Весь пользовательский текст — только через i18n, строки в коде запрещены
+- Источник истины: **`src/shared/lib/constants/design-tokens.ts`** (`TDesignTokens`, `designTokens`).
+- SCSS: генерируется в `src/app/styles/variables.scss` (`$spacing-*`, `$border-radius-*`, `$text-size-*`, `$breakpoint-*`).
+- Темы: CSS variables в `global.scss` (`:root`, `[data-theme="dark"]`) генерируются из палитр `colors.light` / `colors.dark`.
+
+Правило: в TS использовать `designTokens`; в стилях — сгенерированные переменные / `var(--...)` из глобального слоя, а не «магические» hex для семантики, уже покрытой токенами.
 
 ---
 
-## Тестирование
+## 7. API-слой
 
-### Unit-тесты (Jest + React Testing Library)
+- Расположение: `src/features/*/api/`, `src/entities/*/api/`.
+- HTTP: обёртка **`src/shared/lib/api/api.ts`** (`api.get`, `api.post`, axios, `baseURL: '/api'`, interceptors).
+- Каждый сценарий — отдельный файл с хуком, например:
+  - `src/features/auth/api/sign-in.ts` — `useSignIn` + `useMutation`
+  - `src/features/profile/api/update-profile.ts` — `useUpdateProfile` + типы из `../types`
 
-```bash
-npm test                # все тесты
-npm run test:watch      # watch-режим
-npm run test:coverage   # с покрытием
+Обязательны типизация тел запросов/ответов и использование **React Query** (`@tanstack/react-query`) для серверных данных.
+
+---
+
+## 8. Формы и валидация
+
+- Базовый стек форм: **`react-hook-form` + `react-hook-form-antd` + `zod`**.
+- Валидация для feature-форм выносится в `model/*schema.ts`:
+  - schema-фабрика принимает `t` из `react-i18next` (`createXSchema(t)`), чтобы сообщения были локализованы.
+- Типы значений формы выводятся из схемы и лежат в `types/`:
+  - `type TXFormValues = z.infer<ReturnType<typeof createXSchema>>`.
+- В `ui/*.tsx`:
+  - `FormItem` вместо `Form.Item` для контролируемых полей;
+  - submit-обработчик в стиле `onSubmit` + `handleSubmit`.
+- Не дублировать правила валидации одновременно в `rules` и `zod` — источник истины должен быть один (схема).
+
+---
+
+## 9. Состояние: MobX vs React Query
+
+| Инструмент      | Назначение в проекте                                                                                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **React Query** | Серверное состояние: мутации, `invalidateQueries`, `setQueryData` (см. `useSignIn`, `useUpdateProfile`, `QueryProvider` в `src/app/model/providers/query-provider.tsx`)                    |
+| **MobX**        | Локальное реактивное UI-состояние: `src/shared/model/app-store.ts`, `src/shared/lib/modal/modal-service.ts`, компоненты с `observer` (`src/app/ui/app-layout/`, `src/widgets/app-header/`) |
+| **React state** | Допустимо для изолированных хуков без глобальной реактивности (например `src/entities/user/lib/use-auth.ts` — cookies + `useState`)                                                        |
+
+Не смешивать ответственность: запросы и кеш — React Query; глобальные UI-флаги/модалки — существующие MobX-паттерны проекта.
+
+---
+
+## 10. Unit-тесты (Jest + Testing Library)
+
+- Конфиг: **`jest.config.ts`**, setup: `src/setup-tests.ts`.
+- Маски: `src/**/__tests__/**/*`, `src/**/*.test.(ts|tsx)`.
+- Импорты CSS/SCSS: `identity-obj-proxy` в `moduleNameMapper`.
+
+AI обязан добавлять/обновлять тесты при изменении поведения компонентов и хуков с логикой.
+
+Не тестировать поведение **Ant Design** и **@new_york_style/project-template-ui** — тестируйте свою разметку, колбэки и интеграцию обёрток.
+
+---
+
+## 11. E2E (Playwright)
+
+- Конфиг: **`playwright.config.ts`**, тесты: **`e2e/tests/`** (например `e2e/tests/auth/auth-sucsessul.spec.ts`).
+- **Page objects**: `e2e/pages/` (`BasePage`, `AuthPage`, `HomePage`, `ProfilePage` и т.д.) — наследование от `e2e/pages/base/base-page.ts`.
+- **Fixtures**: `e2e/fixtures/index.ts` — расширение `test` с `authPage`, `homePage`, `profilePage`, `testUsers`, вызов `setupAllMocks(page)`.
+
+### AI должен
+
+- Использовать page objects и фикстуры, а не сырые селекторы в spec-файлах.
+- Для стабильности использовать `data-testid` из `src/shared/lib/constants/test-ids` (через реэкспорт `e2e/shared/constants`).
+
+---
+
+## 12. Моки E2E
+
+- Реализация: `e2e/mocks/handlers/` (`auth.ts`, `user.ts`, `params.ts`), агрегатор `all-handlers.ts` → `setupAllMocks`.
+- Тестовые пользователи: `e2e/shared/data` / реэкспорт в `e2e/shared`.
+
+Правило: не хардкодить большие JSON в spec — выносить в общие моки и данные; переиспользовать существующие хендлеры.
+
+---
+
+## 13. Эталонные паттерны (Reference)
+
+Перед генерацией нового кода:
+
+1. Найти ближайший по смыслу слайс.
+2. Скопировать структуру сегментов и стиль экспортов.
+3. Адаптировать типы и API.
+
+| Задача                        | Ориентир                                                               |
+| ----------------------------- | ---------------------------------------------------------------------- |
+| Feature (форма + API + types) | `src/features/auth/`, `src/features/profile/`, `src/features/otp/`     |
+| Профиль и мутации             | `src/features/profile/`                                                |
+| Shared UI + тест              | `src/shared/ui/button/`                                                |
+| Страница                      | `src/pages/auth/auth.tsx`                                              |
+| Widget                        | `src/widgets/app-header/`                                              |
+| E2E page object + spec        | `e2e/pages/auth/auth-page.ts`, `e2e/tests/auth/auth-sucsessul.spec.ts` |
+
+---
+
+## 14. Изменение существующего кода
+
+- Сохранять границы FSD (§1).
+- Не менять публичные экспорты без необходимости (импорты по всему проекту через баррели).
+- Без явного запроса — **не** проводить широкий рефакторинг; правки минимальные и по месту задачи.
+
+---
+
+## 15. Правила выбора при неоднозначности
+
+1. Повторять существующий паттерн в репозитории.
+2. Соблюдать FSD и ESLint zones.
+3. Использовать `tools/` там, где уже есть генератор/плагин.
+4. Предпочитать простое решение.
+
+Запрещено без согласования с командой: новые npm-зависимости, смена архитектуры слоёв.
+
+---
+
+## 16. Область работ
+
+- В scope: **`src/`**, **`e2e/`**, **`tools/`**.
+- Вне scope: backend, инфраструктура вне репозитория.
+- **UI kit** (`@new_york_style/project-template-ui`): не копировать компоненты в `shared` без необходимости; использовать импорты из пакета, как в `src/pages/auth/auth.tsx`, `src/features/auth/ui/sign-in/sign-in.tsx`.
+
+---
+
+## 17. Антипаттерны
+
+- Нарушение импортов между слоями FSD.
+- Inline-стили для визуала.
+- Дублирование компонентов вместо переиспользования `shared` / существующих фич.
+- Размещение бизнес-ориентированных UI-компонентов в `shared`, если они относятся к пользовательскому сценарию (например OTP-сценарий должен жить в `features`).
+- Игнорирование `tools/generators` и webpack-плагина для глобальных стилей.
+- Новые модули без `index.ts` там, где принято публичное API.
+- E2E с длинными цепочками селекторов в `.spec.ts` вместо page objects.
+- Магические строки данных в тестах вместо общих фикстур/моков.
+
+---
+
+## 18. Definition of Done
+
+- Импорты соответствуют FSD и публичному API.
+- Новые/изменённые слайсы имеют нужные `index.ts`.
+- Стили через modules / согласованную глобальную схему; токены из `design-tokens` при изменении темы.
+- Для логики — unit-тесты; для сценариев — E2E через page objects и моки при необходимости.
+- После изменения токенов: `npm run generate:tokens` (если правили `design-tokens.ts`).
+- `npm run lint` / проверка IDE без новых ошибок в затронутых файлах.
+
+---
+
+## 19. Примеры из кода (реальные пути)
+
+### Feature barrel
+
+`src/features/auth/index.ts`:
+
+```ts
+export * from './api';
+export * from './lib';
+export * from './types';
+export * from './ui';
 ```
 
-Файлы: `*.test.ts(x)` рядом с тестируемым файлом.
+### API + React Query
 
-### E2E-тесты (Playwright + Allure)
+`src/features/auth/api/sign-in.ts` — хук `useSignIn`, `useMutation`, `api.post`, инвалидация `queryKey`, навигация через `APP_ROUTES`.
 
-```bash
-npm run e2e             # все тесты
-npm run e2e:changed     # только тесты, связанные с изменёнными файлами
-npm run allure:show     # отчёт
-```
+### Компонент + module SCSS + test ids
 
-Архитектура: Page Object Model. Каждая страница — отдельный класс в `e2e/pages/`.
+`src/features/auth/ui/sign-in/sign-in.tsx` — импорт `useSignIn` из `../../api`, стили `sing-in.module.scss`, `TEST_IDS` для E2E.
 
-### Storybook
+### Форма + zod schema + типы
 
-```bash
-npm run storybook       # порт 6006
-```
+- `src/features/auth/model/sing-up.schema.ts` — `createSignUpSchema(t)`.
+- `src/features/auth/types/sign-up-form.ts` — `z.infer<ReturnType<typeof createSignUpSchema>>`.
+- `src/features/otp/model/otp.schema.ts` и `src/features/otp/types/otp-form.ts` — эталон вынесения схемы и типов для переиспользуемой feature-формы.
 
-Файлы историй: `*.stories.tsx` рядом с компонентом.
+### Unit-тест
 
----
+`src/shared/ui/button/__tests__/button.test.tsx` — `@testing-library/react`, сценарии рендера и клика.
 
-## Запрещено
+### E2E: fixture + page object + spec
 
-- `any` в TypeScript — использовать `unknown` или конкретные типы
-- Классовые React-компоненты
-- Нарушение границ FSD-слоёв
-- Импорт в обход `index.ts`
-- Коммит без форматирования (Prettier) и без прохождения линтера (ESLint)
-- Глобальные стили без необходимости
-- Серверные данные в MobX (для этого React Query)
-- Строки интерфейса вне i18n
+- `e2e/fixtures/index.ts` — `setupAllMocks`, инстансы page objects.
+- `e2e/pages/auth/auth-page.ts` — локаторы через `TEST_IDS`, методы `open`, `fillCredentials`, `submit`.
+- `e2e/tests/auth/auth-sucsessul.spec.ts` — шаги Allure, сценарий только через `authPage` / `homePage` / `testUsers`.
 
 ---
 
-## Ключевые команды
-
-```bash
-npm run dev              # dev-сервер
-npm run build            # production-сборка
-npm run lint             # ESLint
-npm run format           # Prettier
-npm run generate:tokens  # Генерация SCSS-переменных из design-tokens.ts
-```
-
----
-
-## Коммиты
-
-Conventional Commits через Commitizen (`git cz`):
-`feat:` `fix:` `docs:` `style:` `refactor:` `test:` `chore:`
+_Документ согласован с `eslint.config.mjs`, `eslint.folder-structure.mjs`, `webpack.config.js`, `package.json`, `tsconfig.json`._
