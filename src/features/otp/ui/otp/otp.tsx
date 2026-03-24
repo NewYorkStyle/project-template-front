@@ -1,11 +1,14 @@
 import {useState} from 'react';
 
+import {zodResolver} from '@hookform/resolvers/zod';
 import {
   Flex,
   Form,
   Input,
   Statistic,
 } from '@new_york_style/project-template-ui';
+import {useForm} from 'react-hook-form';
+import {FormItem} from 'react-hook-form-antd';
 
 import {
   Button,
@@ -14,6 +17,9 @@ import {
   Typography,
   designTokens,
 } from '@shared';
+
+import {otpSchema} from '../../model';
+import {type TOtpFormValues} from '../../types';
 
 type TProps = {
   currentStep: 'button' | 'otp';
@@ -41,13 +47,20 @@ export const OTP = ({
   submitLabel,
 }: TProps) => {
   const [timerFinished, setTimerFinished] = useState(false);
+  const {control, handleSubmit, reset} = useForm<TOtpFormValues>({
+    defaultValues: {otp: ''},
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(otpSchema),
+  });
 
   const handleGetOtpClick = () => {
     onGetOtpClick();
     setTimerFinished(false);
+    reset();
   };
 
-  const handleSubmitOtp = (values: {otp: string}) => {
+  const onSubmit = (values: TOtpFormValues) => {
     onSendOtp(values.otp);
   };
 
@@ -74,17 +87,17 @@ export const OTP = ({
       case 'otp':
         return (
           <>
-            <Form onFinish={handleSubmitOtp}>
+            <Form onFinish={() => void handleSubmit(onSubmit)()}>
               <Flex vertical gap={designTokens.spacing.xs} align='flex-start'>
                 <Typography.Text>{otpTitle}</Typography.Text>
                 <Flex gap={designTokens.spacing.sm} align='center'>
-                  <Form.Item noStyle rules={[{required: true}]} name='otp'>
+                  <FormItem control={control} noStyle name='otp'>
                     <Input.OTP
                       length={6}
                       disabled={timerFinished}
                       data-testid={TEST_IDS.OTP.INPUT}
                     />
-                  </Form.Item>
+                  </FormItem>
                   <Statistic.Timer
                     type='countdown'
                     value={Date.now() + 300000}

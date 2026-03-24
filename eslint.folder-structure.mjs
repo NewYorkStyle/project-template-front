@@ -8,6 +8,7 @@ const BASE_FILES = [
   {name: '{kebab-case}.(ts|tsx)'},
   {name: '{kebab-case}.module.scss'},
   {name: '{kebab-case}.stories.(ts|tsx)'},
+  {name: '{kebab-case}.schema.(ts|tsx)'},
 ];
 
 // Структура для сегментов (api, ui, model, lib)
