@@ -1,7 +1,5 @@
 import '@testing-library/jest-dom';
 
-process.env.API_URL = process.env.API_URL || 'http://localhost:3001';
-
 class MockMessageChannel implements MessageChannel {
   port1: MessagePort;
   port2: MessagePort;

@@ -56,6 +56,15 @@ const SEGMENTS = [
   },
 ];
 
+// Сегменты для использования в разных слоях
+const APP_SEGMENTS = [
+  ...SEGMENTS,
+  {
+    name: 'styles',
+    children: [],
+  },
+];
+
 // Структура для FSD слайсов (entities, features, widgets, pages)
 const FSD_SLICE = {
   name: '{kebab-case}',
@@ -91,7 +100,7 @@ export const folderStructureConfig = createFolderStructure({
         // App слой
         {
           name: 'app',
-          children: withBarrelFile([{name: 'app.tsx'}, ...SEGMENTS]),
+          children: withBarrelFile([{name: 'app.tsx'}, ...APP_SEGMENTS]),
         },
 
         // Entities слой

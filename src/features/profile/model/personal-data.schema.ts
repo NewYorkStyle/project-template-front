@@ -2,9 +2,10 @@ import {type TFunction} from 'i18next';
 import {z} from 'zod';
 
 import {APLHABETIC} from '@shared';
+import {UsersControllerUpdateBody} from '@shared/api/generated/zod/users.schema';
 
 export const createPersonalDataSchema = (t: TFunction) =>
-  z.object({
+  UsersControllerUpdateBody.extend({
     name: z
       .string()
       .min(1, {message: t('Profile.PersonalData.NameRequired')})
@@ -27,15 +28,5 @@ export const createPersonalDataSchema = (t: TFunction) =>
 
 export const createProfileEmailSchema = (t: TFunction) =>
   z.object({
-    email: z
-      .string()
-      .min(1, {message: t('Profile.PersonalData.ChangeEmail.EmailRequired')})
-      .superRefine((value, ctx) => {
-        if (!z.email().safeParse(value).success) {
-          ctx.addIssue({
-            code: 'custom',
-            message: t('Profile.PersonalData.ChangeEmail.EmailRules'),
-          });
-        }
-      }),
+    email: z.email({message: t('Profile.PersonalData.ChangeEmail.EmailRules')}),
   });
