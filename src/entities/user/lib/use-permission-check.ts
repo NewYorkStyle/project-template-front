@@ -1,15 +1,20 @@
 import {useCallback} from 'react';
 
-import {usePermissions} from '../api';
+import {useUsersControllerGetMyPermissions} from '@shared/api/generated/endpoints/users';
 
 import {type E_PERMISSIONS} from './constants';
 
 export const usePermissionCheck = () => {
-  const {data: permissions = []} = usePermissions();
+  const {data: permissions = []} = useUsersControllerGetMyPermissions({
+    query: {
+      queryKey: ['permissions'],
+      staleTime: 10 * 60 * 1000,
+    },
+  });
 
   const hasPermission = useCallback(
     (permission: E_PERMISSIONS) => {
-      return permissions.includes(permission);
+      return (permissions as E_PERMISSIONS[]).includes(permission);
     },
     [permissions]
   );
@@ -17,7 +22,7 @@ export const usePermissionCheck = () => {
   const hasAnyPermission = useCallback(
     (requiredPermissions: E_PERMISSIONS[]) => {
       return requiredPermissions.some((permission) =>
-        permissions.includes(permission)
+        (permissions as E_PERMISSIONS[]).includes(permission)
       );
     },
     [permissions]
@@ -26,7 +31,7 @@ export const usePermissionCheck = () => {
   const hasAllPermissions = useCallback(
     (requiredPermissions: E_PERMISSIONS[]) => {
       return requiredPermissions.every((permission) =>
-        permissions.includes(permission)
+        (permissions as E_PERMISSIONS[]).includes(permission)
       );
     },
     [permissions]

@@ -29,6 +29,7 @@ export default tseslint.config(
       'coverage/**',
       '**/tools/**',
       'projectStructure.cache.json',
+      'src/shared/api/generated/**',
     ],
   },
 

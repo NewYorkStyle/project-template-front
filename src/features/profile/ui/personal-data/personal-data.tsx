@@ -2,7 +2,6 @@ import {useEffect, useMemo, useState} from 'react';
 
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Divider, Flex, Form, Input} from '@new_york_style/project-template-ui';
-import isEqual from 'lodash/isEqual';
 import {useForm, useWatch} from 'react-hook-form';
 import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
@@ -17,20 +16,19 @@ import {
   designTokens,
   notificationService,
 } from '@shared';
+import {
+  useUsersControllerEmailChange,
+  useUsersControllerEmailChangeRequest,
+  useUsersControllerFindById,
+  useUsersControllerRequestEmailVerification,
+  useUsersControllerUpdate,
+  useUsersControllerVerifyEmail,
+} from '@shared/api/generated/endpoints/users';
 
 import {OTP} from '../../../otp';
-import {
-  useConfirmEmailChange,
-  useProfile,
-  useRequestEmailChange,
-  useRequestEmailVerification,
-  useUpdateProfile,
-  useVerifyEmail,
-} from '../../api';
 import {createPersonalDataSchema, createProfileEmailSchema} from '../../model';
 import {
   type TPersonalDataFormValues,
-  type TProfileData,
   type TProfileEmailFormValues,
 } from '../../types';
 
@@ -38,58 +36,74 @@ import style from './personal-data.module.scss';
 
 export const PersonalData = () => {
   const {t} = useTranslation('User');
+
   const personalDataSchema = createPersonalDataSchema(t);
   const profileEmailSchema = createProfileEmailSchema(t);
 
   const {hasPermission} = usePermissionCheck();
 
-  const {data: profileData, error, isLoading: isProfileLoading} = useProfile();
-  const {isPending: isUpdating, mutate: updateProfile} = useUpdateProfile();
+  const {
+    data: profileData,
+    error,
+    isLoading: isProfileLoading,
+  } = useUsersControllerFindById();
+
+  const {isPending: isUpdating, mutate: updateProfile} =
+    useUsersControllerUpdate();
 
   const {
-    isPending: isVerificationOtpRequesting,
-    mutate: requestVerificationOtp,
-  } = useRequestEmailVerification();
+    isFetching: isVerificationOtpRequesting,
+    refetch: requestVerificationOtp,
+  } = useUsersControllerRequestEmailVerification({
+    query: {enabled: false},
+  });
 
   const {isPending: isVerificationOtpSending, mutate: sendVerificationOtp} =
-    useVerifyEmail();
+    useUsersControllerVerifyEmail();
 
   const {isPending: isEmailChangeOtpRequesting, mutate: requestEmailChangeOtp} =
-    useRequestEmailChange();
+    useUsersControllerEmailChangeRequest();
 
   const {isPending: isEmailChangeOtpSending, mutate: confirmEmailChange} =
-    useConfirmEmailChange();
+    useUsersControllerEmailChange();
 
   const [emailFieldStep, setEmailFieldStep] = useState<'button' | 'otp'>(
     'button'
   );
 
+  const personalDataDefaultValues = useMemo(() => {
+    if (!profileData) return undefined;
+
+    return {
+      name: profileData.name ?? '',
+      patronymic: profileData.patronymic ?? '',
+      surname: profileData.surname ?? '',
+    };
+  }, [profileData]);
+
   const {
     control: personalDataControl,
+    formState: {isDirty: isPersonalDataFormChanged},
     handleSubmit: handlePersonalDataSubmit,
     reset,
     setValue: setPersonalDataValue,
   } = useForm<TPersonalDataFormValues>({
-    defaultValues: {
-      name: '',
-      patronymic: '',
-      surname: '',
-    },
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(personalDataSchema),
   });
+
   const {
     control: emailControl,
+    formState: {isValid: isEmailValid},
     handleSubmit: handleEmailSubmit,
     reset: resetEmailForm,
   } = useForm<TProfileEmailFormValues>({
-    defaultValues: {email: ''},
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(profileEmailSchema),
   });
-  const personalDataValues = useWatch({control: personalDataControl});
+
   const emailValue = useWatch({control: emailControl, name: 'email'});
 
   const isEmailVerified = useMemo(
@@ -97,93 +111,63 @@ export const PersonalData = () => {
     [hasPermission]
   );
 
-  const [isPersonalDataFormChanged, setIsPersonalDataFormChanged] =
-    useState(false);
-  const [isEmailChangeButtonDisabled, setIsEmailChangeButtonDisabled] =
-    useState(true);
-
-  // Инициализация формы данными из кэша
   useEffect(() => {
-    if (profileData) {
-      const initData = {
-        name: profileData.name,
-        patronymic: profileData.patronymic ?? '',
-        surname: profileData.surname,
-      };
-      reset(initData);
-      setIsPersonalDataFormChanged(false);
+    if (personalDataDefaultValues) {
+      reset(personalDataDefaultValues);
     }
-  }, [profileData, reset]);
+  }, [personalDataDefaultValues, reset]);
 
-  // Обработка ошибок загрузки профиля
   useEffect(() => {
     if (error) {
       notificationService.error(t('Profile.PersonalData.ErrorGetData'));
     }
   }, [error, t]);
 
-  useEffect(() => {
-    const initData = profileData
-      ? {
-          name: profileData.name,
-          patronymic: profileData.patronymic ?? '',
-          surname: profileData.surname,
-        }
-      : null;
-
-    const hasChanges = initData && !isEqual(personalDataValues, initData);
-    setIsPersonalDataFormChanged(!!hasChanges);
-  }, [personalDataValues, profileData]);
-
-  const onSubmit = (values: TProfileData) => {
-    updateProfile(values);
+  const onSubmit = (values: TPersonalDataFormValues) => {
+    updateProfile({data: values});
   };
 
-  // Функция для фильтрации только букв
   const handleValidateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    return value.replace(/[^a-zA-Zа-яА-Я\s-]/g, '');
+    return e.target.value.replace(/[^a-zA-Zа-яА-Я\s-]/g, '');
   };
 
-  const handleEmailVerificationGetOtpClick = () => {
-    requestVerificationOtp(undefined, {
-      onSuccess: () => {
-        setEmailFieldStep('otp');
-      },
-    });
+  const handleEmailVerificationGetOtpClick = async () => {
+    const res = await requestVerificationOtp();
+    if (res.isSuccess) {
+      setEmailFieldStep('otp');
+    }
   };
 
   const handleEmailVerificationSubmitOtp = (otp: string) => {
-    sendVerificationOtp(otp, {
-      onSuccess: () => {
-        setEmailFieldStep('button');
-      },
-    });
+    sendVerificationOtp(
+      {data: {otp}},
+      {
+        onSuccess: () => setEmailFieldStep('button'),
+      }
+    );
   };
-
-  useEffect(() => {
-    const email = emailValue || '';
-    const isValidEmail = EMAIL.test(email);
-    setIsEmailChangeButtonDisabled(!email || !isValidEmail);
-  }, [emailValue]);
 
   const handleEmailChangeGetOtpClick = () => {
     void handleEmailSubmit(({email}) => {
-      requestEmailChangeOtp(email, {
-        onSuccess: () => {
-          setEmailFieldStep('otp');
-        },
-      });
+      requestEmailChangeOtp(
+        {data: {newEmail: email}},
+        {
+          onSuccess: () => setEmailFieldStep('otp'),
+        }
+      );
     })();
   };
 
   const handleEmailChangeSubmitOtp = (otp: string) => {
-    confirmEmailChange(otp, {
-      onSuccess: () => {
-        setEmailFieldStep('button');
-        resetEmailForm();
-      },
-    });
+    confirmEmailChange(
+      {data: {otp}},
+      {
+        onSuccess: () => {
+          setEmailFieldStep('button');
+          resetEmailForm();
+        },
+      }
+    );
   };
 
   const isLoading = isProfileLoading || isUpdating;
@@ -191,6 +175,9 @@ export const PersonalData = () => {
     isVerificationOtpRequesting || isVerificationOtpSending;
   const isEmailChangeLoading =
     isEmailChangeOtpRequesting || isEmailChangeOtpSending;
+
+  const isEmailChangeButtonDisabled =
+    !emailValue || !EMAIL.test(emailValue) || !isEmailValid;
 
   return (
     <>
@@ -210,8 +197,8 @@ export const PersonalData = () => {
             label={t('Profile.PersonalData.Surname')}
             labelCol={{className: style.label}}
             overrideFieldOnChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const filteredValue = handleValidateInput(e);
-              setPersonalDataValue('surname', filteredValue, {
+              const value = handleValidateInput(e);
+              setPersonalDataValue('surname', value, {
                 shouldDirty: true,
                 shouldTouch: true,
                 shouldValidate: true,
@@ -227,8 +214,8 @@ export const PersonalData = () => {
             label={t('Profile.PersonalData.Name')}
             labelCol={{className: style.label}}
             overrideFieldOnChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const filteredValue = handleValidateInput(e);
-              setPersonalDataValue('name', filteredValue, {
+              const value = handleValidateInput(e);
+              setPersonalDataValue('name', value, {
                 shouldDirty: true,
                 shouldTouch: true,
                 shouldValidate: true,
@@ -244,8 +231,8 @@ export const PersonalData = () => {
             label={t('Profile.PersonalData.Patronymic')}
             labelCol={{className: style.label}}
             overrideFieldOnChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const filteredValue = handleValidateInput(e);
-              setPersonalDataValue('patronymic', filteredValue, {
+              const value = handleValidateInput(e);
+              setPersonalDataValue('patronymic', value, {
                 shouldDirty: true,
                 shouldTouch: true,
                 shouldValidate: true,
@@ -291,10 +278,11 @@ export const PersonalData = () => {
               <Input />
             </FormItem>
           </Form>
+
           <OTP
             currentStep={emailFieldStep}
             onGetOtpClick={handleEmailChangeGetOtpClick}
-            onSendOtp={(otp: string) => handleEmailChangeSubmitOtp(otp)}
+            onSendOtp={handleEmailChangeSubmitOtp}
             sendOtpLabel={t('Profile.PersonalData.ChangeEmail.Verify')}
             otpTitle={t('Profile.PersonalData.ChangeEmail.OtpLabel')}
             sendNewLabel={t('Profile.PersonalData.ChangeEmail.SendNew')}
@@ -308,7 +296,7 @@ export const PersonalData = () => {
           <OTP
             currentStep={emailFieldStep}
             onGetOtpClick={handleEmailVerificationGetOtpClick}
-            onSendOtp={(otp: string) => handleEmailVerificationSubmitOtp(otp)}
+            onSendOtp={handleEmailVerificationSubmitOtp}
             sendOtpLabel={t('Profile.PersonalData.EmailVerification.Verify')}
             otpTitle={t('Profile.PersonalData.EmailVerification.OtpLabel')}
             sendNewLabel={t('Profile.PersonalData.EmailVerification.SendNew')}

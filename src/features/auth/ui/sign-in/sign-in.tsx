@@ -1,12 +1,21 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Form, Input} from '@new_york_style/project-template-ui';
+import {useQueryClient} from '@tanstack/react-query';
 import {useForm} from 'react-hook-form';
 import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
 
-import {Button, E_METRICS_NAMESPACES, TEST_IDS} from '@shared';
+import {useAuth} from '@entities';
+import {
+  APP_ROUTES,
+  Button,
+  E_METRICS_NAMESPACES,
+  TEST_IDS,
+  notificationService,
+} from '@shared';
+import {useAuthControllerSignIn} from '@shared/api/generated/endpoints/auth';
 
-import {useSignIn} from '../../api';
 import {createSignInSchema} from '../../model/sign-in.schema';
 import {type TSignInFormValues} from '../../types';
 
@@ -14,11 +23,26 @@ import style from './sing-in.module.scss';
 
 export const SignIn = () => {
   const {t} = useTranslation('Auth');
-  const {isPending: isLoading, mutate: signIn} = useSignIn();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const {setUserLogged} = useAuth();
+
+  const {isPending: isLoading, mutate: signIn} = useAuthControllerSignIn({
+    mutation: {
+      onSuccess: () => {
+        setUserLogged(true);
+        queryClient.invalidateQueries({queryKey: ['permissions']});
+        navigate(APP_ROUTES.HOME.ROOT, {replace: true});
+      },
+      onError: () => {
+        notificationService.error(t('Authentication.SignIn.AuthError'));
+      },
+    },
+  });
   const signInSchema = createSignInSchema(t);
 
   const onSubmit = (values: TSignInFormValues) => {
-    signIn(values);
+    signIn({data: values});
   };
 
   const initialValues: TSignInFormValues = {
