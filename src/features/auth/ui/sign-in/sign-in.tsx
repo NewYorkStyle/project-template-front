@@ -1,64 +1,82 @@
-﻿import {Form, Input} from '@new_york_style/project-template-ui';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {Form, Input} from '@new_york_style/project-template-ui';
+import {useQueryClient} from '@tanstack/react-query';
+import {useForm} from 'react-hook-form';
+import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
 
-import {Button, E_METRICS_NAMESPACES, TEST_IDS} from '@shared';
+import {useAuth} from '@entities';
+import {
+  APP_ROUTES,
+  Button,
+  E_METRICS_NAMESPACES,
+  TEST_IDS,
+  notificationService,
+} from '@shared';
+import {useAuthControllerSignIn} from '@shared/api/generated/endpoints/auth';
 
-import {useSignIn} from '../../api';
+import {createSignInSchema} from '../../model/sign-in.schema';
 import {type TSignInFormValues} from '../../types';
 
 import style from './sing-in.module.scss';
 
 export const SignIn = () => {
   const {t} = useTranslation('Auth');
-  const {isPending: isLoading, mutate: signIn} = useSignIn();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const {setUserLogged} = useAuth();
 
-  const handleSubmit = (values: TSignInFormValues) => {
-    signIn(values);
+  const {isPending: isLoading, mutate: signIn} = useAuthControllerSignIn({
+    mutation: {
+      onSuccess: () => {
+        setUserLogged(true);
+        queryClient.invalidateQueries({queryKey: ['permissions']});
+        navigate(APP_ROUTES.HOME.ROOT, {replace: true});
+      },
+      onError: () => {
+        notificationService.error(t('Authentication.SignIn.AuthError'));
+      },
+    },
+  });
+  const signInSchema = createSignInSchema(t);
+
+  const onSubmit = (values: TSignInFormValues) => {
+    signIn({data: values});
   };
 
   const initialValues: TSignInFormValues = {
     username: '',
     password: '',
   };
+  const {control, handleSubmit} = useForm<TSignInFormValues>({
+    defaultValues: initialValues,
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(signInSchema),
+  });
 
   return (
     <div className={style.root}>
       <Form<TSignInFormValues>
         name='sign-in'
-        initialValues={initialValues}
-        onFinish={handleSubmit}
+        onFinish={() => void handleSubmit(onSubmit)()}
         autoComplete='off'
         disabled={isLoading}
       >
-        <Form.Item
-          name='username'
-          rules={[
-            {
-              message: t('Authentication.SignIn.LoginRequired'),
-              required: true,
-            },
-          ]}
-        >
+        <FormItem control={control} name='username'>
           <Input
             placeholder={t('Authentication.SignIn.LoginPlaceholder')}
             data-testid={TEST_IDS.AUTH.USER_NAME}
           />
-        </Form.Item>
-        <Form.Item
-          name='password'
-          rules={[
-            {
-              message: t('Authentication.SignIn.PasswordRequired'),
-              required: true,
-            },
-          ]}
-        >
+        </FormItem>
+        <FormItem control={control} name='password'>
           <Input.Password
             visibilityToggle
             placeholder={t('Authentication.SignIn.PasswordPlaceholder')}
             data-testid={TEST_IDS.AUTH.PASSWORD}
           />
-        </Form.Item>
+        </FormItem>
         <Form.Item noStyle>
           <Button
             className={style.submitButton}

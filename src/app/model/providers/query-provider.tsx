@@ -21,7 +21,7 @@ export const QueryProvider = ({children}: {children: ReactNode}) => {
     setOnLogout(() => {
       setUserLogged(false);
     });
-  }, []);
+  }, [setUserLogged]);
 
   return (
     <QueryClientProvider client={queryClient}>

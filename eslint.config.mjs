@@ -29,6 +29,7 @@ export default tseslint.config(
       'coverage/**',
       '**/tools/**',
       'projectStructure.cache.json',
+      'src/shared/api/generated/**',
     ],
   },
 
@@ -261,7 +262,6 @@ export default tseslint.config(
       'import/order': 'off',
       'import/no-restricted-paths': 'off',
       '@typescript-eslint/no-var-requires': 'off',
-      'sort-keys-fix/sort-keys-fix': 'off',
       'sort-destructure-keys/sort-destructure-keys': 'off',
       'prettier/prettier': 'off',
       '@typescript-eslint/naming-convention': 'off',

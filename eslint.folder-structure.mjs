@@ -8,6 +8,7 @@ const BASE_FILES = [
   {name: '{kebab-case}.(ts|tsx)'},
   {name: '{kebab-case}.module.scss'},
   {name: '{kebab-case}.stories.(ts|tsx)'},
+  {name: '{kebab-case}.schema.(ts|tsx)'},
 ];
 
 // Структура для сегментов (api, ui, model, lib)
@@ -55,6 +56,15 @@ const SEGMENTS = [
   },
 ];
 
+// Сегменты для использования в разных слоях
+const APP_SEGMENTS = [
+  ...SEGMENTS,
+  {
+    name: 'styles',
+    children: [],
+  },
+];
+
 // Структура для FSD слайсов (entities, features, widgets, pages)
 const FSD_SLICE = {
   name: '{kebab-case}',
@@ -90,7 +100,7 @@ export const folderStructureConfig = createFolderStructure({
         // App слой
         {
           name: 'app',
-          children: withBarrelFile([{name: 'app.tsx'}, ...SEGMENTS]),
+          children: withBarrelFile([{name: 'app.tsx'}, ...APP_SEGMENTS]),
         },
 
         // Entities слой
