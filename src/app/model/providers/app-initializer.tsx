@@ -2,7 +2,7 @@ import {UiProvider} from '@new_york_style/project-template-ui';
 import {App} from 'antd';
 import {I18nextProvider} from 'react-i18next';
 
-import {useLanguage, useMetrics, useParams, useTheme} from '@entities';
+import {useLanguage, useMetrics, useTheme, type TParam} from '@entities';
 import {
   NotificationProvider,
   ModalProvider,
@@ -10,11 +10,18 @@ import {
   ErrorBoundary,
   designTokens,
 } from '@shared';
+import {useParamsControllerGetParams} from '@shared/api/generated/endpoints/params';
 
 import {Router} from '../../lib';
 
 export const AppInitializer = () => {
-  const {data: params} = useParams();
+  const {data: params} = useParamsControllerGetParams<TParam, Error>({
+    query: {
+      queryKey: ['params'],
+      staleTime: 5 * 60 * 1000,
+      retry: 2,
+    },
+  });
   const {theme} = useTheme();
   const {language} = useLanguage();
 

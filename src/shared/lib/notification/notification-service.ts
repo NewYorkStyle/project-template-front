@@ -44,7 +44,7 @@ class NotificationService {
         notification[type]({
           description: config.description,
           duration: config.duration || 4.5,
-          message: config.message,
+          title: config.message,
           placement: 'topRight',
         });
       });

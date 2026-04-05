@@ -56,7 +56,7 @@ export const Profile = () => {
             label: 'Profile tabs',
             namespace: E_METRICS_NAMESPACES.USER,
           }}
-          tabPosition='left'
+          tabPlacement='start'
           className={style.fullHeightTabs}
           tabBarStyle={isMobile ? {display: 'none'} : undefined}
           activeKey={selectedTab}

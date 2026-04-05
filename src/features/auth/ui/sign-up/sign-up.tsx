@@ -1,18 +1,23 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Form, Input, Popover} from '@new_york_style/project-template-ui';
+import {useQueryClient} from '@tanstack/react-query';
 import {useForm} from 'react-hook-form';
 import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
 
+import {useAuth} from '@entities';
 import {
+  APP_ROUTES,
   Button,
   E_METRICS_NAMESPACES,
   Typography,
+  notificationService,
   useWindowSize,
   designTokens,
 } from '@shared';
+import {useAuthControllerSignUp} from '@shared/api/generated/endpoints/auth';
 
-import {useSignUp} from '../../api';
 import {PASSWORD_MIN_LENGTH} from '../../lib';
 import {createSignUpSchema} from '../../model/sing-up.schema';
 import {type TSignUpFormValues} from '../../types';
@@ -21,7 +26,22 @@ import style from './sing-up.module.scss';
 
 export const SignUp = () => {
   const {t} = useTranslation('Auth');
-  const {isPending: isLoading, mutate: signUp} = useSignUp();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const {setUserLogged} = useAuth();
+
+  const {isPending: isLoading, mutate: signUp} = useAuthControllerSignUp({
+    mutation: {
+      onSuccess: () => {
+        setUserLogged(true);
+        queryClient.invalidateQueries({queryKey: ['permissions']});
+        navigate(APP_ROUTES.HOME.ROOT, {replace: true});
+      },
+      onError: () => {
+        notificationService.error(t('Authentication.SignIn.AuthError'));
+      },
+    },
+  });
   const {width} = useWindowSize();
   const signUpSchema = createSignUpSchema(t);
 
@@ -33,7 +53,11 @@ export const SignUp = () => {
   };
 
   const onSubmit = (values: TSignUpFormValues) => {
-    signUp(values);
+    const {email, password, username} = values;
+
+    signUp({
+      data: {email, password, username},
+    });
   };
 
   const {control, handleSubmit} = useForm<TSignUpFormValues>({

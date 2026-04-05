@@ -1,10 +1,10 @@
-﻿import {Flex, Spin} from '@new_york_style/project-template-ui';
+import {Flex, Spin} from '@new_york_style/project-template-ui';
+import {useIsMutating} from '@tanstack/react-query';
 import {useTranslation} from 'react-i18next';
 
 import {E_METRICS_NAMESPACES, Tabs, type TTabItem, Typography} from '@shared';
 
 import packageJson from '../../../../../package.json';
-import {useSignIn, useSignUp} from '../../api';
 import {SignIn} from '../sign-in';
 import {SignUp} from '../sign-up';
 
@@ -13,10 +13,13 @@ import style from './auth-form.module.scss';
 export const AuthForm = () => {
   const {t} = useTranslation('Auth');
 
-  const {isPending: isSignInLoading} = useSignIn();
-  const {isPending: isSignUpLoading} = useSignUp();
-
-  const loading = isSignInLoading || isSignUpLoading;
+  const isSignInMutating = useIsMutating({
+    mutationKey: ['authControllerSignIn'],
+  });
+  const isSignUpMutating = useIsMutating({
+    mutationKey: ['authControllerSignUp'],
+  });
+  const loading = isSignInMutating > 0 || isSignUpMutating > 0;
 
   const tabConfig: TTabItem[] = [
     {

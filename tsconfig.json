@@ -22,7 +22,8 @@
       "@pages": ["pages/index.ts"],
       "@entities": ["entities/index.ts"],
       "@features": ["features/index.ts"],
-      "@widgets": ["widgets/index.ts"]
+      "@widgets": ["widgets/index.ts"],
+      "@shared/api/generated/*": ["shared/api/generated/*"]
     },
     "types": ["node", "react", "jest"],
     "useUnknownInCatchVariables": false

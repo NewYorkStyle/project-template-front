@@ -1,0 +1,84 @@
+import axios, {
+  type AxiosRequestConfig,
+  type AxiosResponse,
+  type AxiosError,
+} from 'axios';
+
+type TQueueItem = {
+  resolve: (value: AxiosResponse) => void;
+  reject: (error: unknown) => void;
+  config: AxiosRequestConfig;
+};
+
+export const baseClient = axios.create({
+  baseURL: '/api',
+  withCredentials: true,
+});
+
+let isRefreshing = false;
+let failedQueue: TQueueItem[] = [];
+
+const processQueue = (error: unknown): void => {
+  const queue = failedQueue;
+  failedQueue = [];
+  isRefreshing = false;
+
+  queue.forEach(({config, reject, resolve}) => {
+    if (error) {
+      reject(error);
+    } else {
+      baseClient(config).then(resolve).catch(reject);
+    }
+  });
+};
+
+let onLogout = (): void => {
+  //
+};
+
+export const setOnLogout = (callback: () => void): void => {
+  onLogout = callback;
+};
+
+baseClient.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _retry?: boolean;
+    };
+
+    const is401 = error.response?.status === 401;
+    const isRefreshEndpoint = originalRequest.url?.includes('auth/refresh');
+
+    if (!is401 || isRefreshEndpoint || originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    originalRequest._retry = true;
+
+    if (isRefreshing) {
+      return new Promise<AxiosResponse>((resolve, reject) => {
+        failedQueue.push({config: originalRequest, resolve, reject});
+      });
+    }
+
+    isRefreshing = true;
+
+    try {
+      await baseClient.get('auth/refresh');
+      processQueue(null);
+      return baseClient(originalRequest);
+    } catch (refreshError) {
+      processQueue(refreshError);
+      onLogout();
+      return Promise.reject(refreshError);
+    }
+  }
+);
+
+export const request = async <T = unknown>(
+  config: AxiosRequestConfig
+): Promise<T> => {
+  const response = await baseClient.request<T>(config);
+  return response.data;
+};

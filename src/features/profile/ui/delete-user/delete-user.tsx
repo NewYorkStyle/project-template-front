@@ -11,8 +11,8 @@ import {
   designTokens,
   useModal,
 } from '@shared';
+import {useUsersControllerRemove} from '@shared/api/generated/endpoints/users';
 
-import {useDeleteProfile} from '../../api';
 import {createDeleteUserSchema} from '../../model';
 import {type TDeleteUserFormValues} from '../../types';
 
@@ -23,7 +23,8 @@ export const DeleteUser = () => {
   const {closeModal, openModal} = useModal();
   const deleteUserSchema = createDeleteUserSchema(t);
 
-  const {isPending: isDeleting, mutate: deleteProfile} = useDeleteProfile();
+  const {isPending: isDeleting, mutate: deleteProfile} =
+    useUsersControllerRemove();
 
   const onSubmit = (values: TDeleteUserFormValues) => {
     openModal({
@@ -45,7 +46,7 @@ export const DeleteUser = () => {
         loading: isDeleting,
       },
       onOk: () => {
-        deleteProfile(values.password);
+        deleteProfile({data: {...values}});
         closeModal('user-delete-modal');
       },
       title: t('Profile.Delete.ConfirmationDialog.Header'),
