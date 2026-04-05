@@ -107,7 +107,11 @@ const main = () => {
 
     let command;
 
-    if (affectedTags.has('@shared') || affectedTags.has('@e2eBase')) {
+    if (
+      affectedTags.has('@shared') ||
+      affectedTags.has('@e2eBase') ||
+      affectedTags.has('@common')
+    ) {
       console.log('🔀 Shared files changed - running ALL tests');
       command = 'pnpm exec playwright test';
     } else if (affectedTags.size > 0) {

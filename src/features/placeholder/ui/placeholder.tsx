@@ -1,5 +1,5 @@
 ﻿import {Flex} from '@new_york_style/project-template-ui';
-import noop from 'lodash/noop';
+import {noop} from 'lodash-es';
 import {useTranslation} from 'react-i18next';
 
 import {Button, designTokens, E_METRICS_NAMESPACES, Typography} from '@shared';
