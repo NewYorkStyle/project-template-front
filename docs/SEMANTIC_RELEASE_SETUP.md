@@ -45,7 +45,7 @@ chore: PROJECTTEMPLATE-909 обновить зависимости
 Для удобного создания conventional commits:
 
 ```bash
-npm run commit
+pnpm exec cz
 ```
 
 ### 3. Автоматический релиз
@@ -86,7 +86,7 @@ Workflow требует следующие права:
 Для тестирования локально (требует GitHub token):
 
 ```bash
-npm run semantic-release:dry-run
+pnpm semantic-release:dry-run
 ```
 
 ## Файлы, которые будут автоматически обновляться

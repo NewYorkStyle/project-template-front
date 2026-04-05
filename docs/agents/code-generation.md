@@ -18,7 +18,7 @@
 
 Внутри слайса допустимы сегменты: **`ui/`**, **`api/`**, **`model/`**, **`lib/`**, **`types/`**, плюс корневые файлы слайса и **`__tests__/`**.
 
-Для каждого сегмента: **`index.ts`** (barrel), файлы в **`kebab-case`**: `*.tsx`, `*.module.scss`, опционально `*.stories.tsx`, вложенные папки с тем же паттерном.
+Для каждого сегмента: **`index.ts`** (barrel), файлы в **`kebab-case`**: `*.tsx`, `*.module.scss`, вложенные папки с тем же паттерном.
 
 Минимальный набор для новой фичи (по необходимости):
 
@@ -35,7 +35,6 @@
 
 - `component-name.tsx`
 - `component-name.module.scss` (стили — CSS Modules; см. [styles.md](./styles.md))
-- `component-name.stories.tsx` (если добавляете Storybook)
 - `index.ts` в папке компонента
 - Тесты: рядом в `__tests__/component-name.test.tsx` или `component-name.test.tsx` (см. [testing.md](./testing.md))
 

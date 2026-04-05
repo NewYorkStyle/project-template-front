@@ -5,7 +5,7 @@
 ## Quick rules
 
 - **Пиши по-русски**; термины (API/HTTP/SQL) — по-английски.
-- **Scope**: изменения только в `src/`, `e2e/`, `tools/`.
+- **Scope**: основной код — `src/`, `e2e/`, `tools/`; конфиги репозитория, CI и `docs/agents/**` — когда задача это требует (см. `docs/agents/rules.md`).
 - **FSD + import zones**: соблюдать `import/no-restricted-paths` (см. `docs/agents/architecture.md`).
 - **Public API**: импортируй через баррели/алиасы, не из глубины чужого слайса (см. `docs/agents/public-api.md`).
 - **API**: Orval generated hooks использовать напрямую; не использовать старый `api` из `@shared` (см. `docs/agents/api.md`).
@@ -19,7 +19,7 @@
 
 ## Чек-лист (перед изменениями)
 
-- [ ] Работаю в рамках `src/`, `e2e/`, `tools/`.
+- [ ] Scope соблюдён: продуктовый код в `src/`, `e2e/`, `tools/`; прочие каталоги — только по необходимости задачи (см. `docs/agents/rules.md`).
 - [ ] Импорты не нарушают FSD/import zones.
 - [ ] Для API использую Orval generated hooks и паттерны `mutate({ data })` / `enabled:false + refetch()`.
 

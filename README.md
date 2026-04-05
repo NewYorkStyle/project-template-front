@@ -4,8 +4,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue.svg)
 ![Ant Design](https://img.shields.io/badge/Ant_Design-6.0.0-blue.svg)
 ![MobX](https://img.shields.io/badge/MobX-6.15.0-red.svg)
-![Webpack](https://img.shields.io/badge/Webpack-5-orange.svg)
-![Jest](https://img.shields.io/badge/Jest-30.2.0-green.svg)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF.svg)
+![Vitest](https://img.shields.io/badge/Vitest-3.2.4-6E9F18.svg)
 
 Современное React-приложение, построенное по принципам **Feature-Sliced Design (FSD)** архитектуры. Проект представляет собой полноценный шаблон для быстрого старта frontend-разработки с поддержкой темной/светлой темы, многоязычностью и комплексной системой тестирования.
 
@@ -14,7 +14,7 @@
 - 🏗️ **Feature-Sliced Design** - Четкое разделение на слои и сегменты
 - 🎨 **Темная/светлая тема** - Автоматическое переключение и сохранение предпочтений
 - 🌍 **Многоязычность** - Поддержка русского и английского языков
-- 🧪 **Комплексное тестирование** - Unit, E2E и визуальные тесты
+- 🧪 **Комплексное тестирование** - Unit и E2E
 - 🚀 **Современный стек** - React 19, TypeScript, Ant Design
 - 📦 **Автоматизация** - Semantic Release, Husky, Commitizen
 - 🎯 **Типобезопасность** - Полная типизация TypeScript
@@ -40,13 +40,12 @@
 
 ### Сборка и инструменты
 
-- **Webpack 5.102.1** - Сборка проекта
-- **Babel** - Транспиляция кода
-- **Sass** - Препроцессор CSS
+- **Vite 7** - dev-сервер и production-сборка (Rollup)
+- **Sass** - препроцессор SCSS
 
 ### Тестирование
 
-- **Jest 30.2.0** - Фреймворк для unit-тестирования
+- **Vitest 3.2.4** - Фреймворк для unit-тестирования
 - **@testing-library/react 16.3.0** - Тестирование React-компонентов
 - **Playwright 1.56.0** - E2E тестирование
 - **Allure 2.34.1** - Генерация отчетов по тестированию
@@ -57,7 +56,6 @@
 - **Prettier 3.6.2** - Форматирование кода
 - **Husky** - Git-хуки
 - **Commitizen** - Стандартизация коммитов
-- **Storybook 9.1.10** - Разработка и документирование компонентов
 
 ## 🏗️ Архитектура (FSD - Feature-Sliced Design)
 
@@ -93,80 +91,73 @@ src/
 
 ### Требования
 
-- Node.js 18+
-- npm 8+
+- Node.js (рекомендуется текущая LTS)
+- **pnpm** — версия задаётся в поле `packageManager` в `package.json`; при необходимости: `corepack enable`
 
 ### Установка зависимостей
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Запуск в development режиме
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### Сборка production версии
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## 📋 Команды
 
 ### Разработка
 
-| Команда                 | Описание                         |
-| ----------------------- | -------------------------------- |
-| `npm run dev`           | Запуск development сервера       |
-| `npm run build`         | Сборка production версии         |
-| `npm run build:analyze` | Сборка с анализом размера бандла |
+| Команда              | Описание                         |
+| -------------------- | -------------------------------- |
+| `pnpm dev`           | Запуск development сервера       |
+| `pnpm build`         | Сборка production версии         |
+| `pnpm build:analyze` | Сборка с анализом размера бандла |
 
 ### Тестирование
 
-| Команда                 | Описание                            |
-| ----------------------- | ----------------------------------- |
-| `npm test`              | Запуск unit-тестов                  |
-| `npm run test:watch`    | Запуск тестов в watch-режиме        |
-| `npm run test:coverage` | Запуск тестов с покрытием           |
-| `npm run e2e`           | Запуск E2E тестов                   |
-| `npm run e2e:changed`   | Запуск только измененных E2E тестов |
-| `npm run allure:show`   | Просмотр отчетов Allure             |
-
-### Storybook
-
-| Команда                   | Описание                                          |
-| ------------------------- | ------------------------------------------------- |
-| `npm run storybook`       | Запуск Storybook в development режиме (порт 6006) |
-| `npm run storybook:build` | Сборка production версии Storybook                |
-| `npm run build-storybook` | Альтернативная команда сборки                     |
+| Команда              | Описание                            |
+| -------------------- | ----------------------------------- |
+| `pnpm test`          | Запуск unit-тестов                  |
+| `pnpm test:watch`    | Запуск тестов в watch-режиме        |
+| `pnpm test:coverage` | Запуск тестов с покрытием           |
+| `pnpm e2e`           | Запуск E2E тестов                   |
+| `pnpm e2e:changed`   | Запуск только измененных E2E тестов |
+| `pnpm allure:show`   | Просмотр отчетов Allure             |
 
 ### Код-ревью
 
-| Команда                   | Описание                  |
-| ------------------------- | ------------------------- |
-| `npm run lint`            | Проверка линтером         |
-| `npm run prettier:check`  | Проверка форматирования   |
-| `npm run codestyle:check` | Комплексная проверка кода |
+| Команда                | Описание                        |
+| ---------------------- | ------------------------------- |
+| `pnpm lint`            | Проверка линтером (ESLint)      |
+| `pnpm prettier:check`  | Проверка форматирования         |
+| `pnpm type:check`      | Проверка типов (`tsc --noEmit`) |
+| `pnpm codestyle:check` | Комплексная проверка кода       |
 
 ### Автоматизация
 
-| Команда                            | Описание                                         |
-| ---------------------------------- | ------------------------------------------------ |
-| `npm run generate:tokens`          | Генерация SCSS переменных из TypeScript констант |
-| `npm run semantic-release`         | Автоматический релиз                             |
-| `npm run semantic-release:dry-run` | Тестовый запуск релиза                           |
+| Команда                         | Описание                                         |
+| ------------------------------- | ------------------------------------------------ |
+| `pnpm generate:tokens`          | Генерация SCSS переменных из TypeScript констант |
+| `pnpm semantic-release`         | Автоматический релиз                             |
+| `pnpm semantic-release:dry-run` | Тестовый запуск релиза                           |
 
 ## 🧪 Тестирование
 
 ### Unit-тесты
 
-Проект использует Jest + React Testing Library для unit-тестирования:
+Проект использует Vitest + React Testing Library для unit-тестирования:
 
 ```bash
-npm test
+pnpm test
 ```
 
 - Тестирование компонентов, утилит, хуков
@@ -178,31 +169,16 @@ npm test
 Используется Playwright для сквозного тестирования:
 
 ```bash
-npm run e2e
+pnpm run e2e
 ```
 
 **Особенности:**
 
-- Поддержка Chrome, Firefox, Safari
-- Page Object Model архитектура
-- Allure интеграция для детализированных отчетов
-- Интеллектуальный выбор тестов для запуска
-- Скриншоты и видео при падениях
-
-### Storybook
-
-Инструмент для разработки и документирования компонентов:
-
-```bash
-npm run storybook
-```
-
-**Возможности:**
-
-- Визуальное тестирование компонентов
-- Документирование API компонентов
-- Поддержка темной/светлой темы
-- MDX для написания документации
+- Запуск в Chromium, Firefox, WebKit
+- Page Object Model
+- Allure для отчётов
+- Интеллектуальный выбор тестов (`e2e:changed`)
+- Скриншоты, видео и trace при падениях
 
 ## 🔧 Конфигурация
 
@@ -211,7 +187,7 @@ npm run storybook
 Конфигурация в `tsconfig.json`:
 
 - Строгая типизация (`"strict": true`)
-- Модули ESNext
+- Модули ESNext, `moduleResolution: "bundler"` (совместимость с Vite и `exports` в зависимостях)
 - Разрешение JSON-файлов
 - Псевдонимы для путей:
   - `@shared` - общие компоненты
@@ -220,14 +196,15 @@ npm run storybook
   - `@features` - фичи
   - `@widgets` - виджеты
 
-### Webpack
+### Vite
 
-Конфигурация в `webpack.config.js`:
+Конфигурация в [`vite.config.ts`](vite.config.ts) в корне репозитория:
 
-- Раздельные конфигурации для dev/prod
-- Hot Module Replacement для разработки
-- CSS-модули с хэшированием классов
-- Оптимизация и минификация для production
+- Dev-сервер (по умолчанию порт **4200**, см. `server` в конфиге), HMR
+- Алиасы FSD совпадают с `resolve.alias` и `tsconfig.json` (`paths`)
+- Глобальные SCSS-переменные: `css.preprocessorOptions.scss` (`loadPaths`, `additionalData`) — см. [docs/agents/tools.md](./docs/agents/tools.md)
+- Прокси API: префикс `/api` → `API_URL` из `.env` (через `loadEnv`)
+- Production: `base: './'` для относительных путей к статике; при `ANALYZE=true` — отчёт `rollup-plugin-visualizer`
 
 ### ESLint
 
@@ -242,8 +219,8 @@ npm run storybook
 
 ### CSS-модули
 
-- Все стили используют CSS-модули для изоляции
-- Автоматическая генерация глобальных стилей через `tools/generators/generate-global-scss.ts`
+- Компонентные стили — `*.module.scss` (CSS Modules в Vite для файлов с суффиксом `.module.*`)
+- Глобальные токены: генерация `variables.scss` / `global.scss` через `tools/generators/generate-global-scss.ts` и скрипт `pnpm run generate:tokens` (перед `dev`/`build` вызывается автоматически)
 - Поддержка темной и светлой темы
 
 ### Дизайн-система
@@ -305,6 +282,8 @@ npm run storybook
 - Запуск E2E тестов
 - Проверка линтером
 
+Зависимости в CI устанавливаются через **pnpm** (`pnpm install --frozen-lockfile`, lockfile — `pnpm-lock.yaml`).
+
 ### Деплой
 
 - Автоматический деплой на staging/production
@@ -323,7 +302,7 @@ npm run storybook
 Используется Commitizen для форматирования коммитов:
 
 ```bash
-npm run commit
+pnpm exec cz
 ```
 
 **Обязательные префиксы:**
@@ -457,9 +436,8 @@ npm run commit
 - [React](https://reactjs.org/) - за отличную библиотеку для создания UI
 - [Ant Design](https://ant.design/) - за потрясающую дизайн-систему
 - [MobX](https://mobx.js.org/) - за реактивное управление состоянием
-- [Webpack](https://webpack.js.org/) - за мощную систему сборки
-- [Jest](https://jestjs.io/) - за удобное тестирование
-- [Storybook](https://storybook.js.org/) - за отличный инструмент для разработки компонентов
+- [Vite](https://vite.dev/) - за быстрый dev и сборку
+- [Vitest](https://vitest.dev/) - за удобное unit-тестирование
 
 ---
 

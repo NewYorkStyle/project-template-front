@@ -12,11 +12,11 @@
 - Для unit: тестируй свой контракт (props/callbacks/разметка), а не внутренности UI-kit.
 - Для e2e: действуй через page objects (`e2e/pages/*`) и `data-testid`.
 
-## Unit-тесты (Jest + Testing Library)
+## Unit-тесты (Vitest + Testing Library)
 
-- Конфиг: **`jest.config.ts`**, setup: `src/setup-tests.ts`.
-- Маски: `src/**/__tests__/**/*`, `src/**/*.test.(ts|tsx)`.
-- Импорты CSS/SCSS: `identity-obj-proxy` в `moduleNameMapper`.
+- Конфиг: секция **`test`** в `vite.config.ts`, setup: `src/setup-tests.ts`.
+- Маски: `src/**/__tests__/**/*`, `src/**/*.{test,spec}.{ts,tsx}`.
+- Моки: `vi` из Vitest (глобально при `test.globals: true`). Импорты CSS/SCSS в тестах при необходимости — алиас/stub в Vite
 
 AI обязан добавлять/обновлять тесты при изменении поведения компонентов и хуков с логикой.
 

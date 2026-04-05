@@ -109,11 +109,11 @@ const main = () => {
 
     if (affectedTags.has('@shared') || affectedTags.has('@e2eBase')) {
       console.log('🔀 Shared files changed - running ALL tests');
-      command = 'npx playwright test';
+      command = 'pnpm exec playwright test';
     } else if (affectedTags.size > 0) {
       const tags = Array.from(affectedTags).join('|');
       console.log(`🎯 Running tests with tags: ${tags}`);
-      command = `npx playwright test --grep "${tags}"`;
+      command = `pnpm exec playwright test --grep "${tags}"`;
     } else {
       console.log('⏭️  No matching tags found - no tests to run');
       process.exit(0);
