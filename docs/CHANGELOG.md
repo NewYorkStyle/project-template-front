@@ -1,3 +1,9 @@
+## [2.14.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.13.0...v2.14.0) (2026-04-05)
+
+### Features
+
+* PROJECTTEMPLATE-56 Переписал формы на rhf + zod ([#68](https://github.com/NewYorkStyle/project-template-front/issues/68)) ([b773b69](https://github.com/NewYorkStyle/project-template-front/commit/b773b696232bcc4c7a46fe843335869d71c12f09))
+
 ## [2.13.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.12.0...v2.13.0) (2026-03-21)
 
 ### Features
