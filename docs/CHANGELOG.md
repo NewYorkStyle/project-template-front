@@ -1,3 +1,9 @@
+## [2.16.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.15.0...v2.16.0) (2026-04-05)
+
+### Features
+
+* PROJECTTEMPLATE-59: Миграция на vite и pnpm ([#70](https://github.com/NewYorkStyle/project-template-front/issues/70)) ([052eab4](https://github.com/NewYorkStyle/project-template-front/commit/052eab46c4373e53cd1b0ae58d154b18d0957e7f))
+
 ## [2.15.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.14.0...v2.15.0) (2026-04-05)
 
 ### Features
