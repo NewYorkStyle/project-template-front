@@ -1,3 +1,9 @@
+## [2.15.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.14.0...v2.15.0) (2026-04-05)
+
+### Features
+
+* PROJECTTEMPLATE-57 Генерация типов/хуков/схем на основе openapi ([#69](https://github.com/NewYorkStyle/project-template-front/issues/69)) ([fadf27e](https://github.com/NewYorkStyle/project-template-front/commit/fadf27e2f6aac7a1e5f22cd89d3355857a4c1b51))
+
 ## [2.14.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.13.0...v2.14.0) (2026-04-05)
 
 ### Features
