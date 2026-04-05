@@ -1,4 +1,7 @@
-﻿import {Flex, Form, Input} from '@new_york_style/project-template-ui';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {Flex, Form, Input} from '@new_york_style/project-template-ui';
+import {useForm} from 'react-hook-form';
+import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
 
 import {
@@ -10,17 +13,19 @@ import {
 } from '@shared';
 
 import {useDeleteProfile} from '../../api';
+import {createDeleteUserSchema} from '../../model';
+import {type TDeleteUserFormValues} from '../../types';
 
 import style from './delete-user.module.scss';
 
 export const DeleteUser = () => {
   const {t} = useTranslation('User');
   const {closeModal, openModal} = useModal();
-  const [form] = Form.useForm();
+  const deleteUserSchema = createDeleteUserSchema(t);
 
   const {isPending: isDeleting, mutate: deleteProfile} = useDeleteProfile();
 
-  const onFinish = (values: {password: string}) => {
+  const onSubmit = (values: TDeleteUserFormValues) => {
     openModal({
       cancelButtonProps: {
         analyticProps: {
@@ -48,27 +53,29 @@ export const DeleteUser = () => {
     });
   };
 
+  const {control, handleSubmit} = useForm<TDeleteUserFormValues>({
+    defaultValues: {password: ''},
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(deleteUserSchema),
+  });
+
   return (
-    <Form form={form} onFinish={onFinish}>
+    <Form onFinish={() => void handleSubmit(onSubmit)()}>
       <Typography.Title level={4}>
         {t('Profile.Delete.Header')}
       </Typography.Title>
       <Flex vertical gap={designTokens.spacing.sm}>
-        <Form.Item
+        <FormItem
+          control={control}
           name='password'
           label={t('Profile.Delete.Password')}
-          rules={[
-            {
-              message: t('Profile.Delete.PasswordRequired'),
-              required: true,
-            },
-          ]}
         >
           <Input.Password
             className={style.input}
             placeholder={t('Profile.Delete.PasswordPlaceholder')}
           />
-        </Form.Item>
+        </FormItem>
         <Form.Item>
           <Button
             type='primary'
