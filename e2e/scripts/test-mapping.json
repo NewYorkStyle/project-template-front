@@ -14,12 +14,24 @@
       "e2e/tests/profile/**/*",
       "e2e/pages/profile/**/*"
     ],
-    "@shared": ["src/shared/**/*", "src/app/**/*"],
+    "@shared": [
+      "src/shared/**/*",
+      "src/app/**/*"
+    ],
     "@e2eBase": [
-      "e2e/scripts",
-      "e2e/fixtures",
+      "e2e/scripts/**/*",
+      "e2e/fixtures/**/*",
       "e2e/pages/base",
-      "e2e/pages/home"
+      "playwright.config.ts",
+      "e2e/mocks/**/*",
+      "e2e/shared/**/*"
+    ],
+    "@common": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "vite.config.ts",
+      "tsconfig.json",
+      "tsconfig.prod.json"
     ]
   }
 }

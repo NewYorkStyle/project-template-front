@@ -4,7 +4,7 @@ import {test, expect} from '../../fixtures';
 import {validOTP} from '../../mocks';
 import {APP_ROUTES} from '../../shared';
 
-test('Успешная авторизация и верификация email через OTP @auth', async ({
+test('Успешная авторизация и верификация email через OTP @auth @profile', async ({
   authPage,
   profilePage,
   testUsers,
