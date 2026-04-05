@@ -11,9 +11,9 @@
 - Если нужно изменить тему/токены — правь `design-tokens.ts` и запускай генерацию (см. [tools.md](./tools.md)).
 - Если нужно оформить компонент — добавь `*.module.scss` рядом и используй классы.
 
-- **Компоненты**: `*.module.scss` рядом с компонентом. Webpack: `css-loader` с `modules.auto: true` (`webpack.config.js`).
+- **Компоненты**: `*.module.scss` рядом с компонентом. **Vite**: для файлов с именем `*.module.scss` применяются CSS Modules (см. [документацию Vite — CSS](https://vite.dev/guide/features.html#css)).
 - **Глобальные стили**: только через генерацию из токенов и entry-подключение. Точка входа: `src/app/app.tsx` импортирует `./styles/global.scss` (сгенерированный/поддерживаемый в связке с `generate-global-scss.ts`).
-- Переменные для модулей: автоматически доступны благодаря `with-global-scss-resources` и `variables.scss`.
+- Переменные для модулей (`$spacing-*`, `$breakpoint-*` и т.д.): автоматически доступны благодаря `variables.scss` и настройке **`vite.config.ts`** (`loadPaths` + `additionalData` в `scss`), см. [tools.md](./tools.md).
 
 ### AI не должен
 

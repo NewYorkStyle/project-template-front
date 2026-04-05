@@ -23,7 +23,7 @@ describe('Select', () => {
   });
 
   it('should handle value changes', () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
 
     render(<Select options={options} onChange={handleChange} />);
 
@@ -80,7 +80,7 @@ describe('Select', () => {
   });
 
   it('should handle focus events', () => {
-    const handleFocus = jest.fn();
+    const handleFocus = vi.fn();
 
     render(<Select options={options} onFocus={handleFocus} />);
 

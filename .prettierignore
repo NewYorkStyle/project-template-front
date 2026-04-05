@@ -2,3 +2,4 @@
 /coverage
 /docs
 src/shared/api/generated
+pnpm-lock.yaml

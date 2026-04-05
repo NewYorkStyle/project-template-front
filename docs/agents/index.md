@@ -3,7 +3,7 @@
 ## Quick rules
 
 - **Пиши по-русски**; термины (API/HTTP/SQL) — по-английски.
-- **Scope**: изменения только в `src/`, `e2e/`, `tools/`.
+- **Scope**: основной код — `src/`, `e2e/`, `tools/`; конфиги репозитория, CI и `docs/agents/**` — когда задача это требует (см. [rules.md](./rules.md)).
 - **FSD + import zones**: соблюдать `import/no-restricted-paths` из `eslint.config.mjs` (см. [architecture.md](./architecture.md)).
 - **Public API**: импортируй через баррели/алиасы, не из глубины чужого слайса (см. [public-api.md](./public-api.md)).
 - **API**: Orval generated hooks использовать напрямую; не использовать старый `api` из `@shared` (см. [api.md](./api.md)).
@@ -25,7 +25,7 @@
 - [ ] Понимаю слой/границы FSD и зоны импортов.
 - [ ] Понимаю публичные экспорты (`index.ts`) и корректные пути импорта.
 - [ ] Для API выбраны **generated hooks**, а не ручной HTTP.
-- [ ] Нет выхода за scope (`src/`, `e2e/`, `tools/`).
+- [ ] Scope соблюдён (продуктовый код + при необходимости конфиги/CI/доки агентов; см. [rules.md](./rules.md)).
 
 ## Оглавление
 
@@ -36,8 +36,8 @@
 - [api.md](./api.md) — Orval, generated hooks, DTO/zod, паттерны вызовов
 - [forms.md](./forms.md) — react-hook-form + zod, схемы и типы, локализация
 - [state.md](./state.md) — MobX vs React Query
-- [testing.md](./testing.md) — unit (Jest/RTL) + e2e (Playwright), page objects, mocks
-- [tools.md](./tools.md) — `tools/` генераторы и webpack плагины
+- [testing.md](./testing.md) — unit (Vitest/RTL) + e2e (Playwright), page objects, mocks
+- [tools.md](./tools.md) — `tools/` генераторы и настройка глобальных SCSS (Vite)
 - [rules.md](./rules.md) — ограничения, антипаттерны, правила выбора
 - [definition-of-done.md](./definition-of-done.md) — DoD / Definition of Done
 

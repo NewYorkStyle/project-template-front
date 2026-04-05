@@ -16,7 +16,7 @@
 ### Баррели и алиасы
 
 - Каждый **слайс** и **сегмент** по возможности закрывается `index.ts` и реэкспортирует наружу.
-- Внешние импорты — через **баррели верхнего уровня** и алиасы из `tsconfig.json` / `webpack.config.js`:
+- Внешние импорты — через **баррели верхнего уровня** и алиасы из `tsconfig.json` (`paths`) и **`vite.config.ts`** (`resolve.alias` — те же префиксы `@shared`, `@entities`, …):
   - `@shared` → `src/shared/index.ts`
   - `@entities` → `src/entities/index.ts`
   - `@features` → `src/features/index.ts`

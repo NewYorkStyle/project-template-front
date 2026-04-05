@@ -38,7 +38,7 @@ describe('Tabs', () => {
   });
 
   it('should handle tab changes', () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
 
     render(<Tabs items={items} onChange={handleChange} />);
 

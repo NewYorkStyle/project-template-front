@@ -1,4 +1,3 @@
-import storybook from 'eslint-plugin-storybook';
 import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
@@ -69,7 +68,7 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.es2021,
         ...globals.node,
-        ...globals.jest,
+        ...globals.vitest,
         React: 'readonly',
       },
     },
@@ -252,11 +251,7 @@ export default tseslint.config(
    * Конфигурация для конфигурационных файлов
    */
   {
-    files: [
-      '**/webpack.config.*',
-      '**/*.config.*',
-      'tools/**/*.{ts,tsx,js,jsx}',
-    ],
+    files: ['**/vite.config.*', '**/*.config.*', 'tools/**/*.{ts,tsx,js,jsx}'],
     rules: {
       'no-console': 'off',
       'import/order': 'off',
@@ -276,22 +271,17 @@ export default tseslint.config(
       '**/__tests__/**',
       '**/*.test.*',
       '**/*.spec.*',
-      'src/setupTests.ts',
+      'src/setup-tests.ts',
     ],
     rules: {
       'import/no-restricted-paths': 'off',
     },
     languageOptions: {
       globals: {
-        ...globals.jest,
+        ...globals.vitest,
       },
     },
   },
-
-  /**
-   * Storybook конфигурация
-   */
-  ...storybook.configs['flat/recommended'],
 
   /**
    * Prettier config должен быть последним

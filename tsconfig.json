@@ -11,7 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -25,13 +25,12 @@
       "@widgets": ["widgets/index.ts"],
       "@shared/api/generated/*": ["shared/api/generated/*"]
     },
-    "types": ["node", "react", "jest"],
+    "types": ["node", "react", "vitest/globals"],
     "useUnknownInCatchVariables": false
   },
   "include": [
     "src/**/*",
     "src/setup-tests.ts",
-    ".storybook/**/*",
     "src/**/__tests__/**/*",
     "tools/*",
     "tools/**/*",

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.3.2
+ * OpenAPI spec version: 1.4.0
  */
 import {useMutation, useQuery} from '@tanstack/react-query';
 import type {

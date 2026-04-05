@@ -1,4 +1,5 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
+import {vi} from 'vitest';
 
 class MockMessageChannel implements MessageChannel {
   port1: MessagePort;
@@ -12,23 +13,23 @@ class MockMessageChannel implements MessageChannel {
 
   private createMockPorts() {
     const port1 = {
-      postMessage: jest.fn(),
-      close: jest.fn(),
-      start: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      postMessage: vi.fn(),
+      close: vi.fn(),
+      start: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
       onmessage: null,
       onmessageerror: null,
     } as unknown as MessagePort;
 
     const port2 = {
-      postMessage: jest.fn(),
-      close: jest.fn(),
-      start: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      postMessage: vi.fn(),
+      close: vi.fn(),
+      start: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
       onmessage: null,
       onmessageerror: null,
     } as unknown as MessagePort;
@@ -40,27 +41,27 @@ class MockMessageChannel implements MessageChannel {
 global.MessageChannel = MockMessageChannel;
 
 Object.defineProperty(window, 'matchMedia', {
-  value: jest.fn().mockImplementation((query) => ({
-    addEventListener: jest.fn(),
-    addListener: jest.fn(),
-    dispatchEvent: jest.fn(),
+  value: vi.fn().mockImplementation((query) => ({
+    addEventListener: vi.fn(),
+    addListener: vi.fn(),
+    dispatchEvent: vi.fn(),
     matches: false,
     media: query,
     onchange: null,
-    removeEventListener: jest.fn(),
-    removeListener: jest.fn(),
+    removeEventListener: vi.fn(),
+    removeListener: vi.fn(),
   })),
   writable: true,
 });
 
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-  disconnect: jest.fn(),
-  observe: jest.fn(),
-  unobserve: jest.fn(),
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  disconnect: vi.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
 }));
 
-global.IntersectionObserver = jest.fn().mockImplementation(() => ({
-  disconnect: jest.fn(),
-  observe: jest.fn(),
-  unobserve: jest.fn(),
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  disconnect: vi.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
 }));
