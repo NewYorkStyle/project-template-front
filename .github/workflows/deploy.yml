@@ -16,14 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout by tag
+      - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Extract version
-        id: version
+      - name: Get tag
+        id: tag
         run: |
-          VERSION=${GITHUB_REF#refs/tags/}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          TAG=$(git describe --tags --abbrev=0)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Set image name
         id: image
@@ -43,7 +45,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ steps.image.outputs.image }}:${{ github.event.workflow_run.head_sha }}
+            ${{ steps.image.outputs.image }}:${{ steps.tag.outputs.tag }}
             ${{ steps.image.outputs.image }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
