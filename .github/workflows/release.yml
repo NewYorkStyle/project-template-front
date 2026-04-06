@@ -1,4 +1,4 @@
-name: Release and deploy front
+name: Release front
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  packages: write
   issues: write
   pull-requests: write
 
@@ -31,58 +30,21 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm run build
-
       - name: Semantic release
         run: pnpm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout updated code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: pnpm run build
 
       - name: Set version
         id: version
         run: |
           VERSION=$(git describe --tags --abbrev=0 || echo "0.0.0")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-  docker:
-    runs-on: ubuntu-latest
-    needs: release
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Login to GHCR
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Build Docker image
-        run: |
-          IMAGE=ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          VERSION=${{ needs.release.outputs.version }}
-
-          docker build -t $IMAGE:$VERSION .
-          docker tag $IMAGE:$VERSION $IMAGE:latest
-
-      - name: Push Docker image
-        run: |
-          IMAGE=ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          VERSION=${{ needs.release.outputs.version }}
-
-          docker push $IMAGE:$VERSION
-          docker push $IMAGE:latest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: docker
-
-    steps:
-      - name: Deploy front
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd /home/deployer/project-template-deploy
-            chmod +x deploy.sh 
-            ./deploy.sh frontend
