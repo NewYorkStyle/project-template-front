@@ -129,9 +129,9 @@ pnpm build
 | `pnpm test`          | Запуск unit-тестов                  |
 | `pnpm test:watch`    | Запуск тестов в watch-режиме        |
 | `pnpm test:coverage` | Запуск тестов с покрытием           |
-| `pnpm e2e`           | Запуск E2E тестов                   |
+| `pnpm e2e:all`       | Запуск E2E тестов                   |
 | `pnpm e2e:changed`   | Запуск только измененных E2E тестов |
-| `pnpm allure:show`   | Просмотр отчетов Allure             |
+| `pnpm e2e:allure`    | Просмотр отчетов Allure             |
 
 ### Код-ревью
 
@@ -179,6 +179,14 @@ pnpm run e2e
 - Allure для отчётов
 - Интеллектуальный выбор тестов (`e2e:changed`)
 - Скриншоты, видео и trace при падениях
+- Реальный backend через test API (`/test/create-user`, `/test/grant-permissions`, `/test/delete-user`)
+- Изоляция сессий между тестами (очистка cookies + пустой `storageState`)
+
+**Требования к окружению для E2E:**
+
+- backend должен быть запущен и доступен по `VITE_API_URL`
+- в test-окружении для OTP используется код `123456`
+- тестовые данные создаются/удаляются автоматически в fixtures
 
 ## 🔧 Конфигурация
 
@@ -201,9 +209,9 @@ pnpm run e2e
 Конфигурация в [`vite.config.ts`](vite.config.ts) в корне репозитория:
 
 - Dev-сервер (по умолчанию порт **4200**, см. `server` в конфиге), HMR
-- Алиасы FSD совпадают с `resolve.alias` и `tsconfig.json` (`paths`)
-- Глобальные SCSS-переменные: `css.preprocessorOptions.scss` (`loadPaths`, `additionalData`) — см. [docs/agents/tools.md](./docs/agents/tools.md)
-- Прокси API: префикс `/api` → `API_URL` из `.env` (через `loadEnv`)
+- Алиасы FSD совпадают с `resolve.alias` и `tsconfig.json` (`paths`); они же помогают Vite разрешать пути в `@use` внутри SCSS (например `@/shared/styles/variables`)
+- SCSS: глобальный инжект переменных через `additionalData` в конфиге **не используется** — в `*.module.scss` подключают токены явным `@use` (см. [docs/agents/styles.md](./docs/agents/styles.md)); при необходимости общего препроцессинга см. [docs/agents/tools.md](./docs/agents/tools.md)
+- Прокси API: префикс `/api` → `VITE_API_URL` из `.env` (через `loadEnv`)
 - Production: `base: './'` для относительных путей к статике; при `ANALYZE=true` — отчёт `rollup-plugin-visualizer`
 
 ### ESLint
@@ -217,11 +225,14 @@ pnpm run e2e
 
 ## 🎨 Стили и дизайн
 
-### CSS-модули
+### CSS-модули и SCSS
 
-- Компонентные стили — `*.module.scss` (CSS Modules в Vite для файлов с суффиксом `.module.*`)
-- Глобальные токены: генерация `variables.scss` / `global.scss` через `tools/generators/generate-global-scss.ts` и скрипт `pnpm run generate:tokens` (перед `dev`/`build` вызывается автоматически)
-- Поддержка темной и светлой темы
+- Компонентные стили — `*.module.scss` (CSS Modules в Vite для файлов с суффиксом `.module.*`). В начале файла — `@use '@/shared/styles/variables' as *;`, чтобы использовать `$spacing-*`, брейкпоинты и т.д.
+- **Генерация из токенов** (`pnpm run generate:tokens`, также перед `dev`/`build`):
+  - `src/shared/styles/variables.scss` — SCSS-переменные (отступы, радиусы, типографика, брейкпоинты);
+  - `src/app/styles/global.scss` — сброс для `body`, CSS variables для светлой/тёмной темы (`:root`, `[data-theme="dark"]`).
+- Источник правды для генератора: `src/shared/lib/constants/design-tokens.ts` (`tools/generators/generate-global-scss.ts`).
+- Точка входа глобальных стилей: импорт `./styles/global.scss` в `src/app/app.tsx`.
 
 ### Дизайн-система
 

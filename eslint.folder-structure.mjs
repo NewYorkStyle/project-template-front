@@ -55,8 +55,8 @@ const SEGMENTS = [
   },
 ];
 
-// Сегменты для использования в разных слоях
-const APP_SEGMENTS = [
+// Сегменты для использования в слоях app и shared
+const STYLED_SEGMENTS = [
   ...SEGMENTS,
   {
     name: 'styles',
@@ -99,7 +99,7 @@ export const folderStructureConfig = createFolderStructure({
         // App слой
         {
           name: 'app',
-          children: withBarrelFile([{name: 'app.tsx'}, ...APP_SEGMENTS]),
+          children: withBarrelFile([{name: 'app.tsx'}, ...STYLED_SEGMENTS]),
         },
 
         // Entities слой
@@ -117,7 +117,7 @@ export const folderStructureConfig = createFolderStructure({
         // Shared слой
         {
           name: 'shared',
-          children: withBarrelFile([...SEGMENTS]),
+          children: withBarrelFile([...STYLED_SEGMENTS]),
         },
 
         // Widgets слой

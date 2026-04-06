@@ -1,4 +1,4 @@
-import {type Page, type Locator} from '@playwright/test';
+import {type Page, type Locator, expect} from '@playwright/test';
 
 import {TEST_IDS, APP_ROUTES} from '../../shared';
 import {BasePage} from '../base';
@@ -24,37 +24,16 @@ export class AuthPage extends BasePage {
 
   async open(): Promise<void> {
     await this.page.goto(APP_ROUTES.AUTH.ROOT, {
-      waitUntil: 'networkidle',
-      timeout: 15000,
+      waitUntil: 'domcontentloaded',
     });
 
     await this.waitForAuthForm();
   }
 
   async waitForAuthForm(): Promise<void> {
-    await this.page.waitForSelector(
-      `[data-testid="${TEST_IDS.AUTH.USER_NAME}"]`,
-      {
-        state: 'visible',
-        timeout: 10000,
-      }
-    );
-
-    await this.page.waitForSelector(
-      `[data-testid="${TEST_IDS.AUTH.PASSWORD}"]`,
-      {
-        state: 'visible',
-        timeout: 10000,
-      }
-    );
-
-    await this.page.waitForSelector(
-      `[data-testid="${TEST_IDS.AUTH.SIGN_IN}"]`,
-      {
-        state: 'visible',
-        timeout: 10000,
-      }
-    );
+    await expect(this.usernameInput).toBeVisible();
+    await expect(this.passwordInput).toBeVisible();
+    await expect(this.signInButton).toBeVisible();
   }
 
   async fillCredentials(username: string, password: string): Promise<void> {

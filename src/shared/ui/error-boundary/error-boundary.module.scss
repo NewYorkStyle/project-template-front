@@ -1,4 +1,6 @@
-﻿.root {
+﻿@use '@/shared/styles/variables' as *;
+
+.root {
   height: 100vh;
   background-color: var(--background-primary);
 

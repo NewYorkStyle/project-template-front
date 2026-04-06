@@ -1,3 +1,3 @@
 export * from './constants';
-export * from './data';
+export * from './test-api';
 export * from './types';

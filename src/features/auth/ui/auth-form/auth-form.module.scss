@@ -1,4 +1,6 @@
-﻿.root {
+﻿@use '@/shared/styles/variables' as *;
+
+.root {
   h1 {
     text-align: center;
   }

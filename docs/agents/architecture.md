@@ -21,7 +21,7 @@
 | **widgets**  | Крупные блоки UI из нескольких фич/сущностей                                        | `src/widgets/app-header/`                                                               |
 | **features** | Пользовательские сценарии (форма, действие)                                         | `src/features/auth/`, `src/features/profile/`                                           |
 | **entities** | Бизнес-сущности, локальные хуки и модели                                            | `src/entities/user/`, `src/entities/params/`                                            |
-| **shared**   | Переиспользуемый код без привязки к продукту: UI-kit обёртки, API клиент, константы | `src/shared/ui/`, `src/shared/lib/`, `src/shared/model/`                                |
+| **shared**   | Переиспользуемый код без привязки к продукту: UI-kit обёртки, API клиент, константы, сгенерированные SCSS-переменные | `src/shared/ui/`, `src/shared/lib/`, `src/shared/model/`, `src/shared/styles/` (`variables.scss`) |
 
 ### Ограничения импортов (ESLint `import/no-restricted-paths`, `eslint.config.mjs`)
 

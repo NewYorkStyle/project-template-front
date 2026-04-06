@@ -1,0 +1,41 @@
+services:
+  database:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U test_user -d test_db']
+      interval: 5s
+      retries: 5
+
+  backend:
+    image: ghcr.io/newyorkstyle/project-template-back:latest
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgres://test_user:test_pass@database:5432/test_db
+      JWT_ACCESS_SECRET: test
+      JWT_REFRESH_SECRET: test
+      FRONT_URL: http://localhost:4200
+
+      # отключаем реальную почту
+      MAIL_HOST: ''
+      MAIL_USER: ''
+      MAIL_PASSWORD: ''
+      MAIL_FROM: 'test@test.com'
+
+    depends_on:
+      database:
+        condition: service_healthy
+
+    ports:
+      - '3000:3000'
+
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:3000/health']
+      interval: 5s
+      retries: 10

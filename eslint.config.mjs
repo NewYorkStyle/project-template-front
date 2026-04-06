@@ -283,6 +283,13 @@ export default tseslint.config(
     },
   },
 
+  {
+    files: ['e2e/**/*.ts'],
+    rules: {
+      '@typescript-eslint/await-thenable': 'off',
+    },
+  },
+
   /**
    * Prettier config должен быть последним
    */

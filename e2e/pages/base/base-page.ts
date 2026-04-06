@@ -12,12 +12,10 @@ export class BasePage {
   async goto(url: string = APP_ROUTES.ROOT): Promise<void> {
     await this.page.goto(url, {
       waitUntil: 'domcontentloaded',
-      timeout: 15000,
     });
 
     await this.page.waitForSelector('body', {
       state: 'attached',
-      timeout: 5000,
     });
   }
 

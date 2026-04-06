@@ -70,7 +70,7 @@ const generateGlobalScss = (tokens: TDesignTokens): string => {
   let scssContent = '// Auto-generated from TypeScript\n\n';
 
   // Импорт переменных
-  scssContent += `@use './variables.scss';\n\n`;
+  scssContent += `@use '../../shared/styles/variables.scss';\n\n`;
 
   scssContent += `body {
   padding: 0;
@@ -94,23 +94,30 @@ const generateGlobalScss = (tokens: TDesignTokens): string => {
 const workspaceRoot = path.resolve(__dirname, '../../');
 console.log('📁 Workspace root:', workspaceRoot);
 
-const stylesDir = path.join(workspaceRoot, 'src/app/styles');
+const appStylesDir = path.join(workspaceRoot, 'src/app/styles');
+const sharedStylesDir = path.join(workspaceRoot, 'src/shared/styles');
 
-// Создаем директорию, если её нет
-if (!fs.existsSync(stylesDir)) {
-  fs.mkdirSync(stylesDir, {recursive: true});
-  console.log('📁 Created directory:', stylesDir);
+// Создаем директорию в app, если её нет
+if (!fs.existsSync(appStylesDir)) {
+  fs.mkdirSync(appStylesDir, {recursive: true});
+  console.log('📁 Created directory:', appStylesDir);
+}
+
+// Создаем директорию в shared, если её нет
+if (!fs.existsSync(sharedStylesDir)) {
+  fs.mkdirSync(sharedStylesDir, {recursive: true});
+  console.log('📁 Created directory:', sharedStylesDir);
 }
 
 // Генерируем и записываем variables.scss
-const variablesPath = path.join(stylesDir, 'variables.scss');
+const variablesPath = path.join(sharedStylesDir, 'variables.scss');
 const variablesContent = generateScssVariables(designTokens);
 fs.writeFileSync(variablesPath, variablesContent);
 console.log('✅ SCSS variables generated to:', variablesPath);
 console.log('📄 Variables file size:', variablesContent.length, 'bytes');
 
 // Генерируем и записываем global.scss
-const globalPath = path.join(stylesDir, 'global.scss');
+const globalPath = path.join(appStylesDir, 'global.scss');
 const globalContent = generateGlobalScss(designTokens);
 fs.writeFileSync(globalPath, globalContent);
 console.log('✅ Global scss generated to:', globalPath);

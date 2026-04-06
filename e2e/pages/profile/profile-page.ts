@@ -1,4 +1,4 @@
-import {type Page, type Locator} from '@playwright/test';
+import {type Page, type Locator, expect} from '@playwright/test';
 
 import {APP_ROUTES, TEST_IDS} from '../../shared';
 import {BasePage} from '../base';
@@ -43,13 +43,9 @@ export class ProfilePage extends BasePage {
   }
 
   async waitForProfilePage(): Promise<void> {
-    await this.page.waitForSelector(
-      'h1, h2, h3, h4, [data-testid*="profile"], [data-testid*="user"]',
-      {
-        state: 'visible',
-        timeout: 10000,
-      }
-    );
+    await expect(
+      this.emailVerificationSection.or(this.emailChangeSection)
+    ).toBeVisible();
   }
 
   isOnProfilePage(): boolean {
@@ -74,7 +70,46 @@ export class ProfilePage extends BasePage {
   }
 
   async submitOtp(): Promise<void> {
+    const verifyResponsePromise = this.page
+      .waitForResponse(
+        (resp) =>
+          resp.url().includes('/users/verifyEmail') &&
+          resp.request().method() === 'POST' &&
+          resp.status() === 200,
+        {timeout: 30000}
+      )
+      .catch(() => null);
+
     await this.otpSubmitButton.click();
+    await verifyResponsePromise;
+  }
+
+  async waitForEmailVerificationCompleted(): Promise<void> {
+    await this.emailChangeSection.waitFor({
+      state: 'visible',
+      timeout: 30000,
+    });
+
+    await this.emailVerificationSection.waitFor({
+      state: 'hidden',
+      timeout: 30000,
+    });
+  }
+
+  async submitOtpAndWaitForVerificationCompleted(): Promise<void> {
+    const permissionsResponsePromise = this.page
+      .waitForResponse(
+        (resp) =>
+          resp.url().includes('/users/permissions') &&
+          resp.request().method() === 'GET' &&
+          resp.status() === 200,
+        {timeout: 30000}
+      )
+      .catch(() => null);
+
+    await this.submitOtp();
+    await permissionsResponsePromise;
+    await this.waitForEmailVerificationCompleted();
   }
 
   async requestNewOtp(): Promise<void> {
@@ -82,7 +117,7 @@ export class ProfilePage extends BasePage {
   }
 
   async waitForOtpForm(): Promise<void> {
-    await this.otpInputs.first().waitFor({state: 'visible'});
+    await expect(this.otpInputs.first()).toBeVisible();
   }
 
   async getOtpInputCount(): Promise<number> {

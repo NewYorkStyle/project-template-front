@@ -1,15 +1,14 @@
-/* eslint-disable no-empty-pattern */
+export * from '@playwright/test';
 import {test as base} from '@playwright/test';
 
-import {setupAllMocks} from '../mocks/handlers';
 import {AuthPage, HomePage, ProfilePage} from '../pages';
-import {testUsers} from '../shared';
+import {createTestUser, deleteTestUser, type TCreatedTestUser} from '../shared';
 
 export type TFixtures = {
   authPage: AuthPage;
   homePage: HomePage;
   profilePage: ProfilePage;
-  testUsers: typeof testUsers;
+  testUser: TCreatedTestUser;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,7 +19,6 @@ async function waitForAppReady(page: any) {
 
 export const test = base.extend<TFixtures>({
   page: async ({page}, use) => {
-    setupAllMocks(page);
     await waitForAppReady(page);
     await use(page);
   },
@@ -40,9 +38,28 @@ export const test = base.extend<TFixtures>({
     await use(profilePage);
   },
 
-  testUsers: async ({}, use) => {
-    await use(testUsers);
+  testUser: async ({request}, use) => {
+    const user = await createTestUser(request);
+
+    try {
+      await use(user);
+    } finally {
+      await deleteTestUser(request, user.email);
+    }
   },
 });
 
-export {expect} from '@playwright/test';
+test.use({
+  storageState: {
+    cookies: [],
+    origins: [],
+  },
+});
+
+test.beforeEach(async ({context}) => {
+  await context.clearCookies();
+});
+
+test.afterEach(async ({context}) => {
+  await context.clearCookies();
+});

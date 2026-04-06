@@ -10,24 +10,9 @@ import {visualizer} from 'rollup-plugin-visualizer';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const srcRoot = path.resolve(__dirname, 'src');
 
-/**
- * Используем loadPaths + короткий модуль `app/styles/variables`.
- * Не инжектим в сами `variables.scss` / `global.scss`, чтобы не было двойного `@use`.
- */
-function scssAdditionalData(source: string, filename: string): string {
-  const f = filename.replace(/\\/g, '/');
-  if (
-    f.includes('/app/styles/variables.scss') ||
-    f.includes('/app/styles/global.scss')
-  ) {
-    return source;
-  }
-  return `@use "app/styles/variables" as *;\n${source}`;
-}
-
 export default defineConfig(({command, mode}) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const apiUrl = env.API_URL || 'http://localhost:3000';
+  const apiUrl = env.VITE_API_URL || 'http://localhost:3000';
 
   const plugins: PluginOption[] = [
     react(),
@@ -52,20 +37,12 @@ export default defineConfig(({command, mode}) => {
         '@pages': path.resolve(__dirname, 'src/pages'),
         '@features': path.resolve(__dirname, 'src/features'),
         '@widgets': path.resolve(__dirname, 'src/widgets'),
+        '@': srcRoot,
       },
     },
 
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode),
-    },
-
-    css: {
-      preprocessorOptions: {
-        scss: {
-          loadPaths: [srcRoot],
-          additionalData: scssAdditionalData,
-        },
-      },
     },
 
     server: {

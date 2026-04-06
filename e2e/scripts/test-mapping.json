@@ -14,16 +14,12 @@
       "e2e/tests/profile/**/*",
       "e2e/pages/profile/**/*"
     ],
-    "@shared": [
-      "src/shared/**/*",
-      "src/app/**/*"
-    ],
+    "@shared": ["src/shared/**/*", "src/app/**/*"],
     "@e2eBase": [
       "e2e/scripts/**/*",
       "e2e/fixtures/**/*",
       "e2e/pages/base",
       "playwright.config.ts",
-      "e2e/mocks/**/*",
       "e2e/shared/**/*"
     ],
     "@common": [
