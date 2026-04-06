@@ -43,7 +43,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ steps.image.outputs.image }}:${{ steps.version.outputs.version }}
+            ${{ steps.image.outputs.image }}:${{ github.event.workflow_run.head_sha }}
             ${{ steps.image.outputs.image }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
