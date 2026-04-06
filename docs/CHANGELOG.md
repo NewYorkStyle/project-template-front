@@ -1,3 +1,5 @@
+## [2.16.3](https://github.com/NewYorkStyle/project-template-front/compare/v2.16.2...v2.16.3) (2026-04-06)
+
 ## [2.16.2](https://github.com/NewYorkStyle/project-template-front/compare/v2.16.1...v2.16.2) (2026-04-06)
 
 ## [2.16.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.16.0...v2.16.1) (2026-04-05)
