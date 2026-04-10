@@ -1,3 +1,9 @@
+## [2.17.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.16.13...v2.17.0) (2026-04-10)
+
+### Features
+
+* PROJECTTEMPLATE-63 Переход с мок апи для e2e тестов на реальный ([#76](https://github.com/NewYorkStyle/project-template-front/issues/76)) ([53e948c](https://github.com/NewYorkStyle/project-template-front/commit/53e948c2bbdc2a209fa05cf6839a2d4dbfe2d2eb))
+
 ## [2.16.13](https://github.com/NewYorkStyle/project-template-front/compare/v2.16.12...v2.16.13) (2026-04-06)
 
 ## [2.16.12](https://github.com/NewYorkStyle/project-template-front/compare/v2.16.11...v2.16.12) (2026-04-06)
