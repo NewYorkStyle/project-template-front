@@ -5,7 +5,6 @@
 - Если меняешь поведение своей логики — обнови/добавь unit-тест.
 - Не тестируй поведение Ant Design / `@new_york_style/project-template-ui` — тестируй свою интеграцию.
 - Для e2e используй page objects + fixtures, избегай “сырых” селекторов.
-- Большие mock-ответы выноси в общие handlers/data.
 
 ## Как использовать AI
 
@@ -28,7 +27,8 @@ AI обязан добавлять/обновлять тесты при изме
 
 - Конфиг: **`playwright.config.ts`**, тесты: **`e2e/tests/`** (например `e2e/tests/auth/auth-sucsessul.spec.ts`).
 - **Page objects**: `e2e/pages/` (`BasePage`, `AuthPage`, `HomePage`, `ProfilePage` и т.д.) — наследование от `e2e/pages/base/base-page.ts`.
-- **Fixtures**: `e2e/fixtures/index.ts` — расширение `test` с `authPage`, `homePage`, `profilePage`, `testUsers`, вызов `setupAllMocks(page)`.
+- **Fixtures**: `e2e/fixtures/index.ts` — расширение `test` с `authPage`, `homePage`, `profilePage`, `testUser`, подготовка пользователя через test API backend.
+- **Изоляция сессии**: перед/после каждого теста очищать cookies через `context.clearCookies()`, использовать `test.use({ storageState: { cookies: [], origins: [] } })`.
 
 ### AI должен
 
@@ -37,16 +37,16 @@ AI обязан добавлять/обновлять тесты при изме
 
 ---
 
-## Моки E2E
+## Test API для E2E
 
-- Реализация: `e2e/mocks/handlers/` (`auth.ts`, `user.ts`, `params.ts`), агрегатор `all-handlers.ts` → `setupAllMocks`.
-- Тестовые пользователи: `e2e/shared/data` / реэкспорт в `e2e/shared`.
-
-Правило: не хардкодить большие JSON в spec — выносить в общие моки и данные; переиспользовать существующие хендлеры.
+- E2E работают через реальный backend и test endpoints (`/test/create-user`, `/test/grant-permissions`, `/test/delete-user`).
+- Подготовку/очистку данных делать через helper'ы (`e2e/shared/test-api.ts`), не через route interception.
+- Для OTP в test-окружении использовать фиксированный код `123456`.
 
 ## Чек-лист
 
 - [ ] Изменение поведения покрыто unit-тестом (если затрагивает логику).
 - [ ] E2E использует page objects/fixtures и стабильные `data-testid`.
-- [ ] Моки вынесены в `e2e/mocks/handlers` и переиспользуются.
+- [ ] E2E не используют моки API и route interception.
+- [ ] Между e2e-тестами не протекает сессия (cookies/storage state очищаются).
 

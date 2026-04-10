@@ -1,4 +1,6 @@
-﻿.fullLayout {
+﻿@use '@/shared/styles/variables' as *;
+
+.fullLayout {
   .content {
     height: calc(100vh - 64px);
 

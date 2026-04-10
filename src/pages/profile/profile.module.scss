@@ -1,4 +1,6 @@
-﻿.root {
+﻿@use '@/shared/styles/variables' as *;
+
+.root {
   padding: $spacing-sm;
   height: 100%;
   overflow: auto;

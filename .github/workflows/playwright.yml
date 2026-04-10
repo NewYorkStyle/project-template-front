@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     name: Run e2e Tests
-    timeout-minutes: 60
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,10 +27,30 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
+      - name: Start backend + DB
+        run: docker compose -f docker-compose.e2e.yml up -d
+
+      - name: Wait for backend
+        run: |
+          MAX_SECONDS=120
+          end=$((SECONDS+MAX_SECONDS))
+          until curl --fail --max-time 2 http://localhost:3000/health; do
+            if [ $SECONDS -ge $end ]; then
+              echo "❌ Backend did not become ready in ${MAX_SECONDS}s" >&2
+              docker compose -f docker-compose.e2e.yml logs
+              exit 1
+            fi
+            echo "⏳ Waiting for backend... ($((end - SECONDS))s remaining)"
+            sleep 2
+          done
+          echo "✅ Backend is healthy!"
+
       - name: Run selective Playwright tests
         run: pnpm run e2e:changed
         env:
           CI: true
+          NODE_ENV: test
+          VITE_API_URL: http://localhost:3000
 
       - name: Generate Allure Report
         if: always()
@@ -44,6 +64,10 @@ jobs:
           name: allure-report
           path: allure-report/
           retention-days: 30
+
+      - name: Stop containers
+        if: always()
+        run: docker compose -f docker-compose.e2e.yml down -v
 
   deploy-allure:
     name: Deploy Allure Report

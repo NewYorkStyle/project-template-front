@@ -13,6 +13,7 @@ node_modules
 
 # generated
 src/app/styles
+src/shared/styles
 
 # Playwright
 /test-results/

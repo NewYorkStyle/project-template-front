@@ -9,22 +9,22 @@
 ## Как использовать AI
 
 - Если задача про дизайн-токены/глобальные стили — начни с `tools/generators/generate-global-scss.ts`.
-- Если задача про **доступность SCSS-переменных в модулях** без ручного `@import` в каждом файле — смотри **`vite.config.ts`** (корень репозитория): `css.preprocessorOptions.scss` (`loadPaths`, `additionalData`). Правки этого файла по задаче про токены/SCSS — нормальная зона работ, не «нарушение scope» (см. [rules.md](./rules.md)).
+- Если задача про **использование токенов в `*.module.scss`** — см. [styles.md](./styles.md): явный `@use '@/shared/styles/variables' as *;` в начале файла. При необходимости общего препроцессинга для всех SCSS (например `additionalData`) правки **`vite.config.ts`** допустимы и не считаются «нарушением scope» для задачи про стили (см. [rules.md](./rules.md)); в текущем репозитории глобальный инжект SCSS **не настроен**.
 
 Перед ручным кодом **проверить** содержимое `tools/`. Сейчас в репозитории:
 
 | Инструмент                                 | Назначение                                                                                                                                      |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tools/generators/generate-global-scss.ts` | Генерация `src/app/styles/variables.scss` и `src/app/styles/global.scss` из `src/shared/lib/constants/design-tokens.ts`                         |
-| [`vite.config.ts`](../../vite.config.ts) (корень) | Инжект `@use "app/styles/variables" as *` во все `.scss`, кроме самих `variables.scss` и `global.scss`; `loadPaths` указывает на `src/` |
+| `tools/generators/generate-global-scss.ts` | Генерация **`src/shared/styles/variables.scss`** (SCSS-переменные) и **`src/app/styles/global.scss`** (сброс, CSS variables для тем) из `src/shared/lib/constants/design-tokens.ts` |
+| [`vite.config.ts`](../../vite.config.ts) (корень) | Алиасы `@`, `@shared` и др. для разрешения путей в импортах (в т.ч. `@use` в SCSS через Vite); опционально — `css.preprocessorOptions.scss`, если понадобится единый префикс для всех `.scss` |
 
 Скрипт: `pnpm generate:tokens` → запускает генератор SCSS (также вызывается из `dev` / `build`).
 
 ### Правила
 
 - Не дублировать логику генерации токенов вручную в других скриптах.
-- Не дублировать логику инжекта переменных отдельными лоадерами вне `vite.config.ts` без необходимости.
-- Если поведения не хватает — **расширять** существующий генератор или функцию `scssAdditionalData` в Vite, а не создавать параллельный пайплайн.
+- Не плодить отдельные пайплайны инжекта переменных в обход генератора и Vite без необходимости.
+- Если поведения не хватает — **расширять** существующий генератор и/или `vite.config.ts` (`css.preprocessorOptions.scss`), а не создавать параллельный обходной путь.
 
 Примечание: каталог `tools/**` в ESLint игнорируется отдельными правилами; при добавлении кода в `tools` ориентируйтесь на стиль соседних файлов.
 

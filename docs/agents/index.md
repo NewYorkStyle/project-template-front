@@ -36,8 +36,8 @@
 - [api.md](./api.md) — Orval, generated hooks, DTO/zod, паттерны вызовов
 - [forms.md](./forms.md) — react-hook-form + zod, схемы и типы, локализация
 - [state.md](./state.md) — MobX vs React Query
-- [testing.md](./testing.md) — unit (Vitest/RTL) + e2e (Playwright), page objects, mocks
-- [tools.md](./tools.md) — `tools/` генераторы и настройка глобальных SCSS (Vite)
+- [testing.md](./testing.md) — unit (Vitest/RTL) + e2e (Playwright), page objects, test API backend
+- [tools.md](./tools.md) — `tools/` генераторы SCSS из токенов, при необходимости — Vite (`css.preprocessorOptions.scss`)
 - [rules.md](./rules.md) — ограничения, антипаттерны, правила выбора
 - [definition-of-done.md](./definition-of-done.md) — DoD / Definition of Done
 
