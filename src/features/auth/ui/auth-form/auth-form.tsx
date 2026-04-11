@@ -2,7 +2,13 @@ import {Flex, Spin} from '@new_york_style/project-template-ui';
 import {useIsMutating} from '@tanstack/react-query';
 import {useTranslation} from 'react-i18next';
 
-import {E_METRICS_NAMESPACES, Tabs, type TTabItem, Typography} from '@shared';
+import {
+  E_METRICS_NAMESPACES,
+  Tabs,
+  TEST_IDS,
+  type TTabItem,
+  Typography,
+} from '@shared';
 
 import packageJson from '../../../../../package.json';
 import {SignIn} from '../sign-in';
@@ -26,13 +32,21 @@ export const AuthForm = () => {
       analyticsLabel: 'SignIn',
       children: <SignIn />,
       key: 'sign-in',
-      label: t('Authentication.SignIn.Label'),
+      label: (
+        <span data-testid={TEST_IDS.AUTH.TAB_LOGIN}>
+          {t('Authentication.SignIn.Label')}
+        </span>
+      ),
     },
     {
       analyticsLabel: 'SignUp',
       children: <SignUp />,
       key: 'sign-up',
-      label: t('Authentication.SignUp.Label'),
+      label: (
+        <span data-testid={TEST_IDS.AUTH.TAB_REGISTER}>
+          {t('Authentication.SignUp.Label')}
+        </span>
+      ),
     },
   ];
 

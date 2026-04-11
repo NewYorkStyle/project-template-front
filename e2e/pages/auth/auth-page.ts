@@ -1,24 +1,26 @@
-import {type Page, type Locator, expect} from '@playwright/test';
+import {type Page, type Locator} from '@playwright/test';
 
-import {TEST_IDS, APP_ROUTES} from '../../shared';
+import {APP_ROUTES, TEST_IDS} from '../../shared';
 import {BasePage} from '../base';
 
+import {LoginForm, RegisterForm} from './components';
+
 export class AuthPage extends BasePage {
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly signInButton: Locator;
+  readonly loginForm: LoginForm;
+  readonly loginTab: Locator;
+  readonly registerForm: RegisterForm;
+  readonly registerTab: Locator;
 
   constructor(page: Page) {
     super(page);
 
-    this.usernameInput = this.page.locator(
-      `[data-testid="${TEST_IDS.AUTH.USER_NAME}"]`
+    this.loginForm = new LoginForm(page);
+    this.registerForm = new RegisterForm(page);
+    this.loginTab = this.page.locator(
+      `[data-testid="${TEST_IDS.AUTH.TAB_LOGIN}"]`
     );
-    this.passwordInput = this.page.locator(
-      `[data-testid="${TEST_IDS.AUTH.PASSWORD}"]`
-    );
-    this.signInButton = this.page.locator(
-      `[data-testid="${TEST_IDS.AUTH.SIGN_IN}"]`
+    this.registerTab = this.page.locator(
+      `[data-testid="${TEST_IDS.AUTH.TAB_REGISTER}"]`
     );
   }
 
@@ -27,27 +29,17 @@ export class AuthPage extends BasePage {
       waitUntil: 'domcontentloaded',
     });
 
-    await this.waitForAuthForm();
+    await this.switchToLogin();
   }
 
-  async waitForAuthForm(): Promise<void> {
-    await expect(this.usernameInput).toBeVisible();
-    await expect(this.passwordInput).toBeVisible();
-    await expect(this.signInButton).toBeVisible();
+  async switchToLogin(): Promise<void> {
+    await this.loginTab.click();
+    await this.loginForm.waitForVisible();
   }
 
-  async fillCredentials(username: string, password: string): Promise<void> {
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill(password);
-  }
-
-  async submit(): Promise<void> {
-    await this.signInButton.click();
-  }
-
-  async login(username: string, password: string): Promise<void> {
-    await this.fillCredentials(username, password);
-    await this.submit();
+  async switchToRegister(): Promise<void> {
+    await this.registerTab.click();
+    await this.registerForm.waitForVisible();
   }
 
   isOnAuthPage(): boolean {

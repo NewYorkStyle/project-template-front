@@ -18,8 +18,11 @@ test('Успешная авторизация и верификация email ч
 
   await allure.step('Пройти авторизацию', async () => {
     await authPage.open();
-    await authPage.fillCredentials(testUser.username, testUser.password);
-    await authPage.submit();
+    await authPage.loginForm.fillCredentials(
+      testUser.username,
+      testUser.password
+    );
+    await authPage.loginForm.submit();
     await profilePage.page.waitForURL(`**${APP_ROUTES.HOME.ROOT}**`, {
       waitUntil: 'domcontentloaded',
     });
