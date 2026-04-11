@@ -23,3 +23,6 @@ src/shared/styles
 /playwright/.auth/
 allure-results
 playwright-report
+
+# Settings
+.qwen

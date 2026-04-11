@@ -7,8 +7,14 @@ export const createSignInSchema = (t: TFunction) =>
   AuthControllerSignInBody.extend({
     password: z
       .string()
-      .min(1, {message: t('Authentication.SignIn.PasswordRequired')}),
+      .min(1, {message: t('Authentication.SignIn.PasswordRequired')})
+      .refine((val) => val.trim().length > 0, {
+        message: t('Authentication.SignIn.PasswordRequired'),
+      }),
     username: z
       .string()
-      .min(1, {message: t('Authentication.SignIn.LoginRequired')}),
+      .min(1, {message: t('Authentication.SignIn.LoginRequired')})
+      .refine((val) => val.trim().length > 0, {
+        message: t('Authentication.SignIn.LoginRequired'),
+      }),
   });

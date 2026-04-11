@@ -1,7 +1,19 @@
 const AUTH = {
+  EMAIL: 'email',
   PASSWORD: 'password',
+  PASSWORD_CONFIRM: 'password-confirm',
   SIGN_IN: 'sign-in',
+  SIGN_UP: 'sign-up',
+  TAB_LOGIN: 'tab-login',
+  TAB_REGISTER: 'tab-register',
   USER_NAME: 'user-name',
+};
+
+const REGISTER = {
+  EMAIL: 'register-email',
+  PASSWORD: 'register-password',
+  PASSWORD_CONFIRM: 'register-password-confirm',
+  USER_NAME: 'register-user-name',
 };
 
 const OTP = {
@@ -19,5 +31,6 @@ const USER = {
 export const TEST_IDS = {
   AUTH,
   OTP,
+  REGISTER,
   USER,
 };

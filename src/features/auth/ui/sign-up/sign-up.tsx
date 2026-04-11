@@ -11,6 +11,7 @@ import {
   APP_ROUTES,
   Button,
   E_METRICS_NAMESPACES,
+  TEST_IDS,
   Typography,
   notificationService,
   useWindowSize,
@@ -76,10 +77,16 @@ export const SignUp = () => {
         disabled={isLoading}
       >
         <FormItem control={control} name='username'>
-          <Input placeholder={t('Authentication.SignUp.LoginPlaceholder')} />
+          <Input
+            placeholder={t('Authentication.SignUp.LoginPlaceholder')}
+            data-testid={TEST_IDS.REGISTER.USER_NAME}
+          />
         </FormItem>
         <FormItem control={control} name='email'>
-          <Input placeholder={t('Authentication.SignUp.EmailPlaceholder')} />
+          <Input
+            placeholder={t('Authentication.SignUp.EmailPlaceholder')}
+            data-testid={TEST_IDS.REGISTER.EMAIL}
+          />
         </FormItem>
         <Popover
           trigger='focus'
@@ -128,6 +135,7 @@ export const SignUp = () => {
             <Input.Password
               visibilityToggle
               placeholder={t('Authentication.SignUp.PasswordPlaceholder')}
+              data-testid={TEST_IDS.REGISTER.PASSWORD}
             />
           </FormItem>
         </Popover>
@@ -136,6 +144,7 @@ export const SignUp = () => {
           <Input.Password
             visibilityToggle
             placeholder={t('Authentication.SignUp.PasswordConfirmPlaceholder')}
+            data-testid={TEST_IDS.REGISTER.PASSWORD_CONFIRM}
           />
         </FormItem>
         <Form.Item noStyle>
@@ -147,6 +156,7 @@ export const SignUp = () => {
             }}
             htmlType='submit'
             loading={isLoading}
+            data-testid={TEST_IDS.AUTH.SIGN_UP}
           >
             {t('Authentication.SignUp.Label')}
           </Button>
