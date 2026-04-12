@@ -9,9 +9,9 @@ export type TFixtures = {
   homePage: HomePage;
   profilePage: ProfilePage;
   testUser: TCreatedTestUser;
+  createdUserIds: string[];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function waitForAppReady(page: any) {
   await page.waitForLoadState('networkidle');
   await page.waitForSelector('body', {state: 'attached'});
@@ -24,18 +24,15 @@ export const test = base.extend<TFixtures>({
   },
 
   authPage: async ({page}, use) => {
-    const authPage = new AuthPage(page);
-    await use(authPage);
+    await use(new AuthPage(page));
   },
 
   homePage: async ({page}, use) => {
-    const homePage = new HomePage(page);
-    await use(homePage);
+    await use(new HomePage(page));
   },
 
   profilePage: async ({page}, use) => {
-    const profilePage = new ProfilePage(page);
-    await use(profilePage);
+    await use(new ProfilePage(page));
   },
 
   testUser: async ({request}, use) => {
@@ -44,7 +41,23 @@ export const test = base.extend<TFixtures>({
     try {
       await use(user);
     } finally {
-      await deleteTestUser(request, user.email);
+      await deleteTestUser(request, user.id);
+    }
+  },
+
+  createdUserIds: async ({request}, use) => {
+    const ids: string[] = [];
+
+    try {
+      await use(ids);
+    } finally {
+      for (const id of ids) {
+        try {
+          await deleteTestUser(request, id);
+        } catch (e) {
+          console.warn(`Не удалось удалить пользователя: ${id}`);
+        }
+      }
     }
   },
 });

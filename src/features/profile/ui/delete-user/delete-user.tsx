@@ -4,13 +4,14 @@ import {useQueryClient} from '@tanstack/react-query';
 import {useForm} from 'react-hook-form';
 import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
-import {useNavigate} from 'react-router';
+import {useNavigate} from 'react-router-dom';
 
 import {useAuth} from '@entities';
 import {
   APP_ROUTES,
   Button,
   E_METRICS_NAMESPACES,
+  TEST_IDS,
   Typography,
   authStorage,
   designTokens,
@@ -47,7 +48,11 @@ export const DeleteUser = () => {
 
   const onSubmit = (values: TDeleteUserFormValues) => {
     openModal({
+      bodyProps: {
+        'data-testid': TEST_IDS.USER.DELETE_MODAL,
+      },
       cancelButtonProps: {
+        'data-testid': TEST_IDS.USER.DELETE_MODAL_CANCEL,
         analyticProps: {
           label: 'Delete profile cancel',
           namespace: E_METRICS_NAMESPACES.USER,
@@ -56,6 +61,7 @@ export const DeleteUser = () => {
       content: t('Profile.Delete.ConfirmationDialog.Content'),
       id: 'user-delete-modal',
       okButtonProps: {
+        'data-testid': TEST_IDS.USER.DELETE_MODAL_CONFIRM,
         analyticProps: {
           label: 'Delete profile confirm',
           namespace: E_METRICS_NAMESPACES.USER,
@@ -81,7 +87,7 @@ export const DeleteUser = () => {
   });
 
   return (
-    <Form onFinish={() => void handleSubmit(onSubmit)()}>
+    <Form onFinish={handleSubmit(onSubmit)}>
       <Typography.Title level={4}>
         {t('Profile.Delete.Header')}
       </Typography.Title>
@@ -94,6 +100,7 @@ export const DeleteUser = () => {
           <Input.Password
             className={style.input}
             placeholder={t('Profile.Delete.PasswordPlaceholder')}
+            data-testid={TEST_IDS.USER.DELETE_ACCOUNT_INPUT}
           />
         </FormItem>
         <Form.Item>
@@ -103,6 +110,7 @@ export const DeleteUser = () => {
             variant='solid'
             htmlType='submit'
             loading={isDeleting}
+            data-testid={TEST_IDS.USER.DELETE_ACCOUNT_BUTTON}
             analyticProps={{
               label: 'Delete profile button',
               namespace: E_METRICS_NAMESPACES.USER,

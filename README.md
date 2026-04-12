@@ -180,7 +180,7 @@ pnpm run e2e
 - Интеллектуальный выбор тестов (`e2e:changed`)
 - Скриншоты, видео и trace при падениях
 - Реальный backend через test API (`/test/create-user`, `/test/grant-permissions`, `/test/delete-user`)
-- Изоляция сессий между тестами (очистка cookies + пустой `storageState`)
+- Изоляция сессий между тестами (очистка cookies + пустой `storageState`; при сценариях с login/register учитывать `localStorage`, в т.ч. ключ `userId`)
 
 **Требования к окружению для E2E:**
 

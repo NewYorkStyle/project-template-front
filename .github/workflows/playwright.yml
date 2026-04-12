@@ -6,9 +6,15 @@ on:
 
 jobs:
   test:
-    name: Run e2e Tests
+    name: Run e2e Tests (${{ matrix.browser }})
     timeout-minutes: 30
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,6 +27,12 @@ jobs:
           node-version: lts/*
           cache: 'pnpm'
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -32,18 +44,17 @@ jobs:
 
       - name: Wait for backend
         run: |
-          MAX_SECONDS=120
-          end=$((SECONDS+MAX_SECONDS))
-          until curl --fail --max-time 2 http://localhost:3000/health; do
-            if [ $SECONDS -ge $end ]; then
-              echo "❌ Backend did not become ready in ${MAX_SECONDS}s" >&2
-              docker compose -f docker-compose.e2e.yml logs
-              exit 1
+          for i in {1..30}; do
+            if curl --fail --max-time 2 http://localhost:3000/health; then
+              echo "✅ Backend is healthy!"
+              exit 0
             fi
-            echo "⏳ Waiting for backend... ($((end - SECONDS))s remaining)"
+            echo "⏳ Waiting for backend..."
             sleep 2
           done
-          echo "✅ Backend is healthy!"
+          echo "❌ Backend did not become ready in time" >&2
+          docker compose -f docker-compose.e2e.yml logs
+          exit 1
 
       - name: Run selective Playwright tests
         run: pnpm run e2e:changed
@@ -51,18 +62,14 @@ jobs:
           CI: true
           NODE_ENV: test
           VITE_API_URL: http://localhost:3000
+          PLAYWRIGHT_PROJECT: ${{ matrix.browser }}
 
-      - name: Generate Allure Report
-        if: always()
-        run: |
-          pnpm exec allure generate ./allure-results --clean
-
-      - name: Upload Allure Report
+      - name: Upload Allure Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
-          path: allure-report/
+          name: allure-results-${{ matrix.browser }}
+          path: allure-results/
           retention-days: 30
 
       - name: Stop containers
@@ -75,11 +82,33 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Download Allure Report
+      - uses: actions/checkout@v4
+
+      # Скачиваем ВСЕ результаты
+      - name: Download Allure Results
         uses: actions/download-artifact@v4
         with:
-          name: allure-report
-          path: ./downloaded-allure-report
+          path: ./allure-results
+
+      # Объединяем
+      - name: Merge Allure Results
+        run: |
+          mkdir merged-results
+          find allure-results -type f -exec cp {} merged-results/ \;
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Генерим один отчёт
+      - name: Generate Allure Report
+        run: pnpm exec allure generate ./merged-results --clean -o allure-report
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.8.0
@@ -88,15 +117,12 @@ jobs:
 
       - name: Deploy Allure Report to Server
         run: |
-          # Создаем папку с правильными правами
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
             "mkdir -p /home/deployer/allure-reports/pr-${{ github.event.number }} && chmod 755 /home/deployer/allure-reports/pr-${{ github.event.number }}"
 
-          # Копируем файлы
-          scp -o StrictHostKeyChecking=no -r ./downloaded-allure-report/* \
+          scp -o StrictHostKeyChecking=no -r ./allure-report/* \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/deployer/allure-reports/pr-${{ github.event.number }}/
 
-          # Фиксим права после копирования
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
             "chmod -R 755 /home/deployer/allure-reports/pr-${{ github.event.number }}/"
 

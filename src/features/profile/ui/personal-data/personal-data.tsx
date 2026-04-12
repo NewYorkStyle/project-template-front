@@ -216,7 +216,7 @@ export const PersonalData = () => {
               });
             }}
           >
-            <Input />
+            <Input data-testid={TEST_IDS.USER.SURNAME_INPUT} />
           </FormItem>
 
           <FormItem
@@ -233,7 +233,7 @@ export const PersonalData = () => {
               });
             }}
           >
-            <Input />
+            <Input data-testid={TEST_IDS.USER.NAME_INPUT} />
           </FormItem>
 
           <FormItem
@@ -250,7 +250,7 @@ export const PersonalData = () => {
               });
             }}
           >
-            <Input />
+            <Input data-testid={TEST_IDS.USER.PATRONYMIC_INPUT} />
           </FormItem>
         </Flex>
 
@@ -260,6 +260,7 @@ export const PersonalData = () => {
             htmlType='submit'
             disabled={!isPersonalDataFormChanged || isLoading}
             loading={isLoading}
+            data-testid={TEST_IDS.USER.FULL_NAME_SAVE_BUTTON}
             analyticProps={{
               label: 'Save button',
               namespace: E_METRICS_NAMESPACES.AUTH,
@@ -286,7 +287,7 @@ export const PersonalData = () => {
               label={t('Profile.PersonalData.ChangeEmail.Email')}
               labelCol={{className: style.label}}
             >
-              <Input />
+              <Input data-testid={TEST_IDS.USER.EMAIL_CHANGE_INPUT} />
             </FormItem>
           </Form>
 
