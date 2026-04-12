@@ -3,12 +3,12 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.4.0
+ * OpenAPI spec version: 1.5.6
  */
 import * as zod from 'zod';
 
 /**
- * Создаёт нового пользователя и отправляет в httpOnly cookie токены аутентификации, id юзера.
+ * Создаёт нового пользователя, ставит httpOnly cookie с токенами; идентификатор — только в теле JSON { userId }.
  * @summary Регистрация пользователя
  */
 export const AuthControllerSignUpBody = zod.object({
@@ -17,12 +17,12 @@ export const AuthControllerSignUpBody = zod.object({
   username: zod.string().describe('Unique username for new account'),
 });
 
-export const AuthControllerSignUpResponse = zod
-  .string()
-  .describe('Successful user registration message');
+export const AuthControllerSignUpResponse = zod.object({
+  userId: zod.uuid().describe('Идентификатор пользователя (UUID)'),
+});
 
 /**
- * Проверяет данные пользователя и отправляет в httpOnly cookie токены аутентификации, id юзера.
+ * Проверяет данные пользователя, ставит httpOnly cookie с токенами; идентификатор — только в теле JSON { userId }.
  * @summary Вход пользователя в систему.
  */
 export const AuthControllerSignInBody = zod.object({
@@ -30,9 +30,9 @@ export const AuthControllerSignInBody = zod.object({
   username: zod.string().describe('Unique username for sign in'),
 });
 
-export const AuthControllerSignInResponse = zod
-  .string()
-  .describe('Successful sign in message');
+export const AuthControllerSignInResponse = zod.object({
+  userId: zod.uuid().describe('Идентификатор пользователя (UUID)'),
+});
 
 /**
  * Сбрасывает текущую сессию юзера, чистит токены.

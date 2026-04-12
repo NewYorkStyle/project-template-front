@@ -9,6 +9,7 @@ import {useNavigate} from 'react-router-dom';
 import {useAuth} from '@entities';
 import {
   APP_ROUTES,
+  authStorage,
   Button,
   E_METRICS_NAMESPACES,
   TEST_IDS,
@@ -29,7 +30,10 @@ export const SignIn = () => {
 
   const {isPending: isLoading, mutate: signIn} = useAuthControllerSignIn({
     mutation: {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        if (typeof data?.userId === 'string') {
+          authStorage.setUserId(data.userId);
+        }
         setUserLogged(true);
         queryClient.invalidateQueries({queryKey: ['permissions']});
         navigate(APP_ROUTES.HOME.ROOT, {replace: true});

@@ -3,10 +3,10 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.4.0
+ * OpenAPI spec version: 1.5.6
  */
 
 /**
- * Successful sign in message
+ * Пользователь удалён
  */
-export type SignInOkResponseDto = string;
+export type TestDeleteUserOkResponseDto = string;

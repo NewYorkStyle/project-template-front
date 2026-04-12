@@ -1,3 +1,4 @@
+export * from './auth-storage';
 export * from './constants';
 export * from './i18n';
 export * from './metrics';

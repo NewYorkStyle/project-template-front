@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.5.6
  */
 
-/**
- * OTP generation and sending confirmation
- */
-export type OtpSentOkResponseDto = string;
+export interface TestDeleteUserDto {
+  /** Идентификатор пользователя для удаления (UUID) */
+  userId: string;
+}

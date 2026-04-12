@@ -38,6 +38,12 @@
 - Generated hooks (Orval): `src/shared/api/generated/endpoints/auth.ts` — `useAuthControllerSignIn`, `useAuthControllerSignUp`, `useAuthControllerLogout`, ...
 - `src/features/auth/ui/sign-in/sign-in.tsx` — использование `useAuthControllerSignIn`
 
+### Авторизация и `userId`
+
+- Успешные ответы **sign-in / sign-up** (DTO `AuthSignOkResponseDto` в `generated/model`) содержат **`userId`** в теле JSON; токены сессии — в **httpOnly** cookies (фронт их не читает).
+- Для клиентской логики и тестов **`userId` хранится только в `localStorage`** через **`authStorage`** (`src/shared/lib/authStorage.ts`: `setUserId` после успешной мутации, `clear` при logout и при `setOnLogout` в axios interceptor).
+- Не читать и не очищать `userId` через `js-cookie` / `document.cookie`.
+
 ## Чек-лист
 
 - [ ] Нет импортов/вызовов `api` из `@shared`.
