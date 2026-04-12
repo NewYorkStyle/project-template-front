@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.5.6
  */
 
-/**
- * OTP generation and sending confirmation
- */
-export type OtpSentOkResponseDto = string;
+export interface AuthSignOkResponseDto {
+  /** Идентификатор пользователя (UUID) */
+  userId: string;
+}

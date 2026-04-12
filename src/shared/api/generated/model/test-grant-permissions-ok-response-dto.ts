@@ -3,10 +3,10 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.4.0
+ * OpenAPI spec version: 1.5.6
  */
 
 /**
- * Successful user registration message
+ * Права выданы
  */
-export type SignUpOkResponseDto = string;
+export type TestGrantPermissionsOkResponseDto = string;

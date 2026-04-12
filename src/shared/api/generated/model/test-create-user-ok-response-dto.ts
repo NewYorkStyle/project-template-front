@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.5.6
  */
 
-export interface OtpBodyDto {
-  /** One-time password code from email */
-  otp: string;
+export interface TestCreateUserOkResponseDto {
+  /** Идентификатор созданного пользователя (UUID) */
+  userId: string;
 }

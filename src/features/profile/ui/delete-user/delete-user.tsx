@@ -1,13 +1,18 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Flex, Form, Input} from '@new_york_style/project-template-ui';
+import {useQueryClient} from '@tanstack/react-query';
 import {useForm} from 'react-hook-form';
 import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router';
 
+import {useAuth} from '@entities';
 import {
+  APP_ROUTES,
   Button,
   E_METRICS_NAMESPACES,
   Typography,
+  authStorage,
   designTokens,
   useModal,
 } from '@shared';
@@ -22,9 +27,23 @@ export const DeleteUser = () => {
   const {t} = useTranslation('User');
   const {closeModal, openModal} = useModal();
   const deleteUserSchema = createDeleteUserSchema(t);
+  const navigate = useNavigate();
+  const {setUserLogged} = useAuth();
+  const queryClient = useQueryClient();
 
   const {isPending: isDeleting, mutate: deleteProfile} =
-    useUsersControllerRemove();
+    useUsersControllerRemove({
+      mutation: {
+        onSuccess: () => {
+          authStorage.clear();
+          setUserLogged(false);
+          queryClient.clear();
+
+          closeModal('user-delete-modal');
+          navigate(APP_ROUTES.AUTH.ROOT, {replace: true});
+        },
+      },
+    });
 
   const onSubmit = (values: TDeleteUserFormValues) => {
     openModal({

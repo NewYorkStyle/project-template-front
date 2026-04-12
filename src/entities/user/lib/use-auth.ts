@@ -2,6 +2,8 @@ import {useState, useEffect, useCallback} from 'react';
 
 import Cookies from 'js-cookie';
 
+import {authStorage} from '@shared';
+
 export const useAuth = () => {
   const [isUserLogged, setIsUserLogged] = useState<boolean>(
     () => Cookies.get('isUserLoggedIn') === 'true'
@@ -28,8 +30,8 @@ export const useAuth = () => {
     setIsUserLogged(false);
     Cookies.remove('refreshToken');
     Cookies.remove('accessToken');
-    Cookies.remove('userId');
     Cookies.remove('isUserLoggedIn');
+    authStorage.clear();
   }, []);
 
   return {

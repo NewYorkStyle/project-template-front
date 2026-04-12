@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.4.0
+ * OpenAPI spec version: 1.5.6
  */
 import type {HealthControllerCheck503Details} from './health-controller-check503-details';
 import type {HealthControllerCheck503Error} from './health-controller-check503-error';

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.4.0
+ * OpenAPI spec version: 1.5.6
  */
 import {useMutation, useQuery} from '@tanstack/react-query';
 import type {
@@ -22,25 +22,24 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AuthSignOkResponseDto,
   LogoutOkResponseDto,
   RefreshOkResponseDto,
   SignInDto,
-  SignInOkResponseDto,
   SignUpDto,
-  SignUpOkResponseDto,
 } from '../model';
 
 import {request} from '../../client/instance';
 
 /**
- * Создаёт нового пользователя и отправляет в httpOnly cookie токены аутентификации, id юзера.
+ * Создаёт нового пользователя, ставит httpOnly cookie с токенами; идентификатор — только в теле JSON { userId }.
  * @summary Регистрация пользователя
  */
 export const authControllerSignUp = (
   signUpDto: SignUpDto,
   signal?: AbortSignal
 ) => {
-  return request<SignUpOkResponseDto>({
+  return request<AuthSignOkResponseDto>({
     url: `/auth/signUp`,
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -117,14 +116,14 @@ export const useAuthControllerSignUp = <TError = unknown, TContext = unknown>(
   );
 };
 /**
- * Проверяет данные пользователя и отправляет в httpOnly cookie токены аутентификации, id юзера.
+ * Проверяет данные пользователя, ставит httpOnly cookie с токенами; идентификатор — только в теле JSON { userId }.
  * @summary Вход пользователя в систему.
  */
 export const authControllerSignIn = (
   signInDto: SignInDto,
   signal?: AbortSignal
 ) => {
-  return request<SignInOkResponseDto>({
+  return request<AuthSignOkResponseDto>({
     url: `/auth/signIn`,
     method: 'POST',
     headers: {'Content-Type': 'application/json'},

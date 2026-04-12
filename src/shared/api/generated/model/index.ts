@@ -3,10 +3,11 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.4.0
+ * OpenAPI spec version: 1.5.6
  */
 
 export * from './app-params-dto';
+export * from './auth-sign-ok-response-dto';
 export * from './change-password-dto';
 export * from './change-password-ok-response-dto';
 export * from './delete-user-dto';
@@ -38,9 +39,14 @@ export * from './otp-verified-ok-response-dto';
 export * from './permission-names-dto';
 export * from './refresh-ok-response-dto';
 export * from './sign-in-dto';
-export * from './sign-in-ok-response-dto';
 export * from './sign-up-dto';
-export * from './sign-up-ok-response-dto';
+export * from './test-create-user-dto';
+export * from './test-create-user-ok-response-dto';
+export * from './test-delete-user-dto';
+export * from './test-delete-user-ok-response-dto';
+export * from './test-grant-permissions-dto-permissions-item';
+export * from './test-grant-permissions-dto';
+export * from './test-grant-permissions-ok-response-dto';
 export * from './update-user-dto';
 export * from './user-profile-dto';
 export * from './user-update-result-dto';
