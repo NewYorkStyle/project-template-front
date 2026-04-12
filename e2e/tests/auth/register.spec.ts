@@ -1,12 +1,13 @@
 import * as allure from 'allure-js-commons';
 
 import {test, expect} from '../../fixtures';
-import {APP_ROUTES} from '../../shared';
+import {APP_ROUTES, getUserIdFromPage, makeE2eShortToken} from '../../shared';
 
 test.describe('Регистрация', () => {
   test.describe('Успешная регистрация', () => {
     test('Успешная регистрация нового пользователя @register', async ({
       authPage,
+      createdUserIds,
       page,
     }) => {
       await allure.displayName('Успешная регистрация нового пользователя');
@@ -15,17 +16,9 @@ test.describe('Регистрация', () => {
       await allure.story('Успешная регистрация');
       await allure.severity('critical');
 
-      await page.route(/\/auth\/signUp$/, async (route) => {
-        await route.fulfill({
-          body: JSON.stringify('mock-token'),
-          contentType: 'application/json',
-          status: 201,
-        });
-      });
-
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-      const username = `e2e_new_${uniqueId}`;
-      const email = `e2e_${uniqueId}@example.com`;
+      const token = makeE2eShortToken();
+      const username = `e2e_${token}`;
+      const email = `e2e_${token}@example.com`;
       const password = 'StrongPass1';
 
       await authPage.open();
@@ -38,6 +31,12 @@ test.describe('Регистрация', () => {
       });
 
       await expect(page).toHaveURL(new RegExp(APP_ROUTES.HOME.ROOT));
+
+      await expect.poll(() => getUserIdFromPage(page)).not.toBeNull();
+
+      const userId = await getUserIdFromPage(page);
+      expect(userId).toBeTruthy();
+      createdUserIds.push(userId!);
     });
   });
 
@@ -78,10 +77,10 @@ test.describe('Регистрация', () => {
       await allure.story('Существующий username');
       await allure.severity('critical');
 
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const token = makeE2eShortToken();
 
       await authPage.registerForm.fillForm({
-        email: `e2e_${uniqueId}@example.com`,
+        email: `e2e_${token}@example.com`,
         password: 'StrongPass1',
         passwordConfirm: 'StrongPass1',
         username: testUser.username,
@@ -98,13 +97,13 @@ test.describe('Регистрация', () => {
       await allure.story('Слабый пароль');
       await allure.severity('normal');
 
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const token = makeE2eShortToken();
 
       await authPage.registerForm.fillForm({
-        email: `e2e_${uniqueId}@example.com`,
+        email: `e2e_${token}@example.com`,
         password: 'weak',
         passwordConfirm: 'weak',
-        username: `user_${uniqueId}`,
+        username: `u_${token}`,
       });
       await authPage.registerForm.submit();
 
@@ -121,13 +120,13 @@ test.describe('Регистрация', () => {
       await allure.story('Несовпадение паролей');
       await allure.severity('normal');
 
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const token = makeE2eShortToken();
 
       await authPage.registerForm.fillForm({
-        email: `e2e_${uniqueId}@example.com`,
+        email: `e2e_${token}@example.com`,
         password: 'StrongPass1',
         passwordConfirm: 'StrongPass2',
-        username: `user_${uniqueId}`,
+        username: `u_${token}`,
       });
       await authPage.registerForm.submit();
 
@@ -178,13 +177,13 @@ test.describe('Регистрация', () => {
       await allure.story('Валидация email');
       await allure.severity('normal');
 
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const token = makeE2eShortToken();
 
       await authPage.registerForm.fillForm({
         email: 'invalid-email',
         password: 'StrongPass1',
         passwordConfirm: 'StrongPass1',
-        username: `user_${uniqueId}`,
+        username: `u_${token}`,
       });
       await authPage.registerForm.submit();
 
@@ -210,10 +209,10 @@ test.describe('Регистрация', () => {
         'Пожалуйста, введите свою почту!'
       );
 
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const token = makeE2eShortToken();
 
       await authPage.registerForm.fillForm({
-        email: `e2e_${uniqueId}@example.com`,
+        email: `e2e_${token}@example.com`,
       });
       await authPage.registerForm.emailInput.blur();
 
@@ -248,9 +247,9 @@ test.describe('Регистрация', () => {
         'Пожалуйста, введите свой логин!'
       );
 
-      const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-      const username = `e2e_fix_${uniqueId}`;
-      const email = `e2e_${uniqueId}@example.com`;
+      const token = makeE2eShortToken();
+      const username = `e2e_${token}`;
+      const email = `e2e_${token}@example.com`;
       const password = 'StrongPass1';
 
       await authPage.registerForm.register({

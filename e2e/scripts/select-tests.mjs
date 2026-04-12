@@ -5,6 +5,9 @@ import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const project = process.env.PLAYWRIGHT_PROJECT;
+
+const withProject = (cmd) => (project ? `${cmd} --project=${project}` : cmd);
 
 const getChangedFiles = () => {
   try {
@@ -113,7 +116,7 @@ const main = () => {
       affectedTags.has('@common')
     ) {
       console.log('🔀 Shared files changed - running ALL tests');
-      command = 'pnpm exec playwright test';
+      command = withProject('pnpm exec playwright test');
     } else if (affectedTags.size > 0) {
       const tags = Array.from(affectedTags).join('|');
       console.log(`🎯 Running tests with tags: ${tags}`);

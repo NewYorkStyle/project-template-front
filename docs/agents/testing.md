@@ -28,7 +28,7 @@ AI обязан добавлять/обновлять тесты при изме
 - Конфиг: **`playwright.config.ts`**, тесты: **`e2e/tests/`** (например `e2e/tests/auth/auth-sucsessul.spec.ts`).
 - **Page objects**: `e2e/pages/` (`BasePage`, `AuthPage`, `HomePage`, `ProfilePage` и т.д.) — наследование от `e2e/pages/base/base-page.ts`.
 - **Fixtures**: `e2e/fixtures/index.ts` — расширение `test` с `authPage`, `homePage`, `profilePage`, `testUser`, подготовка пользователя через test API backend.
-- **Изоляция сессии**: перед/после каждого теста очищать cookies через `context.clearCookies()`, использовать `test.use({ storageState: { cookies: [], origins: [] } })`.
+- **Изоляция сессии**: перед/после каждого теста очищать cookies через `context.clearCookies()`, использовать `test.use({ storageState: { cookies: [], origins: [] } })` (при необходимости учитывать **`localStorage`**, например ключ `userId` после login/register в браузере).
 
 ### AI должен
 
@@ -40,7 +40,7 @@ AI обязан добавлять/обновлять тесты при изме
 ## Test API для E2E
 
 - E2E работают через реальный backend и test endpoints (`/test/create-user`, `/test/grant-permissions`, `/test/delete-user`).
-- Подготовку/очистку данных делать через helper'ы (`e2e/shared/test-api.ts`), не через route interception.
+- Подготовку/очистку данных делать через helper'ы (`e2e/shared/test-api.ts`), не через route interception; **`userId` для фикстур** — из **тела ответа** test API (например `create-user`), в UI-сценариях после регистрации можно читать **`localStorage.getItem('userId')`**, не из cookies.
 - Для OTP в test-окружении использовать фиксированный код `123456`.
 
 ## Чек-лист

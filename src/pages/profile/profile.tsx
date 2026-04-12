@@ -7,6 +7,7 @@ import {
   E_METRICS_NAMESPACES,
   Page,
   Select,
+  TEST_IDS,
   type TTabItem,
   Tabs,
   designTokens,
@@ -26,13 +27,21 @@ export const Profile = () => {
       analyticsLabel: 'personal data',
       children: <PersonalData />,
       key: 'personal-data',
-      label: t('Profile.PersonalData.Header'),
+      label: (
+        <span data-testid={TEST_IDS.USER.TAB_PERSONAL_DATA}>
+          {t('Profile.PersonalData.Header')}
+        </span>
+      ),
     },
     {
       analyticsLabel: 'delete',
       children: <DeleteUser />,
       key: 'delete',
-      label: t('Profile.Delete.Header'),
+      label: (
+        <span data-testid={TEST_IDS.USER.TAB_DELETE}>
+          {t('Profile.Delete.Header')}
+        </span>
+      ),
     },
   ];
 
