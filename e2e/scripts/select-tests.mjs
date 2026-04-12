@@ -120,7 +120,7 @@ const main = () => {
     } else if (affectedTags.size > 0) {
       const tags = Array.from(affectedTags).join('|');
       console.log(`🎯 Running tests with tags: ${tags}`);
-      command = `pnpm exec playwright test --grep "${tags}"`;
+      command = withProject(`pnpm exec playwright test --grep "${tags}"`);
     } else {
       console.log('⏭️  No matching tags found - no tests to run');
       process.exit(0);
