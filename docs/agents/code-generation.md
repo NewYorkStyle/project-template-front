@@ -29,7 +29,7 @@
 - `types/` — типы
 - **`index.ts`** в корне слайса — реэкспорт публичного API
 
-Эталон: `src/features/auth/` (реэкспортирует `ui`, а API берётся напрямую из `src/shared/api/generated/endpoints/*`).
+Эталон: `src/features/auth/` (реэкспортирует `ui`, а API берётся напрямую из generated endpoints — в импортах `@api/endpoints/*`).
 
 ### Новый компонент в сегменте `ui`
 

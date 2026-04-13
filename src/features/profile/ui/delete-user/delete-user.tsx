@@ -6,6 +6,7 @@ import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
 
+import {useUsersControllerRemove} from '@api/endpoints/users';
 import {useAuth} from '@entities';
 import {
   APP_ROUTES,
@@ -17,7 +18,6 @@ import {
   designTokens,
   useModal,
 } from '@shared';
-import {useUsersControllerRemove} from '@shared/api/generated/endpoints/users';
 
 import {createDeleteUserSchema} from '../../model';
 import {type TDeleteUserFormValues} from '../../types';

@@ -6,6 +6,7 @@ import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
 
+import {useAuthControllerSignUp} from '@api/endpoints/auth';
 import {useAuth} from '@entities';
 import {
   APP_ROUTES,
@@ -18,7 +19,6 @@ import {
   useWindowSize,
   designTokens,
 } from '@shared';
-import {useAuthControllerSignUp} from '@shared/api/generated/endpoints/auth';
 
 import {PASSWORD_MIN_LENGTH} from '../../lib';
 import {createSignUpSchema} from '../../model/sing-up.schema';

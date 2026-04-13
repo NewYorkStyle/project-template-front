@@ -1,0 +1,34 @@
+{
+  "Joyride": {
+    "Back": "Back",
+    "Close": "Close",
+    "Done": "Done",
+    "Next": "Next",
+    "NextWithProgress": "Next ({current} of {total})",
+    "Skip": "Skip"
+  },
+  "HomeOnboarding": {
+    "Steps": {
+      "Sidebar": {
+        "Title": "Sidebar",
+        "Content": "Use it to navigate through the app sections."
+      },
+      "Language": {
+        "Title": "Language",
+        "Content": "Switch the interface language."
+      },
+      "Theme": {
+        "Title": "Theme",
+        "Content": "Toggle between light and dark themes."
+      },
+      "ProfileTrigger": {
+        "Title": "Profile",
+        "Content": "Open account actions: logout and profile link."
+      },
+      "ProfileLink": {
+        "Title": "Personal account",
+        "Content": "Go to your profile to manage settings and data."
+      }
+    }
+  }
+}

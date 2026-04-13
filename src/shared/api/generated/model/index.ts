@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.5.6
+ * OpenAPI spec version: 1.7.0
  */
 
 export * from './app-params-dto';
@@ -33,6 +33,8 @@ export * from './health-controller-check503-error';
 export * from './health-controller-check503-info';
 export * from './health-controller-check503';
 export * from './logout-ok-response-dto';
+export * from './mark-tour-seen-dto';
+export * from './mark-tour-seen-ok-response-dto';
 export * from './otp-body-dto';
 export * from './otp-sent-ok-response-dto';
 export * from './otp-verified-ok-response-dto';
@@ -47,6 +49,8 @@ export * from './test-delete-user-ok-response-dto';
 export * from './test-grant-permissions-dto-permissions-item';
 export * from './test-grant-permissions-dto';
 export * from './test-grant-permissions-ok-response-dto';
+export * from './tour-response-dto';
 export * from './update-user-dto';
 export * from './user-profile-dto';
+export * from './user-tours-list-dto';
 export * from './user-update-result-dto';

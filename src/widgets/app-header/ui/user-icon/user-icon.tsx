@@ -5,6 +5,7 @@ import {useQueryClient} from '@tanstack/react-query';
 import {useTranslation} from 'react-i18next';
 import {Link, useNavigate} from 'react-router-dom';
 
+import {useAuthControllerLogout} from '@api/endpoints/auth';
 import {useAuth} from '@entities';
 import {
   Typography,
@@ -13,8 +14,8 @@ import {
   E_METRICS_NAMESPACES,
   APP_ROUTES,
   notificationService,
+  TOUR_SELECTORS,
 } from '@shared';
-import {useAuthControllerLogout} from '@shared/api/generated/endpoints/auth';
 
 /**
  * Компонент иконки юзера.
@@ -66,6 +67,7 @@ export const UserIcon = () => {
                 label: 'Profile',
                 namespace: E_METRICS_NAMESPACES.USER,
               }}
+              data-tour={TOUR_SELECTORS.HOME_PROFILE_LINK}
             >
               {t('UserIcon.Profile')}
             </Typography.Link>
@@ -93,6 +95,7 @@ export const UserIcon = () => {
           label: `Icon ${isPopoverOpen ? 'close' : 'open'}`,
           namespace: E_METRICS_NAMESPACES.USER,
         }}
+        data-tour={TOUR_SELECTORS.HOME_PROFILE_TRIGGER}
       />
     </Popover>
   );

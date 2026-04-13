@@ -12,10 +12,10 @@ export type TFixtures = {
   createdUserIds: string[];
 };
 
-async function waitForAppReady(page: any) {
+const waitForAppReady = async (page: any) => {
   await page.waitForLoadState('networkidle');
   await page.waitForSelector('body', {state: 'attached'});
-}
+};
 
 export const test = base.extend<TFixtures>({
   page: async ({page}, use) => {

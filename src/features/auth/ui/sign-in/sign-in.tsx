@@ -6,6 +6,7 @@ import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
 
+import {useAuthControllerSignIn} from '@api/endpoints/auth';
 import {useAuth} from '@entities';
 import {
   APP_ROUTES,
@@ -15,7 +16,6 @@ import {
   TEST_IDS,
   notificationService,
 } from '@shared';
-import {useAuthControllerSignIn} from '@shared/api/generated/endpoints/auth';
 
 import {createSignInSchema} from '../../model/sign-in.schema';
 import {type TSignInFormValues} from '../../types';

@@ -203,13 +203,15 @@ pnpm run e2e
   - `@entities` - сущности
   - `@features` - фичи
   - `@widgets` - виджеты
+  - `@api` - сгенерированный Orval API (`shared/api/generated`)
+  - `@styles` - SCSS-переменные (`shared/styles/variables.scss`, для `@use` в модулях)
 
 ### Vite
 
 Конфигурация в [`vite.config.ts`](vite.config.ts) в корне репозитория:
 
 - Dev-сервер (по умолчанию порт **4200**, см. `server` в конфиге), HMR
-- Алиасы FSD совпадают с `resolve.alias` и `tsconfig.json` (`paths`); они же помогают Vite разрешать пути в `@use` внутри SCSS (например `@/shared/styles/variables`)
+- Алиасы FSD совпадают с `resolve.alias` и `tsconfig.json` (`paths`); они же помогают Vite разрешать пути в `@use` внутри SCSS (например `@use '@styles' as *;`)
 - SCSS: глобальный инжект переменных через `additionalData` в конфиге **не используется** — в `*.module.scss` подключают токены явным `@use` (см. [docs/agents/styles.md](./docs/agents/styles.md)); при необходимости общего препроцессинга см. [docs/agents/tools.md](./docs/agents/tools.md)
 - Прокси API: префикс `/api` → `VITE_API_URL` из `.env` (через `loadEnv`)
 - Production: `base: './'` для относительных путей к статике; при `ANALYZE=true` — отчёт `rollup-plugin-visualizer`
@@ -227,7 +229,7 @@ pnpm run e2e
 
 ### CSS-модули и SCSS
 
-- Компонентные стили — `*.module.scss` (CSS Modules в Vite для файлов с суффиксом `.module.*`). В начале файла — `@use '@/shared/styles/variables' as *;`, чтобы использовать `$spacing-*`, брейкпоинты и т.д.
+- Компонентные стили — `*.module.scss` (CSS Modules в Vite для файлов с суффиксом `.module.*`). В начале файла — `@use '@styles' as *;`, чтобы использовать `$spacing-*`, брейкпоинты и т.д.
 - **Генерация из токенов** (`pnpm run generate:tokens`, также перед `dev`/`build`):
   - `src/shared/styles/variables.scss` — SCSS-переменные (отступы, радиусы, типографика, брейкпоинты);
   - `src/app/styles/global.scss` — сброс для `body`, CSS variables для светлой/тёмной темы (`:root`, `[data-theme="dark"]`).

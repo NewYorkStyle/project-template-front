@@ -1,7 +1,7 @@
 import {type TFunction} from 'i18next';
 import {z} from 'zod';
 
-import {AuthControllerSignUpBody} from '@shared/api/generated/zod/auth.schema';
+import {AuthControllerSignUpBody} from '@api/zod/auth.schema';
 
 import {PASSWORD_MIN_LENGTH} from '../lib';
 

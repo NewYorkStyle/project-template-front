@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.5.6
+ * OpenAPI spec version: 1.7.0
  */
 import {useMutation, useQuery} from '@tanstack/react-query';
 import type {
@@ -44,15 +44,11 @@ import {request} from '../../client/instance';
  * @summary Получение данных пользователя
  */
 export const usersControllerFindById = (signal?: AbortSignal) => {
-  return request<UserProfileDto>({
-    url: `/users/getProfile`,
-    method: 'GET',
-    signal,
-  });
+  return request<UserProfileDto>({url: `/users/me`, method: 'GET', signal});
 };
 
 export const getUsersControllerFindByIdQueryKey = () => {
-  return [`/users/getProfile`] as const;
+  return [`/users/me`] as const;
 };
 
 export const getUsersControllerFindByIdQueryOptions = <

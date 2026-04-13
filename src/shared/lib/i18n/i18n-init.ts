@@ -2,16 +2,18 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import {initReactI18next} from 'react-i18next';
 
-import AppHeaderEn from './locales/en/AppHeader.json' assert {type: 'json'};
-import AuthEn from './locales/en/Auth.json' assert {type: 'json'};
-import CommonEn from './locales/en/Common.json' assert {type: 'json'};
-import MainEn from './locales/en/Main.json' assert {type: 'json'};
-import UserEn from './locales/en/User.json' assert {type: 'json'};
-import AppHeaderRu from './locales/ru/AppHeader.json' assert {type: 'json'};
-import AuthRu from './locales/ru/Auth.json' assert {type: 'json'};
-import CommonRu from './locales/ru/Common.json' assert {type: 'json'};
-import MainRu from './locales/ru/Main.json' assert {type: 'json'};
-import UserRu from './locales/ru/User.json' assert {type: 'json'};
+import AppHeaderEn from './locales/en/AppHeader.json' with {type: 'json'};
+import AuthEn from './locales/en/Auth.json' with {type: 'json'};
+import CommonEn from './locales/en/Common.json' with {type: 'json'};
+import MainEn from './locales/en/Main.json' with {type: 'json'};
+import TourEn from './locales/en/Tour.json' with {type: 'json'};
+import UserEn from './locales/en/User.json' with {type: 'json'};
+import AppHeaderRu from './locales/ru/AppHeader.json' with {type: 'json'};
+import AuthRu from './locales/ru/Auth.json' with {type: 'json'};
+import CommonRu from './locales/ru/Common.json' with {type: 'json'};
+import MainRu from './locales/ru/Main.json' with {type: 'json'};
+import TourRu from './locales/ru/Tour.json' with {type: 'json'};
+import UserRu from './locales/ru/User.json' with {type: 'json'};
 
 const resources = {
   en: {
@@ -19,6 +21,7 @@ const resources = {
     Auth: AuthEn,
     Common: CommonEn,
     Main: MainEn,
+    Tour: TourEn,
     User: UserEn,
   },
   ru: {
@@ -26,6 +29,7 @@ const resources = {
     Auth: AuthRu,
     Common: CommonRu,
     Main: MainRu,
+    Tour: TourRu,
     User: UserRu,
   },
 };
@@ -40,7 +44,7 @@ i18nInstance
     fallbackLng: 'ru',
     interpolation: {escapeValue: false},
     lng: localStorage.getItem('language') ?? 'ru',
-    ns: ['Common', 'AppHeader', 'Auth', 'Main', 'User'],
+    ns: ['Common', 'AppHeader', 'Auth', 'Main', 'Tour', 'User'],
     react: {useSuspense: true},
     resources,
   });

@@ -2,6 +2,7 @@ import {UiProvider} from '@new_york_style/project-template-ui';
 import {App} from 'antd';
 import {I18nextProvider} from 'react-i18next';
 
+import {useParamsControllerGetParams} from '@api/endpoints/params';
 import {useLanguage, useMetrics, useTheme, type TParam} from '@entities';
 import {
   NotificationProvider,
@@ -10,7 +11,6 @@ import {
   ErrorBoundary,
   designTokens,
 } from '@shared';
-import {useParamsControllerGetParams} from '@shared/api/generated/endpoints/params';
 
 import {Router} from '../../lib';
 

@@ -1,13 +1,14 @@
 ﻿import {Flex} from '@new_york_style/project-template-ui';
-import {noop} from 'lodash-es';
 import {useTranslation} from 'react-i18next';
 
+import {HOME_ONBOARDING_TOUR_KEY, useTourClient} from '@features';
 import {Button, designTokens, E_METRICS_NAMESPACES, Typography} from '@shared';
 
 import style from './placeholder.module.scss';
 
 export const Placeholder = () => {
   const {t} = useTranslation('Main');
+  const {requestTour} = useTourClient();
 
   return (
     <Flex
@@ -18,16 +19,16 @@ export const Placeholder = () => {
       gap={designTokens.spacing.lg}
     >
       <Typography.Title className={style.title}>
-        {t('Placeholder.Ad')}
+        {t('Placeholder.Welcome')}
       </Typography.Title>
       <Button
         analyticProps={{
-          label: 'didnt-work',
+          label: 'start-tour',
           namespace: E_METRICS_NAMESPACES.PLACEHOLDER,
         }}
-        onClick={noop}
+        onClick={() => requestTour(HOME_ONBOARDING_TOUR_KEY)}
       >
-        {t('Placeholder.didntWork')}
+        {t('Placeholder.StartTour')}
       </Button>
     </Flex>
   );

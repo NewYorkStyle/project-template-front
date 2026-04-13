@@ -1,0 +1,43 @@
+@use '@styles' as *;
+
+.root {
+  position: relative;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: $spacing-md;
+  background: var(--background-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: $border-radius-md;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
+}
+
+.rootWithClose {
+  /* место под крестик, чтобы заголовок не наезжал */
+  padding-inline-end: 40px;
+}
+
+.title {
+  margin: 0;
+}
+
+.content {
+  display: block;
+}
+
+.footer {
+  margin-top: $spacing-md;
+}
+
+.footerLeft {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: $spacing-sm;
+  right: $spacing-sm;
+  z-index: 1;
+  min-width: auto;
+  padding: 6px;
+}

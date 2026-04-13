@@ -4,7 +4,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 
 import {useAuth} from '@entities';
-import {authStorage, setOnLogout} from '@shared';
+import {setOnLogout} from '@shared';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,14 +15,14 @@ const queryClient = new QueryClient({
 });
 
 export const QueryProvider = ({children}: {children: ReactNode}) => {
-  const {setUserLogged} = useAuth();
+  const {clearAuth} = useAuth();
 
   useEffect(() => {
     setOnLogout(() => {
-      setUserLogged(false);
-      authStorage.clear();
+      clearAuth();
+      queryClient.clear();
     });
-  }, [setUserLogged]);
+  }, [clearAuth]);
 
   return (
     <QueryClientProvider client={queryClient}>

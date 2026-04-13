@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 
-import {useUsersControllerGetMyPermissions} from '@shared/api/generated/endpoints/users';
+import {useUsersControllerGetMyPermissions} from '@api/endpoints/users';
 
 import {type E_PERMISSIONS} from './constants';
 
