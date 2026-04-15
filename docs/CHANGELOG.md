@@ -1,3 +1,9 @@
+## [2.20.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.19.0...v2.20.0) (2026-04-15)
+
+### Features
+
+* PROJECTTEMPLATE-73 Актуализация библиотек, фикс бага с циклом туров, аналитика для туров ([#81](https://github.com/NewYorkStyle/project-template-front/issues/81)) ([429e727](https://github.com/NewYorkStyle/project-template-front/commit/429e727520197ce91bdbdd86fb08e8bfc4a51eee))
+
 ## [2.19.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.18.2...v2.19.0) (2026-04-15)
 
 ### Features
