@@ -23,7 +23,8 @@
       "@entities": ["entities/index.ts"],
       "@features": ["features/index.ts"],
       "@widgets": ["widgets/index.ts"],
-      "@shared/api/generated/*": ["shared/api/generated/*"]
+      "@api/*": ["shared/api/generated/*"],
+      "@styles": ["shared/styles/variables.scss"]
     },
     "types": ["node", "react", "vitest/globals"],
     "useUnknownInCatchVariables": false

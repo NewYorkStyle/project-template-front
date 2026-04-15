@@ -37,6 +37,8 @@ export default defineConfig(({command, mode}) => {
         '@pages': path.resolve(__dirname, 'src/pages'),
         '@features': path.resolve(__dirname, 'src/features'),
         '@widgets': path.resolve(__dirname, 'src/widgets'),
+        '@api': path.resolve(__dirname, 'src/shared/api/generated'),
+        '@styles': path.resolve(__dirname, 'src/shared/styles/variables.scss'),
         '@': srcRoot,
       },
     },

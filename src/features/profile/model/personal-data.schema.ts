@@ -1,8 +1,8 @@
 import {type TFunction} from 'i18next';
 import {z} from 'zod';
 
+import {UsersControllerUpdateBody} from '@api/zod/users.schema';
 import {APLHABETIC} from '@shared';
-import {UsersControllerUpdateBody} from '@shared/api/generated/zod/users.schema';
 
 export const createPersonalDataSchema = (t: TFunction) =>
   UsersControllerUpdateBody.extend({

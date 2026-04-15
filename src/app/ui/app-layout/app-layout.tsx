@@ -6,7 +6,13 @@ import {observer} from 'mobx-react-lite';
 import {Outlet} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 
-import {APP_ROUTES, appStore, designTokens, useWindowSize} from '@shared';
+import {
+  APP_ROUTES,
+  appStore,
+  designTokens,
+  TOUR_SELECTORS,
+  useWindowSize,
+} from '@shared';
 import {AppHeader} from '@widgets';
 
 import styles from './app-layout.module.scss';
@@ -47,7 +53,11 @@ export const AppLayout = observer(() => {
       <Layout>
         {/* Sider для десктопной версии */}
         {!isMobile && (
-          <Sider collapsed={!showMenu} className={styles.sider}>
+          <Sider
+            collapsed={!showMenu}
+            className={styles.sider}
+            data-tour={TOUR_SELECTORS.HOME_SIDEBAR}
+          >
             {menuContent}
           </Sider>
         )}
@@ -62,6 +72,7 @@ export const AppLayout = observer(() => {
             height='100%'
             styles={{body: {padding: 0}}}
             className={styles.drawer}
+            data-tour={TOUR_SELECTORS.HOME_SIDEBAR}
           >
             {menuContent}
           </Drawer>

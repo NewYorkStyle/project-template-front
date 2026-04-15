@@ -12,7 +12,7 @@
 
 - Если меняешь поля формы — сначала обнови schema, затем типы, затем UI.
 - Если форма отправляет DTO — проверь соответствие `mutate({ data })` и убери “лишние” поля (например `passwordConfirm`).
-- Для согласования с backend — сверяйся с `shared/api/generated/zod/*.schema.ts` и `shared/api/generated/model/*`.
+- Для согласования с backend — сверяйся с `shared/api/generated/zod/*.schema.ts` и `shared/api/generated/model/*` (в коде — импорты `@api/zod/...`, `@api/model/...`).
 
 - Базовый стек форм: **`react-hook-form` + `react-hook-form-antd` + `zod`**.
 - Валидация для feature-форм выносится в `model/*schema.ts`:

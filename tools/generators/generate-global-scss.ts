@@ -70,7 +70,7 @@ const generateGlobalScss = (tokens: TDesignTokens): string => {
   let scssContent = '// Auto-generated from TypeScript\n\n';
 
   // Импорт переменных
-  scssContent += `@use '../../shared/styles/variables.scss';\n\n`;
+  scssContent += `@use '@styles' as *;\n\n`;
 
   scssContent += `body {
   padding: 0;

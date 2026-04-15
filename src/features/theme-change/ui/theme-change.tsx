@@ -1,7 +1,7 @@
 import {Icon} from '@new_york_style/project-template-ui';
 
 import {useTheme} from '@entities';
-import {E_METRICS_NAMESPACES, Segmented} from '@shared';
+import {E_METRICS_NAMESPACES, Segmented, TOUR_SELECTORS} from '@shared';
 
 /**
  * Компонент выбора темы.
@@ -23,6 +23,7 @@ export const ThemeChange = () => {
       onChange={toggleTheme}
       value={theme}
       size='small'
+      data-tour={TOUR_SELECTORS.HOME_THEME_SWITCH}
     />
   );
 };

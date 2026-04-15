@@ -1,7 +1,7 @@
 {
   "Title": "Main",
   "Placeholder": {
-    "Ad": "Your ad could have been here",
-    "didntWork": "But it didn't work out"
+    "Welcome": "Welcome!",
+    "StartTour": "Start tour"
   }
 }

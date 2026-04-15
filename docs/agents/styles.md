@@ -23,10 +23,10 @@
 - **Переменные в модулях**: в начале каждого `*.module.scss` добавь явный импорт (глобального инжекта через `additionalData` в Vite сейчас нет):
 
 ```scss
-@use '@/shared/styles/variables' as *;
+@use '@styles' as *;
 ```
 
-Дальше в файле доступны `$spacing-sm`, `$breakpoint-tablet` и т.д. Алиас `@` указывает на `src/` (как в `vite.config.ts` и `tsconfig`).
+Дальше в файле доступны `$spacing-sm`, `$breakpoint-tablet` и т.д. Алиас `@styles` указывает на сгенерированный `src/shared/styles/variables.scss` (см. `resolve.alias` в `vite.config.ts` и `paths` в `tsconfig.json`).
 
 ### AI не должен
 

@@ -1,4 +1,4 @@
-﻿@use '@/shared/styles/variables' as *;
+﻿@use '@styles' as *;
 
 .fullLayout {
   .content {
@@ -13,7 +13,7 @@
   .sider {
     height: 100%;
     position: fixed;
-    z-index: 1000;
+    z-index: 100;
     width: 200px;
 
     :global {

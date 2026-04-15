@@ -7,6 +7,15 @@ import {useForm, useWatch} from 'react-hook-form';
 import {FormItem} from 'react-hook-form-antd';
 import {useTranslation} from 'react-i18next';
 
+import {
+  useUsersControllerEmailChange,
+  useUsersControllerEmailChangeRequest,
+  useUsersControllerFindById,
+  useUsersControllerGetMyPermissions,
+  useUsersControllerRequestEmailVerification,
+  useUsersControllerUpdate,
+  useUsersControllerVerifyEmail,
+} from '@api/endpoints/users';
 import {E_PERMISSIONS, usePermissionCheck} from '@entities';
 import {
   Button,
@@ -17,15 +26,6 @@ import {
   designTokens,
   notificationService,
 } from '@shared';
-import {
-  useUsersControllerEmailChange,
-  useUsersControllerEmailChangeRequest,
-  useUsersControllerFindById,
-  useUsersControllerGetMyPermissions,
-  useUsersControllerRequestEmailVerification,
-  useUsersControllerUpdate,
-  useUsersControllerVerifyEmail,
-} from '@shared/api/generated/endpoints/users';
 
 import {OTP} from '../../../otp';
 import {createPersonalDataSchema, createProfileEmailSchema} from '../../model';

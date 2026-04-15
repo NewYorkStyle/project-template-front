@@ -1,7 +1,7 @@
 ﻿import {useTranslation} from 'react-i18next';
 
 import {E_LANGUAGE, useLanguage} from '@entities';
-import {E_METRICS_NAMESPACES, Select} from '@shared';
+import {E_METRICS_NAMESPACES, Select, TOUR_SELECTORS} from '@shared';
 
 import style from './language-select.module.scss';
 
@@ -41,6 +41,7 @@ export const LanguageSelect = () => {
         namespace: E_METRICS_NAMESPACES.APP_HEADER,
       }}
       className={style.root}
+      data-tour={TOUR_SELECTORS.HOME_LANGUAGE_SWITCH}
     />
   );
 };

@@ -2,7 +2,7 @@
 
 ## Quick rules
 
-- Используй **generated hooks** из `src/shared/api/generated/endpoints/*` напрямую.
+- Используй **generated hooks** из `src/shared/api/generated/endpoints/*` напрямую (в импортах — алиас **`@api`**, например `@api/endpoints/auth`, `@api/zod/auth.schema`).
 - **Mutation** всегда: `mutate({ data: dto })`.
 - **Query по клику**: `enabled:false` + `await refetch()`.
 - Не используй `api` из `@shared` и не дублируй эндпоинты вручную.
@@ -17,6 +17,7 @@
 ### Источник истины и расположение
 
 - **Источник истины для API**: Orval (OpenAPI → generated endpoints + types + zod).
+- **Импорты в коде**: алиас **`@api`** → `shared/api/generated` (например `@api/endpoints/...`, `@api/zod/...`, `@api/model/...`).
 - **Generated hooks**: `src/shared/api/generated/endpoints/*.ts` — использовать **напрямую** в `ui`/`model`/`lib` по месту.
 - **HTTP client**: `src/shared/api/client/instance.ts` (`request`, axios instance, interceptors, `setOnLogout`).
 - **Types / DTO**: `src/shared/api/generated/model/*`.
@@ -49,5 +50,5 @@
 - [ ] Нет импортов/вызовов `api` из `@shared`.
 - [ ] Все мутации вызываются как `mutate({ data: ... })`.
 - [ ] “Запрос по кнопке” сделан через `enabled:false + refetch()`, а не через фейковую мутацию.
-- [ ] Типы/DTO/zod берутся из `shared/api/generated/*` (или согласованы с ними).
+- [ ] Типы/DTO/zod берутся из `shared/api/generated/*` через импорты `@api/...` (или согласованы с ними).
 

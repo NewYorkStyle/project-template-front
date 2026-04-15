@@ -4,3 +4,4 @@ export * from './metrics';
 export * from './reg-exps';
 export * from './routes';
 export * from './test-ids';
+export * from './tours';
