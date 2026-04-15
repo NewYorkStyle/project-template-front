@@ -1,3 +1,9 @@
+## [2.19.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.18.2...v2.19.0) (2026-04-15)
+
+### Features
+
+* PROJECTTEMPLATE-70 Добавил тур на главную страницу ([#80](https://github.com/NewYorkStyle/project-template-front/issues/80)) ([4ebced0](https://github.com/NewYorkStyle/project-template-front/commit/4ebced0940cea2e4f540f08e646f2d6521bfcea1))
+
 ## [2.18.2](https://github.com/NewYorkStyle/project-template-front/compare/v2.18.1...v2.18.2) (2026-04-12)
 
 ## [2.18.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.18.0...v2.18.1) (2026-04-12)
