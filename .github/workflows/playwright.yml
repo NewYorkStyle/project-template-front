@@ -57,7 +57,7 @@ jobs:
           exit 1
 
       - name: Run selective Playwright tests
-        run: pnpm run e2e:changed
+        run: pnpm e2e:changed
         env:
           CI: true
           NODE_ENV: test

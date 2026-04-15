@@ -68,8 +68,7 @@ export const AppLayout = observer(() => {
             placement='bottom'
             onClose={closeMenu}
             open={showMenu}
-            width='100%'
-            height='100%'
+            size='100%'
             styles={{body: {padding: 0}}}
             className={styles.drawer}
             data-tour={TOUR_SELECTORS.HOME_SIDEBAR}

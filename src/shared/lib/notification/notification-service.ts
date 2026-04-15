@@ -1,3 +1,5 @@
+import type {NotificationInstance} from 'antd/es/notification/interface';
+
 type TNotificationType = 'success' | 'info' | 'warning' | 'error';
 
 type TNotificationConfig = {
@@ -8,8 +10,7 @@ type TNotificationConfig = {
 
 class NotificationService {
   private static instance: NotificationService;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private notificationApi: any = null;
+  private notificationApi: NotificationInstance | null = null;
 
   static getInstance(): NotificationService {
     if (!NotificationService.instance) {
@@ -19,8 +20,7 @@ class NotificationService {
   }
 
   // Метод для установки API из React контекста
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setNotificationApi(api: any) {
+  setNotificationApi(api: NotificationInstance | null) {
     this.notificationApi = api;
   }
 
@@ -33,8 +33,8 @@ class NotificationService {
       this.notificationApi[type]({
         description: config.description,
         duration: config.duration || 4.5,
-        message: config.message,
         placement: 'topRight',
+        title: config.message,
       });
     } else {
       // Fallback для использования вне React контекста (с предупреждением)
