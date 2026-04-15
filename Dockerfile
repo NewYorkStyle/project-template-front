@@ -8,7 +8,7 @@ COPY package.json pnpm-lock.yaml .npmrc ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
-RUN pnpm run build
+RUN pnpm build
 
 FROM node:20-alpine
 

@@ -2,10 +2,10 @@
 
 ![React](https://img.shields.io/badge/React-19.1.1-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue.svg)
-![Ant Design](https://img.shields.io/badge/Ant_Design-6.0.0-blue.svg)
+![Ant Design](https://img.shields.io/badge/Ant_Design-6.3.5-blue.svg)
 ![MobX](https://img.shields.io/badge/MobX-6.15.0-red.svg)
-![Vite](https://img.shields.io/badge/Vite-7-646CFF.svg)
-![Vitest](https://img.shields.io/badge/Vitest-3.2.4-6E9F18.svg)
+![Vite](https://img.shields.io/badge/Vite-8.0.8-646CFF.svg)
+![Vitest](https://img.shields.io/badge/Vitest-4.1.4-6E9F18.svg)
 
 Современное React-приложение, построенное по принципам **Feature-Sliced Design (FSD)** архитектуры. Проект представляет собой полноценный шаблон для быстрого старта frontend-разработки с поддержкой темной/светлой темы, многоязычностью и комплексной системой тестирования.
 
@@ -26,7 +26,7 @@
 
 - **React 19.1.1** - JavaScript-библиотека для создания пользовательских интерфейсов
 - **TypeScript 5.9.3** - Статическая типизация для JavaScript
-- **Ant Design 6.0.0** - UI-компоненты и дизайн-система
+- **Ant Design 6.3.5** - UI-компоненты и дизайн-система
 - **react-hook-form + react-hook-form-antd + zod** - Формы и декларативная валидация
 
 ### Управление состоянием
@@ -36,16 +36,16 @@
 
 ### Маршрутизация
 
-- **React Router 7.9.4** - Клиентская маршрутизация
+- **React Router 7.14.0** - Клиентская маршрутизация
 
 ### Сборка и инструменты
 
-- **Vite 7** - dev-сервер и production-сборка (Rollup)
+- **Vite 8.0.8** - dev-сервер и production-сборка (Rollup)
 - **Sass** - препроцессор SCSS
 
 ### Тестирование
 
-- **Vitest 3.2.4** - Фреймворк для unit-тестирования
+- **Vitest 4.1.4** - Фреймворк для unit-тестирования
 - **@testing-library/react 16.3.0** - Тестирование React-компонентов
 - **Playwright 1.56.0** - E2E тестирование
 - **Allure 2.34.1** - Генерация отчетов по тестированию
@@ -169,7 +169,7 @@ pnpm test
 Используется Playwright для сквозного тестирования:
 
 ```bash
-pnpm run e2e
+pnpm e2e:all
 ```
 
 **Особенности:**
@@ -230,7 +230,7 @@ pnpm run e2e
 ### CSS-модули и SCSS
 
 - Компонентные стили — `*.module.scss` (CSS Modules в Vite для файлов с суффиксом `.module.*`). В начале файла — `@use '@styles' as *;`, чтобы использовать `$spacing-*`, брейкпоинты и т.д.
-- **Генерация из токенов** (`pnpm run generate:tokens`, также перед `dev`/`build`):
+- **Генерация из токенов** (`pnpm generate:tokens`, также перед `dev`/`build`):
   - `src/shared/styles/variables.scss` — SCSS-переменные (отступы, радиусы, типографика, брейкпоинты);
   - `src/app/styles/global.scss` — сброс для `body`, CSS variables для светлой/тёмной темы (`:root`, `[data-theme="dark"]`).
 - Источник правды для генератора: `src/shared/lib/constants/design-tokens.ts` (`tools/generators/generate-global-scss.ts`).
