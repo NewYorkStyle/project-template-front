@@ -16,7 +16,10 @@ const SEGMENT = {
     ...BASE_FILES,
     {
       name: '__tests__',
-      children: withBarrelFile([{name: '{kebab-case}.test.(ts|tsx)'}]),
+      children: withBarrelFile([
+        {name: '{kebab-case}.test.(ts|tsx)'},
+        {name: '{kebab-case}.schema.test.(ts|tsx)'},
+      ]),
     },
     {
       name: '{kebab-case}',
@@ -24,7 +27,10 @@ const SEGMENT = {
         ...BASE_FILES,
         {
           name: '__tests__',
-          children: withBarrelFile([{name: '{kebab-case}.test.(ts|tsx)'}]),
+          children: withBarrelFile([
+            {name: '{kebab-case}.test.(ts|tsx)'},
+            {name: '{kebab-case}.schema.test.(ts|tsx)'},
+          ]),
         },
       ]),
     },
