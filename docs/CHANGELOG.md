@@ -1,3 +1,9 @@
+## [2.21.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.20.1...v2.21.0) (2026-04-16)
+
+### Features
+
+* PROJECTTEMPLATE-75 Переработка авторизации ([#83](https://github.com/NewYorkStyle/project-template-front/issues/83)) ([a017111](https://github.com/NewYorkStyle/project-template-front/commit/a017111dc21ff0720532376d84a7bb3d22e16ff9))
+
 ## [2.20.1](https://github.com/NewYorkStyle/project-template-front/compare/v2.20.0...v2.20.1) (2026-04-15)
 
 ## [2.20.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.19.0...v2.20.0) (2026-04-15)
