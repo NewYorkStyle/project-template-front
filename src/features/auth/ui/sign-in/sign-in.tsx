@@ -7,6 +7,10 @@ import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
 
 import {useAuthControllerSignIn} from '@api/endpoints/auth';
+import {
+  getUsersControllerFindByIdQueryKey,
+  getUsersControllerGetMyPermissionsQueryKey,
+} from '@api/endpoints/users';
 import {useAuth} from '@entities';
 import {
   APP_ROUTES,
@@ -35,7 +39,12 @@ export const SignIn = () => {
           authStorage.setUserId(data.userId);
         }
         setUserLogged(true);
-        queryClient.invalidateQueries({queryKey: ['permissions']});
+        queryClient.invalidateQueries({
+          queryKey: getUsersControllerGetMyPermissionsQueryKey(),
+        });
+        queryClient.invalidateQueries({
+          queryKey: getUsersControllerFindByIdQueryKey(),
+        });
         navigate(APP_ROUTES.HOME.ROOT, {replace: true});
       },
       onError: () => {

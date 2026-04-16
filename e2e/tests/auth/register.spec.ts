@@ -64,7 +64,9 @@ test.describe('Регистрация', () => {
       });
       await authPage.registerForm.submit();
 
-      await authPage.registerForm.expectError('Ошибка аутентификации');
+      await authPage.registerForm.expectError(
+        'Не удалось зарегистрироваться. Проверьте данные и попробуйте снова.'
+      );
     });
 
     test('Ошибка при регистрации с существующим username @register', async ({
@@ -87,7 +89,9 @@ test.describe('Регистрация', () => {
       });
       await authPage.registerForm.submit();
 
-      await authPage.registerForm.expectError('Ошибка аутентификации');
+      await authPage.registerForm.expectError(
+        'Не удалось зарегистрироваться. Проверьте данные и попробуйте снова.'
+      );
     });
 
     test('Ошибка при слабом пароле @register', async ({authPage}) => {

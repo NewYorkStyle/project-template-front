@@ -15,7 +15,7 @@
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **React Query** | Серверное состояние: мутации, `invalidateQueries`, `setQueryData` (см. `QueryProvider` в `src/app/model/providers/query-provider.tsx`)                                                    |
 | **MobX**        | Локальное реактивное UI-состояние: `src/shared/model/app-store.ts`, `src/shared/lib/modal/modal-service.ts`, компоненты с `observer` (`src/app/ui/app-layout/`, `src/widgets/app-header/`) |
-| **React state** | Допустимо для изолированных хуков без глобальной реактивности (например `src/entities/user/lib/use-auth.ts` — флаг «залогинен» через cookie `isUserLoggedIn` + `useState`; **идентификатор пользователя** — только `src/shared/lib/authStorage.ts` → `localStorage`, не из JS-доступных cookies) |
+| **React state** | Допустимо для изолированных хуков без глобальной реактивности (например `src/entities/user/lib/use-auth.tsx` — cookie `isUserLoggedIn` + `useState` и **`GET /users/me`** через React Query для подтверждения сессии; **идентификатор пользователя** — только `src/shared/lib/authStorage.ts` → `localStorage`, не из JS-доступных cookies) |
 
 Не смешивать ответственность: запросы и кеш — React Query; глобальные UI-флаги/модалки — существующие MobX-паттерны проекта.
 

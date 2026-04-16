@@ -42,7 +42,7 @@ export const UserIcon = () => {
     const res = await logout();
 
     if (!res.isSuccess) {
-      notificationService.error('Logout error');
+      notificationService.error(t('UserIcon.LogoutError'));
     }
 
     queryClient.clear();

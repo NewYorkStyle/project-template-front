@@ -11,7 +11,6 @@ import {
   useUsersControllerEmailChange,
   useUsersControllerEmailChangeRequest,
   useUsersControllerFindById,
-  useUsersControllerGetMyPermissions,
   useUsersControllerRequestEmailVerification,
   useUsersControllerUpdate,
   useUsersControllerVerifyEmail,
@@ -39,13 +38,12 @@ import style from './personal-data.module.scss';
 export const PersonalData = () => {
   const {t} = useTranslation('User');
   const queryClient = useQueryClient();
-  const {data: permissions, queryKey: permissionsQueryKey} =
-    useUsersControllerGetMyPermissions();
 
   const personalDataSchema = createPersonalDataSchema(t);
   const profileEmailSchema = createProfileEmailSchema(t);
 
-  const {hasPermission} = usePermissionCheck();
+  const {hasPermission, permissions, permissionsQueryKey} =
+    usePermissionCheck();
 
   const {
     data: profileData,

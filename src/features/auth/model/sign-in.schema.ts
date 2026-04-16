@@ -3,6 +3,8 @@ import {z} from 'zod';
 
 import {AuthControllerSignInBody} from '@api/zod/auth.schema';
 
+type TSignInBodyField = keyof z.infer<typeof AuthControllerSignInBody>;
+
 export const createSignInSchema = (t: TFunction) =>
   AuthControllerSignInBody.extend({
     password: z
@@ -17,4 +19,4 @@ export const createSignInSchema = (t: TFunction) =>
       .refine((val) => val.trim().length > 0, {
         message: t('Authentication.SignIn.LoginRequired'),
       }),
-  });
+  } satisfies Record<TSignInBodyField, z.ZodType>);

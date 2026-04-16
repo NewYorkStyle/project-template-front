@@ -4,6 +4,11 @@
     "SubTitle": "Please try again.",
     "Home": "Return to home page"
   },
+  "Session": {
+    "VerifyErrorTitle": "Could not verify session",
+    "VerifyErrorSubTitle": "Check your connection and try again.",
+    "Retry": "Retry"
+  },
   "PageNotFound": "Page not found",
   "Back": "Back"
 }

@@ -6,12 +6,12 @@ import {QueryProvider} from './query-provider';
 
 export const AppProviders = () => {
   return (
-    <AuthProvider>
-      <QueryProvider>
+    <QueryProvider>
+      <AuthProvider>
         <TourProvider>
           <AppInitializer />
         </TourProvider>
-      </QueryProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </QueryProvider>
   );
 };

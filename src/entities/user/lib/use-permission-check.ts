@@ -5,11 +5,12 @@ import {useUsersControllerGetMyPermissions} from '@api/endpoints/users';
 import {type E_PERMISSIONS} from './constants';
 
 export const usePermissionCheck = () => {
-  const {data: permissions = []} = useUsersControllerGetMyPermissions({
-    query: {
-      staleTime: 10 * 60 * 1000,
-    },
-  });
+  const {data: permissions = [], queryKey: permissionsQueryKey} =
+    useUsersControllerGetMyPermissions({
+      query: {
+        staleTime: 10 * 60 * 1000,
+      },
+    });
 
   const hasPermission = useCallback(
     (permission: E_PERMISSIONS) => {
@@ -38,6 +39,7 @@ export const usePermissionCheck = () => {
 
   return {
     permissions,
+    permissionsQueryKey,
     hasPermission,
     hasAnyPermission,
     hasAllPermissions,

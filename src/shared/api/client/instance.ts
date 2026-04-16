@@ -65,7 +65,7 @@ baseClient.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      await baseClient.get('auth/refresh');
+      await baseClient.post('auth/refresh');
       processQueue(null);
       return baseClient(originalRequest);
     } catch (refreshError) {
