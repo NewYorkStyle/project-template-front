@@ -5,13 +5,13 @@ import {Content} from 'antd/es/layout/layout';
 
 import {AppHeader} from '@widgets';
 
-import styles from './auth-layout.module.scss';
+import style from './auth-layout.module.scss';
 
 export const AuthLayout = ({children}: PropsWithChildren) => {
   return (
-    <Layout className={styles.authLayout}>
+    <Layout className={style.authLayout}>
       <AppHeader />
-      <Content className={styles.content}>{children}</Content>
+      <Content className={style.content}>{children}</Content>
     </Layout>
   );
 };

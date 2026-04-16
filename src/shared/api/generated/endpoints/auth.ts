@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.7.0
+ * OpenAPI spec version: 1.8.0
  */
 import {useMutation, useQuery} from '@tanstack/react-query';
 import type {
@@ -348,138 +348,76 @@ export function useAuthControllerLogout<
 export const authControllerRefreshTokens = (signal?: AbortSignal) => {
   return request<RefreshOkResponseDto>({
     url: `/auth/refresh`,
-    method: 'GET',
+    method: 'POST',
     signal,
   });
 };
 
-export const getAuthControllerRefreshTokensQueryKey = () => {
-  return [`/auth/refresh`] as const;
-};
-
-export const getAuthControllerRefreshTokensQueryOptions = <
-  TData = Awaited<ReturnType<typeof authControllerRefreshTokens>>,
+export const getAuthControllerRefreshTokensMutationOptions = <
   TError = unknown,
+  TContext = unknown,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-      TError,
-      TData
-    >
-  >;
-}) => {
-  const {query: queryOptions} = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ?? getAuthControllerRefreshTokensQueryKey();
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof authControllerRefreshTokens>>
-  > = ({signal}) => authControllerRefreshTokens(signal);
-
-  return {queryKey, queryFn, ...queryOptions} as UseQueryOptions<
+  mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof authControllerRefreshTokens>>,
     TError,
-    TData
-  > & {queryKey: DataTag<QueryKey, TData, TError>};
+    void,
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof authControllerRefreshTokens>>,
+  TError,
+  void,
+  TContext
+> => {
+  const mutationKey = ['authControllerRefreshTokens'];
+  const {mutation: mutationOptions} = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+    : {mutation: {mutationKey}};
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof authControllerRefreshTokens>>,
+    void
+  > = () => {
+    return authControllerRefreshTokens();
+  };
+
+  return {mutationFn, ...mutationOptions};
 };
 
-export type AuthControllerRefreshTokensQueryResult = NonNullable<
+export type AuthControllerRefreshTokensMutationResult = NonNullable<
   Awaited<ReturnType<typeof authControllerRefreshTokens>>
 >;
-export type AuthControllerRefreshTokensQueryError = unknown;
 
-export function useAuthControllerRefreshTokens<
-  TData = Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-  TError = unknown,
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-          TError,
-          Awaited<ReturnType<typeof authControllerRefreshTokens>>
-        >,
-        'initialData'
-      >;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAuthControllerRefreshTokens<
-  TData = Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-  TError = unknown,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-          TError,
-          Awaited<ReturnType<typeof authControllerRefreshTokens>>
-        >,
-        'initialData'
-      >;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {queryKey: DataTag<QueryKey, TData, TError>};
-export function useAuthControllerRefreshTokens<
-  TData = Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-  TError = unknown,
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-        TError,
-        TData
-      >
-    >;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {queryKey: DataTag<QueryKey, TData, TError>};
+export type AuthControllerRefreshTokensMutationError = unknown;
+
 /**
  * @summary Обновление токена пользователя.
  */
-
-export function useAuthControllerRefreshTokens<
-  TData = Awaited<ReturnType<typeof authControllerRefreshTokens>>,
+export const useAuthControllerRefreshTokens = <
   TError = unknown,
+  TContext = unknown,
 >(
   options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof authControllerRefreshTokens>>,
-        TError,
-        TData
-      >
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof authControllerRefreshTokens>>,
+      TError,
+      void,
+      TContext
     >;
   },
   queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAuthControllerRefreshTokensQueryOptions(options);
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & {queryKey: DataTag<QueryKey, TData, TError>};
-
-  return {...query, queryKey: queryOptions.queryKey};
-}
+): UseMutationResult<
+  Awaited<ReturnType<typeof authControllerRefreshTokens>>,
+  TError,
+  void,
+  TContext
+> => {
+  return useMutation(
+    getAuthControllerRefreshTokensMutationOptions(options),
+    queryClient
+  );
+};

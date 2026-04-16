@@ -4,7 +4,8 @@
 
 ## Quick rules
 
-- **Пиши по-русски**; термины (API/HTTP/SQL) — по-английски.
+- **Пиши по-русски**; термины (API/HTTP/SQL) — по-английски. Комментарии и JSDoc — на русском.
+- **Новый код**: предпочитай **стрелочные функции**; стили компонентов — **`*.module.scss`** (см. `docs/agents/rules.md`).
 - **Scope**: основной код — `src/`, `e2e/`, `tools/`; конфиги репозитория, CI и `docs/agents/**` — когда задача это требует (см. `docs/agents/rules.md`).
 - **FSD + import zones**: соблюдать `import/no-restricted-paths` (см. `docs/agents/architecture.md`).
 - **Public API**: импортируй через баррели/алиасы, не из глубины чужого слайса (см. `docs/agents/public-api.md`).

@@ -2,7 +2,7 @@
 
 ## Quick rules
 
-- Оформление — через классы и SCSS Modules, **без** inline-стилей.
+- Оформление — через классы и SCSS Modules, **без** inline-стилей для визуала (согласовано с разделом «Стиль кода» в [rules.md](./rules.md)).
 - Сгенерированные файлы (`variables.scss`, `global.scss`) не править вручную, если источник правды — `design-tokens.ts`.
 - В TS используй `designTokens`, в стилях — SCSS-переменные из `variables.scss` и/или `var(--...)` из глобального слоя.
 

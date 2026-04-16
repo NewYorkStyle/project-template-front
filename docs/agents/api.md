@@ -11,7 +11,7 @@
 ## Как использовать AI
 
 - Для каждого вызова API сначала найди соответствующий generated hook (`use*Controller*`) и используй его напрямую.
-- Если нужно “сохранить” старый `queryKey` (например `['permissions']`) — задавай `queryKey` в `options.query`.
+- После логина инвалидируй кэш через **generated** `get*QueryKey()` (например `getUsersControllerGetMyPermissionsQueryKey()`), а не произвольные строки вроде `['permissions']`, чтобы совпадать с Orval/React Query.
 - Если форма валидируется zod — по возможности базируйся на generated `...Body` и расширяй локальными сообщениями.
 
 ### Источник истины и расположение
@@ -41,8 +41,11 @@
 
 ### Авторизация и `userId`
 
-- Успешные ответы **sign-in / sign-up** (DTO `AuthSignOkResponseDto` в `generated/model`) содержат **`userId`** в теле JSON; токены сессии — в **httpOnly** cookies (фронт их не читает).
-- Для клиентской логики и тестов **`userId` хранится только в `localStorage`** через **`authStorage`** (`src/shared/lib/authStorage.ts`: `setUserId` после успешной мутации, `clear` при logout и при `setOnLogout` в axios interceptor).
+- Успешные ответы **sign-in / sign-up** (DTO `AuthSignOkResponseDto` в `generated/model`) содержат **`userId`** в теле JSON; токены сессии — в **httpOnly** cookies (фронт их не читает). Дополнительно бэк может выставить cookie-флаг `isUserLoggedIn` (не httpOnly) для UX.
+- **Поток на фронте:** после признака входа `AuthProvider` запрашивает **`GET /users/me`** (`useUsersControllerFindById`); в **`useAuth`** поле **`sessionConfirmed`** означает успешную проверку сессии. **`ProtectedRoute` / `PublicRoute`** учитывают загрузку и ошибку этой проверки, а не только cookie; пока успех или ошибка не зафиксированы, показывается спиннер (в т. ч. окно idle→pending у React Query — см. раздел «Роутинг» в [architecture.md](./architecture.md)).
+- После sign-in / sign-up инвалидируй **`getUsersControllerFindByIdQueryKey()`** и **`getUsersControllerGetMyPermissionsQueryKey()`**.
+- **Logout** через API снимает httpOnly-cookies на сервере; в **`clearAuth`** снимается `isUserLoggedIn` и **`authStorage`** — не удаляй access/refresh через `js-cookie` (httpOnly из JS недоступны).
+- Для клиентской логики и тестов **`userId` хранится только в `localStorage`** через **`authStorage`** (`src/shared/lib/auth-storage.ts`: `setUserId` после успешной мутации, `clear` при logout и при `setOnLogout` в axios interceptor).
 - Не читать и не очищать `userId` через `js-cookie` / `document.cookie`.
 
 ## Чек-лист

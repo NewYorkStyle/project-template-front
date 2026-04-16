@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import {APP_ROUTES} from '../../lib';
 import {Button} from '../button';
 
-import styles from './error-boundary.module.scss';
+import style from './error-boundary.module.scss';
 
 type TProps = FallbackProps;
 
@@ -22,7 +22,7 @@ export const ErrorFallback: React.FC<TProps> = ({
 
   return (
     <Result
-      className={styles.root}
+      className={style.root}
       status='error'
       title={t('ErrorBoundary.Title')}
       subTitle={

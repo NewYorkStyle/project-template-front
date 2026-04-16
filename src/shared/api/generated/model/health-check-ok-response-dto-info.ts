@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.7.0
+ * OpenAPI spec version: 1.8.0
  */
 import type {HealthCheckOkResponseDtoInfoApp} from './health-check-ok-response-dto-info-app';
 

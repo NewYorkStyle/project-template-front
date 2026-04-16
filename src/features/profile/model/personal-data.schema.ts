@@ -4,6 +4,8 @@ import {z} from 'zod';
 import {UsersControllerUpdateBody} from '@api/zod/users.schema';
 import {APLHABETIC} from '@shared';
 
+type TUsersUpdateBodyField = keyof z.infer<typeof UsersControllerUpdateBody>;
+
 export const createPersonalDataSchema = (t: TFunction) =>
   UsersControllerUpdateBody.extend({
     name: z
@@ -24,7 +26,7 @@ export const createPersonalDataSchema = (t: TFunction) =>
       .regex(APLHABETIC, {
         message: t('Profile.PersonalData.OnlyLettersAllowed'),
       }),
-  });
+  } satisfies Record<TUsersUpdateBodyField, z.ZodType>);
 
 export const createProfileEmailSchema = (t: TFunction) =>
   z.object({

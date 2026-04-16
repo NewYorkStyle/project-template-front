@@ -15,7 +15,7 @@ import {
 } from '@shared';
 import {AppHeader} from '@widgets';
 
-import styles from './app-layout.module.scss';
+import style from './app-layout.module.scss';
 
 export const AppLayout = observer(() => {
   const navigate = useNavigate();
@@ -48,14 +48,14 @@ export const AppLayout = observer(() => {
   );
 
   return (
-    <Layout className={styles.fullLayout}>
+    <Layout className={style.fullLayout}>
       <AppHeader />
       <Layout>
         {/* Sider для десктопной версии */}
         {!isMobile && (
           <Sider
             collapsed={!showMenu}
-            className={styles.sider}
+            className={style.sider}
             data-tour={TOUR_SELECTORS.HOME_SIDEBAR}
           >
             {menuContent}
@@ -70,14 +70,14 @@ export const AppLayout = observer(() => {
             open={showMenu}
             size='100%'
             styles={{body: {padding: 0}}}
-            className={styles.drawer}
+            className={style.drawer}
             data-tour={TOUR_SELECTORS.HOME_SIDEBAR}
           >
             {menuContent}
           </Drawer>
         )}
 
-        <Content className={styles.content}>
+        <Content className={style.content}>
           <Outlet />
         </Content>
       </Layout>

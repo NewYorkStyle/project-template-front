@@ -2,7 +2,8 @@
 
 ## Quick rules
 
-- **Пиши по-русски**; термины (API/HTTP/SQL) — по-английски.
+- **Пиши по-русски**; термины (API/HTTP/SQL) — по-английски. **Комментарии и JSDoc** — на русском (см. раздел «Стиль кода» в [rules.md](./rules.md)).
+- **Стрелочные функции** для новых компонентов и утилит; **стили** — **CSS Modules** (`*.module.scss`), без инлайнов для «визуала».
 - **Scope**: основной код — `src/`, `e2e/`, `tools/`; конфиги репозитория, CI и `docs/agents/**` — когда задача это требует (см. [rules.md](./rules.md)).
 - **FSD + import zones**: соблюдать `import/no-restricted-paths` из `eslint.config.mjs` (см. [architecture.md](./architecture.md)).
 - **Public API**: импортируй через баррели/алиасы, не из глубины чужого слайса (см. [public-api.md](./public-api.md)).
@@ -13,7 +14,7 @@
 ## Как использовать AI
 
 - Для любой задачи сначала выбери раздел:
-  - **архитектура/импорты** → [architecture.md](./architecture.md)
+  - **архитектура/импорты/роутинг** → [architecture.md](./architecture.md) (в т. ч. раздел «Роутинг»)
   - **баррели/алиасы** → [public-api.md](./public-api.md)
   - **Orval/hooks/DTO/zod** → [api.md](./api.md)
   - **формы** → [forms.md](./forms.md)
@@ -29,7 +30,7 @@
 
 ## Оглавление
 
-- [architecture.md](./architecture.md) — FSD слои, роли, import zones
+- [architecture.md](./architecture.md) — FSD слои, роли, import zones, роутинг (`app/lib/router`)
 - [public-api.md](./public-api.md) — `index.ts`, баррели, алиасы, правила импортов
 - [code-generation.md](./code-generation.md) — структура слайсов/сегментов, правила файлов, эталоны
 - [styles.md](./styles.md) — SCSS Modules, глобальные стили, design tokens

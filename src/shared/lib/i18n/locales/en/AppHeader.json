@@ -4,7 +4,8 @@
     "eng": "English"
   },
   "UserIcon": {
-    "LogOut": "LogOut",
+    "LogOut": "Log out",
+    "LogoutError": "Could not complete logout on the server. You were signed out in this app on this device.",
     "Profile": "Profile"
   }
 }

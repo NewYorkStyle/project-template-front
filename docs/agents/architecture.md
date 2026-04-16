@@ -23,6 +23,12 @@
 | **entities** | Бизнес-сущности, локальные хуки и модели                                            | `src/entities/user/`, `src/entities/params/`                                            |
 | **shared**   | Переиспользуемый код без привязки к продукту: UI-kit обёртки, API клиент, константы, сгенерированные SCSS-переменные | `src/shared/ui/`, `src/shared/lib/`, `src/shared/model/`, `src/shared/styles/` (`variables.scss`) |
 
+### Роутинг (`src/app/lib/router/`)
+
+- **Сегмент**: `lib` — конфигурация маршрутов, обёртки доступа и вспомогательная логика; не `pages` (страницы лежат в `src/pages/`).
+- **Файлы**: `router.tsx` (дерево `Routes`), `public-route.tsx` / `protected-route.tsx` (guards поверх `useAuth`), `session-unresolved.ts` — общая функция **`isSessionUnresolved`**, чтобы не дублировать условие.
+- **Сессия**: пока по cookie пользователь «вошёл», но **`GET /users/me`** ещё не зафиксировал ни успех (`sessionConfirmed`), ни ошибку (`sessionError`), оба guard показывают **полноэкранный спиннер** (включая промежуток **idle→pending** у React Query). Иначе: **PublicRoute** — редирект уже вошедшего на `from` или home; **ProtectedRoute** — контент при подтверждённой сессии, `Result` при ошибке проверки, иначе редирект на auth.
+
 ### Ограничения импортов (ESLint `import/no-restricted-paths`, `eslint.config.mjs`)
 
 Импорт **запрещён** в указанный слой **из** перечисленных путей:

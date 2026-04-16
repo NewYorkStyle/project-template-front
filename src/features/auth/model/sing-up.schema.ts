@@ -5,6 +5,11 @@ import {AuthControllerSignUpBody} from '@api/zod/auth.schema';
 
 import {PASSWORD_MIN_LENGTH} from '../lib';
 
+/** Поля API + локальное поле подтверждения пароля */
+type TSignUpExtendField =
+  | keyof z.infer<typeof AuthControllerSignUpBody>
+  | 'passwordConfirm';
+
 export const createSignUpSchema = (t: TFunction) =>
   AuthControllerSignUpBody.extend({
     username: z
@@ -49,12 +54,17 @@ export const createSignUpSchema = (t: TFunction) =>
     passwordConfirm: z.string().min(1, {
       message: t('Authentication.SignUp.Rules.PasswordConfirmRequired'),
     }),
-  }).superRefine((values, ctx) => {
-    if (values.passwordConfirm && values.password !== values.passwordConfirm) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['passwordConfirm'],
-        message: t('Authentication.SignUp.Rules.PasswordConfirmRules'),
-      });
+  } satisfies Record<TSignUpExtendField, z.ZodType>).superRefine(
+    (values, ctx) => {
+      if (
+        values.passwordConfirm &&
+        values.password !== values.passwordConfirm
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['passwordConfirm'],
+          message: t('Authentication.SignUp.Rules.PasswordConfirmRules'),
+        });
+      }
     }
-  });
+  );

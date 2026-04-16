@@ -24,6 +24,11 @@ type TRequestExecutor = (config: TRetryRequestConfig) => Promise<TMockResponse>;
 
 type TMockAxiosClient = ((config: TRetryRequestConfig) => Promise<unknown>) & {
   get: (url: string, config?: TRetryRequestConfig) => Promise<unknown>;
+  post: (
+    url: string,
+    data?: unknown,
+    config?: TRetryRequestConfig
+  ) => Promise<unknown>;
   request: (config: TRetryRequestConfig) => Promise<unknown>;
   interceptors: {
     response: {
@@ -79,6 +84,14 @@ const mockAxiosState = vi.hoisted(() => {
     mockClient({
       ...config,
       method: 'get',
+      url,
+    });
+
+  mockClient.post = (url, data, config = {}) =>
+    mockClient({
+      ...config,
+      data,
+      method: 'post',
       url,
     });
 
@@ -185,7 +198,7 @@ describe('api client instance', () => {
     let protectedCalls = 0;
 
     mockAxiosState.setExecutor((config) => {
-      if (config.url === 'auth/refresh') {
+      if (config.url === 'auth/refresh' && config.method === 'post') {
         refreshCalls += 1;
         return Promise.resolve(createResponse(config, {ok: true}));
       }
@@ -216,7 +229,7 @@ describe('api client instance', () => {
     const callsByUrl: Record<string, number> = {};
 
     mockAxiosState.setExecutor((config) => {
-      if (config.url === 'auth/refresh') {
+      if (config.url === 'auth/refresh' && config.method === 'post') {
         return refreshDeferred.promise;
       }
 
@@ -242,7 +255,7 @@ describe('api client instance', () => {
     await Promise.resolve();
 
     refreshDeferred.resolve(
-      createResponse({method: 'get', url: 'auth/refresh'}, {ok: true})
+      createResponse({method: 'post', url: 'auth/refresh'}, {ok: true})
     );
 
     const [firstResult, secondResult] = await Promise.all([
@@ -259,12 +272,12 @@ describe('api client instance', () => {
   it('calls onLogout and rejects queued requests if refresh fails', async () => {
     const logoutSpy = vi.fn();
     const refreshError = createAxiosError(
-      {method: 'get', url: 'auth/refresh'},
+      {method: 'post', url: 'auth/refresh'},
       401
     );
 
     mockAxiosState.setExecutor((config) => {
-      if (config.url === 'auth/refresh') {
+      if (config.url === 'auth/refresh' && config.method === 'post') {
         return Promise.reject(refreshError);
       }
 
@@ -291,7 +304,7 @@ describe('api client instance', () => {
     let nonRetryCalls = 0;
 
     mockAxiosState.setExecutor((config) => {
-      if (config.url === 'auth/refresh') {
+      if (config.url === 'auth/refresh' && config.method === 'post') {
         refreshEndpointCalls += 1;
         return Promise.reject(createAxiosError(config, 401));
       }
@@ -309,7 +322,7 @@ describe('api client instance', () => {
 
     const {baseClient} = await import('../instance');
 
-    await expect(baseClient.get('auth/refresh')).rejects.toMatchObject({
+    await expect(baseClient.post('auth/refresh')).rejects.toMatchObject({
       response: {status: 401},
     });
 
