@@ -20,7 +20,8 @@
       "e2e/fixtures/**/*",
       "e2e/pages/base",
       "playwright.config.ts",
-      "e2e/shared/**/*"
+      "e2e/shared/**/*",
+      "docker-compose.e2e.yml"
     ],
     "@common": [
       "package.json",

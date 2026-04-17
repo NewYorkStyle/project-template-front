@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.8.0
+ * OpenAPI spec version: 1.9.1
  */
 import type {TourResponseDto} from './tour-response-dto';
 

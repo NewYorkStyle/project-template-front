@@ -12,6 +12,16 @@ services:
       interval: 5s
       retries: 5
 
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      retries: 5
+
   backend:
     image: ghcr.io/newyorkstyle/project-template-back:latest
     environment:
@@ -21,6 +31,7 @@ services:
       JWT_ACCESS_SECRET: test
       JWT_REFRESH_SECRET: test
       FRONT_URL: http://localhost:4200
+      REDIS_URL: redis://redis:6379
 
       # отключаем реальную почту
       MAIL_HOST: ''
