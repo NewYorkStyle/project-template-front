@@ -1,3 +1,9 @@
+## [2.22.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.21.0...v2.22.0) (2026-04-18)
+
+### Features
+
+* PROJECTTEMPLATE-76 Добавил redis для тестов ([#84](https://github.com/NewYorkStyle/project-template-front/issues/84)) ([358bd55](https://github.com/NewYorkStyle/project-template-front/commit/358bd55e7b814e8b09c352501eb504433780531a))
+
 ## [2.21.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.20.1...v2.21.0) (2026-04-16)
 
 ### Features
