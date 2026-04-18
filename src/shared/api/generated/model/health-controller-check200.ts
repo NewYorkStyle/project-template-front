@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Project template back
  * API для project template
- * OpenAPI spec version: 1.8.0
+ * OpenAPI spec version: 1.9.1
  */
 import type {HealthControllerCheck200Details} from './health-controller-check200-details';
 import type {HealthControllerCheck200Error} from './health-controller-check200-error';
