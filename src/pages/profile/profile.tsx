@@ -2,7 +2,7 @@
 
 import {useTranslation} from 'react-i18next';
 
-import {DeleteUser, PersonalData} from '@features';
+import {ChangePassword, DeleteUser, PersonalData} from '@features';
 import {
   E_METRICS_NAMESPACES,
   Page,
@@ -34,6 +34,16 @@ export const Profile = () => {
       ),
     },
     {
+      analyticsLabel: 'password',
+      children: <ChangePassword />,
+      key: 'password',
+      label: (
+        <span data-testid={TEST_IDS.USER.TAB_PASSWORD}>
+          {t('Profile.ChangePassword.Header')}
+        </span>
+      ),
+    },
+    {
       analyticsLabel: 'delete',
       children: <DeleteUser />,
       key: 'delete',
@@ -52,6 +62,7 @@ export const Profile = () => {
           <Select
             options={[
               {label: t('Profile.PersonalData.Header'), value: 'personal-data'},
+              {label: t('Profile.ChangePassword.Header'), value: 'password'},
               {label: t('Profile.Delete.Header'), value: 'delete'},
             ]}
             onChange={(value: string) => setSelectedTab(value)}

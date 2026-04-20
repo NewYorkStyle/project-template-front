@@ -50,6 +50,15 @@
         "Cancel": "Отмена"
       },
       "PasswordRequired": "Пожалуйста, введите свой пароль!"
+    },
+    "ChangePassword": {
+      "Header": "Смена пароля",
+      "CurrentPassword": "Текущий пароль",
+      "NewPassword": "Новый пароль",
+      "ConfirmPassword": "Подтверждение пароля",
+      "Submit": "Сохранить",
+      "Success": "Пароль успешно изменён",
+      "Error": "Не удалось сменить пароль"
     }
   }
 }
