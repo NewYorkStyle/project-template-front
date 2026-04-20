@@ -50,6 +50,15 @@
         "Delete": "Delete",
         "Cancel": "Cancel"
       }
+    },
+    "ChangePassword": {
+      "Header": "Change password",
+      "CurrentPassword": "Current password",
+      "NewPassword": "New password",
+      "ConfirmPassword": "Confirm password",
+      "Submit": "Save",
+      "Success": "Password changed successfully",
+      "Error": "Could not change password"
     }
   }
 }

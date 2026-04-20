@@ -24,6 +24,10 @@ const OTP = {
 };
 
 const USER = {
+  CHANGE_PASSWORD_CONFIRM: 'change-password-confirm',
+  CHANGE_PASSWORD_CURRENT: 'change-password-current',
+  CHANGE_PASSWORD_NEW: 'change-password-new',
+  CHANGE_PASSWORD_SUBMIT: 'change-password-submit',
   DELETE_ACCOUNT_BUTTON: 'delete-account-button',
   DELETE_ACCOUNT_INPUT: 'delete-account-password',
   DELETE_MODAL: 'delete-modal',
@@ -37,6 +41,7 @@ const USER = {
   PATRONYMIC_INPUT: 'patronymic-input',
   SURNAME_INPUT: 'surname-input',
   TAB_DELETE: 'tab-delete',
+  TAB_PASSWORD: 'tab-password',
   TAB_PERSONAL_DATA: 'tab-personal-data',
 };
 
