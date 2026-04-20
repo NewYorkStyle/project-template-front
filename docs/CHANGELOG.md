@@ -1,3 +1,9 @@
+## [2.23.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.22.0...v2.23.0) (2026-04-20)
+
+### Features
+
+* PROJECTTEMPLATE-77 Смена пароля ([#85](https://github.com/NewYorkStyle/project-template-front/issues/85)) ([caac9bb](https://github.com/NewYorkStyle/project-template-front/commit/caac9bb5a27260cc316ced413a1058beabc4b0e3))
+
 ## [2.22.0](https://github.com/NewYorkStyle/project-template-front/compare/v2.21.0...v2.22.0) (2026-04-18)
 
 ### Features
